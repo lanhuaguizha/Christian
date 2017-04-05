@@ -2,19 +2,17 @@ package com.christian.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.christian.R;
-import com.christian.activity.BottomNavigationActivity;
 
 /**
  * Created by Administrator on 2017/4/2.
  */
 
-public class BookFragment extends BaseFragment {
+public class VideoFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -23,7 +21,7 @@ public class BookFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
 
-    public BookFragment() {
+    public VideoFragment() {
         // Required empty public constructor
     }
 
@@ -44,8 +42,9 @@ public class BookFragment extends BaseFragment {
 //        fragment.setArguments(args);
 //        return fragment;
 //    }
-    public static BookFragment newInstance() {
-        BookFragment fragment = new BookFragment();
+
+    public static VideoFragment newInstance() {
+        VideoFragment fragment = new VideoFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -54,15 +53,9 @@ public class BookFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_book, container, false);
-        initView();
+        View v = inflater.inflate(R.layout.fragment_video, container, false);
         initData();
         return v;
-    }
-
-    private void initView() {
-        ((BottomNavigationActivity) getActivity()).getToolbar().setTitle(getString(R.string.title_book));
-        ((BottomNavigationActivity) getActivity()).getToolbar().setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
     }
 
     private void initData() {

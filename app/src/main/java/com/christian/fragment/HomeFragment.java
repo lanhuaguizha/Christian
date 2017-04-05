@@ -3,11 +3,13 @@ package com.christian.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.christian.R;
+import com.christian.activity.BottomNavigationActivity;
 
 import org.xutils.view.annotation.Event;
 
@@ -45,7 +47,6 @@ public class HomeFragment extends BaseFragment {
 //        fragment.setArguments(args);
 //        return fragment;
 //    }
-
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -57,8 +58,14 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+        initView();
         initData();
         return v;
+    }
+
+    private void initView() {
+        ((BottomNavigationActivity) getActivity()).getToolbar().setTitle(getString(R.string.title_home));
+        ((BottomNavigationActivity) getActivity()).getToolbar().setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
     }
 
     private void initData() {

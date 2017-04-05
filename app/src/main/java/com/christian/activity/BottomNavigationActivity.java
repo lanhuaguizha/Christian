@@ -5,12 +5,17 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.christian.Constant;
 import com.christian.R;
+import com.christian.fragment.BookFragment;
 import com.christian.fragment.HomeFragment;
+import com.christian.fragment.MusicFragment;
+import com.christian.fragment.VideoFragment;
 
 public class BottomNavigationActivity extends BaseActivity {
 
@@ -26,25 +31,60 @@ public class BottomNavigationActivity extends BaseActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            Fragment homeFragment = fm.findFragmentByTag(Constant.NAVIGATION_HOME);
+            Fragment bookFragment = fm.findFragmentByTag(Constant.NAVIGATION_BOOK);
+            Fragment musicFragment = fm.findFragmentByTag(Constant.NAVIGATION_MUSIC);
+            Fragment videoFragment = fm.findFragmentByTag(Constant.NAVIGATION_VIDEO);
+            if (homeFragment != null) {
+                ft.hide(homeFragment);
+            }
+            if (bookFragment != null) {
+                ft.hide(bookFragment);
+            }
+            if (musicFragment != null) {
+                ft.hide(musicFragment);
+            }
+            if (videoFragment != null) {
+                ft.hide(videoFragment);
+            }
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    FragmentManager fm = getSupportFragmentManager();
-                    Fragment fragment = null;
-                    if (fm.findFragmentByTag(Constant.NAVIGATION_HOME) != null) {
-                        fragment = fm.findFragmentByTag(Constant.NAVIGATION_HOME);
+                    if (homeFragment == null) {
+                        homeFragment = HomeFragment.newInstance();
+                        ft.add(R.id.content_fl, homeFragment, Constant.NAVIGATION_HOME);
                     } else {
-                        fm.beginTransaction().add(R.id.content_fl, HomeFragment.newInstance(), Constant.NAVIGATION_HOME).commit();
+                        ft.show(homeFragment);
                     }
-                    switchFragment(fragment);
+                    ft.commit();
                     return true;
-//                case R.id.navigation_book:
-//                    mTextMessage.setText(R.string.title_book);
-//                    return true;
-//                case R.id.navigation_music:
-//                    mTextMessage.setText(R.string.title_music);
-//                    return true;
+                case R.id.navigation_book:
+                    if (bookFragment == null) {
+                        bookFragment = BookFragment.newInstance();
+                        ft.add(R.id.content_fl, bookFragment, Constant.NAVIGATION_BOOK);
+                    } else {
+                        ft.show(bookFragment);
+                    }
+                    ft.commit();
+                    return true;
+                case R.id.navigation_music:
+                    if (musicFragment == null) {
+                        musicFragment = MusicFragment.newInstance();
+                        ft.add(R.id.content_fl, musicFragment, Constant.NAVIGATION_MUSIC);
+                    } else {
+                        ft.show(musicFragment);
+                    }
+                    ft.commit();
+                    return true;
 //                case R.id.navigation_video:
-//                    mTextMessage.setText(R.string.title_video);
+//                    if (videoFragment == null) {
+//                        videoFragment = VideoFragment.newInstance();
+//                        ft.add(R.id.content_fl, videoFragment, Constant.NAVIGATION_VIDEO);
+//                    } else {
+//                        ft.show(videoFragment);
+//                    }
+//                    ft.commit();
 //                    return true;
             }
             return false;
@@ -52,15 +92,18 @@ public class BottomNavigationActivity extends BaseActivity {
 
     };
 
-    public void switchFragment(Fragment fragment) {
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_navigation);
         initView();
         initListener();
+        // Initialize the load
+        if (savedInstanceState == null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            Fragment homeFragment = HomeFragment.newInstance();
+            fragmentManager.beginTransaction().replace(R.id.content_fl, homeFragment, Constant.NAVIGATION_HOME).commit();
+        }
     }
 
     private void initListener() {
@@ -70,8 +113,14 @@ public class BottomNavigationActivity extends BaseActivity {
     private void initView() {
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null)
-            toolbar.setLogo(getResources().getDrawable(R.mipmap.ic_launcher));
+        if (toolbar != null) {
+//            toolbar.setLogo(getResources().getDrawable(R.mipmap.ic_launcher));
+            toolbar.setTitle(getString(R.string.app_name));
+            toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
+        }
     }
 
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
 }
