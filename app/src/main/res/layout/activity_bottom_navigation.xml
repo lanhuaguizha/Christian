@@ -39,7 +39,18 @@
             <!--</android.support.design.widget.CollapsingToolbarLayout>-->
         </android.support.design.widget.AppBarLayout>
 
-        <include layout="@layout/content_scrolling" />
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".activity.BottomNavigationActivity"
+            tools:showIn="@layout/activity_bottom_navigation">
+
+            <FrameLayout
+                android:id="@+id/content_fl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.v4.widget.NestedScrollView>
 
         <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:id="@+id/fab"-->

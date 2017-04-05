@@ -6,5 +6,11 @@ import android.support.v4.app.Fragment;
  * Created by Administrator on 2017/4/2.
  */
 
-public class MusicFragment extends Fragment {
+public class MusicFragment extends BaseFragment {
+
+    protected void initData() {
+    }
+
+    protected void initView() {
+    }
 }

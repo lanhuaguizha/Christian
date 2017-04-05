@@ -6,5 +6,5 @@ import android.support.v4.app.Fragment;
  * Created by Administrator on 2017/4/2.
  */
 
-public class BookFragment extends Fragment {
+public class BookFragment extends BaseFragment {
 }
