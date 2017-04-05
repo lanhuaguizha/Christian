@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.christian.Constant;
 import com.christian.R;
@@ -25,10 +27,7 @@ public class BottomNavigationActivity extends BaseActivity {
 //    private Toolbar toolbar;
     BottomNavigationView navigation;
     private Toolbar toolbar;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FragmentManager fm = getSupportFragmentManager();
@@ -106,18 +105,25 @@ public class BottomNavigationActivity extends BaseActivity {
         }
     }
 
-    private void initListener() {
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
-
     private void initView() {
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         if (toolbar != null) {
-//            toolbar.setLogo(getResources().getDrawable(R.mipmap.ic_launcher));
             toolbar.setTitle(getString(R.string.app_name));
             toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
+//            toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
         }
+    }
+
+    private void initListener() {
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(BottomNavigationActivity.this, "被点击", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public Toolbar getToolbar() {

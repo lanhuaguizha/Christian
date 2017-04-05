@@ -60,7 +60,16 @@ public class HomeFragment extends BaseFragment {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         initView();
         initData();
+
         return v;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            initView();
+        }
     }
 
     private void initView() {

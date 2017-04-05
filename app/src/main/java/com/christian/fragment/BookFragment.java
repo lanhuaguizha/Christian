@@ -60,6 +60,14 @@ public class BookFragment extends BaseFragment {
         return v;
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            initView();
+        }
+    }
+
     private void initView() {
         ((BottomNavigationActivity) getActivity()).getToolbar().setTitle(getString(R.string.title_book));
         ((BottomNavigationActivity) getActivity()).getToolbar().setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
