@@ -112,7 +112,7 @@ public class BottomNavigationActivity extends BaseActivity {
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.app_name));
             toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
-//            toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+            toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
         }
     }
 
