@@ -8,12 +8,12 @@
 
     <item
         android:id="@+id/navigation_book"
-        android:icon="@drawable/ic_library_books_black_24dp"
+        android:icon="@drawable/ic_book_black_24dp"
         android:title="@string/title_book"/>
 
     <item
         android:id="@+id/navigation_music"
-        android:icon="@drawable/ic_library_music_black_24dp"
+        android:icon="@drawable/ic_music_note_black_24dp"
         android:title="@string/title_music"/>
 
     <!-- <item
