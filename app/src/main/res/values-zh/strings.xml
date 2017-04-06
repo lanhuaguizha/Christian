@@ -5,4 +5,5 @@
     <string name="title_home">首页</string>
     <string name="title_music">音乐</string>
     <string name="title_video">影视</string>
+    <string name="version">版本：0.0.1</string>
 </resources>

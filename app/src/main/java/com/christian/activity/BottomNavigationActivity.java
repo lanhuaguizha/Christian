@@ -3,6 +3,7 @@ package com.christian.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +19,7 @@ import com.christian.fragment.BookFragment;
 import com.christian.fragment.HomeFragment;
 import com.christian.fragment.MusicFragment;
 import com.christian.fragment.VideoFragment;
+import com.christian.utils.SnackbarUtils;
 
 public class BottomNavigationActivity extends BaseActivity {
 
@@ -121,7 +123,13 @@ public class BottomNavigationActivity extends BaseActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(BottomNavigationActivity.this, "被点击", Toast.LENGTH_SHORT).show();
+                if (navigation.getVisibility() != View.VISIBLE) {
+//                    SnackbarUtils.dismissSnackbar();
+                    navigation.setVisibility(View.VISIBLE);
+                } else {
+//                    SnackbarUtils.showSnackbar(v, getString(R.string.version));
+                    navigation.setVisibility(View.GONE);
+                }
             }
         });
     }
