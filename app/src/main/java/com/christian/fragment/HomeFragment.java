@@ -2,16 +2,18 @@ package com.christian.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.christian.R;
 import com.christian.activity.BottomNavigationActivity;
-
-import org.xutils.view.annotation.Event;
+import com.christian.adapter.CustomAdapter;
 
 /**
  * Created by Administrator on 2017/4/2.
@@ -26,6 +28,22 @@ public class HomeFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
 
+    protected RecyclerView mRecyclerView;
+    protected CustomAdapter mAdapter;
+    protected RecyclerView.LayoutManager mLayoutManager;
+    protected LayoutManagerType mCurrentLayoutManagerType;
+    private String[] mDataSet;
+
+    private Toolbar toolbar;
+
+    private static final int SPAN_COUNT = 2;
+    private static final int DATA_SET_COUNT = 60;
+
+    private enum LayoutManagerType {
+        GRID_LAYOUT_MANAGER,
+        LINEAR_LAYOUT_MANAGER
+    }
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -33,9 +51,10 @@ public class HomeFragment extends BaseFragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     * <p>
+     * //     * @param param1 Parameter 1.
+     * //     * @param param2 Parameter 2.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment PlusOneFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -54,33 +73,111 @@ public class HomeFragment extends BaseFragment {
         return fragment;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initDataSet();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        initView();
+        initView(v);
+        initListener();
         initData();
 
         return v;
+    }
+
+    private void initListener() {
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (navigation.getVisibility() != View.VISIBLE) {
+////                    SnackbarUtils.dismissSnackbar();
+//                    navigation.setVisibility(View.VISIBLE);
+//                } else {
+////                    SnackbarUtils.showSnackbar(v, getString(R.string.version));
+//                    navigation.setVisibility(View.GONE);
+//                }
+//            }
+//        });
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            initView();
+            initView(getView());
         }
     }
 
-    private void initView() {
-        ((BottomNavigationActivity) getActivity()).getToolbar().setTitle(getString(R.string.title_home));
-        ((BottomNavigationActivity) getActivity()).getToolbar().setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
+    private void initView(View v) {
+        // Find view by id
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
+
+        //Recycler View set adapter
+        mAdapter = new CustomAdapter(mDataSet);
+        mRecyclerView.setAdapter(mAdapter);
+        mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
+
+        toolbar = (Toolbar) v.findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            toolbar.setTitle(getString(R.string.app_name));
+            toolbar.setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
+            toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        }
     }
 
     private void initData() {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    /**
+     * Set RecyclerView's LayoutManager to the one given.
+     *
+     * @param layoutManagerType Type of layout manager to switch to.
+     */
+    public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
+        int scrollPosition = 0;
+
+        // If a layout manager has already been set, get current scroll position.
+        if (mRecyclerView.getLayoutManager() != null) {
+            scrollPosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager())
+                    .findFirstCompletelyVisibleItemPosition();
+        }
+
+        switch (layoutManagerType) {
+            case GRID_LAYOUT_MANAGER:
+                mLayoutManager = new GridLayoutManager(getActivity(), SPAN_COUNT);
+                mCurrentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
+                break;
+            case LINEAR_LAYOUT_MANAGER:
+                mLayoutManager = new LinearLayoutManager(getActivity());
+                mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+                break;
+            default:
+                mLayoutManager = new LinearLayoutManager(getActivity());
+                mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        }
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.scrollToPosition(scrollPosition);
+    }
+
+    /**
+     * Generates Strings for RecyclerView's adapter. This data would usually come
+     * from a local content provider or remote server.
+     */
+    private void initDataSet() {
+        mDataSet = new String[DATA_SET_COUNT];
+        for (int i = 0; i < DATA_SET_COUNT; i++) {
+            mDataSet[i] = "This is element #" + i;
         }
     }
 }

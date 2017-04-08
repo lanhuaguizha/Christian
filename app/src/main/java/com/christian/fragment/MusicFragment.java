@@ -69,8 +69,8 @@ public class MusicFragment extends BaseFragment {
     }
 
     private void initView() {
-        ((BottomNavigationActivity) getActivity()).getToolbar().setTitle(getString(R.string.title_music));
-        ((BottomNavigationActivity) getActivity()).getToolbar().setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
+//        ((BottomNavigationActivity) getActivity()).getToolbar().setTitle(getString(R.string.title_music));
+//        ((BottomNavigationActivity) getActivity()).getToolbar().setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
     }
 
     private void initData() {

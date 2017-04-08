@@ -28,7 +28,6 @@ public class BottomNavigationActivity extends BaseActivity {
 //    @ViewInject(R.id.toolbar)
 //    private Toolbar toolbar;
     BottomNavigationView navigation;
-    private Toolbar toolbar;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -109,32 +108,11 @@ public class BottomNavigationActivity extends BaseActivity {
 
     private void initView() {
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (toolbar != null) {
-            toolbar.setTitle(getString(R.string.app_name));
-            toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.white));
-            toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
-        }
     }
 
     private void initListener() {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (navigation.getVisibility() != View.VISIBLE) {
-//                    SnackbarUtils.dismissSnackbar();
-                    navigation.setVisibility(View.VISIBLE);
-                } else {
-//                    SnackbarUtils.showSnackbar(v, getString(R.string.version));
-                    navigation.setVisibility(View.GONE);
-                }
-            }
-        });
+
     }
 
-    public Toolbar getToolbar() {
-        return toolbar;
-    }
 }
