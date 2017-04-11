@@ -1,7 +1,8 @@
 package com.christian;
 
 /**
- * Created by Administrator on 2017/4/5.
+ * author：Administrator on 2017/4/5 00:20
+ * email：lanhuaguizha@gmail.com
  */
 
 public class Constant {

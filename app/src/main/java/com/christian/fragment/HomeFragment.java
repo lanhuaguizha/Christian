@@ -3,6 +3,8 @@ package com.christian.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +18,8 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 /**
- * Created by Administrator on 2017/4/2.
+ * author：Administrator on 2017/4/2 00:19
+ * email：lanhuaguizha@gmail.com
  */
 
 @ContentView(R.layout.fragment_home)
@@ -38,6 +41,9 @@ public class HomeFragment extends BaseFragment {
 
     @ViewInject(R.id.toolbar)
     private Toolbar toolbar;
+
+    @ViewInject(R.id.swipe_refresh_layout)
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private static final int SPAN_COUNT = 2;
     private static final int DATA_SET_COUNT = 60;
@@ -126,6 +132,10 @@ public class HomeFragment extends BaseFragment {
             toolbar.setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
             toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
         }
+
+//        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+        if (swipeRefreshLayout != null)
+            swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
     }
 
     private void initData() {

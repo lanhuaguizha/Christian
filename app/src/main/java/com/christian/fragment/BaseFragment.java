@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 import org.xutils.x;
 
 /**
- * Created by Administrator on 2017/4/5.
+ * author：Administrator on 2017/4/5 00:19
+ * email：lanhuaguizha@gmail.com
  */
 
 public class BaseFragment extends Fragment {

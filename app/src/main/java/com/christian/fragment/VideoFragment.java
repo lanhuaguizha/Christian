@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import com.christian.R;
 
 /**
- * Created by Administrator on 2017/4/2.
+ * author：Administrator on 2017/4/2 00:20
+ * email：lanhuaguizha@gmail.com
  */
 
 public class VideoFragment extends BaseFragment {

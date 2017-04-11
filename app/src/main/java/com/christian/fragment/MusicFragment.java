@@ -11,7 +11,8 @@ import com.christian.R;
 import com.christian.activity.BottomNavigationActivity;
 
 /**
- * Created by Administrator on 2017/4/2.
+ * author：Administrator on 2017/4/2 00:20
+ * email：lanhuaguizha@gmail.com
  */
 
 public class MusicFragment extends BaseFragment {

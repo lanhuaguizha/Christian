@@ -5,7 +5,8 @@ import android.app.Application;
 import org.xutils.x;
 
 /**
- * Created by Administrator on 2017/4/2.
+ * author：Administrator on 2017/4/2 00:20
+ * email：lanhuaguizha@gmail.com
  */
 
 public class ChristianApplication extends Application {

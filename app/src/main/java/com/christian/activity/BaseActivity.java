@@ -14,7 +14,8 @@ import com.christian.fragment.HomeFragment;
 import org.xutils.x;
 
 /**
- * Created by Administrator on 2017/4/5.
+ * author：Administrator on 2017/4/5 00:18
+ * email：lanhuaguizha@gmail.com
  */
 
 public class BaseActivity extends AppCompatActivity {
