@@ -7,18 +7,19 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.christian.R;
-import com.christian.activity.BottomNavigationActivity;
 import com.christian.adapter.CustomAdapter;
+
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 /**
  * Created by Administrator on 2017/4/2.
  */
 
+@ContentView(R.layout.fragment_home)
 public class HomeFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,12 +29,14 @@ public class HomeFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
 
-    protected RecyclerView mRecyclerView;
+    @ViewInject(R.id.recyclerView)
+    private RecyclerView mRecyclerView;
     protected CustomAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected LayoutManagerType mCurrentLayoutManagerType;
     private String[] mDataSet;
 
+    @ViewInject(R.id.toolbar)
     private Toolbar toolbar;
 
     private static final int SPAN_COUNT = 2;
@@ -79,15 +82,13 @@ public class HomeFragment extends BaseFragment {
         initDataSet();
     }
 
-    @Nullable
+    // If Using xUtils 3 using onViewCreated to replace onCreateView
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_home, container, false);
-        initView(v);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
         initListener();
         initData();
-
-        return v;
     }
 
     private void initListener() {
@@ -109,21 +110,17 @@ public class HomeFragment extends BaseFragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            initView(getView());
+            initView();
         }
     }
 
-    private void initView(View v) {
-        // Find view by id
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
-
+    private void initView() {
         //Recycler View set adapter
         mAdapter = new CustomAdapter(mDataSet);
         mRecyclerView.setAdapter(mAdapter);
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        toolbar = (Toolbar) v.findViewById(R.id.toolbar);
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.app_name));
             toolbar.setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));

@@ -3,100 +3,29 @@ package com.christian.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import com.christian.Constant;
 import com.christian.R;
 import com.christian.fragment.BookFragment;
 import com.christian.fragment.HomeFragment;
 import com.christian.fragment.MusicFragment;
-import com.christian.fragment.VideoFragment;
-import com.christian.utils.SnackbarUtils;
 
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
+
+@ContentView(R.layout.activity_bottom_navigation)
 public class BottomNavigationActivity extends BaseActivity {
 
-    //    @ViewInject(R.id.navigation)
-//    private BottomNavigationView navigation;
-//    @ViewInject(R.id.toolbar)
-//    private Toolbar toolbar;
+    @ViewInject(R.id.navigation)
     BottomNavigationView navigation;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            Fragment homeFragment = fm.findFragmentByTag(Constant.NAVIGATION_HOME);
-            Fragment bookFragment = fm.findFragmentByTag(Constant.NAVIGATION_BOOK);
-            Fragment musicFragment = fm.findFragmentByTag(Constant.NAVIGATION_MUSIC);
-            Fragment videoFragment = fm.findFragmentByTag(Constant.NAVIGATION_VIDEO);
-            if (homeFragment != null) {
-                ft.hide(homeFragment);
-            }
-            if (bookFragment != null) {
-                ft.hide(bookFragment);
-            }
-            if (musicFragment != null) {
-                ft.hide(musicFragment);
-            }
-            if (videoFragment != null) {
-                ft.hide(videoFragment);
-            }
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    if (homeFragment == null) {
-                        homeFragment = HomeFragment.newInstance();
-                        ft.add(R.id.content_fl, homeFragment, Constant.NAVIGATION_HOME);
-                    } else {
-                        ft.show(homeFragment);
-                    }
-                    ft.commit();
-                    return true;
-                case R.id.navigation_book:
-                    if (bookFragment == null) {
-                        bookFragment = BookFragment.newInstance();
-                        ft.add(R.id.content_fl, bookFragment, Constant.NAVIGATION_BOOK);
-                    } else {
-                        ft.show(bookFragment);
-                    }
-                    ft.commit();
-                    return true;
-                case R.id.navigation_music:
-                    if (musicFragment == null) {
-                        musicFragment = MusicFragment.newInstance();
-                        ft.add(R.id.content_fl, musicFragment, Constant.NAVIGATION_MUSIC);
-                    } else {
-                        ft.show(musicFragment);
-                    }
-                    ft.commit();
-                    return true;
-//                case R.id.navigation_video:
-//                    if (videoFragment == null) {
-//                        videoFragment = VideoFragment.newInstance();
-//                        ft.add(R.id.content_fl, videoFragment, Constant.NAVIGATION_VIDEO);
-//                    } else {
-//                        ft.show(videoFragment);
-//                    }
-//                    ft.commit();
-//                    return true;
-            }
-            return false;
-        }
-
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bottom_navigation);
-        initView();
         initListener();
         // Initialize the load
         if (savedInstanceState == null) {
@@ -106,13 +35,70 @@ public class BottomNavigationActivity extends BaseActivity {
         }
     }
 
-    private void initView() {
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
-    }
-
     private void initListener() {
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Fragment homeFragment = fm.findFragmentByTag(Constant.NAVIGATION_HOME);
+                Fragment bookFragment = fm.findFragmentByTag(Constant.NAVIGATION_BOOK);
+                Fragment musicFragment = fm.findFragmentByTag(Constant.NAVIGATION_MUSIC);
+                Fragment videoFragment = fm.findFragmentByTag(Constant.NAVIGATION_VIDEO);
+                if (homeFragment != null) {
+                    ft.hide(homeFragment);
+                }
+                if (bookFragment != null) {
+                    ft.hide(bookFragment);
+                }
+                if (musicFragment != null) {
+                    ft.hide(musicFragment);
+                }
+                if (videoFragment != null) {
+                    ft.hide(videoFragment);
+                }
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        if (homeFragment == null) {
+                            homeFragment = HomeFragment.newInstance();
+                            ft.add(R.id.content_fl, homeFragment, Constant.NAVIGATION_HOME);
+                        } else {
+                            ft.show(homeFragment);
+                        }
+                        ft.commit();
+                        return true;
+                    case R.id.navigation_book:
+                        if (bookFragment == null) {
+                            bookFragment = BookFragment.newInstance();
+                            ft.add(R.id.content_fl, bookFragment, Constant.NAVIGATION_BOOK);
+                        } else {
+                            ft.show(bookFragment);
+                        }
+                        ft.commit();
+                        return true;
+                    case R.id.navigation_music:
+                        if (musicFragment == null) {
+                            musicFragment = MusicFragment.newInstance();
+                            ft.add(R.id.content_fl, musicFragment, Constant.NAVIGATION_MUSIC);
+                        } else {
+                            ft.show(musicFragment);
+                        }
+                        ft.commit();
+                        return true;
+//                case R.id.navigation_video:
+//                    if (videoFragment == null) {
+//                        videoFragment = VideoFragment.newInstance();
+//                        ft.add(R.id.content_fl, videoFragment, Constant.NAVIGATION_VIDEO);
+//                    } else {
+//                        ft.show(videoFragment);
+//                    }
+//                    ft.commit();
+//                    return true;
+                }
+                return false;
+            }
 
+        });
     }
 
 }

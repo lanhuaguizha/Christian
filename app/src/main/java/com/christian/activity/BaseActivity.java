@@ -1,5 +1,7 @@
 package com.christian.activity;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -9,11 +11,19 @@ import com.christian.Constant;
 import com.christian.R;
 import com.christian.fragment.HomeFragment;
 
+import org.xutils.x;
+
 /**
  * Created by Administrator on 2017/4/5.
  */
 
 public class BaseActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        x.view().inject(this);
+    }
 
     private String currentFragmentTag;
 
