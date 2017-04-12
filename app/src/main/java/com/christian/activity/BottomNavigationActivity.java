@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.christian.Constant;
 import com.christian.R;
+import com.christian.customview.LaunchScreen;
 import com.christian.fragment.BookFragment;
 import com.christian.fragment.HomeFragment;
 import com.christian.fragment.MusicFragment;
@@ -21,18 +22,29 @@ import org.xutils.view.annotation.ViewInject;
 public class BottomNavigationActivity extends BaseActivity {
 
     @ViewInject(R.id.navigation)
-    BottomNavigationView navigation;
+    private BottomNavigationView navigation;
+
+    @ViewInject(R.id.launch_screen)
+    private LaunchScreen launchScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initView();
+
         initListener();
+
         // Initialize the load
         if (savedInstanceState == null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             Fragment homeFragment = HomeFragment.newInstance();
             fragmentManager.beginTransaction().replace(R.id.content_fl, homeFragment, Constant.NAVIGATION_HOME).commit();
         }
+    }
+
+    private void initView() {
+//        LaunchScreen.
     }
 
     private void initListener() {
