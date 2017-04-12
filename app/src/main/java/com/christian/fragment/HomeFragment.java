@@ -1,6 +1,7 @@
 package com.christian.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -46,7 +47,7 @@ public class HomeFragment extends BaseFragment {
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private static final int SPAN_COUNT = 2;
-    private static final int DATA_SET_COUNT = 60;
+    private static final int DATA_SET_COUNT = 12;
 
     private enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
@@ -136,8 +137,26 @@ public class HomeFragment extends BaseFragment {
         }
 
 //        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
-        if (swipeRefreshLayout != null)
+        if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+//                        List<String> newDatas = new ArrayList<String>();
+//                        for (int i = 0; i <5; i++) {
+//                            int index = i + 1;
+//                            newDatas.add("new item" + index);
+//                        }
+//                        adapter.addItem(newDatas);
+                            swipeRefreshLayout.setRefreshing(false);
+                        }
+                    }, 700);
+                }
+            });
+        }
     }
 
     private void initData() {
@@ -186,7 +205,7 @@ public class HomeFragment extends BaseFragment {
     private void initDataSet() {
         mDataSet = new String[DATA_SET_COUNT];
         for (int i = 0; i < DATA_SET_COUNT; i++) {
-            mDataSet[i] = "This is element #" + i;
+            mDataSet[i] = getString(R.string.next_week);
         }
     }
 }
