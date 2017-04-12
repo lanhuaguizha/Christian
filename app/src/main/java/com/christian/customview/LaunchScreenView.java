@@ -15,19 +15,19 @@ import com.christian.R;
  * email：lanhuaguizha@gmail.com
  */
 
-public class LaunchScreen extends CoordinatorLayout {
+public class LaunchScreenView extends CoordinatorLayout {
 
     private View view;
 
-    public LaunchScreen(Context context) {
+    public LaunchScreenView(Context context) {
         this(context, null);
     }
 
-    public LaunchScreen(Context context, AttributeSet attrs) {
+    public LaunchScreenView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LaunchScreen(Context context, AttributeSet attrs, int defStyleAttr) {
+    public LaunchScreenView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         loadLaunchScreenLayout(context);
     }

@@ -10,7 +10,6 @@ import android.view.MenuItem;
 
 import com.christian.Constant;
 import com.christian.R;
-import com.christian.customview.LaunchScreen;
 import com.christian.fragment.BookFragment;
 import com.christian.fragment.HomeFragment;
 import com.christian.fragment.MusicFragment;
@@ -23,9 +22,6 @@ public class BottomNavigationActivity extends BaseActivity {
 
     @ViewInject(R.id.navigation)
     private BottomNavigationView navigation;
-
-    @ViewInject(R.id.launch_screen)
-    private LaunchScreen launchScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
