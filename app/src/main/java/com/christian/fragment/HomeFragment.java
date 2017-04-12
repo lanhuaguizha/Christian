@@ -130,7 +130,7 @@ public class HomeFragment extends BaseFragment {
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.app_name));
             toolbar.setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
-            toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+            toolbar.setNavigationIcon(R.drawable.ic_power_settings_new_black_24dp);
         }
 
 //        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
