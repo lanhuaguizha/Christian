@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.content.res.AppCompatResources;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +40,7 @@ public class HomeFragment extends BaseFragment {
     protected LayoutManagerType mCurrentLayoutManagerType;
     private String[] mDataSet;
 
-    @ViewInject(R.id.toolbar)
+    @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
 
     @ViewInject(R.id.swipe_refresh_layout)
@@ -128,12 +128,14 @@ public class HomeFragment extends BaseFragment {
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.app_name));
             toolbar.setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
             toolbar.setNavigationIcon(R.drawable.ic_power_settings_new_black_24dp);
-
-            toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_more_vert_black_24dp));
+//
+//            toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_more_vert_black_24dp));
+//            toolbar.showOverflowMenu();
         }
 
 //        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
@@ -208,4 +210,5 @@ public class HomeFragment extends BaseFragment {
             mDataSet[i] = getString(R.string.next_week);
         }
     }
+
 }

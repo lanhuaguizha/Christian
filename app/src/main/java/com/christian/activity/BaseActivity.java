@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.christian.Constant;
 import com.christian.R;
@@ -19,6 +20,8 @@ import org.xutils.x;
  */
 
 public class BaseActivity extends AppCompatActivity {
+
+    private Toolbar mActionBarToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,5 +44,12 @@ public class BaseActivity extends AppCompatActivity {
 //            }
 //        }
 //        fragmentTransaction.commitAllowingStateLoss();
+//    }
+
+//    protected Toolbar getActionBarToolbar() {
+//        if (mActionBarToolbar == null) {
+//            mActionBarToolbar =
+//        }
+//        return mActionBarToolbar;
 //    }
 }
