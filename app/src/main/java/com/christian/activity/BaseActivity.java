@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.christian.Constant;
 import com.christian.R;
@@ -46,10 +48,14 @@ public class BaseActivity extends AppCompatActivity {
 //        fragmentTransaction.commitAllowingStateLoss();
 //    }
 
-//    protected Toolbar getActionBarToolbar() {
-//        if (mActionBarToolbar == null) {
-//            mActionBarToolbar =
-//        }
-//        return mActionBarToolbar;
-//    }
+    public Toolbar getActionBarToolbar() {
+        if (mActionBarToolbar == null) {
+            mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_actionbar);
+            if (mActionBarToolbar != null) {
+                setSupportActionBar(mActionBarToolbar);
+            }
+        }
+        return mActionBarToolbar;
+    }
+
 }

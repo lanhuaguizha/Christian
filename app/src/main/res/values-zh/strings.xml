@@ -7,4 +7,6 @@
     <string name="title_video">影视</string>
     <string name="version">版本：0.0.1</string>
     <string name="next_week">下周六内容上线</string>
+    <string name="description_more">更多</string>
+    <string name="description_share">分享</string>
 </resources>

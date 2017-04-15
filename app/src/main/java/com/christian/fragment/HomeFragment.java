@@ -1,5 +1,6 @@
 package com.christian.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -13,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.christian.R;
+import com.christian.activity.BaseActivity;
+import com.christian.activity.BottomNavigationActivity;
 import com.christian.adapter.CustomAdapter;
 
 import org.xutils.view.annotation.ContentView;
@@ -39,15 +42,17 @@ public class HomeFragment extends BaseFragment {
     protected RecyclerView.LayoutManager mLayoutManager;
     protected LayoutManagerType mCurrentLayoutManagerType;
     private String[] mDataSet;
-
-    @ViewInject(R.id.toolbar_actionbar)
-    private Toolbar toolbar;
+//
+//    @ViewInject(R.id.toolbar_actionbar)
+//    private Toolbar toolbar;
 
     @ViewInject(R.id.swipe_refresh_layout)
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private static final int SPAN_COUNT = 2;
     private static final int DATA_SET_COUNT = 12;
+    private Toolbar toolbar;
+    private BottomNavigationActivity bottomNavigationActivity;
 
     private enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
@@ -121,6 +126,12 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        bottomNavigationActivity = (BottomNavigationActivity) getActivity();
+    }
+
     private void initView() {
         //Recycler View set adapter
         mAdapter = new CustomAdapter(mDataSet);
@@ -128,11 +139,15 @@ public class HomeFragment extends BaseFragment {
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar = bottomNavigationActivity.getActionBarToolbar();
+        if (bottomNavigationActivity != null && bottomNavigationActivity.getSupportActionBar() != null) {
+            bottomNavigationActivity.getSupportActionBar().setTitle(getString(R.string.title_home));
+        }
         if (toolbar != null) {
-            toolbar.setTitle(getString(R.string.app_name));
+//            toolbar.setTitle(getString(R.string.title_home));
             toolbar.setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
-            toolbar.setNavigationIcon(R.drawable.ic_power_settings_new_black_24dp);
+//            toolbar.setNavigationIcon(R.drawable.ic_power_settings_new_black_24dp);
+//            toolbar.setLogo(ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher));
 //
 //            toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_more_vert_black_24dp));
 //            toolbar.showOverflowMenu();
