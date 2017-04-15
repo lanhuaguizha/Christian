@@ -143,15 +143,15 @@ public class HomeFragment extends BaseFragment {
         if (bottomNavigationActivity != null && bottomNavigationActivity.getSupportActionBar() != null) {
             bottomNavigationActivity.getSupportActionBar().setTitle(getString(R.string.title_home));
         }
-        if (toolbar != null) {
+//        if (toolbar != null) {
 //            toolbar.setTitle(getString(R.string.title_home));
-            toolbar.setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
+//            toolbar.setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
 //            toolbar.setNavigationIcon(R.drawable.ic_power_settings_new_black_24dp);
 //            toolbar.setLogo(ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher));
 //
 //            toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_more_vert_black_24dp));
 //            toolbar.showOverflowMenu();
-        }
+//        }
 
 //        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
         if (swipeRefreshLayout != null) {
