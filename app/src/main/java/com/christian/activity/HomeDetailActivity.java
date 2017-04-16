@@ -1,8 +1,11 @@
 package com.christian.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +20,10 @@ import org.xutils.view.annotation.ContentView;
  */
 
 @ContentView(R.layout.activity_home_detial)
-public class HomeDetailActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener {
+public class HomeDetailActivity extends BaseActivity {
 
     private Toolbar toolbar;
+    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,18 +45,40 @@ public class HomeDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        toolbar.inflateMenu(R.menu.menu_share);
-        toolbar.setOnMenuItemClickListener(this);
-        return true;
+        getMenuInflater().inflate(R.menu.menu_share, menu);
+
+        MenuItem shareItem = menu.findItem(R.id.menu_share);
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        setShareIntent(createShareIntent());
+
+        // Configure the search info and add any event listeners...
+//        shareItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.menu_share:
+//                        Log.i("", "onMenuItemClick: ");
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
+
+        return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.menu_share:
-                return true;
+    private Intent createShareIntent() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT,
+                "http://www.baidu.com");
+        return shareIntent;
+    }
+
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
         }
-        return false;
     }
 }
