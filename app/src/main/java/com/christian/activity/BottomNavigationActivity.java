@@ -21,7 +21,7 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 @ContentView(R.layout.activity_bottom_navigation)
-public class BottomNavigationActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener {
+public class BottomNavigationActivity extends BaseActivity {
 
     @ViewInject(R.id.navigation)
     private BottomNavigationView navigation;
@@ -113,24 +113,24 @@ public class BottomNavigationActivity extends BaseActivity implements Toolbar.On
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        Toolbar toolbar = getActionBarToolbar();
-        toolbar.inflateMenu(R.menu.menu_share_and_more);
-        toolbar.setOnMenuItemClickListener(this);
-        return true;
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.menu_share:
-                return true;
-            case R.id.menu_more:
-//                startActivity(new Intent(this, SearchActivity.class));
-                return true;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        super.onCreateOptionsMenu(menu);
+////        Toolbar toolbar = getActionBarToolbar();
+//        toolbar.inflateMenu(R.menu.menu_share_and_more);
+//        toolbar.setOnMenuItemClickListener(this);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onMenuItemClick(MenuItem menuItem) {
+//        switch (menuItem.getItemId()) {
+//            case R.id.menu_share:
+//                return true;
+//            case R.id.menu_more:
+////                startActivity(new Intent(this, SearchActivity.class));
+//                return true;
+//        }
+//        return false;
+//    }
 }

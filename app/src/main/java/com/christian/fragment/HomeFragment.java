@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.christian.R;
@@ -54,6 +55,7 @@ public class HomeFragment extends BaseFragment {
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
     private BottomNavigationActivity bottomNavigationActivity;
+    private boolean added;
 
     private enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
@@ -118,6 +120,19 @@ public class HomeFragment extends BaseFragment {
 //            }
 //        });
 
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.menu_share:
+                        break;
+                    case R.id.menu_more:
+                        break;
+                }
+                return true;
+            }
+        });
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -163,8 +178,11 @@ public class HomeFragment extends BaseFragment {
 //        }
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.title_home));
-            toolbar.setNavigationIcon(R.drawable.ic_power_settings_new_black_24dp);
-//            toolbar.setLogo(ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher));
+            if (!added) {
+                toolbar.inflateMenu(R.menu.menu_share_and_more);
+                added = true;
+            }
+
         }
 
         if (swipeRefreshLayout != null) {
