@@ -34,7 +34,6 @@ public class BookFragment extends BaseFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private BottomNavigationActivity bottomNavigationActivity;
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
     private boolean added;
@@ -113,11 +112,5 @@ public class BookFragment extends BaseFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        bottomNavigationActivity = (BottomNavigationActivity) getActivity();
     }
 }

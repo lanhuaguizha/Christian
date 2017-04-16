@@ -1,12 +1,10 @@
 package com.christian.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.christian.R;
-import com.christian.activity.BaseActivity;
-import com.christian.activity.BottomNavigationActivity;
-import com.christian.adapter.CustomAdapter;
+import com.christian.adapter.HomeAdapter;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -37,12 +33,12 @@ public class HomeFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
 
-    @ViewInject(R.id.recyclerView)
-    private RecyclerView mRecyclerView;
-    protected CustomAdapter mAdapter;
-    protected RecyclerView.LayoutManager mLayoutManager;
-    protected LayoutManagerType mCurrentLayoutManagerType;
-    private String[] mDataSet;
+    @ViewInject(R.id.recycler_view)
+    private RecyclerView recyclerView;
+    protected HomeAdapter adapter;
+    protected RecyclerView.LayoutManager layoutManager;
+    protected LayoutManagerType currentLayoutManagerType;
+    private String[] dataSet;
 //
 //    @ViewInject(R.id.toolbar_actionbar)
 //    private Toolbar toolbar;
@@ -54,7 +50,6 @@ public class HomeFragment extends BaseFragment {
     private static final int DATA_SET_COUNT = 12;
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
-    private BottomNavigationActivity bottomNavigationActivity;
     private boolean added;
 
     private enum LayoutManagerType {
@@ -160,18 +155,12 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        bottomNavigationActivity = (BottomNavigationActivity) getActivity();
-    }
-
     private void initView() {
         //Recycler View set adapter
-        mAdapter = new CustomAdapter(mDataSet);
-        mRecyclerView.setAdapter(mAdapter);
-        mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
+        adapter = new HomeAdapter(dataSet);
+        recyclerView.setAdapter(adapter);
+        currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        setRecyclerViewLayoutManager(currentLayoutManagerType);
 
 //        if (bottomNavigationActivity != null && bottomNavigationActivity.getSupportActionBar() != null) {
 //            bottomNavigationActivity.getSupportActionBar().setTitle(getString(R.string.title_home));
@@ -206,27 +195,27 @@ public class HomeFragment extends BaseFragment {
         int scrollPosition = 0;
 
         // If a layout manager has already been set, get current scroll position.
-        if (mRecyclerView.getLayoutManager() != null) {
-            scrollPosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager())
+        if (recyclerView.getLayoutManager() != null) {
+            scrollPosition = ((LinearLayoutManager) recyclerView.getLayoutManager())
                     .findFirstCompletelyVisibleItemPosition();
         }
 
         switch (layoutManagerType) {
             case GRID_LAYOUT_MANAGER:
-                mLayoutManager = new GridLayoutManager(getActivity(), SPAN_COUNT);
-                mCurrentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
+                layoutManager = new GridLayoutManager(getActivity(), SPAN_COUNT);
+                currentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
                 break;
             case LINEAR_LAYOUT_MANAGER:
-                mLayoutManager = new LinearLayoutManager(getActivity());
-                mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+                layoutManager = new LinearLayoutManager(getActivity());
+                currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
                 break;
             default:
-                mLayoutManager = new LinearLayoutManager(getActivity());
-                mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+                layoutManager = new LinearLayoutManager(getActivity());
+                currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         }
 
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.scrollToPosition(scrollPosition);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.scrollToPosition(scrollPosition);
     }
 
     /**
@@ -234,9 +223,9 @@ public class HomeFragment extends BaseFragment {
      * from a local content provider or remote server.
      */
     private void initDataSet() {
-        mDataSet = new String[DATA_SET_COUNT];
+        dataSet = new String[DATA_SET_COUNT];
         for (int i = 0; i < DATA_SET_COUNT; i++) {
-            mDataSet[i] = getString(R.string.next_week);
+            dataSet[i] = getString(R.string.next_week);
         }
     }
 

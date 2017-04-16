@@ -14,11 +14,11 @@
   limitations under the License.
   -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:iosched="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_share"
-        android:icon="@drawable/ic_share_black_24dp"
         android:orderInCategory="1"
         android:title="@string/description_share"
-        iosched:showAsAction="ifRoom" />
+        app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
+        app:showAsAction="ifRoom" />
 </menu>

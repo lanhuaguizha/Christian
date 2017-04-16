@@ -16,6 +16,7 @@
 
 package com.christian.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,12 +25,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.christian.R;
+import com.christian.activity.HomeDetailActivity;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
  */
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
-    private static final String TAG = "CustomAdapter";
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+    private static final String TAG = "HomeAdapter";
 
     private String[] mDataSet;
 
@@ -47,6 +49,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
+                    Intent intent = new Intent(v.getContext(), HomeDetailActivity.class);
+                    v.getContext().startActivity(intent);
                 }
             });
             textView = (TextView) v.findViewById(R.id.textView);
@@ -63,7 +67,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public CustomAdapter(String[] dataSet) {
+    public HomeAdapter(String[] dataSet) {
         mDataSet = dataSet;
     }
 
@@ -73,7 +77,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.text_row_item, viewGroup, false);
+                .inflate(R.layout.home_item, viewGroup, false);
 
         return new ViewHolder(v);
     }
