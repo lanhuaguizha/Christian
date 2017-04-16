@@ -51,6 +51,7 @@ public class HomeFragment extends BaseFragment {
 
     private static final int SPAN_COUNT = 2;
     private static final int DATA_SET_COUNT = 12;
+    @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
     private BottomNavigationActivity bottomNavigationActivity;
 
@@ -116,6 +117,24 @@ public class HomeFragment extends BaseFragment {
 //                }
 //            }
 //        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+//                        List<String> newDatas = new ArrayList<String>();
+//                        for (int i = 0; i <5; i++) {
+//                            int index = i + 1;
+//                            newDatas.add("new item" + index);
+//                        }
+//                        adapter.addItem(newDatas);
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 700);
+            }
+        });
     }
 
     @Override
@@ -139,40 +158,17 @@ public class HomeFragment extends BaseFragment {
         mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        toolbar = bottomNavigationActivity.getActionBarToolbar();
-        if (bottomNavigationActivity != null && bottomNavigationActivity.getSupportActionBar() != null) {
-            bottomNavigationActivity.getSupportActionBar().setTitle(getString(R.string.title_home));
-        }
-//        if (toolbar != null) {
-//            toolbar.setTitle(getString(R.string.title_home));
-//            toolbar.setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
-//            toolbar.setNavigationIcon(R.drawable.ic_power_settings_new_black_24dp);
-//            toolbar.setLogo(ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher));
-//
-//            toolbar.setOverflowIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_more_vert_black_24dp));
-//            toolbar.showOverflowMenu();
+//        if (bottomNavigationActivity != null && bottomNavigationActivity.getSupportActionBar() != null) {
+//            bottomNavigationActivity.getSupportActionBar().setTitle(getString(R.string.title_home));
 //        }
+        if (toolbar != null) {
+            toolbar.setTitle(getString(R.string.title_home));
+            toolbar.setNavigationIcon(R.drawable.ic_power_settings_new_black_24dp);
+//            toolbar.setLogo(ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher));
+        }
 
-//        swipeRefreshLayout.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorPrimary));
-            swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-//                        List<String> newDatas = new ArrayList<String>();
-//                        for (int i = 0; i <5; i++) {
-//                            int index = i + 1;
-//                            newDatas.add("new item" + index);
-//                        }
-//                        adapter.addItem(newDatas);
-                            swipeRefreshLayout.setRefreshing(false);
-                        }
-                    }, 700);
-                }
-            });
         }
     }
 
