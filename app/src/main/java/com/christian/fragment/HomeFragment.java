@@ -157,10 +157,12 @@ public class HomeFragment extends BaseFragment {
 
     private void initView() {
         //Recycler View set adapter
-        adapter = new HomeAdapter(dataSet);
-        recyclerView.setAdapter(adapter);
-        currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        setRecyclerViewLayoutManager(currentLayoutManagerType);
+        if (recyclerView != null) {
+            adapter = new HomeAdapter(dataSet);
+            recyclerView.setAdapter(adapter);
+            currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+            setRecyclerViewLayoutManager(currentLayoutManagerType);
+        }
 
 //        if (bottomNavigationActivity != null && bottomNavigationActivity.getSupportActionBar() != null) {
 //            bottomNavigationActivity.getSupportActionBar().setTitle(getString(R.string.title_home));
