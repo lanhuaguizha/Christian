@@ -9,6 +9,7 @@ import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.christian.R;
 
@@ -28,7 +29,21 @@ public class HomeDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initView();
 
+        initListener();
+    }
+
+    private void initListener() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void initView() {
         // my_child_toolbar is defined in the layout file
         toolbar = getActionBarToolbar();
 
