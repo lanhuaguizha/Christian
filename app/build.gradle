@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.christian"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -13,8 +13,13 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
+        debug {
+            minifyEnabled true
+            shrinkResources true
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -31,4 +36,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //xUtils3
     compile 'org.xutils:xutils:3.4.0'
+    // https://github.com/willowtreeapps/spruce-android
+    compile 'com.willowtreeapps.spruce:spruce-android:1.0.0'
 }
