@@ -1,21 +1,14 @@
 package com.christian.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
-import com.christian.Constant;
 import com.christian.R;
 import com.christian.fragment.BookFragment;
 import com.christian.fragment.HomeFragment;
@@ -26,17 +19,17 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @ContentView(R.layout.activity_bottom_navigation)
 public class BottomNavigationActivity extends BaseActivity {
     private static String TAG = BottomNavigationActivity.class.getSimpleName();
     @ViewInject(R.id.navigation)
-    private BottomNavigationView navigation;
+    private BottomNavigationView bottomNavigationView;
     @ViewInject(R.id.content_view_page)
     private CustomViewPage viewPager;
     Fragment homeFragment, bookFragment, musicFragment;
     private ArrayList<Object> fragments;
+    MenuItem prevMenuItem;
 
     private enum ChristianTab {
         NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC
@@ -65,7 +58,7 @@ public class BottomNavigationActivity extends BaseActivity {
     }
 
     private void initListener() {
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -91,8 +84,13 @@ public class BottomNavigationActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                navigation.setSelectedItemId(position);
-                Log.i(TAG, "onPageSelected: " + position);
+                if (prevMenuItem != null) {
+                    prevMenuItem.setChecked(false);
+                } else {
+                    bottomNavigationView.getMenu().getItem(ChristianTab.NAVIGATION_HOME.ordinal()).setChecked(false);
+                }
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                prevMenuItem = bottomNavigationView.getMenu().getItem(position);
             }
 
             @Override
