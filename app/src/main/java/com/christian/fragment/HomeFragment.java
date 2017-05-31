@@ -169,7 +169,7 @@ public class HomeFragment extends BaseFragment {
 //        }
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.title_home));
-            if (!added) {
+            if (!added && false) {
                 toolbar.inflateMenu(R.menu.menu_share_and_more);
                 added = true;
             }
