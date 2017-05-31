@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
     android:paddingLeft="@dimen/margin_medium"
-    android:background="?android:attr/selectableItemBackground"
+    android:background="@drawable/ic_material_ripple"
     android:clickable="true"
     android:focusable="true"
     android:paddingRight="@dimen/margin_medium"
