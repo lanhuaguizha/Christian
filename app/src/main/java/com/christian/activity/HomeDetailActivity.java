@@ -56,6 +56,8 @@ public class HomeDetailActivity extends BaseActivity {
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
+
+        toolbar.setNavigationContentDescription(R.string.go_back);
     }
 
     @Override
