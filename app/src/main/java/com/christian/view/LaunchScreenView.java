@@ -1,4 +1,4 @@
-package com.christian.customview;
+package com.christian.view;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
