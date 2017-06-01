@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.christian.R;
+import com.jude.swipbackhelper.SwipeBackHelper;
 
 import org.xutils.view.annotation.ContentView;
 
