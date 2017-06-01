@@ -100,10 +100,11 @@ public class BookFragment extends BaseFragment {
     private void initView() {
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.title_book));
-            if (!added) {
-                toolbar.inflateMenu(R.menu.menu_share_and_more);
-                added = true;
-            }
+            // Removing more of Book Fragment
+//            if (!added) {
+//                toolbar.inflateMenu(R.menu.menu_share_and_more);
+//                added = true;
+//            }
         }
     }
 
