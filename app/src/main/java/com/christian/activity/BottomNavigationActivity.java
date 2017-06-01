@@ -14,7 +14,6 @@ import com.christian.fragment.BookFragment;
 import com.christian.fragment.HomeFragment;
 import com.christian.fragment.MusicFragment;
 import com.christian.view.CustomViewPage;
-import com.jude.swipbackhelper.SwipeBackHelper;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -39,8 +38,6 @@ public class BottomNavigationActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
-        SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true);
         initView();
         initListener();
         // Initialize the load

@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import com.christian.Constant;
 import com.christian.R;
 import com.christian.fragment.HomeFragment;
-import com.jude.swipbackhelper.SwipeBackHelper;
 
 import org.xutils.x;
 
@@ -23,19 +22,31 @@ import org.xutils.x;
  */
 
 public class BaseActivity extends AppCompatActivity {
+
     private Toolbar mActionBarToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SwipeBackHelper.onCreate(this);
-        SwipeBackHelper.getCurrentPage(this)
-                .setSwipeBackEnable(true)
-                .setSwipeSensitivity(0.5f)
-                .setSwipeRelateEnable(true)
-                .setSwipeRelateOffset(300);
         x.view().inject(this);
     }
+
+    private String currentFragmentTag;
+
+//    public void switchFragment(FragmentManager fragmentManager, Fragment fragment, String tag, boolean isAddBackStack) {
+//        currentFragmentTag = tag;
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        //fragment 替换了当前layout容器中的由com.onstar.cn.framework.R.id.fragment_container	标识的fragment.
+//        fragmentTransaction.replace(R.id.fragment_container, fragment, tag);
+//        fragmentTransaction.addToBackStack(null);//通过调用 addToBackStack(), replace事务被保存到back stack,
+//        if (fragmentManager.findFragmentByTag(tag) == null) {
+//            log.d("Initialize fragment,add fragment to backStack");
+//            if (isAddBackStack) {
+//                fragments.add(fragment);
+//            }
+//        }
+//        fragmentTransaction.commitAllowingStateLoss();
+//    }
 
     public Toolbar getActionBarToolbar() {
         if (mActionBarToolbar == null) {
@@ -47,15 +58,4 @@ public class BaseActivity extends AppCompatActivity {
         return mActionBarToolbar;
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        SwipeBackHelper.onPostCreate(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SwipeBackHelper.onDestroy(this);
-    }
 }
