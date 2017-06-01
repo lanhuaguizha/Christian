@@ -11,13 +11,5 @@
         <item name="android:textColorPrimary">@android:color/white</item>
         <!-- 设置自定义水波纹颜色(包括了listivew的item按下颜色) -->
         <!--<item name="android:colorControlHighlight">@color/colorPrimary</item>-->
-        <!--if you don't set this the background will be black when you slide.-->
-        <item name="android:windowIsTranslucent">true</item>
-        <!--set the right in/out animation of Activity,you can change this to yours-->
-        <item name="android:windowAnimationStyle">@style/SlideRightAnimation</item>
-    </style>
-
-    <style name="BottomNavigationActivityTheme" parent="ChristianTheme">
-        <item name="android:windowIsTranslucent">false</item>
     </style>
 </resources>

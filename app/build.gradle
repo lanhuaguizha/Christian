@@ -37,6 +37,4 @@ dependencies {
     testCompile 'junit:junit:4.12'
     // xUtils3
     compile 'org.xutils:xutils:3.4.0'
-    // swipe to close lib
-    compile 'com.jude:swipebackhelper:3.1.2'
 }
