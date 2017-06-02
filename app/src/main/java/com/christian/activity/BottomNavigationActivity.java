@@ -6,15 +6,14 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.christian.R;
 import com.christian.fragment.BookFragment;
 import com.christian.fragment.HomeFragment;
 import com.christian.fragment.MusicFragment;
+import com.christian.swipebacksupport.SwipeBackHelper;
 import com.christian.view.CustomViewPage;
-import com.jude.swipbackhelper.SwipeBackHelper;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;

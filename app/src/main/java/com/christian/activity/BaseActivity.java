@@ -2,18 +2,11 @@ package com.christian.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
-import com.christian.Constant;
 import com.christian.R;
-import com.christian.fragment.HomeFragment;
-import com.jude.swipbackhelper.SwipeBackHelper;
+import com.christian.swipebacksupport.SwipeBackHelper;
 
 import org.xutils.x;
 
@@ -33,7 +26,8 @@ public class BaseActivity extends AppCompatActivity {
                 .setSwipeBackEnable(true)
                 .setSwipeSensitivity(0.5f)
                 .setSwipeRelateEnable(true)
-                .setSwipeRelateOffset(300);
+                .setSwipeRelateOffset(300)
+                .setSwipeEdgePercent(0.1f);
         x.view().inject(this);
     }
 
