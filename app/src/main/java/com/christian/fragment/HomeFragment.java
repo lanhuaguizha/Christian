@@ -47,7 +47,7 @@ public class HomeFragment extends BaseFragment {
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private static final int SPAN_COUNT = 2;
-    private static final int DATA_SET_COUNT = 12;
+    private static final int DATA_SET_COUNT = 12 * 2;
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
     private boolean added;
@@ -227,7 +227,7 @@ public class HomeFragment extends BaseFragment {
     private void initDataSet() {
         dataSet = new String[DATA_SET_COUNT];
         for (int i = 0; i < DATA_SET_COUNT; i++) {
-            dataSet[i] = getString(R.string.next_week);
+            dataSet[i] = getString(R.string.next_week) + i;
         }
     }
 
