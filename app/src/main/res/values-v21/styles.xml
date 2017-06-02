@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base application theme. -->
-    <style name="ChristianTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Christian" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,10 +14,14 @@
         <!--if you don't set this the background will be black when you slide.-->
         <item name="android:windowIsTranslucent">true</item>
         <!--set the right in/out animation of Activity,you can change this to yours-->
-        <item name="android:windowAnimationStyle">@style/SlideRightAnimation</item>
+        <item name="android:windowAnimationStyle">@style/Christian.Activity</item>
     </style>
 
-    <style name="BottomNavigationActivityTheme" parent="ChristianTheme">
-        <item name="android:windowIsTranslucent">false</item>
+    <style name="Christian.Activity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+        <!--when windowIsTranslucent is false to use-->
+        <!--<item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>-->
+        <!--<item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>-->
     </style>
 </resources>
