@@ -18,11 +18,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="Christian.Activity" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
-        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
-        <!--when windowIsTranslucent is false to use-->
-        <!--<item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>-->
-        <!--<item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>-->
+    <style name="BottomNavigationActivityTheme" parent="Christian">
+        <item name="android:windowIsTranslucent">false</item>
     </style>
 </resources>
