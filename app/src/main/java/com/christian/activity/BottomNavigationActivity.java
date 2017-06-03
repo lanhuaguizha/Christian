@@ -12,7 +12,7 @@ import com.christian.R;
 import com.christian.fragment.AccountFragment;
 import com.christian.fragment.GospelFragment;
 import com.christian.fragment.HomeFragment;
-import com.christian.fragment.PeotryFragment;
+import com.christian.fragment.PoetryFragment;
 import com.christian.helper.BottomNavigationViewHelper;
 import com.christian.swipebacksupport.SwipeBackHelper;
 import com.christian.view.CustomViewPage;
@@ -55,7 +55,7 @@ public class BottomNavigationActivity extends BaseActivity {
         fragments = new ArrayList<>();
         homeFragment = HomeFragment.newInstance();
         gospelFragment = GospelFragment.newInstance();
-        poetryFragment = PeotryFragment.newInstance();
+        poetryFragment = PoetryFragment.newInstance();
         accountFragment = AccountFragment.newInstance();
         fragments.add(homeFragment);
         fragments.add(gospelFragment);

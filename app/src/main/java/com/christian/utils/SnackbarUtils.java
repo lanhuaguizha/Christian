@@ -3,8 +3,6 @@ package com.christian.utils;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
-import com.christian.R;
-
 public class SnackbarUtils {
 
     /**
