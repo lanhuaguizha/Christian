@@ -7,18 +7,18 @@
         android:title="@string/title_home"/>
 
     <item
-        android:id="@+id/navigation_book"
+        android:id="@+id/navigation_gospel"
         android:icon="@drawable/ic_book_black_24dp"
         android:title="@string/title_book"/>
 
     <item
-        android:id="@+id/navigation_music"
+        android:id="@+id/navigation_peotry"
         android:icon="@drawable/ic_music_note_black_24dp"
         android:title="@string/title_music"/>
 
-    <!-- <item
-         android:id="@+id/navigation_video"
-         android:icon="@drawable/ic_video_library_black_24dp"
-         android:title="@string/title_video"/>-->
+     <item
+         android:id="@+id/navigation_account"
+         android:icon="@drawable/ic_supervisor_account_black_24dp"
+         android:title="@string/title_account"/>
 
 </menu>

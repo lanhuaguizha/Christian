@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">基督徒</string>
-    <string name="title_book">书籍</string>
-    <string name="title_home">首页</string>
-    <string name="title_music">音乐</string>
+    <string name="title_book">信息</string>
+    <string name="title_home">主页</string>
+    <string name="title_music">诗歌</string>
     <string name="title_video">影视</string>
     <string name="version">版本：0.0.1</string>
     <string name="next_week">下周六内容上线</string>
@@ -11,4 +11,5 @@
     <string name="description_share">分享</string>
     <string name="title_detail">内容</string>
     <string name="go_back">返回</string>
+    <string name="title_account">我的</string>
 </resources>

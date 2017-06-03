@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Christian</string>
     <string name="title_home">Home</string>
-    <string name="title_book">Book</string>
-    <string name="title_music">Music</string>
+    <string name="title_book">Gospel</string>
+    <string name="title_music">Poetry</string>
     <string name="title_video">Video</string>
     <string name="version">Version: 0.0.1</string>
     <string name="next_week">Content online next Saturday</string>
@@ -99,7 +99,8 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="title_detail">details</string>
+    <string name="title_detail">Details</string>
     <string name="go_back">Go Back</string>
+    <string name="title_account">Account</string>
 
 </resources>

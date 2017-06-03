@@ -9,9 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
 import com.christian.R;
-import com.christian.fragment.BookFragment;
+import com.christian.fragment.AccountFragment;
+import com.christian.fragment.GospelFragment;
 import com.christian.fragment.HomeFragment;
-import com.christian.fragment.MusicFragment;
+import com.christian.fragment.PeotryFragment;
 import com.christian.swipebacksupport.SwipeBackHelper;
 import com.christian.view.CustomViewPage;
 
@@ -27,12 +28,12 @@ public class BottomNavigationActivity extends BaseActivity {
     private BottomNavigationView bottomNavigationView;
     @ViewInject(R.id.content_view_page)
     private CustomViewPage viewPager;
-    Fragment homeFragment, bookFragment, musicFragment;
+    Fragment homeFragment, gospelFragment, poetryFragment, accountFragment;
     private ArrayList<Object> fragments;
     MenuItem prevMenuItem;
 
     private enum ChristianTab {
-        NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC
+        NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC,NAVIGATION_ACCOUNT;
     }
 
     @Override
@@ -51,12 +52,13 @@ public class BottomNavigationActivity extends BaseActivity {
     private void initView() {
         fragments = new ArrayList<>();
         homeFragment = HomeFragment.newInstance();
-        bookFragment = BookFragment.newInstance();
-        musicFragment = MusicFragment.newInstance();
+        gospelFragment = GospelFragment.newInstance();
+        poetryFragment = PeotryFragment.newInstance();
+        accountFragment = AccountFragment.newInstance();
         fragments.add(homeFragment);
-        fragments.add(bookFragment);
-        fragments.add(musicFragment);
-
+        fragments.add(gospelFragment);
+        fragments.add(poetryFragment);
+        fragments.add(accountFragment);
     }
 
     private void initListener() {
@@ -67,11 +69,14 @@ public class BottomNavigationActivity extends BaseActivity {
                     case R.id.navigation_home:
                         viewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
                         return true;
-                    case R.id.navigation_book:
+                    case R.id.navigation_gospel:
                         viewPager.setCurrentItem(ChristianTab.NAVIGATION_BOOK.ordinal());
                         return true;
-                    case R.id.navigation_music:
+                    case R.id.navigation_peotry:
                         viewPager.setCurrentItem(ChristianTab.NAVIGATION_MUSIC.ordinal());
+                        return true;
+                    case R.id.navigation_account:
+                        viewPager.setCurrentItem(ChristianTab.NAVIGATION_ACCOUNT.ordinal());
                         return true;
                 }
                 return false;

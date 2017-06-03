@@ -2,20 +2,23 @@ package com.christian.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.christian.R;
-import com.christian.activity.BottomNavigationActivity;
+
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 /**
  * author：Administrator on 2017/4/2 00:20
  * email：lanhuaguizha@gmail.com
  */
 
-public class MusicFragment extends BaseFragment {
+@ContentView(R.layout.fragment_gospel)
+public class GospelFragment extends BaseFragment {
+    private static final String TAG = "GospelFragment";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -23,8 +26,11 @@ public class MusicFragment extends BaseFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    @ViewInject(R.id.toolbar_actionbar)
+    Toolbar toolbar;
+    private boolean added;
 
-    public MusicFragment() {
+    public GospelFragment() {
         // Required empty public constructor
     }
 
@@ -45,20 +51,34 @@ public class MusicFragment extends BaseFragment {
 //        fragment.setArguments(args);
 //        return fragment;
 //    }
-    public static MusicFragment newInstance() {
-        MusicFragment fragment = new MusicFragment();
+    public static GospelFragment newInstance() {
+        GospelFragment fragment = new GospelFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_music, container, false);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initView();
+        initListener();
         initData();
-        return v;
+    }
+
+    private void initListener() {
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.menu_share:
+                        break;
+                    case R.id.menu_more:
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -70,8 +90,14 @@ public class MusicFragment extends BaseFragment {
     }
 
     private void initView() {
-//        ((BottomNavigationActivity) getActivity()).getToolbar().setTitle(getString(R.string.title_music));
-//        ((BottomNavigationActivity) getActivity()).getToolbar().setTitleTextColor(ContextCompat.getColor(getContext(), R.color.white));
+        if (toolbar != null) {
+            toolbar.setTitle(getString(R.string.title_book));
+            // Removing more of Book Fragment
+//            if (!added) {
+//                toolbar.inflateMenu(R.menu.menu_share_and_more);
+//                added = true;
+//            }
+        }
     }
 
     private void initData() {

@@ -13,7 +13,7 @@ import com.christian.R;
  * email：lanhuaguizha@gmail.com
  */
 
-public class VideoFragment extends BaseFragment {
+public class AccountFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -22,7 +22,7 @@ public class VideoFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
 
-    public VideoFragment() {
+    public AccountFragment() {
         // Required empty public constructor
     }
 
@@ -44,8 +44,8 @@ public class VideoFragment extends BaseFragment {
 //        return fragment;
 //    }
 
-    public static VideoFragment newInstance() {
-        VideoFragment fragment = new VideoFragment();
+    public static AccountFragment newInstance() {
+        AccountFragment fragment = new AccountFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
