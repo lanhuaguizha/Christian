@@ -35,10 +35,9 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:padding="@dimen/activity_horizontal_margin"
             android:text="@string/title_book" />
     </android.support.v4.widget.SwipeRefreshLayout>
