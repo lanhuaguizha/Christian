@@ -13,6 +13,7 @@ import com.christian.fragment.AccountFragment;
 import com.christian.fragment.GospelFragment;
 import com.christian.fragment.HomeFragment;
 import com.christian.fragment.PeotryFragment;
+import com.christian.helper.BottomNavigationViewHelper;
 import com.christian.swipebacksupport.SwipeBackHelper;
 import com.christian.view.CustomViewPage;
 
@@ -46,6 +47,7 @@ public class BottomNavigationActivity extends BaseActivity {
         // Initialize the load
         if (savedInstanceState == null) {
             viewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
+            BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         }
     }
 
