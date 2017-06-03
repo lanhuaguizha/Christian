@@ -11,12 +11,27 @@
         <!--if you don't set this the background will be black when you slide.-->
         <item name="android:windowIsTranslucent">true</item>
         <!--set the right in/out animation of Activity,you can change this to yours-->
-        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+        <item name="android:windowAnimationStyle">@style/Christian.Activity</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Christian.Activity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@null</item>
+        <item name="android:activityCloseEnterAnimation">@null</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+        <item name="android:taskOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:taskOpenExitAnimation">@null</item>
+        <item name="android:taskCloseEnterAnimation">@null</item>
+        <item name="android:taskCloseExitAnimation">@anim/slide_out_right</item>
+        <item name="android:taskToFrontEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:taskToFrontExitAnimation">@null</item>
+        <item name="android:taskToBackEnterAnimation">@null</item>
+        <item name="android:taskToBackExitAnimation">@anim/slide_out_right</item>
+    </style>
 
     <style name="BottomNavigationActivityTheme" parent="Christian">
         <item name="android:windowIsTranslucent">false</item>
