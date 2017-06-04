@@ -25,6 +25,6 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="@dimen/activity_horizontal_margin"
-            android:text="@string/title_account" />
+            android:text="@string/content_empty" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </android.support.design.widget.CoordinatorLayout>

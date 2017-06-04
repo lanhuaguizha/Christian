@@ -12,4 +12,5 @@
     <string name="title_detail">内容</string>
     <string name="go_back">返回</string>
     <string name="title_account">我的</string>
+    <string name="content_empty">内容为空</string>
 </resources>
