@@ -36,6 +36,7 @@ public class BottomNavigationActivity extends BaseActivity {
     private GospelFragment gospelFragment;
     private PoetryFragment poetryFragment;
     private AccountFragment accountFragment;
+    private static final int DEFAULT_OFFSCREEN_PAGES = 3;
 
     private enum ChristianTab {
         NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC, NAVIGATION_ACCOUNT;
@@ -51,6 +52,8 @@ public class BottomNavigationActivity extends BaseActivity {
         // Initialize the load
         if (savedInstanceState == null) {
             viewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
+            // To remain 4 tabs fragments
+            viewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
             BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         }
     }
