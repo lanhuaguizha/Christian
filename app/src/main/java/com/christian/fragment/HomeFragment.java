@@ -32,30 +32,27 @@ public class HomeFragment extends BaseFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     @ViewInject(R.id.recycler_view)
     private RecyclerView recyclerView;
     protected HomeAdapter adapter;
     protected RecyclerView.LayoutManager layoutManager;
     protected LayoutManagerType currentLayoutManagerType;
     private String[] dataSet;
-//
 //    @ViewInject(R.id.toolbar_actionbar)
 //    private Toolbar toolbar;
-
     @ViewInject(R.id.swipe_refresh_layout)
     private SwipeRefreshLayout swipeRefreshLayout;
-
-    private static final int SPAN_COUNT = 2;
-    private static final int DATA_SET_COUNT = 12 * 2;
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
+    private static final int SPAN_COUNT = 2;
+    private static final int DATA_SET_COUNT = 12 * 2;
     private boolean added;
+    private static final int TOP = 0;
 
     // For clicking the navigation menu to scroll the recycler view to the top when the menu is checked
     public void scrollToTop() {
         if (recyclerView != null)
-            recyclerView.smoothScrollToPosition(0);
+            recyclerView.scrollToPosition(TOP);
     }
 
     private enum LayoutManagerType {
