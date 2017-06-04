@@ -52,6 +52,12 @@ public class HomeFragment extends BaseFragment {
     private Toolbar toolbar;
     private boolean added;
 
+    // For clicking the navigation menu to scroll the recycler view to the top when the menu is checked
+    public void scrollToTop() {
+        if (recyclerView != null)
+            recyclerView.smoothScrollToPosition(0);
+    }
+
     private enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
         LINEAR_LAYOUT_MANAGER

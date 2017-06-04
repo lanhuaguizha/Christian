@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.christian.R;
@@ -29,12 +30,15 @@ public class BottomNavigationActivity extends BaseActivity {
     private BottomNavigationView bottomNavigationView;
     @ViewInject(R.id.content_view_page)
     private CustomViewPage viewPager;
-    Fragment homeFragment, gospelFragment, poetryFragment, accountFragment;
     private ArrayList<Object> fragments;
     MenuItem prevMenuItem;
+    private HomeFragment homeFragment;
+    private GospelFragment gospelFragment;
+    private PoetryFragment poetryFragment;
+    private AccountFragment accountFragment;
 
     private enum ChristianTab {
-        NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC,NAVIGATION_ACCOUNT;
+        NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC, NAVIGATION_ACCOUNT;
     }
 
     @Override
@@ -64,6 +68,18 @@ public class BottomNavigationActivity extends BaseActivity {
     }
 
     private void initListener() {
+        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                switch ((item.getItemId())) {
+                    case R.id.navigation_home:
+                        homeFragment.scrollToTop();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
