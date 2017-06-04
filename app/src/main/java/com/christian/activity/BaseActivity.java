@@ -27,7 +27,7 @@ public class BaseActivity extends AppCompatActivity {
                 .setSwipeSensitivity(0.5f)
                 .setSwipeRelateEnable(false)
                 .setSwipeRelateOffset(300)
-                .setSwipeEdgePercent(0.1f);
+                .setSwipeEdgePercent(1);
         x.view().inject(this);
     }
 
