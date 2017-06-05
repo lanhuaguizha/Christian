@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
@@ -17,6 +18,7 @@ import android.view.View;
 import com.christian.R;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 /**
@@ -31,6 +33,8 @@ public class HomeDetailActivity extends BaseActivity {
     NestedScrollView nestedScrollView;
     @ViewInject(R.id.app_bar)
     AppBarLayout appBarLayout;
+    @ViewInject(R.id.fab)
+    FloatingActionButton floatingActionButton;
     private Toolbar toolbar;
     private ShareActionProvider mShareActionProvider;
     private boolean isScrollToBottom;
@@ -137,5 +141,11 @@ public class HomeDetailActivity extends BaseActivity {
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(shareIntent);
         }
+    }
+
+    @Event(value = R.id.nested_scroll_view, type = NestedScrollView.OnScrollChangeListener.class)
+    private void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+        floatingActionButton.animate().scaleY(Math.abs(scrollY));
+        floatingActionButton.animate().scaleX(Math.abs(scrollY));
     }
 }
