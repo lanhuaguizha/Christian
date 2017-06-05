@@ -3,8 +3,10 @@ package com.christian.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,11 +36,13 @@ public class HomeFragment extends BaseFragment {
     private String mParam2;
     @ViewInject(R.id.recycler_view)
     private RecyclerView recyclerView;
+    @ViewInject(R.id.app_bar)
+    private AppBarLayout appBarLayout;
     protected HomeAdapter adapter;
     protected RecyclerView.LayoutManager layoutManager;
     protected LayoutManagerType currentLayoutManagerType;
     private String[] dataSet;
-//    @ViewInject(R.id.toolbar_actionbar)
+    //    @ViewInject(R.id.toolbar_actionbar)
 //    private Toolbar toolbar;
     @ViewInject(R.id.swipe_refresh_layout)
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -50,9 +54,11 @@ public class HomeFragment extends BaseFragment {
     private static final int TOP = 0;
 
     // For clicking the navigation menu to scroll the recycler view to the top when the menu is checked
-    public void scrollToTop() {
+    public void smoothScrollToPosition() {
         if (recyclerView != null)
             recyclerView.scrollToPosition(TOP);
+        if (appBarLayout != null)
+            appBarLayout.setExpanded(true, false);
     }
 
     private enum LayoutManagerType {

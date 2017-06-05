@@ -6,7 +6,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.christian.R;
@@ -52,10 +51,15 @@ public class BottomNavigationActivity extends BaseActivity {
         // Initialize the load
         if (savedInstanceState == null) {
             viewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
-            // To remain 4 tabs fragments
-            viewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
-            BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // To remain 4 tabs fragments
+        viewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
     }
 
     private void initView() {
@@ -76,7 +80,7 @@ public class BottomNavigationActivity extends BaseActivity {
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch ((item.getItemId())) {
                     case R.id.navigation_home:
-                        homeFragment.scrollToTop();
+                        homeFragment.smoothScrollToPosition();
                         break;
                     default:
                         break;
