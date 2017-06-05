@@ -54,7 +54,7 @@ public class HomeFragment extends BaseFragment {
     private static final int TOP = 0;
 
     // For clicking the navigation menu to scroll the recycler view to the top when the menu is checked
-    public void smoothScrollToPosition() {
+    public void scrollToPosition() {
         if (recyclerView != null)
             recyclerView.scrollToPosition(TOP);
         if (appBarLayout != null)

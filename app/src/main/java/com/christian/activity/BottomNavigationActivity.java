@@ -80,7 +80,7 @@ public class BottomNavigationActivity extends BaseActivity {
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch ((item.getItemId())) {
                     case R.id.navigation_home:
-                        homeFragment.smoothScrollToPosition();
+                        homeFragment.scrollToPosition();
                         break;
                     default:
                         break;
