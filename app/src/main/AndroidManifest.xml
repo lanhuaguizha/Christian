@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:name=".activity.HomeDetailActivity"
-            android:label="@string/title_detail"
+            android:label="@string/title_home_detail"
             android:parentActivityName=".activity.BottomNavigationActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data

@@ -3,10 +3,13 @@ package com.christian.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.view.View;
 import com.christian.R;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 
 /**
  * author：Administrator on 2017/4/17 01:36
@@ -22,7 +26,11 @@ import org.xutils.view.annotation.ContentView;
 
 @ContentView(R.layout.activity_home_detial)
 public class HomeDetailActivity extends BaseActivity {
-
+    private static String TAG = HomeDetailActivity.class.getSimpleName();
+    @ViewInject(R.id.nested_scroll_view)
+    NestedScrollView nestedScrollView;
+    @ViewInject(R.id.app_bar)
+    AppBarLayout appBarLayout;
     private Toolbar toolbar;
     private ShareActionProvider mShareActionProvider;
 
@@ -30,7 +38,6 @@ public class HomeDetailActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
-
         initListener();
     }
 
@@ -41,7 +48,42 @@ public class HomeDetailActivity extends BaseActivity {
                 finish();
             }
         });
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            public boolean isScrollToTop;
+
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick: ");
+                if (!isScrollToTop) {
+                    nestedScrollView.setSmoothScrollingEnabled(false);
+
+                    if (nestedScrollView != null)
+                        nestedScrollView.fullScroll(View.FOCUS_UP);
+                    if (appBarLayout != null)
+                        appBarLayout.setExpanded(true, false);
+                    isScrollToTop = true;
+                } else {
+                    if (nestedScrollView != null)
+                        nestedScrollView.fullScroll(View.FOCUS_DOWN);
+                    if (appBarLayout != null)
+                        appBarLayout.setExpanded(false, false);
+                    isScrollToTop = false;
+                }
+            }
+        });
     }
+
+//    @Event(value = R.id.fab,
+//            type = View.OnClickListener.class)
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.fab:
+//                Log.i(TAG, "onClick: ");
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     private void initView() {
         // my_child_toolbar is defined in the layout file

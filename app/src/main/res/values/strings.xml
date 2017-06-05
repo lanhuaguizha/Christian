@@ -99,7 +99,7 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="title_detail">Details</string>
+    <string name="title_home_detail">Home Details</string>
     <string name="go_back">Go Back</string>
     <string name="title_me">Me</string>
     <string name="content_empty">The content is empty</string>
