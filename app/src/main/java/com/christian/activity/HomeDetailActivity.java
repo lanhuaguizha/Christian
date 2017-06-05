@@ -53,11 +53,14 @@ public class HomeDetailActivity extends BaseActivity {
                 finish();
             }
         });
-        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+    }
 
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "onClick: ");
+    @Event(value = R.id.fab,
+            type = View.OnClickListener.class)
+    private void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab:
+                nestedScrollView.setSmoothScrollingEnabled(false);
                 if (!isScrollToBottom) {
                     if (nestedScrollView != null)
                         nestedScrollView.fullScroll(View.FOCUS_DOWN);
@@ -71,21 +74,11 @@ public class HomeDetailActivity extends BaseActivity {
                         appBarLayout.setExpanded(true, false);
                     isScrollToBottom = false;
                 }
-            }
-        });
+                break;
+            default:
+                break;
+        }
     }
-
-//    @Event(value = R.id.fab,
-//            type = View.OnClickListener.class)
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            case R.id.fab:
-//                Log.i(TAG, "onClick: ");
-//                break;
-//            default:
-//                break;
-//        }
-//    }
 
     private void initView() {
         // my_child_toolbar is defined in the layout file
@@ -143,9 +136,9 @@ public class HomeDetailActivity extends BaseActivity {
         }
     }
 
-    @Event(value = R.id.nested_scroll_view, type = NestedScrollView.OnScrollChangeListener.class)
-    private void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        floatingActionButton.animate().scaleY(Math.abs(scrollY));
-        floatingActionButton.animate().scaleX(Math.abs(scrollY));
-    }
+//    @Event(value = R.id.nested_scroll_view, type = NestedScrollView.OnScrollChangeListener.class)
+//    private void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//        floatingActionButton.animate().scaleY(Math.abs(scrollY));
+//        floatingActionButton.animate().scaleX(Math.abs(scrollY));
+//    }
 }
