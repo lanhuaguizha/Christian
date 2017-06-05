@@ -33,6 +33,7 @@ public class HomeDetailActivity extends BaseActivity {
     AppBarLayout appBarLayout;
     private Toolbar toolbar;
     private ShareActionProvider mShareActionProvider;
+    private boolean isScrollToBottom;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,25 +50,22 @@ public class HomeDetailActivity extends BaseActivity {
             }
         });
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            public boolean isScrollToTop;
 
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "onClick: ");
-                if (!isScrollToTop) {
-                    nestedScrollView.setSmoothScrollingEnabled(false);
-
-                    if (nestedScrollView != null)
-                        nestedScrollView.fullScroll(View.FOCUS_UP);
-                    if (appBarLayout != null)
-                        appBarLayout.setExpanded(true, false);
-                    isScrollToTop = true;
-                } else {
+                if (!isScrollToBottom) {
                     if (nestedScrollView != null)
                         nestedScrollView.fullScroll(View.FOCUS_DOWN);
                     if (appBarLayout != null)
                         appBarLayout.setExpanded(false, false);
-                    isScrollToTop = false;
+                    isScrollToBottom = true;
+                } else {
+                    if (nestedScrollView != null)
+                        nestedScrollView.fullScroll(View.FOCUS_UP);
+                    if (appBarLayout != null)
+                        appBarLayout.setExpanded(true, false);
+                    isScrollToBottom = false;
                 }
             }
         });

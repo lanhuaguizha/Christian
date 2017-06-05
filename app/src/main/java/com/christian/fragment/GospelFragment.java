@@ -2,6 +2,7 @@ package com.christian.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.View;
 import com.christian.R;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 /**
@@ -18,6 +20,8 @@ import org.xutils.view.annotation.ViewInject;
 
 @ContentView(R.layout.fragment_gospel)
 public class GospelFragment extends BaseFragment {
+    @ViewInject(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
     private static final String TAG = "GospelFragment";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,6 +91,11 @@ public class GospelFragment extends BaseFragment {
         if (!hidden) {
             initView();
         }
+    }
+
+    @Event(value = R.id.tv)
+    private void onClick(View v) {
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     private void initView() {

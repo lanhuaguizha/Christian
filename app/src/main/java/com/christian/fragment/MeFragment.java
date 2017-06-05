@@ -2,12 +2,14 @@ package com.christian.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.christian.R;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 /**
@@ -16,6 +18,8 @@ import org.xutils.view.annotation.ViewInject;
  */
 @ContentView(R.layout.fragment_me)
 public class MeFragment extends BaseFragment {
+    @ViewInject(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
     // TODO: Rename parameter arguments, choose names that match
@@ -59,6 +63,11 @@ public class MeFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initView();
         initData();
+    }
+
+    @Event(value = R.id.tv)
+    private void onClick(View v) {
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     private void initView() {
