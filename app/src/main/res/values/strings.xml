@@ -101,6 +101,6 @@
     </string>
     <string name="title_detail">Details</string>
     <string name="go_back">Go Back</string>
-    <string name="title_account">Account</string>
+    <string name="title_me">Me</string>
     <string name="content_empty">The content is empty</string>
 </resources>

@@ -3,9 +3,7 @@ package com.christian.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.christian.R;
 
@@ -16,8 +14,8 @@ import org.xutils.view.annotation.ViewInject;
  * author：Administrator on 2017/4/2 00:20
  * email：lanhuaguizha@gmail.com
  */
-@ContentView(R.layout.fragment_account)
-public class AccountFragment extends BaseFragment {
+@ContentView(R.layout.fragment_me)
+public class MeFragment extends BaseFragment {
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
     // TODO: Rename parameter arguments, choose names that match
@@ -28,7 +26,7 @@ public class AccountFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
 
-    public AccountFragment() {
+    public MeFragment() {
         // Required empty public constructor
     }
 
@@ -49,8 +47,8 @@ public class AccountFragment extends BaseFragment {
 //        fragment.setArguments(args);
 //        return fragment;
 //    }
-    public static AccountFragment newInstance() {
-        AccountFragment fragment = new AccountFragment();
+    public static MeFragment newInstance() {
+        MeFragment fragment = new MeFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -64,7 +62,7 @@ public class AccountFragment extends BaseFragment {
     }
 
     private void initView() {
-        toolbar.setTitle(getString(R.string.title_account));
+        toolbar.setTitle(getString(R.string.title_me));
     }
 
     private void initData() {

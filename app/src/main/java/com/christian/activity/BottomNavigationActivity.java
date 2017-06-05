@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
 import com.christian.R;
-import com.christian.fragment.AccountFragment;
+import com.christian.fragment.MeFragment;
 import com.christian.fragment.GospelFragment;
 import com.christian.fragment.HomeFragment;
 import com.christian.fragment.PoetryFragment;
@@ -34,7 +34,7 @@ public class BottomNavigationActivity extends BaseActivity {
     private HomeFragment homeFragment;
     private GospelFragment gospelFragment;
     private PoetryFragment poetryFragment;
-    private AccountFragment accountFragment;
+    private MeFragment accountFragment;
     private static final int DEFAULT_OFFSCREEN_PAGES = 3;
 
     private enum ChristianTab {
@@ -67,7 +67,7 @@ public class BottomNavigationActivity extends BaseActivity {
         homeFragment = HomeFragment.newInstance();
         gospelFragment = GospelFragment.newInstance();
         poetryFragment = PoetryFragment.newInstance();
-        accountFragment = AccountFragment.newInstance();
+        accountFragment = MeFragment.newInstance();
         fragments.add(homeFragment);
         fragments.add(gospelFragment);
         fragments.add(poetryFragment);
