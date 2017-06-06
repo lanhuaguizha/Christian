@@ -2,8 +2,10 @@ package com.christian.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.NestedScrollView;
@@ -20,6 +22,9 @@ import com.christian.R;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
+
+import static android.R.attr.dependency;
+import static android.R.attr.logo;
 
 /**
  * author：Administrator on 2017/4/17 01:36
@@ -47,12 +52,13 @@ public class HomeDetailActivity extends BaseActivity {
     }
 
     private void initListener() {
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        if (toolbar != null)
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
     }
 
     @Event(value = R.id.fab,
@@ -94,7 +100,8 @@ public class HomeDetailActivity extends BaseActivity {
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
-        toolbar.setNavigationContentDescription(R.string.go_back);
+        if (toolbar != null)
+            toolbar.setNavigationContentDescription(R.string.go_back);
     }
 
     @Override
@@ -141,4 +148,19 @@ public class HomeDetailActivity extends BaseActivity {
 //        floatingActionButton.animate().scaleY(Math.abs(scrollY));
 //        floatingActionButton.animate().scaleX(Math.abs(scrollY));
 //    }
+
+    public static class Behavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
+
+        @Override
+        public boolean layoutDependsOn(CoordinatorLayout parent, FloatingActionButton child, View dependency) {
+            return dependency instanceof Toolbar;
+        }
+
+        @Override
+        public boolean onDependentViewChanged(CoordinatorLayout parent, FloatingActionButton child, View dependency) {
+            Log.i(TAG, "onDependentViewChanged: ");
+            return super.onDependentViewChanged(parent, child, dependency);
+        }
+    }
+
 }
