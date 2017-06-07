@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.christian.R;
 
@@ -24,6 +26,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import static android.R.attr.dependency;
+import static android.R.attr.editorExtras;
 import static android.R.attr.logo;
 
 /**
@@ -57,6 +60,20 @@ public class HomeDetailActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     finish();
+                }
+            });
+        if (nestedScrollView != null)
+            nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    Log.i(TAG, "onScrollChange: " + v.getChildAt(0).getHeight());
+                    Log.i(TAG, "onScrollChange: " + v.getHeight());
+                    Log.i(TAG, "onScrollChange: " + v.getScrollY());
+                    if (v.getChildAt(0).getHeight() == v.getHeight() + v.getScrollY() || v.getScrollY() == 0) {
+                        floatingActionButton.setVisibility(View.VISIBLE);
+                    } else {
+                        floatingActionButton.setVisibility(View.GONE);
+                    }
                 }
             });
     }
