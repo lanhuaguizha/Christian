@@ -148,19 +148,4 @@ public class HomeDetailActivity extends BaseActivity {
 //        floatingActionButton.animate().scaleY(Math.abs(scrollY));
 //        floatingActionButton.animate().scaleX(Math.abs(scrollY));
 //    }
-
-    public static class Behavior extends CoordinatorLayout.Behavior<FloatingActionButton> {
-
-        @Override
-        public boolean layoutDependsOn(CoordinatorLayout parent, FloatingActionButton child, View dependency) {
-            return dependency instanceof Toolbar;
-        }
-
-        @Override
-        public boolean onDependentViewChanged(CoordinatorLayout parent, FloatingActionButton child, View dependency) {
-            Log.i(TAG, "onDependentViewChanged: ");
-            return super.onDependentViewChanged(parent, child, dependency);
-        }
-    }
-
 }
