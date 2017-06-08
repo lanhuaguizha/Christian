@@ -1,5 +1,7 @@
 package com.christian.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -70,18 +72,38 @@ public class HomeDetailActivity extends BaseActivity {
                     int duration = 250;
                     if (scrollY <= startDistance) {
                         float animateHideScale = Math.abs((scrollY - startDistance) / startDistance);
-                        floatingActionButton.animate().scaleX(animateHideScale).scaleY(animateHideScale).setDuration(duration);
+                        floatingActionButton.animate().scaleX(animateHideScale).scaleY(animateHideScale).setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+                                super.onAnimationStart(animation);
+                                floatingActionButton.setVisibility(View.VISIBLE);
+                            }
+                        });
                         isScrollToBottom = false;
                     } else if (v.getChildAt(0).getHeight() - scrollY - v.getHeight() <= startDistance) {
                         float animateShowScale = 1 - Math.abs((v.getChildAt(0).getHeight() - v.getHeight() - scrollY) / startDistance);
-                        floatingActionButton.animate().scaleX(animateShowScale).scaleY(animateShowScale).setDuration(duration);
+                        floatingActionButton.animate().scaleX(animateShowScale).scaleY(animateShowScale).setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+                                super.onAnimationStart(animation);
+                                floatingActionButton.setVisibility(View.VISIBLE);
+                            }
+                        });
                         isScrollToBottom = true;
-                    }
-                    // set GONE to let the FAB not to click
-                    if (v.getChildAt(0).getHeight() - scrollY - v.getHeight() > startDistance && scrollY > startDistance) {
-                        floatingActionButton.setVisibility(View.GONE);
                     } else {
-                        floatingActionButton.setVisibility(View.VISIBLE);
+                        floatingActionButton.animate().scaleX(0).scaleY(0).setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                floatingActionButton.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+                                super.onAnimationStart(animation);
+                                floatingActionButton.setVisibility(View.VISIBLE);
+                            }
+                        });
                     }
                 }
             });
