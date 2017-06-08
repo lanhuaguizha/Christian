@@ -76,11 +76,9 @@ public class HomeDetailActivity extends BaseActivity {
                         float animateShowScale = 1 - Math.abs((v.getChildAt(0).getHeight() - v.getHeight() - scrollY) / startDistance);
                         floatingActionButton.animate().scaleX(animateShowScale).scaleY(animateShowScale).setDuration(duration);
                         isScrollToBottom = true;
-                    } else {
-                        floatingActionButton.animate().scaleX(0).scaleY(0);
                     }
                     // set GONE to let the FAB not to click
-                    if (v.getChildAt(0).getHeight() - scrollY - v.getHeight() > 400 && scrollY > 400) {
+                    if (v.getChildAt(0).getHeight() - scrollY - v.getHeight() > startDistance && scrollY > startDistance) {
                         floatingActionButton.setVisibility(View.GONE);
                     } else {
                         floatingActionButton.setVisibility(View.VISIBLE);
