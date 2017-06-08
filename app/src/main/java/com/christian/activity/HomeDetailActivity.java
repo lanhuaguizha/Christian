@@ -79,6 +79,12 @@ public class HomeDetailActivity extends BaseActivity {
                     } else {
                         floatingActionButton.animate().scaleX(0).scaleY(0);
                     }
+                    // set GONE to let the FAB not to click
+                    if (v.getChildAt(0).getHeight() - scrollY - v.getHeight() > 400 && scrollY > 400) {
+                        floatingActionButton.setVisibility(View.GONE);
+                    } else {
+                        floatingActionButton.setVisibility(View.VISIBLE);
+                    }
                 }
             });
     }
