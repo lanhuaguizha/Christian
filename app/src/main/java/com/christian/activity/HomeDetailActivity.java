@@ -66,14 +66,15 @@ public class HomeDetailActivity extends BaseActivity {
                     Log.i(TAG, "v.getChildAt(0).getHeight(): " + v.getChildAt(0).getHeight());
                     Log.i(TAG, "v.getHeight(): " + v.getHeight());
                     Log.i(TAG, "v.getScrollY(): " + v.getScrollY());
-                    float startDistance = 1000f;
+                    float startDistance = 1f;
+                    int duration = 250;
                     if (scrollY <= startDistance) {
                         float animateHideScale = Math.abs((scrollY - startDistance) / startDistance);
-                        floatingActionButton.animate().scaleX(animateHideScale).scaleY(animateHideScale);
+                        floatingActionButton.animate().scaleX(animateHideScale).scaleY(animateHideScale).setDuration(duration);
                         isScrollToBottom = false;
                     } else if (v.getChildAt(0).getHeight() - scrollY - v.getHeight() <= startDistance) {
                         float animateShowScale = 1 - Math.abs((v.getChildAt(0).getHeight() - v.getHeight() - scrollY) / startDistance);
-                        floatingActionButton.animate().scaleX(animateShowScale).scaleY(animateShowScale);
+                        floatingActionButton.animate().scaleX(animateShowScale).scaleY(animateShowScale).setDuration(duration);
                         isScrollToBottom = true;
                     } else {
                         floatingActionButton.animate().scaleX(0).scaleY(0);
