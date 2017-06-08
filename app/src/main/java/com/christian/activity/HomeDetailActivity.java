@@ -58,6 +58,7 @@ public class HomeDetailActivity extends BaseActivity {
             });
         if (nestedScrollView != null)
             nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+
                 @Override
                 public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                     Log.i(TAG, "scrollX: " + scrollX);
@@ -77,6 +78,7 @@ public class HomeDetailActivity extends BaseActivity {
                             public void onAnimationStart(Animator animation) {
                                 super.onAnimationStart(animation);
                                 floatingActionButton.setVisibility(View.VISIBLE);
+                                Log.i(TAG, "startDistance onAnimationStart: VISIBLE");
                             }
                         });
                         isScrollToBottom = false;
@@ -87,21 +89,34 @@ public class HomeDetailActivity extends BaseActivity {
                             public void onAnimationStart(Animator animation) {
                                 super.onAnimationStart(animation);
                                 floatingActionButton.setVisibility(View.VISIBLE);
+                                Log.i(TAG, "endDistance onAnimationStart: VISIBLE");
                             }
                         });
                         isScrollToBottom = true;
                     } else {
                         floatingActionButton.animate().scaleX(0).scaleY(0).setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                floatingActionButton.setVisibility(View.GONE);
-                            }
+                            private boolean mCancelled;
 
                             @Override
                             public void onAnimationStart(Animator animation) {
                                 super.onAnimationStart(animation);
                                 floatingActionButton.setVisibility(View.VISIBLE);
+                                mCancelled = false;
+                                Log.i(TAG, "onAnimationStart: VISIBLE");
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
+                                mCancelled = true;
+                                Log.i(TAG, "onAnimationCancel: ");
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                if (!mCancelled)
+                                    floatingActionButton.setVisibility(View.GONE);
+                                Log.i(TAG, "onAnimationEnd: GONE");
                             }
                         });
                     }
