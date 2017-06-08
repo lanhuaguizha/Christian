@@ -1,12 +1,9 @@
 package com.christian.activity;
 
-import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.NestedScrollView;
@@ -17,19 +14,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.christian.R;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
-
-import static android.R.attr.dependency;
-import static android.R.attr.editorExtras;
-import static android.R.attr.logo;
 
 /**
  * author：Administrator on 2017/4/17 01:36
@@ -68,16 +58,21 @@ public class HomeDetailActivity extends BaseActivity {
             nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    Log.i(TAG, "onScrollChange: " + v.getChildAt(0).getHeight());
-                    Log.i(TAG, "onScrollChange: " + v.getHeight());
-                    Log.i(TAG, "onScrollChange: " + v.getScrollY());
-                    float startDistance = 10f;
-                    if (v.getScrollY() <= startDistance) {
-                        float animateHideScale = Math.abs((v.getScrollY() - startDistance) / startDistance);
+                    Log.i(TAG, "scrollX: " + scrollX);
+                    Log.i(TAG, "scrollY: " + scrollY);
+                    Log.i(TAG, "oldScrollX: " + oldScrollX);
+                    Log.i(TAG, "oldScrollY: " + oldScrollY);
+
+                    Log.i(TAG, "v.getChildAt(0).getHeight(): " + v.getChildAt(0).getHeight());
+                    Log.i(TAG, "v.getHeight(): " + v.getHeight());
+                    Log.i(TAG, "v.getScrollY(): " + v.getScrollY());
+                    float startDistance = 1000f;
+                    if (scrollY <= startDistance) {
+                        float animateHideScale = Math.abs((scrollY - startDistance) / startDistance);
                         floatingActionButton.animate().scaleX(animateHideScale).scaleY(animateHideScale);
                         isScrollToBottom = false;
-                    } else if (v.getChildAt(0).getHeight() - v.getScrollY() - v.getHeight() <= startDistance) {
-                        float animateShowScale = 1 - Math.abs((v.getChildAt(0).getHeight() - v.getHeight() - v.getScrollY()) / startDistance);
+                    } else if (v.getChildAt(0).getHeight() - scrollY - v.getHeight() <= startDistance) {
+                        float animateShowScale = 1 - Math.abs((v.getChildAt(0).getHeight() - v.getHeight() - scrollY) / startDistance);
                         floatingActionButton.animate().scaleX(animateShowScale).scaleY(animateShowScale);
                         isScrollToBottom = true;
                     } else {
