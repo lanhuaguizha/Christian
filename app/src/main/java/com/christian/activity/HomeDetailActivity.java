@@ -59,9 +59,17 @@ public class HomeDetailActivity extends BaseActivity {
             });
         if (nestedScrollView != null)
             nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-
                 @Override
                 public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                    Log.i(TAG, "scrollX: " + scrollX);
+                    Log.i(TAG, "scrollY: " + scrollY);
+                    Log.i(TAG, "oldScrollX: " + oldScrollX);
+                    Log.i(TAG, "oldScrollY: " + oldScrollY);
+
+                    Log.i(TAG, "v.getChildAt(0).getHeight(): " + v.getChildAt(0).getHeight());
+                    Log.i(TAG, "v.getHeight(): " + v.getHeight());
+                    Log.i(TAG, "v.getScrollY(): " + v.getScrollY());
                     if (v.getChildAt(0).getHeight() == v.getHeight() + v.getScrollY()) {
                         isScrollToBottom = true;
                         scaleToShow();
@@ -166,6 +174,19 @@ public class HomeDetailActivity extends BaseActivity {
 
         if (toolbar != null)
             toolbar.setNavigationContentDescription(R.string.go_back);
+
+        restoreAndScrollToPosition();
+    }
+
+    private void restoreAndScrollToPosition() {
+        appBarLayout.setExpanded(false, false);
+        // Must using post.Runnable, this is so suck!
+        nestedScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                nestedScrollView.scrollTo(0, 5099);
+            }
+        });
     }
 
     @Override
