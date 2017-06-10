@@ -1,7 +1,5 @@
 package com.christian.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,10 +10,11 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.christian.R;
 
@@ -61,67 +60,64 @@ public class HomeDetailActivity extends BaseActivity {
 
                 @Override
                 public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    Log.i(TAG, "scrollX: " + scrollX);
-                    Log.i(TAG, "scrollY: " + scrollY);
-                    Log.i(TAG, "oldScrollX: " + oldScrollX);
-                    Log.i(TAG, "oldScrollY: " + oldScrollY);
-
-                    Log.i(TAG, "v.getChildAt(0).getHeight(): " + v.getChildAt(0).getHeight());
-                    Log.i(TAG, "v.getHeight(): " + v.getHeight());
-                    Log.i(TAG, "v.getScrollY(): " + v.getScrollY());
-                    float startDistance = 1f;
-                    int duration = 250;
-                    if (scrollY <= startDistance) {
-                        float animateHideScale = Math.abs((scrollY - startDistance) / startDistance);
-                        floatingActionButton.animate().scaleX(animateHideScale).scaleY(animateHideScale).setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationStart(Animator animation) {
-                                super.onAnimationStart(animation);
-                                floatingActionButton.setVisibility(View.VISIBLE);
-                                Log.i(TAG, "startDistance onAnimationStart: VISIBLE");
-                            }
-                        });
-                        isScrollToBottom = false;
-                    } else if (v.getChildAt(0).getHeight() - scrollY - v.getHeight() <= startDistance) {
-                        float animateShowScale = 1 - Math.abs((v.getChildAt(0).getHeight() - v.getHeight() - scrollY) / startDistance);
-                        floatingActionButton.animate().scaleX(animateShowScale).scaleY(animateShowScale).setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationStart(Animator animation) {
-                                super.onAnimationStart(animation);
-                                floatingActionButton.setVisibility(View.VISIBLE);
-                                Log.i(TAG, "endDistance onAnimationStart: VISIBLE");
-                            }
-                        });
+                    if (v.getChildAt(0).getHeight() == v.getHeight() + v.getScrollY()) {
                         isScrollToBottom = true;
+                        scaleToShow();
+
+                    } else if (v.getScrollY() == 0) {
+                        isScrollToBottom = false;
+                        scaleToShow();
+
                     } else {
-                        floatingActionButton.animate().scaleX(0).scaleY(0).setListener(new AnimatorListenerAdapter() {
-                            private boolean mCancelled;
-
-                            @Override
-                            public void onAnimationStart(Animator animation) {
-                                super.onAnimationStart(animation);
-                                floatingActionButton.setVisibility(View.VISIBLE);
-                                mCancelled = false;
-                                Log.i(TAG, "onAnimationStart: VISIBLE");
-                            }
-
-                            @Override
-                            public void onAnimationCancel(Animator animation) {
-                                mCancelled = true;
-                                Log.i(TAG, "onAnimationCancel: ");
-                            }
-
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                if (!mCancelled)
-                                    floatingActionButton.setVisibility(View.GONE);
-                                Log.i(TAG, "onAnimationEnd: GONE");
-                            }
-                        });
+//                        scaleToHide();
+                        floatingActionButton.setVisibility(View.GONE);
                     }
                 }
             });
+    }
+
+    private void scaleToHide() {
+        Animation scaleToHide = AnimationUtils.loadAnimation(HomeDetailActivity.this, R.anim.scale_to_hide);
+        if (floatingActionButton.getVisibility() == View.VISIBLE) {
+            floatingActionButton.startAnimation(scaleToHide);
+            scaleToHide.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    floatingActionButton.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+        }
+    }
+
+    private void scaleToShow() {
+        Animation scaleToShow = AnimationUtils.loadAnimation(HomeDetailActivity.this, R.anim.scale_to_show);
+        floatingActionButton.startAnimation(scaleToShow);
+        scaleToShow.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                floatingActionButton.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 
     @Event(value = R.id.fab,
