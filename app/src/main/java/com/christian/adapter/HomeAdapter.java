@@ -77,7 +77,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.home_item, viewGroup, false);
+                .inflate(R.layout.gospel_item, viewGroup, false);
 
         return new ViewHolder(v);
     }

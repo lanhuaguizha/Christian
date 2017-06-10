@@ -37,4 +37,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     // xUtils3
     compile 'org.xutils:xutils:3.4.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
