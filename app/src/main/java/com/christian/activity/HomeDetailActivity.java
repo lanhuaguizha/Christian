@@ -10,6 +10,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,7 @@ public class HomeDetailActivity extends BaseActivity {
     private Toolbar toolbar;
     private ShareActionProvider mShareActionProvider;
     private boolean isScrollToBottom;
+    private boolean hasHidePerformedOnce;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,8 +71,10 @@ public class HomeDetailActivity extends BaseActivity {
                         scaleToShow();
 
                     } else {
-//                        scaleToHide();
-                        floatingActionButton.setVisibility(View.GONE);
+                        if (!hasHidePerformedOnce) {
+                            Log.i(TAG, "onScrollChange: perform scale to hide");
+                            scaleToHide();
+                        }
                     }
                 }
             });
@@ -81,9 +85,10 @@ public class HomeDetailActivity extends BaseActivity {
         if (floatingActionButton.getVisibility() == View.VISIBLE) {
             floatingActionButton.startAnimation(scaleToHide);
             scaleToHide.setAnimationListener(new Animation.AnimationListener() {
+
                 @Override
                 public void onAnimationStart(Animation animation) {
-
+                    hasHidePerformedOnce = true;
                 }
 
                 @Override
@@ -105,7 +110,7 @@ public class HomeDetailActivity extends BaseActivity {
 
             @Override
             public void onAnimationStart(Animation animation) {
-
+                hasHidePerformedOnce = false;
             }
 
             @Override
