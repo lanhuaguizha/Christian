@@ -21,6 +21,6 @@ public class CustomViewPage extends ViewPager {
     //Removing the slide page effect of page switching
     @Override
     public void setCurrentItem(int item) {
-        super.setCurrentItem(item, false);
+        super.setCurrentItem(item, true);
     }
 }
