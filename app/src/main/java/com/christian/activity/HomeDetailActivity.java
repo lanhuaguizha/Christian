@@ -177,7 +177,6 @@ public class HomeDetailActivity extends BaseActivity {
             @Override
             public void run() {
                 gospelDetail.setText(textLargeWord);
-                restoreScrollPosition();
             }
         });
     }
