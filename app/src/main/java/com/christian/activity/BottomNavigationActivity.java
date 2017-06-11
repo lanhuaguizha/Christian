@@ -12,7 +12,6 @@ import com.christian.R;
 import com.christian.fragment.GospelFragment;
 import com.christian.fragment.HomeFragment;
 import com.christian.fragment.MeFragment;
-import com.christian.fragment.PoetryFragment;
 import com.christian.swipebacksupport.SwipeBackHelper;
 import com.christian.view.CustomViewPage;
 
@@ -32,7 +31,6 @@ public class BottomNavigationActivity extends BaseActivity {
     MenuItem prevMenuItem;
     private HomeFragment homeFragment;
     private GospelFragment gospelFragment;
-    private PoetryFragment poetryFragment;
     private MeFragment accountFragment;
     private static final int DEFAULT_OFFSCREEN_PAGES = 3;
 
@@ -65,11 +63,9 @@ public class BottomNavigationActivity extends BaseActivity {
         fragments = new ArrayList<>();
         homeFragment = HomeFragment.newInstance();
         gospelFragment = GospelFragment.newInstance();
-        poetryFragment = PoetryFragment.newInstance();
         accountFragment = MeFragment.newInstance();
         fragments.add(homeFragment);
         fragments.add(gospelFragment);
-        fragments.add(poetryFragment);
         fragments.add(accountFragment);
     }
 
@@ -95,9 +91,6 @@ public class BottomNavigationActivity extends BaseActivity {
                         return true;
                     case R.id.navigation_gospel:
                         viewPager.setCurrentItem(ChristianTab.NAVIGATION_BOOK.ordinal());
-                        return true;
-                    case R.id.navigation_peotry:
-                        viewPager.setCurrentItem(ChristianTab.NAVIGATION_MUSIC.ordinal());
                         return true;
                     case R.id.navigation_account:
                         viewPager.setCurrentItem(ChristianTab.NAVIGATION_ACCOUNT.ordinal());
