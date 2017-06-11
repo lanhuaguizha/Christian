@@ -165,7 +165,7 @@ public class HomeDetailActivity extends BaseActivity {
 
     private void initView() {
         enableBackButton();
-        restoreScrollPosition();
+//        restoreScrollPosition();
         loadGospelDetail();
     }
 
@@ -174,6 +174,7 @@ public class HomeDetailActivity extends BaseActivity {
             @Override
             public void run() {
                 gospelDetail.setText(textLargeWord);
+                restoreScrollPosition();
             }
         });
     }
