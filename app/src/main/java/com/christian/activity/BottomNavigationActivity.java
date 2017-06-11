@@ -9,11 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
 import com.christian.R;
-import com.christian.fragment.MeFragment;
 import com.christian.fragment.GospelFragment;
 import com.christian.fragment.HomeFragment;
+import com.christian.fragment.MeFragment;
 import com.christian.fragment.PoetryFragment;
-import com.christian.helper.BottomNavigationViewHelper;
 import com.christian.swipebacksupport.SwipeBackHelper;
 import com.christian.view.CustomViewPage;
 
@@ -58,8 +57,8 @@ public class BottomNavigationActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         // To remain 4 tabs fragments
-        viewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+//        viewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
+//        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
     }
 
     private void initView() {
