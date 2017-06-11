@@ -49,16 +49,16 @@ public class HomeFragment extends BaseFragment {
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
     private static final int SPAN_COUNT = 2;
-    private static final int DATA_SET_COUNT = 1;
+    private static final int DATA_SET_COUNT = 12;
     private boolean added;
     private static final int TOP = 0;
 
     // For clicking the navigation menu to scroll the recycler view to the top when the menu is checked
     public void scrollToPosition() {
         if (recyclerView != null)
-            recyclerView.scrollToPosition(TOP);
+            recyclerView.smoothScrollToPosition(TOP);
         if (appBarLayout != null)
-            appBarLayout.setExpanded(true, false);
+            appBarLayout.setExpanded(true, true);
     }
 
     private enum LayoutManagerType {
