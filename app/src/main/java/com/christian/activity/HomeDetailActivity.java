@@ -204,7 +204,7 @@ public class HomeDetailActivity extends BaseActivity {
             public void run() {
                 nestedScrollView.scrollTo(0, 5099);
             }
-        }, 200);
+        }, 250);
     }
 
     @Override
