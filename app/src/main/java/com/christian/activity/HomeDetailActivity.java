@@ -173,12 +173,13 @@ public class HomeDetailActivity extends BaseActivity {
     }
 
     private void loadGospelDetail() {
-        gospelDetail.post(new Runnable() {
+        gospelDetail.postDelayed(new Runnable() {
             @Override
             public void run() {
                 gospelDetail.setText(textLargeWord);
             }
-        });
+        }, 100);
+        restoreScrollPosition();
     }
 
     private void enableBackButton() {
@@ -198,12 +199,12 @@ public class HomeDetailActivity extends BaseActivity {
     private void restoreScrollPosition() {
         appBarLayout.setExpanded(false, false);
         // Must using post.Runnable, this is so suck!
-        nestedScrollView.post(new Runnable() {
+        nestedScrollView.postDelayed(new Runnable() {
             @Override
             public void run() {
                 nestedScrollView.scrollTo(0, 5099);
             }
-        });
+        }, 200);
     }
 
     @Override
