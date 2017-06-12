@@ -91,34 +91,6 @@ public class HomeDetailActivity extends BaseActivity {
                     }
                 }
             });
-
-        if (floatingActionButton != null) {
-            floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    switch (v.getId()) {
-                        case R.id.fab:
-                            nestedScrollView.setSmoothScrollingEnabled(true);
-                            if (!isScrollToBottom) {
-                                if (nestedScrollView != null)
-                                    nestedScrollView.fullScroll(View.FOCUS_DOWN);
-                                if (appBarLayout != null)
-                                    appBarLayout.setExpanded(false, true);
-                                isScrollToBottom = true;
-                            } else {
-                                if (nestedScrollView != null)
-                                    nestedScrollView.fullScroll(View.FOCUS_UP);
-                                if (appBarLayout != null)
-                                    appBarLayout.setExpanded(true, true);
-                                isScrollToBottom = false;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            });
-        }
     }
 
     private void scaleToHide() {
@@ -164,6 +136,31 @@ public class HomeDetailActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Event(value = R.id.fab,
+            type = View.OnClickListener.class)
+    private void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab:
+                nestedScrollView.setSmoothScrollingEnabled(true);
+                if (!isScrollToBottom) {
+                    if (nestedScrollView != null)
+                        nestedScrollView.fullScroll(View.FOCUS_DOWN);
+                    if (appBarLayout != null)
+                        appBarLayout.setExpanded(false, true);
+                    isScrollToBottom = true;
+                } else {
+                    if (nestedScrollView != null)
+                        nestedScrollView.fullScroll(View.FOCUS_UP);
+                    if (appBarLayout != null)
+                        appBarLayout.setExpanded(true, true);
+                    isScrollToBottom = false;
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     private void initView() {
