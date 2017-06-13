@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.christian.R;
 import com.christian.adapter.HomeAdapter;
+import com.christian.view.SpacesItemDecoration;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -169,6 +170,7 @@ public class HomeFragment extends BaseFragment {
         if (recyclerView != null) {
             adapter = new HomeAdapter(dataSet);
             recyclerView.setAdapter(adapter);
+            recyclerView.addItemDecoration(new SpacesItemDecoration((int) getResources().getDimension(R.dimen.activity_horizontal_margin)));
             currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
             setRecyclerViewLayoutManager(currentLayoutManagerType);
         }

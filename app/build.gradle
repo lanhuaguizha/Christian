@@ -7,8 +7,8 @@ android {
         applicationId "com.christian"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 1
-        versionName "0.1.1"
+        versionCode = Integer.valueOf("" + appVersionCode).intValue()
+        versionName "${appVersionName}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -35,7 +35,8 @@ dependencies {
     // xUtils3
     compile 'org.xutils:xutils:3.5.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:26.0.0-alpha1'
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
-    compile 'com.android.support:support-vector-drawable:26.0.0-alpha1'
+    compile "com.android.support:design:${android_support_lib_version}"
+    compile "com.android.support:appcompat-v7:${android_support_lib_version}"
+    compile "com.android.support:support-vector-drawable:${android_support_lib_version}"
+    compile "com.android.support:cardview-v7:${android_support_lib_version}"
 }

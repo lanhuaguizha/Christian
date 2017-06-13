@@ -8,4 +8,5 @@
     <color name="gray">#808080</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="gray_dark">#A9A9A9</color>
+    <color name="card">#FFFFFF</color>
 </resources>
