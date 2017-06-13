@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.christian.R;
 
-import org.w3c.dom.Text;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -31,8 +30,8 @@ import org.xutils.view.annotation.ViewInject;
  */
 
 @ContentView(R.layout.activity_home_detial)
-public class HomeDetailActivity extends BaseActivity {
-    private static String TAG = HomeDetailActivity.class.getSimpleName();
+public class GospelHomeDetailActivity extends BaseActivity {
+    private static String TAG = GospelHomeDetailActivity.class.getSimpleName();
     @ViewInject(R.id.nested_scroll_view)
     NestedScrollView nestedScrollView;
     @ViewInject(R.id.app_bar)
@@ -94,7 +93,7 @@ public class HomeDetailActivity extends BaseActivity {
     }
 
     private void scaleToHide() {
-        Animation scaleToHide = AnimationUtils.loadAnimation(HomeDetailActivity.this, R.anim.scale_to_hide);
+        Animation scaleToHide = AnimationUtils.loadAnimation(GospelHomeDetailActivity.this, R.anim.scale_to_hide);
         if (floatingActionButton.getVisibility() == View.VISIBLE) {
             floatingActionButton.startAnimation(scaleToHide);
             scaleToHide.setAnimationListener(new Animation.AnimationListener() {
@@ -117,7 +116,7 @@ public class HomeDetailActivity extends BaseActivity {
     }
 
     private void scaleToShow() {
-        Animation scaleToShow = AnimationUtils.loadAnimation(HomeDetailActivity.this, R.anim.scale_to_show);
+        Animation scaleToShow = AnimationUtils.loadAnimation(GospelHomeDetailActivity.this, R.anim.scale_to_show);
         floatingActionButton.startAnimation(scaleToShow);
         scaleToShow.setAnimationListener(new Animation.AnimationListener() {
 

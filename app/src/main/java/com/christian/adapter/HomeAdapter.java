@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.christian.R;
-import com.christian.activity.HomeDetailActivity;
+import com.christian.activity.GospelHomeDetailActivity;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -49,7 +49,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                    Intent intent = new Intent(v.getContext(), HomeDetailActivity.class);
+                    Intent intent = new Intent(v.getContext(), GospelHomeDetailActivity.class);
                     v.getContext().startActivity(intent);
                 }
             });
@@ -77,7 +77,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.gospel_item, viewGroup, false);
+                .inflate(R.layout.view_home_gospel, viewGroup, false);
 
         return new ViewHolder(v);
     }

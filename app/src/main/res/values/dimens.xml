@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -9,10 +8,30 @@
     <dimen name="list_item_height">72dp</dimen>
     <dimen name="card_elevation">2dp</dimen>
     <dimen name="card_corner_radius">2dp</dimen>
-
+    <!-- Margin to the left and right of the search box. -->
+    <dimen name="search_margin_horizontal">8dp</dimen>
+    <!-- Margin above the search box. -->
+    <dimen name="search_top_margin">8dp</dimen>
+    <!-- Margin below the search box. -->
+    <dimen name="search_bottom_margin">8dp</dimen>
+    <dimen name="search_collapsed_text_size">14sp</dimen>
+    <!-- Search box interior padding - left -->
+    <dimen name="search_box_left_padding">8dp</dimen>
+    <!-- Search box interior padding - right -->
+    <dimen name="search_box_right_padding">8dp</dimen>
+    <dimen name="search_box_elevation">3dp</dimen>
+    <dimen name="search_box_icon_size">36dp</dimen>
+    <dimen name="search_box_search_icon_padding">2dp</dimen>
+    <color name="searchbox_icon_tint">#a4a4a4</color>
+    <dimen name="search_box_collapsed_text_margin_left">22dp</dimen>
+    <dimen name="search_box_navigation_icon_margin">14dp</dimen>
+    <dimen name="search_box_text_left_margin">15dp</dimen>
+    <dimen name="search_text_size">20sp</dimen>
+    <color name="searchbox_text_color">#000000</color>
+    <dimen name="search_box_close_icon_size">56dp</dimen>
+    <dimen name="search_box_close_icon_padding">16dp</dimen>
 
     <!-- Define standard dimensions to comply with Holo-style grids and rhythm. -->
-
     <dimen name="margin_tiny">4dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
@@ -20,8 +39,6 @@
     <dimen name="margin_huge">64dp</dimen>
 
     <!-- Semantic definitions -->
-
     <dimen name="horizontal_page_margin">@dimen/margin_medium</dimen>
     <dimen name="vertical_page_margin">@dimen/margin_medium</dimen>
-
 </resources>
