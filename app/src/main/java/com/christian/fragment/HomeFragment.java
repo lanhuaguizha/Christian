@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.christian.R;
+import com.christian.activity.BottomNavigationActivity;
 import com.christian.adapter.HomeAdapter;
 import com.christian.view.SpacesItemDecoration;
 
@@ -185,6 +186,7 @@ public class HomeFragment extends BaseFragment {
                 added = true;
             }
 
+            Toolbar toolbar = ((BottomNavigationActivity)getActivity()).getActionBarToolbar();
         }
 
         if (swipeRefreshLayout != null) {
