@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -182,7 +181,7 @@ public class HomeFragment extends BaseFragment {
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.title_home));
             if (!added && false) {
-                toolbar.inflateMenu(R.menu.menu_share_and_more);
+                toolbar.inflateMenu(R.menu.menu_gospel);
                 added = true;
             }
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -75,9 +76,11 @@ public class GospelFragment extends BaseFragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.menu_share:
+                    case R.id.menu_search:
+                        Log.i(TAG, "onMenuItemClick: menu_search is clicked");
+
                         break;
-                    case R.id.menu_more:
+                    default:
                         break;
                 }
                 return true;
@@ -102,10 +105,10 @@ public class GospelFragment extends BaseFragment {
         if (toolbar != null) {
             toolbar.setTitle(getString(R.string.title_book));
             // Removing more of Book Fragment
-//            if (!added) {
-//                toolbar.inflateMenu(R.menu.menu_share_and_more);
-//                added = true;
-//            }
+            if (!added) {
+                toolbar.inflateMenu(R.menu.menu_gospel);
+                added = true;
+            }
         }
     }
 

@@ -14,7 +14,7 @@
     <string name="content_empty">The content is empty</string>
     <string name="search_gospel">Search gospel</string>
     <string name="search_font_family">sans-serif</string>
-    <string name="dialer_hint_find_contact">Search gospel</string>
+    <string name="description_search">Search gospel</string>
     <string name="description_start_voice_search">Start voice search</string>
     <string name="action_menu_overflow_description" msgid="2295659037509008453">More options</string>
     <string name="action_menu_back_from_search">stop searching</string>
