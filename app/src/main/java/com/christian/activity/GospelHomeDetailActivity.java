@@ -198,9 +198,9 @@ public class GospelHomeDetailActivity extends BaseActivity {
         nestedScrollView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                nestedScrollView.scrollTo(0, 0);
+                nestedScrollView.scrollTo(0, 1000);
             }
-        }, 250);
+        }, 200);
     }
 
     @Override
