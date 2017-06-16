@@ -18,8 +18,6 @@ import org.xutils.view.annotation.ViewInject;
  */
 @ContentView(R.layout.fragment_me)
 public class MeFragment extends BaseFragment {
-    @ViewInject(R.id.toolbar_actionbar)
-    Toolbar toolbar;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,12 +57,7 @@ public class MeFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initView();
         initData();
-    }
-
-    private void initView() {
-        toolbar.setTitle(getString(R.string.title_me));
     }
 
     private void initData() {
