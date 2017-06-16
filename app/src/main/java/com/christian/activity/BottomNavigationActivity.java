@@ -139,12 +139,11 @@ public class BottomNavigationActivity extends BaseActivity {
 //        }
 //        return false;
 //    }
-    public class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
+    private class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
         private ArrayList<Fragment> fragments;
         private int mCurrentPosition = -1;
 
-
-        public CustomFragmentPagerAdapter(FragmentManager fm) {
+        CustomFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
             fragments = new ArrayList<>();
             homeFragment = HomeFragment.newInstance();
@@ -154,7 +153,6 @@ public class BottomNavigationActivity extends BaseActivity {
             fragments.add(gospelFragment);
             fragments.add(meFragment);
         }
-
 
         @Override
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
