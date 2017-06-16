@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import com.christian.R;
 import com.christian.fragment.GospelFragment;
@@ -27,15 +29,14 @@ public class BottomNavigationActivity extends BaseActivity {
     private BottomNavigationView bottomNavigationView;
     @ViewInject(R.id.content_view_page)
     private CustomViewPage viewPager;
-    private ArrayList<Object> fragments;
     MenuItem prevMenuItem;
+    private static final int DEFAULT_OFFSCREEN_PAGES = 2;
     private HomeFragment homeFragment;
     private GospelFragment gospelFragment;
-    private MeFragment accountFragment;
-    private static final int DEFAULT_OFFSCREEN_PAGES = 3;
+    private MeFragment meFragment;
 
     private enum ChristianTab {
-        NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC, NAVIGATION_ACCOUNT;
+        NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC, NAVIGATION_ME;
     }
 
     @Override
@@ -55,18 +56,11 @@ public class BottomNavigationActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         // To remain 4 tabs fragments
-//        viewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
+        viewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
 //        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
     }
 
     private void initView() {
-        fragments = new ArrayList<>();
-        homeFragment = HomeFragment.newInstance();
-        gospelFragment = GospelFragment.newInstance();
-        accountFragment = MeFragment.newInstance();
-        fragments.add(homeFragment);
-        fragments.add(gospelFragment);
-        fragments.add(accountFragment);
     }
 
     private void initListener() {
@@ -93,7 +87,7 @@ public class BottomNavigationActivity extends BaseActivity {
                         viewPager.setCurrentItem(ChristianTab.NAVIGATION_BOOK.ordinal());
                         return true;
                     case R.id.navigation_account:
-                        viewPager.setCurrentItem(ChristianTab.NAVIGATION_ACCOUNT.ordinal());
+                        viewPager.setCurrentItem(ChristianTab.NAVIGATION_ME.ordinal());
                         return true;
                 }
                 return false;
@@ -122,20 +116,10 @@ public class BottomNavigationActivity extends BaseActivity {
 //                Log.i(TAG, "onPageScrollStateChanged: ");
             }
         });
-        viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return (Fragment) fragments.get(position);
-            }
-
-            @Override
-            public int getCount() {
-                return fragments.size();
-            }
-        });
+        viewPager.setAdapter(new CustomFragmentPagerAdapter(getSupportFragmentManager()));
     }
 
-//    @Override
+    //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        super.onCreateOptionsMenu(menu);
 ////        Toolbar toolbar = getActionBarToolbar();
@@ -155,4 +139,44 @@ public class BottomNavigationActivity extends BaseActivity {
 //        }
 //        return false;
 //    }
+    public class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
+        private ArrayList<Fragment> fragments;
+        private int mCurrentPosition = -1;
+
+
+        public CustomFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+            fragments = new ArrayList<>();
+            homeFragment = HomeFragment.newInstance();
+            gospelFragment = GospelFragment.newInstance();
+            meFragment = MeFragment.newInstance();
+            fragments.add(homeFragment);
+            fragments.add(gospelFragment);
+            fragments.add(meFragment);
+        }
+
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            super.setPrimaryItem(container, position, object);
+            if (position != mCurrentPosition) {
+                Fragment fragment = (Fragment) object;
+                CustomViewPage pager = (CustomViewPage) container;
+                if (fragment != null && fragment.getView() != null) {
+                    mCurrentPosition = position;
+                    pager.measureFragment(fragment.getView());
+                }
+            }
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.size();
+        }
+    }
 }

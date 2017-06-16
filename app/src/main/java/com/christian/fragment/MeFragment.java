@@ -18,8 +18,6 @@ import org.xutils.view.annotation.ViewInject;
  */
 @ContentView(R.layout.fragment_me)
 public class MeFragment extends BaseFragment {
-    @ViewInject(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout swipeRefreshLayout;
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
     // TODO: Rename parameter arguments, choose names that match
@@ -63,11 +61,6 @@ public class MeFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initView();
         initData();
-    }
-
-    @Event(value = R.id.tv)
-    private void onClick(View v) {
-        swipeRefreshLayout.setRefreshing(false);
     }
 
     private void initView() {
