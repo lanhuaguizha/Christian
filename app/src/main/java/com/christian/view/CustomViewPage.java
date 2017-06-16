@@ -27,19 +27,19 @@ public class CustomViewPage extends ViewPager {
         super.setCurrentItem(item, true);
     }
 
-    @Override
-    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (mCurrentView == null) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-            return;
-        }
-        int height = 0;
-        mCurrentView.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-        int h = mCurrentView.getMeasuredHeight();
-        if (h > height) height = h;
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
+//    @Override
+//    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//        if (mCurrentView == null) {
+//            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//            return;
+//        }
+//        int height = 0;
+//        mCurrentView.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+//        int h = mCurrentView.getMeasuredHeight();
+//        if (h > height) height = h;
+//        heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//    }
 
     public void measureCurrentView(View currentView) {
         mCurrentView = currentView;

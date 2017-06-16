@@ -154,18 +154,18 @@ public class BottomNavigationActivity extends BaseActivity {
             fragments.add(meFragment);
         }
 
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            super.setPrimaryItem(container, position, object);
-            if (position != mCurrentPosition) {
-                Fragment fragment = (Fragment) object;
-                CustomViewPage pager = (CustomViewPage) container;
-                if (fragment != null && fragment.getView() != null) {
-                    mCurrentPosition = position;
-                    pager.measureFragment(fragment.getView());
-                }
-            }
-        }
+//        @Override
+//        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+//            super.setPrimaryItem(container, position, object);
+//            if (position != mCurrentPosition) {
+//                Fragment fragment = (Fragment) object;
+//                CustomViewPage pager = (CustomViewPage) container;
+//                if (fragment != null && fragment.getView() != null) {
+//                    mCurrentPosition = position;
+//                    pager.measureFragment(fragment.getView());
+//                }
+//            }
+//        }
 
         @Override
         public Fragment getItem(int position) {
