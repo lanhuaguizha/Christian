@@ -6,4 +6,4 @@
     android:layout_height="?attr/actionBarSize"
     android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
     app:layout_scrollFlags="scroll|enterAlways"
-    app:popupTheme="@style/ChristianToolbarTheme" />
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
