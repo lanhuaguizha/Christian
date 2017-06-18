@@ -16,7 +16,7 @@ import android.view.View;
 import com.christian.R;
 import com.christian.activity.BottomNavigationActivity;
 import com.christian.adapter.HomeAdapter;
-import com.christian.view.SpacesItemDecoration;
+import com.christian.view.HomeItemDecoration;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -35,11 +35,11 @@ public class HomeFragment extends BaseFragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    @ViewInject(R.id.recycler_view)
-    private RecyclerView recyclerView;
+    @ViewInject(R.id.recycler_view_home)
+    private RecyclerView recyclerViewHome;
     @ViewInject(R.id.app_bar)
     private AppBarLayout appBarLayout;
-    protected HomeAdapter adapter;
+    protected HomeAdapter homeAdapter;
     protected RecyclerView.LayoutManager layoutManager;
     protected LayoutManagerType currentLayoutManagerType;
     private String[] dataSet;
@@ -56,15 +56,10 @@ public class HomeFragment extends BaseFragment {
 
     // For clicking the navigation menu to scroll the recycler view to the top when the menu is checked
     public void scrollToPosition() {
-        if (recyclerView != null)
-            recyclerView.smoothScrollToPosition(TOP);
+        if (recyclerViewHome != null)
+            recyclerViewHome.smoothScrollToPosition(TOP);
         if (appBarLayout != null)
             appBarLayout.setExpanded(true, true);
-    }
-
-    private enum LayoutManagerType {
-        GRID_LAYOUT_MANAGER,
-        LINEAR_LAYOUT_MANAGER
     }
 
     public HomeFragment() {
@@ -149,7 +144,7 @@ public class HomeFragment extends BaseFragment {
 //                            int index = i + 1;
 //                            newDatas.add("new item" + index);
 //                        }
-//                        adapter.addItem(newDatas);
+//                        homeAdapter.addItem(newDatas);
                         swipeRefreshLayout.setRefreshing(false);
                     }
                 }, 700);
@@ -166,11 +161,11 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initView() {
-        //Recycler View set adapter
-        if (recyclerView != null) {
-            adapter = new HomeAdapter(dataSet);
-            recyclerView.setAdapter(adapter);
-            recyclerView.addItemDecoration(new SpacesItemDecoration((int) getResources().getDimension(R.dimen.activity_horizontal_margin)));
+        //Recycler View set homeAdapter
+        if (recyclerViewHome != null) {
+            homeAdapter = new HomeAdapter(dataSet);
+            recyclerViewHome.setAdapter(homeAdapter);
+            recyclerViewHome.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.activity_horizontal_margin)));
             currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
             setRecyclerViewLayoutManager(currentLayoutManagerType);
         }
@@ -209,8 +204,8 @@ public class HomeFragment extends BaseFragment {
         int scrollPosition = 0;
 
         // If a layout manager has already been set, get current scroll position.
-        if (recyclerView.getLayoutManager() != null) {
-            scrollPosition = ((LinearLayoutManager) recyclerView.getLayoutManager())
+        if (recyclerViewHome.getLayoutManager() != null) {
+            scrollPosition = ((LinearLayoutManager) recyclerViewHome.getLayoutManager())
                     .findFirstCompletelyVisibleItemPosition();
         }
 
@@ -228,12 +223,12 @@ public class HomeFragment extends BaseFragment {
                 currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         }
 
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.scrollToPosition(scrollPosition);
+        recyclerViewHome.setLayoutManager(layoutManager);
+        recyclerViewHome.scrollToPosition(scrollPosition);
     }
 
     /**
-     * Generates Strings for RecyclerView's adapter. This data would usually come
+     * Generates Strings for RecyclerView's homeAdapter. This data would usually come
      * from a local content provider or remote server.
      */
     private void initDataSet() {

@@ -17,6 +17,11 @@ import org.xutils.x;
 
 public class BaseFragment extends Fragment {
 
+    enum LayoutManagerType {
+        GRID_LAYOUT_MANAGER,
+        LINEAR_LAYOUT_MANAGER
+    }
+
     private boolean injected;
 
     @Nullable

@@ -10,10 +10,10 @@ import android.view.View;
  */
 
 
-public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+public class HomeItemDecoration extends RecyclerView.ItemDecoration {
     private int space;
 
-    public SpacesItemDecoration(int space) {
+    public HomeItemDecoration(int space) {
         this.space = space;
     }
 
