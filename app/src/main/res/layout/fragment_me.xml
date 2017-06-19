@@ -30,7 +30,7 @@
                 app:civ_border_color="#FFFFFFFF"
                 app:civ_border_width="3dp"
                 app:layout_collapseMode="parallax"
-                android:background="@drawable/ic_person_black_24dp" />
+                android:background="@drawable/ic_account_circle_black_24dp" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar_actionbar"

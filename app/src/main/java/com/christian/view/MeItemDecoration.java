@@ -20,8 +20,8 @@ public class MeItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view,
                                RecyclerView parent, RecyclerView.State state) {
-//        outRect.left = space;
-//        outRect.right = space;
+        outRect.left = space;
+        outRect.right = space;
         outRect.bottom = space;
 
         // Add top margin only for the first item to avoid double space between items

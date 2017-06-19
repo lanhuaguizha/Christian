@@ -53,7 +53,7 @@ public class MeAdapter extends RecyclerView.Adapter<MeAdapter.ViewHolder> {
                     v.getContext().startActivity(intent);
                 }
             });
-            textView = (TextView) v.findViewById(R.id.gospel_title);
+            textView = (TextView) v.findViewById(R.id.settings_title);
         }
 
         public TextView getTextView() {
