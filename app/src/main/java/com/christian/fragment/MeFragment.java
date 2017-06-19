@@ -13,6 +13,7 @@ import com.christian.adapter.MeAdapter;
 import com.christian.view.MeItemDecoration;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 /**
@@ -106,4 +107,5 @@ public class MeFragment extends BaseFragment {
             dataSet[i] = getString(R.string.next_week);
         }
     }
+
 }

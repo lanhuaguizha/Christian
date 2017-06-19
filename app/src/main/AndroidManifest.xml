@@ -27,10 +27,19 @@
             android:label="@string/title_home_detail"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.BottomNavigationActivity">
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.BottomNavigationActivity" />
+        </activity>
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".activity.BaseActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.christian.activity.BaseActivity" />
         </activity>
     </application>
 
