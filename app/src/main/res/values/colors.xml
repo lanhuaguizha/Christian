@@ -8,4 +8,5 @@
     <color name="card">#FFFFFF</color>
     <color name="searchbox_hint_text_color">#737373</color>
     <color name="searchbox_background_color">#ffffff</color>
+    <color name="gray_dark">#bebebe</color>
 </resources>

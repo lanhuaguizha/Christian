@@ -27,7 +27,7 @@ public class MeFragment extends BaseFragment {
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
     private String[] dataSet;
-    private static final int DATA_SET_COUNT = 12;
+    private static final int DATA_SET_COUNT = 3;
     protected LayoutManagerType currentLayoutManagerType;
     protected RecyclerView.LayoutManager layoutManager;
     private static final int SPAN_COUNT = 2;
@@ -56,7 +56,7 @@ public class MeFragment extends BaseFragment {
 
         MeAdapter meAdapter = new MeAdapter(dataSet);
         recyclerViewMe.setAdapter(meAdapter);
-        recyclerViewMe.addItemDecoration(new MeItemDecoration((int) getResources().getDimension(R.dimen.activity_horizontal_margin)));
+//        recyclerViewMe.addItemDecoration(new MeItemDecoration((int) getResources().getDimension(R.dimen.activity_horizontal_margin)));
         currentLayoutManagerType = HomeFragment.LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         setRecyclerViewLayoutManager(currentLayoutManagerType);
     }

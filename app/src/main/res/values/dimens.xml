@@ -30,6 +30,8 @@
     <color name="searchbox_text_color">#000000</color>
     <dimen name="search_box_close_icon_size">56dp</dimen>
     <dimen name="search_box_close_icon_padding">16dp</dimen>
+    <dimen name="action_bar_height">56dp</dimen>
+    <dimen name="action_bar_height_large">64dp</dimen>
 
     <!-- Define standard dimensions to comply with Holo-style grids and rhythm. -->
     <dimen name="margin_tiny">4dp</dimen>
