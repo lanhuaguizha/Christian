@@ -20,13 +20,17 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <com.christian.view.CustomCircleImageView
                 android:id="@+id/profile_image"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
+                android:layout_width="106dp"
+                android:layout_height="106dp"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="@dimen/activity_horizontal_margin"
+                android:src="@drawable/me"
+                app:civ_shadow="true"
+                app:civ_shadow_radius="7"
+                app:civ_shadow_color="#1A76BF"
                 android:background="@drawable/ic_account_circle_black_24dp"
                 app:civ_border_color="#FFFFFFFF"
                 app:civ_border_width="3dp"
@@ -47,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        app:behavior_overlapTop="48dp"
+        app:behavior_overlapTop="38dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".activity.BottomNavigationActivity">
 
@@ -62,8 +66,7 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 app:cardBackgroundColor="@color/card"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:cardElevation="@dimen/card_elevation">
+                app:cardCornerRadius="@dimen/card_corner_radius">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,11 +83,10 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 app:cardBackgroundColor="@color/card"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:cardElevation="@dimen/card_elevation">
+                app:cardCornerRadius="@dimen/card_corner_radius">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -93,7 +95,7 @@
 
                     <include layout="@layout/view_me_setting" />
 
-                    <include layout="@layout/view_me_setting" />
+                    <!--<include layout="@layout/view_me_setting" />-->
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
