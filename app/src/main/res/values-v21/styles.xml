@@ -35,4 +35,9 @@
     <style name="BottomNavigationActivityTheme" parent="Christian">
         <item name="android:windowIsTranslucent">false</item>
     </style>
+
+    <style name="Christian.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/white</item>
+        <item name="android:textColor">@color/gray_dark</item>
+    </style>
 </resources>

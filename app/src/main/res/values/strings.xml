@@ -95,5 +95,8 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="download_gospel">Download Gospel</string>
+    <string name="sign_in">登录</string>
+    <string name="register">注册</string>
+    <string name="sign_out">登出</string>
 
 </resources>
