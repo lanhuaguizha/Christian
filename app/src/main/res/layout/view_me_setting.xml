@@ -1,46 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/settings_img_wrapper"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/activity_horizontal_margin"
-    android:layout_marginTop="@dimen/activity_horizontal_margin"
-    android:background="?android:attr/selectableItemBackground">
+    android:layout_height="match_parent"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    tools:showIn="@layout/fragment_me">
 
     <ImageView
         android:id="@+id/settings_img"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:scaleType="centerCrop"
         android:tint="?android:attr/textColorSecondaryNoDisable"
         app:srcCompat="@drawable/ic_favorite_black_24dp" />
 
-
-    <RelativeLayout
+    <TextView
+        android:id="@+id/settings_title"
         android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_toEndOf="@id/settings_img">
-
-        <TextView
-            android:id="@+id/settings_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/search_box_collapsed_text_margin_left"
-            android:gravity="center_vertical"
-            android:text="@string/collection_gospel"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="?android:attr/textColorPrimaryNoDisable" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@id/settings_title"
-            android:background="@color/gray_dark" />
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_toEndOf="@id/settings_img"
+        android:gravity="center_vertical"
+        android:text="@string/collection_gospel"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="?android:attr/textColorPrimaryNoDisable" />
 </RelativeLayout>
