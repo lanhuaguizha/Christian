@@ -50,7 +50,7 @@ public class HomeFragment extends BaseFragment {
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
     private static final int SPAN_COUNT = 2;
-    private static final int DATA_SET_COUNT = 12;
+    private static final int DATA_SET_COUNT = 12 * 4;
     private boolean added;
     private static final int TOP = 0;
 
@@ -180,7 +180,7 @@ public class HomeFragment extends BaseFragment {
                 added = true;
             }
 
-            Toolbar toolbar = ((BottomNavigationActivity)getActivity()).getActionBarToolbar();
+            Toolbar toolbar = ((BottomNavigationActivity) getActivity()).getActionBarToolbar();
         }
 
         if (swipeRefreshLayout != null) {

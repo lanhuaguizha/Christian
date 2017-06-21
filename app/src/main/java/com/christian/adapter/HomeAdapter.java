@@ -22,6 +22,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.christian.R;
@@ -31,18 +33,15 @@ import com.christian.activity.GospelHomeDetailActivity;
  * Provide views to RecyclerView with data from mDataSet.
  */
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+    private int lastPosition;
     private static final String TAG = "HomeAdapter";
-
     private String[] mDataSet;
 
-    // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
-    /**
-     * Provide a reference to the type of views that you are using (custom ViewHolder)
-     */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
 
-        public ViewHolder(View v) {
+        ViewHolder(View v) {
             super(v);
             // Define click listener for the ViewHolder's View.
             v.setOnClickListener(new View.OnClickListener() {
@@ -56,23 +55,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             textView = (TextView) v.findViewById(R.id.gospel_title);
         }
 
-        public TextView getTextView() {
+        TextView getTextView() {
             return textView;
         }
     }
-    // END_INCLUDE(recyclerViewSampleViewHolder)
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
-     */
     public HomeAdapter(String[] dataSet) {
         mDataSet = dataSet;
     }
 
-    // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
-    // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
@@ -81,21 +72,26 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         return new ViewHolder(v);
     }
-    // END_INCLUDE(recyclerViewOnCreateViewHolder)
 
-    // BEGIN_INCLUDE(recyclerViewOnBindViewHolder)
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        Log.d(TAG, "Element " + position + " set.");
-
-        // Get element from your dataset at this position and replace the contents of the view
-        // with that element
-        viewHolder.getTextView().setText(mDataSet[position]);
+    public void onViewDetachedFromWindow(ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.itemView.clearAnimation();
     }
-    // END_INCLUDE(recyclerViewOnBindViewHolder)
 
-    // Return the size of your dataset (invoked by the layout manager)
+    @Override
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+        int adapterPosition = viewHolder.getAdapterPosition();
+        Animation animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(),
+                (adapterPosition > lastPosition) ? R.anim.up_from_bottom
+                        : R.anim.down_from_top);
+        viewHolder.itemView.startAnimation(animation);
+        lastPosition = adapterPosition;
+        // Get element from your dataset at this adapterPosition and replace the contents of the view
+        // with that element
+        viewHolder.getTextView().setText(mDataSet[adapterPosition]);
+    }
+
     @Override
     public int getItemCount() {
         return mDataSet.length;
