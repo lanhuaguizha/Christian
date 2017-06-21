@@ -1,5 +1,6 @@
 package com.christian.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.christian.R;
+import com.christian.activity.SettingsActivity;
 import com.christian.adapter.MeAdapter;
 import com.christian.view.MeItemDecoration;
 
@@ -41,5 +43,19 @@ public class MeFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar.inflateMenu(R.menu.menu_me);
+    }
+
+    @Event(R.id.sign_in)
+    private void onClick(View v) {
+        Intent intent = null;
+        switch (v.getId()) {
+            case R.id.sign_in:
+//                intent = new Intent(getActivity(), SettingsActivity.class);
+                break;
+            default:
+                break;
+        }
+        if (intent != null)
+            startActivity(intent);
     }
 }

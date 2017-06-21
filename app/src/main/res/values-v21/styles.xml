@@ -39,5 +39,6 @@
     <style name="Christian.Button" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/white</item>
         <item name="android:textColor">@color/gray_dark</item>
+        <item name="android:colorControlHighlight">#DDDDDD</item>
     </style>
 </resources>
