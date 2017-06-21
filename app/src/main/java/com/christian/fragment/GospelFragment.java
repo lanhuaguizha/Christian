@@ -21,8 +21,8 @@ import org.xutils.view.annotation.ViewInject;
 
 @ContentView(R.layout.fragment_gospel)
 public class GospelFragment extends BaseFragment {
-    @ViewInject(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout swipeRefreshLayout;
+//    @ViewInject(R.id.swipe_refresh_layout)
+//    SwipeRefreshLayout swipeRefreshLayout;
     private static final String TAG = "GospelFragment";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -98,7 +98,7 @@ public class GospelFragment extends BaseFragment {
 
     @Event(value = R.id.tv)
     private void onClick(View v) {
-        swipeRefreshLayout.setRefreshing(false);
+//        swipeRefreshLayout.setRefreshing(false);
     }
 
     private void initView() {
