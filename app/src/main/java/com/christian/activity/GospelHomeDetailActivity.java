@@ -175,7 +175,7 @@ public class GospelHomeDetailActivity extends BaseActivity {
                 gospelDetail.setText(textLargeWord);
             }
         }, 150);
-        restoreScrollPosition();
+//        restoreScrollPosition();
     }
 
     private void enableBackButton() {
