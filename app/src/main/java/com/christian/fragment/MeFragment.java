@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.christian.R;
+import com.christian.activity.LoginActivity;
 import com.christian.activity.SettingsActivity;
 import com.christian.adapter.MeAdapter;
 import com.christian.view.MeItemDecoration;
@@ -45,17 +46,17 @@ public class MeFragment extends BaseFragment {
         toolbar.inflateMenu(R.menu.menu_me);
     }
 
-    @Event(R.id.sign_in)
+    @Event({R.id.sign_in})
     private void onClick(View v) {
         Intent intent = null;
         switch (v.getId()) {
             case R.id.sign_in:
-//                intent = new Intent(getActivity(), SettingsActivity.class);
+                intent = new Intent(getActivity(), LoginActivity.class);
                 break;
             default:
                 break;
         }
         if (intent != null)
-            startActivity(intent);
+            getActivity().startActivity(intent);
     }
 }
