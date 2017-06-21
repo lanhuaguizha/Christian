@@ -83,7 +83,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         int adapterPosition = viewHolder.getAdapterPosition();
         Animation animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(),
-                (adapterPosition > lastPosition) ? R.anim.up_from_bottom
+                (adapterPosition >= lastPosition) ? R.anim.up_from_bottom
                         : R.anim.down_from_top);
         viewHolder.itemView.startAnimation(animation);
         lastPosition = adapterPosition;
