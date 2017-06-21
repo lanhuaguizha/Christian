@@ -1,4 +1,4 @@
-package com.christian.utils;
+package com.christian.util;
 
 import android.support.design.widget.Snackbar;
 import android.view.View;

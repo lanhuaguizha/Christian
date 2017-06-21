@@ -14,7 +14,7 @@
  * limitations under the License
  */
 
-package com.christian.utils;
+package com.christian.util;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

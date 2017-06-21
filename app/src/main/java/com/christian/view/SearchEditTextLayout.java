@@ -30,8 +30,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 
 import com.christian.R;
-import com.christian.utils.AnimUtils;
-import com.christian.utils.DialerUtils;
+import com.christian.util.AnimUtils;
+import com.christian.util.DialerUtils;
 
 public class SearchEditTextLayout extends FrameLayout {
     private static final float EXPAND_MARGIN_FRACTION_START = 0.8f;
