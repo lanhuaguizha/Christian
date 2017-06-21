@@ -173,9 +173,10 @@ public class GospelHomeDetailActivity extends BaseActivity {
             @Override
             public void run() {
                 gospelDetail.setText(textLargeWord);
+                gospelDetail.setVisibility(View.VISIBLE);
             }
         }, 150);
-//        restoreScrollPosition();
+        restoreScrollPosition();
     }
 
     private void enableBackButton() {
@@ -195,12 +196,12 @@ public class GospelHomeDetailActivity extends BaseActivity {
     private void restoreScrollPosition() {
         appBarLayout.setExpanded(false, false);
         // Must using post.Runnable, this is so suck!
-        nestedScrollView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                nestedScrollView.scrollTo(0, 1000);
-            }
-        }, 200);
+//        nestedScrollView.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                nestedScrollView.smoothScrollTo(0, 1000);
+//            }
+//        }, 200);
     }
 
     @Override
