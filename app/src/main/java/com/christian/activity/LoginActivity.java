@@ -36,13 +36,16 @@ import java.util.List;
 
 import com.christian.R;
 
+import org.xutils.view.annotation.ViewInject;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor> {
-    private Toolbar toolbar;
+    @ViewInject(R.id.toolbar_actionbar)
+    Toolbar toolbar;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -97,6 +100,17 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        initListener();
+    }
+
+    private void initListener() {
+        if (toolbar != null)
+            toolbar.setNavigationOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
     }
 
     private void populateAutoComplete() {

@@ -15,6 +15,8 @@
         <item name="android:windowIsTranslucent">true</item>
         <!--set the right in/out animation of Activity,you can change this to yours-->
         <item name="android:windowAnimationStyle">@style/Christian.Activity</item>
+        <!--<item name="android:textColorHint">@color/searchbox_hint_text_color</item>-->
+        <!--<item name="colorControlNormal">@color/searchbox_hint_text_color</item>-->
     </style>
 
     <style name="Christian.Activity" parent="@android:style/Animation.Activity">
