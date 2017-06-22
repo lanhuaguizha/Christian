@@ -113,4 +113,5 @@
         completions."
     </string>
     <string name="description_setting">Setting</string>
+    <string name="wechat_login">微信登录</string>
 </resources>
