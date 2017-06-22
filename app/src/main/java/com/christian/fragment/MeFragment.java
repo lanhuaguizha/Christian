@@ -7,6 +7,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.christian.R;
@@ -25,7 +28,7 @@ import org.xutils.view.annotation.ViewInject;
  */
 @ContentView(R.layout.fragment_me)
 public class MeFragment extends BaseFragment {
-
+    private static final String TAG = MeFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
 
@@ -44,6 +47,15 @@ public class MeFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar.inflateMenu(R.menu.menu_me);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Log.i(TAG, "onMenuItemClick: ");
+                Intent intentSetting = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(intentSetting);
+                return false;
+            }
+        });
     }
 
     @Event({R.id.sign_in})
