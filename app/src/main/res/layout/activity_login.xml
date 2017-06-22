@@ -62,6 +62,7 @@
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
                             android:singleLine="true"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/searchbox_hint_text_color" />
 
                     </android.support.design.widget.TextInputLayout>
@@ -81,6 +82,7 @@
                             android:inputType="textPassword"
                             android:maxLines="1"
                             android:singleLine="true"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/searchbox_hint_text_color" />
 
                     </android.support.design.widget.TextInputLayout>
@@ -91,6 +93,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/action_sign_in"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:theme="@style/Christian.Button.colorPrimary" />
 
                     <Button
@@ -99,6 +102,7 @@
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/activity_horizontal_margin"
                         android:text="@string/wechat_login"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/card"
                         android:theme="@style/ChristianToolbarTheme" />
                 </LinearLayout>
