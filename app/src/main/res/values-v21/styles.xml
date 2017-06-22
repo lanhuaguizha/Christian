@@ -18,6 +18,7 @@
         <!--TextInputLayout-->
         <item name="android:textColorHint">@color/gray_dark</item>
         <item name="colorControlNormal">@color/gray_dark</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 
     <style name="Christian.Activity" parent="@android:style/Animation.Activity">
@@ -47,7 +48,7 @@
 
     <style name="Christian.Button.colorPrimary" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/colorPrimary</item>
-        <item name="android:textColor">@color/searchbox_hint_text_color</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:colorControlHighlight">@color/white</item>
     </style>
 </resources>
