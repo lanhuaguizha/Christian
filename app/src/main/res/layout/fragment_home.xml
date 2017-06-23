@@ -22,7 +22,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             tools:showIn="@layout/fragment_home">
 
-            <include layout="@layout/search_edittext" />
+            <!--<include layout="@layout/search_edittext" />-->
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
