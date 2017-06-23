@@ -46,7 +46,11 @@ public class MeFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        toolbar.inflateMenu(R.menu.menu_me);
+        initView();
+        initListener(view);
+    }
+
+    private void initListener(View view) {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -56,6 +60,10 @@ public class MeFragment extends BaseFragment {
                 return false;
             }
         });
+    }
+
+    private void initView() {
+        toolbar.inflateMenu(R.menu.menu_me);
     }
 
     @Event({R.id.sign_in})
