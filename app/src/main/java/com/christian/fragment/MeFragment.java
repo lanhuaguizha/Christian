@@ -3,6 +3,7 @@ package com.christian.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ public class MeFragment extends BaseFragment {
     private static final String TAG = MeFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
+    private OnClickListener mOnClickListener;
 
     public MeFragment() {
         // Required empty public constructor
@@ -60,23 +62,42 @@ public class MeFragment extends BaseFragment {
                 return false;
             }
         });
+        view.findViewById(R.id.sign_in).setOnClickListener(mOnClickListener);
     }
 
     private void initView() {
         toolbar.inflateMenu(R.menu.menu_me);
+        mOnClickListener = new OnClickListener();
     }
 
-    @Event({R.id.sign_in})
-    private void onClick(View v) {
-        Intent intent = null;
-        switch (v.getId()) {
-            case R.id.sign_in:
-                intent = new Intent(getActivity(), LoginActivity.class);
-                break;
-            default:
-                break;
+    private class OnClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = null;
+            switch (v.getId()) {
+                case R.id.sign_in:
+                    intent = new Intent(getActivity(), LoginActivity.class);
+                    break;
+                default:
+                    break;
+            }
+            if (intent != null)
+                getActivity().startActivity(intent);
         }
-        if (intent != null)
-            getActivity().startActivity(intent);
     }
+
+//    @Event({R.id.sign_in})
+//    private void onClick(View v) {
+//        Intent intent = null;
+//        switch (v.getId()) {
+//            case R.id.sign_in:
+//                intent = new Intent(getActivity(), LoginActivity.class);
+//                break;
+//            default:
+//                break;
+//        }
+//        if (intent != null)
+//            getActivity().startActivity(intent);
+//    }
 }
