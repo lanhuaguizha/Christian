@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.christian"
-        minSdkVersion 17
+        minSdkVersion 15
         targetSdkVersion 26
         versionCode = Integer.valueOf("" + appVersionCode).intValue()
         versionName "${appVersionName}"
@@ -28,6 +28,8 @@ android {
 
 dependencies {
     // Android
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
     compile "com.android.support:design:${android_support_lib_version}"
     compile "com.android.support:appcompat-v7:${android_support_lib_version}"
     compile "com.android.support:support-vector-drawable:${android_support_lib_version}"
@@ -37,11 +39,7 @@ dependencies {
     //        exclude group: 'com.android.support', module: 'support-annotations'
     //    })
     // xUtils3
+    compile 'org.xutils:xutils:3.5.0'
     // Circle Image View
     compile 'com.mikhaellopez:circularimageview:3.0.2'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'org.xutils:xutils:3.5.0'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:support-vector-drawable:25.3.1'
-    testCompile 'junit:junit:4.12'
 }

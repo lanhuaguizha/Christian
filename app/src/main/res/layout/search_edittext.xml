@@ -18,7 +18,10 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="@dimen/search_box_left_padding">
+        android:paddingStart="@dimen/search_box_left_padding"
+        android:paddingEnd="0dp"
+        android:paddingLeft="@dimen/search_box_left_padding"
+        android:paddingRight="0dp">
 
         <ImageView
             android:id="@+id/search_magnifying_glass"
@@ -30,23 +33,24 @@
             android:tint="@color/searchbox_icon_tint"
             app:srcCompat="@drawable/ic_search_black_24dp" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/search_box_start_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/search_box_collapsed_text_margin_left"
             android:layout_weight="1"
-            android:fontFamily="@string/search_font_family"
+            android:typeface="@string/search_font_family"
             android:gravity="center_vertical"
             android:hint="@string/description_search"
             android:textColorHint="@color/searchbox_hint_text_color"
-            android:textSize="@dimen/search_collapsed_text_size" />
+            android:textSize="@dimen/search_collapsed_text_size"
+            android:layout_marginLeft="@dimen/search_box_collapsed_text_margin_left" />
 
         <ImageView
             android:id="@+id/voice_search_button"
             android:layout_width="@dimen/search_box_icon_size"
             android:layout_height="match_parent"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:background="?selectableItemBackgroundBorderless"
             android:clickable="true"
             android:contentDescription="@string/description_start_voice_search"
             android:scaleType="center"
@@ -57,13 +61,16 @@
             android:id="@+id/dialtacts_options_menu_button"
             android:layout_width="@dimen/search_box_icon_size"
             android:layout_height="match_parent"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@string/action_menu_overflow_description"
+            android:paddingStart="0dp"
             android:paddingEnd="@dimen/search_box_right_padding"
             android:scaleType="center"
             android:visibility="gone"
             android:tint="@color/searchbox_icon_tint"
-            app:srcCompat="@drawable/ic_more_vert_black_24dp" />
+            app:srcCompat="@drawable/ic_more_vert_black_24dp"
+            android:paddingRight="@dimen/search_box_right_padding"
+            android:paddingLeft="0dp" />
 
     </LinearLayout>
 

@@ -17,6 +17,8 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:contentDescription="@string/download_gospel"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_file_download_black_24dp" />
@@ -30,5 +32,6 @@
         android:gravity="center_vertical"
         android:text="@string/download_gospel"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="?android:attr/textColorSecondaryNoDisable" />
+        android:textColor="?android:attr/textColorSecondaryNoDisable"
+        android:layout_toRightOf="@id/settings_img" />
 </RelativeLayout>

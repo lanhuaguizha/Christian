@@ -47,7 +47,8 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/profile_image"
                     android:text="@string/app_name"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:layout_toRightOf="@id/profile_image" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -73,7 +74,8 @@
                     android:text="@string/sign_in"
                     app:backgroundTint="@color/white"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/searchbox_hint_text_color" />
+                    android:textColor="@color/searchbox_hint_text_color"
+                    android:layout_toRightOf="@id/profile_image_default" />
 
                 <Button
                     android:theme="@style/AppTheme.AppBarOverlay"
@@ -85,7 +87,8 @@
                     android:layout_toEndOf="@id/sign_in"
                     android:text="@string/register"
                     android:textColor="@color/white"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_toRightOf="@id/sign_in" />
             </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
@@ -116,7 +119,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 app:cardBackgroundColor="@color/card"
                 app:cardCornerRadius="@dimen/card_corner_radius">
 
