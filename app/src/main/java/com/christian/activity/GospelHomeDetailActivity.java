@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -40,6 +41,8 @@ public class GospelHomeDetailActivity extends BaseActivity {
     FloatingActionButton floatingActionButton;
     @ViewInject(R.id.gospel_detail)
     TextView gospelDetail;
+    @ViewInject(R.id.gospel_detail_wrapper)
+    CardView gospelDetailWrapper;
     private Toolbar toolbar;
     private ShareActionProvider mShareActionProvider;
     private boolean isScrollToBottom;
@@ -173,7 +176,7 @@ public class GospelHomeDetailActivity extends BaseActivity {
             @Override
             public void run() {
                 gospelDetail.setText(textLargeWord);
-                gospelDetail.setVisibility(View.VISIBLE);
+                gospelDetailWrapper.setVisibility(View.VISIBLE);
             }
         }, 150);
         restoreScrollPosition();
