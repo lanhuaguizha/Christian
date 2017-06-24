@@ -18,6 +18,8 @@
         <!--TextInputLayout-->
         <item name="android:textColorHint">@color/gray_dark</item>
         <item name="colorControlNormal">@color/gray_dark</item>
+        <!--<item name="colorControlActivated">@color/colorPrimary</item>-->
+        <item name="android:colorButtonNormal">@color/white</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 

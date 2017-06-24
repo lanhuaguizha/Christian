@@ -95,16 +95,17 @@
                         android:text="@string/action_sign_in"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/white"
-                        style="@style/Widget.AppCompat.Button.Colored" />
+                        app:backgroundTint="@color/colorPrimary" />
 
-                    <Button
+                    <android.support.v7.widget.AppCompatButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/activity_horizontal_margin"
                         android:text="@string/wechat_login"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/card" />
+                        android:textColor="@color/white"
+                        style="@style/Widget.AppCompat.Button.Colored" />
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

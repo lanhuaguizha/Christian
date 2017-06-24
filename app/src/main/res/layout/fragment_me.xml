@@ -9,8 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="@dimen/app_bar_height">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
@@ -68,13 +67,14 @@
 
                 <Button
                     android:id="@+id/sign_in"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    style="@style/Widget.AppCompat.Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/profile_image_default"
                     android:text="@string/sign_in"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/searchbox_hint_text_color" />
 
                 <Button
                     android:id="@+id/register"
@@ -84,6 +84,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/sign_in"
                     android:text="@string/register"
+                    android:textColor="@color/white"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </RelativeLayout>
 
@@ -91,9 +92,9 @@
                 android:id="@+id/toolbar_actionbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
+                android:theme="@style/AppTheme.AppBarOverlay"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
