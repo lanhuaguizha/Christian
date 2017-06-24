@@ -63,14 +63,15 @@
                     android:layout_centerVertical="true"
                     app:srcCompat="@drawable/ic_account_circle_black_24dp" />
 
-                <Button
+                <android.support.v7.widget.AppCompatButton
                     android:id="@+id/sign_in"
-                    style="@style/Widget.AppCompat.Button"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/profile_image_default"
                     android:text="@string/sign_in"
+                    app:backgroundTint="@color/white"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/searchbox_hint_text_color" />
 

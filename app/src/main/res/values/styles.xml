@@ -15,6 +15,7 @@
         <!--TextInputLayout-->
         <item name="android:textColorHint">@color/gray_dark</item>
         <item name="colorControlNormal">@color/gray_dark</item>
+        <item name="android:colorActivatedHighlight">@color/colorPrimary</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
