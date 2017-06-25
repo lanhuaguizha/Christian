@@ -183,7 +183,7 @@ public class GospelHomeDetailActivity extends BaseActivity {
                 gospelDetailWrapper.setVisibility(View.VISIBLE);
             }
         }, 150);
-        restoreScrollPosition();
+//        restoreScrollPosition();
     }
 
     private void enableBackButton() {
@@ -196,8 +196,9 @@ public class GospelHomeDetailActivity extends BaseActivity {
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
-        if (toolbar != null)
+        if (toolbar != null) {
             toolbar.setNavigationContentDescription(R.string.go_back);
+        }
     }
 
     private void restoreScrollPosition() {
