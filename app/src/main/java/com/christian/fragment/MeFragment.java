@@ -57,8 +57,8 @@ public class MeFragment extends BaseFragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Log.i(TAG, "onMenuItemClick: ");
-                Intent intentSetting = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(intentSetting);
+//                Intent intentSetting = new Intent(getActivity(), SettingsActivity.class);
+//                startActivity(intentSetting);
                 return false;
             }
         });
