@@ -51,6 +51,7 @@
                     android:orientation="vertical">
 
                     <android.support.design.widget.TextInputLayout
+                        android:theme="@style/ChristianToolbarTheme.colorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -68,6 +69,7 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
+                        android:theme="@style/ChristianToolbarTheme.colorPrimary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
@@ -98,7 +100,7 @@
                          />
 
                     <android.support.v7.widget.AppCompatButton
-                        android:theme="@style/Christian.Button.colorAccent"
+                        android:theme="@style/Christian.Button.colorGrayDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"

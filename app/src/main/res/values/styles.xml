@@ -12,9 +12,7 @@
         <item name="android:windowIsTranslucent">true</item>
         <!--set the right in/out animation of Activity,you can change this to yours-->
         <item name="android:windowAnimationStyle">@style/Christian.Activity</item>
-        <!--TextInputLayout-->
-        <item name="android:textColorHint">@color/gray_dark</item>
-        <item name="colorControlNormal">@color/gray_dark</item>
+
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -44,6 +42,15 @@
         <item name="colorControlHighlight">@color/white</item>
     </style>
 
+    <style name="ChristianToolbarTheme.colorPrimary" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!--TextInputLayout-->
+        <item name="android:textColorHint">@color/gray_dark</item>
+        <item name="colorControlNormal">@color/gray_dark</item>
+    </style>
+
     <style name="Christian.Button.White" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/white</item>
         <item name="android:textColor">@color/searchbox_hint_text_color</item>
@@ -56,6 +63,11 @@
 
     <style name="Christian.Button.colorAccent" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Christian.Button.colorGrayDark" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/gray_dark</item>
         <item name="android:textColor">@color/white</item>
     </style>
 </resources>
