@@ -94,22 +94,18 @@
                         android:layout_marginTop="16dp"
                         android:text="@string/action_sign_in"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:theme="@style/AppTheme.AppBarOverlay"
-                        android:textColor="@color/white"
-                        style="@style/Widget.AppCompat.Button"
-                        app:backgroundTint="@color/colorPrimary" />
+                        android:theme="@style/Christian.Button.colorPrimary"
+                         />
 
                     <android.support.v7.widget.AppCompatButton
-                        android:theme="@style/AppTheme.AppBarOverlay"
+                        android:theme="@style/Christian.Button.colorAccent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/activity_horizontal_margin"
                         android:text="@string/wechat_login"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        app:backgroundTint="@color/colorAccent"
-                        android:textColor="@color/white"
-                        style="@style/Widget.AppCompat.Button.Colored" />
+                         />
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

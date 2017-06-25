@@ -18,28 +18,7 @@
         <!--TextInputLayout-->
         <item name="android:textColorHint">@color/gray_dark</item>
         <item name="colorControlNormal">@color/gray_dark</item>
-        <!--<item name="colorControlActivated">@color/colorPrimary</item>-->
-        <item name="android:colorButtonNormal">@color/white</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
-    </style>
-
-    <style name="Christian.Activity" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/translate_in_right</item>
-        <item name="android:activityOpenExitAnimation">@null</item>
-        <item name="android:activityCloseEnterAnimation">@null</item>
-        <item name="android:activityCloseExitAnimation">@anim/translate_out_right</item>
-        <item name="android:taskOpenEnterAnimation">@anim/translate_in_right</item>
-        <item name="android:taskOpenExitAnimation">@null</item>
-        <item name="android:taskCloseEnterAnimation">@null</item>
-        <item name="android:taskCloseExitAnimation">@anim/translate_out_right</item>
-        <item name="android:taskToFrontEnterAnimation">@anim/translate_in_right</item>
-        <item name="android:taskToFrontExitAnimation">@null</item>
-        <item name="android:taskToBackEnterAnimation">@null</item>
-        <item name="android:taskToBackExitAnimation">@anim/translate_out_right</item>
-    </style>
-
-    <style name="BottomNavigationActivityTheme" parent="Christian">
-        <item name="android:windowIsTranslucent">false</item>
     </style>
 
     <style name="Christian.Button.White" parent="Widget.AppCompat.Button.Colored">
@@ -50,6 +29,12 @@
 
     <style name="Christian.Button.colorPrimary" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:colorControlHighlight">@color/white</item>
+    </style>
+
+    <style name="Christian.Button.colorAccent" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorAccent</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:colorControlHighlight">@color/white</item>
     </style>

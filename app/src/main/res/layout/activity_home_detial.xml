@@ -58,8 +58,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        style="@style/Widget.Design.FloatingActionButton"
+        android:theme="@style/Christian.Button.colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

@@ -43,4 +43,19 @@
     <!--<style name="ChristianToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Light">-->
         <!--<item name="colorControlHighlight">@color/white</item>-->
     <!--</style>-->
+
+    <style name="Christian.Button.White" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/white</item>
+        <item name="android:textColor">@color/searchbox_hint_text_color</item>
+    </style>
+
+    <style name="Christian.Button.colorPrimary" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorPrimary</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Christian.Button.colorAccent" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

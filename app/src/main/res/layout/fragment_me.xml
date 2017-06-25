@@ -8,6 +8,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
+        android:theme="@style/AppTheme.AppBarOverlay"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height">
 
@@ -68,19 +69,16 @@
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/sign_in"
-                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:theme="@style/Christian.Button.White"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/profile_image_default"
                     android:text="@string/sign_in"
-                    app:backgroundTint="@color/white"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/searchbox_hint_text_color"
                     android:layout_toRightOf="@id/profile_image_default" />
 
                 <Button
-                    android:theme="@style/AppTheme.AppBarOverlay"
                     android:id="@+id/register"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
@@ -99,7 +97,6 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
-                android:theme="@style/AppTheme.AppBarOverlay"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
