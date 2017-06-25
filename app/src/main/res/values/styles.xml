@@ -40,9 +40,9 @@
         <item name="android:windowIsTranslucent">false</item>
     </style>
 
-    <!--<style name="ChristianToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Light">-->
-        <!--<item name="colorControlHighlight">@color/white</item>-->
-    <!--</style>-->
+    <style name="ChristianToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="colorControlHighlight">@color/white</item>
+    </style>
 
     <style name="Christian.Button.White" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/white</item>

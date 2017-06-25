@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.christian.R;
+import com.christian.fragment.MeFragment;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -47,6 +48,7 @@ public class GospelHomeDetailActivity extends BaseActivity {
     private ShareActionProvider mShareActionProvider;
     private boolean isScrollToBottom;
     private boolean hasHidePerformedOnce;
+    private OnClickListener mOnClickListener;
 
 
     @Override
@@ -93,6 +95,7 @@ public class GospelHomeDetailActivity extends BaseActivity {
                     }
                 }
             });
+        findViewById(R.id.fab).setOnClickListener(mOnClickListener);
     }
 
     private void scaleToHide() {
@@ -140,35 +143,36 @@ public class GospelHomeDetailActivity extends BaseActivity {
         });
     }
 
-    @Event(value = R.id.fab,
-            type = View.OnClickListener.class)
-    private void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.fab:
-                nestedScrollView.setSmoothScrollingEnabled(true);
-                if (!isScrollToBottom) {
-                    if (nestedScrollView != null)
-                        nestedScrollView.fullScroll(View.FOCUS_DOWN);
-                    if (appBarLayout != null)
-                        appBarLayout.setExpanded(false, true);
-                    isScrollToBottom = true;
-                } else {
-                    if (nestedScrollView != null)
-                        nestedScrollView.fullScroll(View.FOCUS_UP);
-                    if (appBarLayout != null)
-                        appBarLayout.setExpanded(true, true);
-                    isScrollToBottom = false;
-                }
-                break;
-            default:
-                break;
-        }
-    }
+//    @Event(value = R.id.fab,
+//            type = View.OnClickListener.class)
+//    private void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.fab:
+//                nestedScrollView.setSmoothScrollingEnabled(true);
+//                if (!isScrollToBottom) {
+//                    if (nestedScrollView != null)
+//                        nestedScrollView.fullScroll(View.FOCUS_DOWN);
+//                    if (appBarLayout != null)
+//                        appBarLayout.setExpanded(false, true);
+//                    isScrollToBottom = true;
+//                } else {
+//                    if (nestedScrollView != null)
+//                        nestedScrollView.fullScroll(View.FOCUS_UP);
+//                    if (appBarLayout != null)
+//                        appBarLayout.setExpanded(true, true);
+//                    isScrollToBottom = false;
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     private void initView() {
         enableBackButton();
 //        restoreScrollPosition();
         loadGospelDetail();
+        mOnClickListener = new OnClickListener();
     }
 
     private void loadGospelDetail() {
@@ -302,4 +306,31 @@ public class GospelHomeDetailActivity extends BaseActivity {
             "\t虽然，我们这些蒙召的信徒，在恩赐及服事上与他们同样带领不尽相同。但是神在奉献的圣徒身上带领的法则，仍然不变。就如从他们在那一世代中如何突破当时属灵的困境，并为当代的教会开创了光明的途径；他们的经历，我们可以认识真正奉献的道路，以及如何在现今的时代专一跟从主的法则。但愿这些小传，再次激励我们奉献的心智，一同起来寻求神的旨意，在这一世代中活出神荣耀的见证。\n" +
             "马丁路德小传\n" +
             "\t『用最小的工具来奏最大的效果，』这个就是神的律。神从同一阶段里面挑选教会的改革者，如同古时拣选使徒们一般，这些无非为着证明给世人看，这个工作并非出于人，乃是出于神自己。改革家金文阁（Zwingli）起于亚尔帕斯山麓之牧人茅舍，改教时代的神学家麦来赏（Malancthon）来自兵工匠店中，而马丁路德（Martin Luther）生在贫寒之矿工小屋内。人生命史上的第一阶段往往是最重要的，因为里面\n";
+
+    private class OnClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.fab:
+                    nestedScrollView.setSmoothScrollingEnabled(true);
+                    if (!isScrollToBottom) {
+                        if (nestedScrollView != null)
+                            nestedScrollView.fullScroll(View.FOCUS_DOWN);
+                        if (appBarLayout != null)
+                            appBarLayout.setExpanded(false, true);
+                        isScrollToBottom = true;
+                    } else {
+                        if (nestedScrollView != null)
+                            nestedScrollView.fullScroll(View.FOCUS_UP);
+                        if (appBarLayout != null)
+                            appBarLayout.setExpanded(true, true);
+                        isScrollToBottom = false;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
