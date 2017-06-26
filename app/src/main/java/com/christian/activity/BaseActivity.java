@@ -16,6 +16,7 @@ import org.xutils.x;
  */
 
 public class BaseActivity extends AppCompatActivity {
+    public static final String TAG = BaseActivity.class.getSimpleName();
     private Toolbar mActionBarToolbar;
 
     @Override

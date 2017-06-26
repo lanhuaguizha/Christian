@@ -116,4 +116,5 @@
     </string>
     <string name="description_setting">设置</string>
     <string name="wechat_login">微信登录</string>
+    <string name="description_change_password">修改密码</string>
 </resources>
