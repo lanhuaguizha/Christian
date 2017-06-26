@@ -42,4 +42,5 @@
     <dimen name="horizontal_page_margin">@dimen/margin_medium</dimen>
     <dimen name="vertical_page_margin">@dimen/margin_medium</dimen>
     <dimen name="margin_top_card_view">56dp</dimen>
+    <dimen name="activity_horizontal_margin_0">0dp</dimen>
 </resources>

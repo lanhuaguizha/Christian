@@ -18,10 +18,10 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingStart="@dimen/search_box_left_padding"
-        android:paddingEnd="0dp"
+        android:paddingEnd="@dimen/activity_horizontal_margin_0"
         android:paddingLeft="@dimen/search_box_left_padding"
-        android:paddingRight="0dp">
+        android:paddingRight="@dimen/activity_horizontal_margin_0"
+        android:paddingStart="@dimen/search_box_left_padding">
 
         <ImageView
             android:id="@+id/search_magnifying_glass"
@@ -33,18 +33,18 @@
             android:tint="@color/searchbox_icon_tint"
             app:srcCompat="@drawable/ic_search_black_24dp" />
 
-        <android.support.v7.widget.AppCompatTextView
+        <TextView
             android:id="@+id/search_box_start_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/search_box_collapsed_text_margin_left"
             android:layout_marginStart="@dimen/search_box_collapsed_text_margin_left"
             android:layout_weight="1"
-            android:typeface="@string/search_font_family"
+            android:fontFamily="@string/search_font_family"
             android:gravity="center_vertical"
             android:hint="@string/description_search"
             android:textColorHint="@color/searchbox_hint_text_color"
-            android:textSize="@dimen/search_collapsed_text_size"
-            android:layout_marginLeft="@dimen/search_box_collapsed_text_margin_left" />
+            android:textSize="@dimen/search_collapsed_text_size" />
 
         <ImageView
             android:id="@+id/voice_search_button"
@@ -63,17 +63,15 @@
             android:layout_height="match_parent"
             android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@string/action_menu_overflow_description"
-            android:paddingStart="0dp"
             android:paddingEnd="@dimen/search_box_right_padding"
-            android:scaleType="center"
-            android:visibility="gone"
-            android:tint="@color/searchbox_icon_tint"
-            app:srcCompat="@drawable/ic_more_vert_black_24dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin_0"
             android:paddingRight="@dimen/search_box_right_padding"
-            android:paddingLeft="0dp" />
+            android:paddingStart="@dimen/activity_horizontal_margin_0"
+            android:scaleType="center"
+            android:tint="@color/searchbox_icon_tint"
+            app:srcCompat="@drawable/ic_more_vert_black_24dp" />
 
     </LinearLayout>
 
     <include layout="@layout/search_bar_expanded" />
-
 </com.christian.view.SearchEditTextLayout>

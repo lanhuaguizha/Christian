@@ -67,7 +67,7 @@ public class SearchEditTextLayout extends FrameLayout {
     /**
      * Listener for the back button next to the search view being pressed
      */
-    public interface Callback {
+    interface Callback {
         public void onBackButtonClicked();
         public void onSearchViewClicked();
     }
