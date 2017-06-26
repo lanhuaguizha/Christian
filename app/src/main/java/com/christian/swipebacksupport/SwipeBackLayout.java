@@ -29,7 +29,7 @@ public class SwipeBackLayout extends FrameLayout {
 
     private static final int DEFAULT_SCRIM_COLOR = 0x99000000;
 
-    private static final int FULL_ALPHA = 255;
+    private static final int FULL_ALPHA = 100;
 
 
     /**
