@@ -314,7 +314,7 @@ public class SwipeBackLayout extends FrameLayout {
         final Rect childRect = mTmpRect;
         child.getHitRect(childRect);
 
-        mShadowLeft.setBounds(childRect.left - mShadowLeft.getIntrinsicWidth() / 2, childRect.top,
+        mShadowLeft.setBounds(childRect.left - mShadowLeft.getIntrinsicWidth() / 3, childRect.top,
                 childRect.left, childRect.bottom);
         mShadowLeft.setAlpha((int) (mScrimOpacity * FULL_ALPHA));
         mShadowLeft.draw(canvas);
