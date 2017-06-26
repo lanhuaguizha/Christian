@@ -176,6 +176,7 @@ public class GospelHomeDetailActivity extends BaseActivity {
     }
 
     private void loadGospelDetail() {
+        appBarLayout.setExpanded(false, false);
         gospelDetail.postDelayed(new Runnable() {
             @Override
             public void run() {
