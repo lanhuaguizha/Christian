@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import org.xutils.x;
  */
 
 public class BaseFragment extends Fragment {
+    static final String TAG = BaseFragment.class.getSimpleName();
 
     enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
@@ -28,12 +30,14 @@ public class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         injected = true;
+        Log.i(TAG, "onCreateView: >>>>>>>");
         return x.view().inject(this, inflater, container);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.i(TAG, "onCreateView: >>>>>>>!injected");
         if (!injected) {
             x.view().inject(this, this.getView());
         }
