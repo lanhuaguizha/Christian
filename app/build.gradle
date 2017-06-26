@@ -15,8 +15,8 @@ android {
     buildTypes {
         debug {
             // Very important to reduce the apk size
-            minifyEnabled true
-            shrinkResources true
+//            minifyEnabled true
+//            shrinkResources true
         }
         release {
             minifyEnabled true
