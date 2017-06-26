@@ -19,7 +19,8 @@
         android:theme="@style/Christian">
         <activity
             android:name=".activity.BottomNavigationActivity"
-            android:theme="@style/BottomNavigationActivityTheme">
+            android:theme="@style/BottomNavigationActivityTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
