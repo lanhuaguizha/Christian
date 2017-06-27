@@ -412,11 +412,12 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         }
     }
 
+    // To hide keyboard when finish a activity
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+        imm.hideSoftInputFromWindow(toolbar.getWindowToken(), 0);
     }
 }
 

@@ -51,9 +51,9 @@
                     android:orientation="vertical">
 
                     <android.support.design.widget.TextInputLayout
-                        android:theme="@style/ChristianToolbarTheme.colorPrimary"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:theme="@style/ChristianToolbarTheme.colorPrimary">
 
                         <AutoCompleteTextView
                             android:id="@+id/email"
@@ -69,9 +69,9 @@
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
-                        android:theme="@style/ChristianToolbarTheme.colorPrimary"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:theme="@style/ChristianToolbarTheme.colorPrimary">
 
                         <EditText
                             android:id="@+id/password"
@@ -96,18 +96,25 @@
                         android:layout_marginTop="16dp"
                         android:text="@string/action_sign_in"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:theme="@style/Christian.Button.colorPrimary"
-                         />
+                        android:theme="@style/Christian.Button.colorPrimary" />
 
                     <android.support.v7.widget.AppCompatButton
-                        android:theme="@style/Christian.Button.colorGrayDark"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/activity_horizontal_margin"
                         android:text="@string/wechat_login"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                         />
+                        android:theme="@style/Christian.Button.colorGrayDark"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:background="@drawable/ic_wechat_black_24dp"
+                        android:scaleType="centerCrop" />
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>
