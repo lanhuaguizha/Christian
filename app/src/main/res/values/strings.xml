@@ -101,8 +101,7 @@
     <string name="title_activity_login">Sign In</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
+    <string name="prompt_email">Phone Number</string>
     <string name="action_sign_in">Sign In</string>
     <string name="action_sign_in_short">Sign In</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -116,4 +115,5 @@
     <string name="wechat_login">Wechat Login</string>
     <string name="description_change_password">Forgot Password</string>
     <string name="download_gospel">Download Gospel</string>
+    <string name="prompt_password">Verification Code</string>
 </resources>
