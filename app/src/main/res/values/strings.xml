@@ -114,5 +114,5 @@
     </string>
     <string name="description_setting">Setting</string>
     <string name="wechat_login">Wechat Login</string>
-    <string name="description_change_password">Change Password</string>
+    <string name="description_change_password">Forgot Password</string>
 </resources>
