@@ -19,7 +19,7 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:contentDescription="@string/download_gospel"
+        android:contentDescription="@string/download"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_file_download_black_24dp" />
 
@@ -30,7 +30,7 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/settings_img"
         android:gravity="center_vertical"
-        android:text="@string/download_gospel"
+        android:text="@string/download"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="?android:attr/textColorSecondaryNoDisable"
         android:layout_toRightOf="@id/settings_img" />
