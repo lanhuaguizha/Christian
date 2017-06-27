@@ -66,6 +66,7 @@
             android:paddingEnd="@dimen/search_box_right_padding"
             android:paddingLeft="@dimen/activity_horizontal_margin_0"
             android:paddingRight="@dimen/search_box_right_padding"
+            android:visibility="gone"
             android:paddingStart="@dimen/activity_horizontal_margin_0"
             android:scaleType="center"
             android:tint="@color/searchbox_icon_tint"
