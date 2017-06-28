@@ -42,6 +42,7 @@ import java.util.List;
 import com.christian.R;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -70,10 +71,28 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
     private UserLoginTask mAuthTask = null;
 
     // UI references.
+    @ViewInject(R.id.email)
     private AutoCompleteTextView mEmailView;
+    @ViewInject(R.id.password)
     private EditText mPasswordView;
+    @ViewInject(R.id.login_progress)
     private View mProgressView;
+    @ViewInject(R.id.login_form)
     private View mLoginFormView;
+
+    @Event(R.id.email_sign_in_button)
+    private void onClick(View view) {
+        attemptLogin();
+    }
+
+    @Event(value = R.id.password, type = TextView.OnEditorActionListener.class)
+    private boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+        if (id == R.id.login || id == EditorInfo.IME_NULL) {
+            attemptLogin();
+            return true;
+        }
+        return false;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,22 +103,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 
     private void initView() {
         setupActionBar();
-        // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
-        mPasswordView = (EditText) findViewById(R.id.password);
-
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
     private void initListener() {
@@ -111,16 +115,6 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
                 }
             });
         }
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
-            }
-        });
     }
 
     @Override
@@ -341,7 +335,8 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        mEmailView.setAdapter(adapter);
+        if (mEmailView != null)
+            mEmailView.setAdapter(adapter);
     }
 
 
