@@ -118,4 +118,5 @@
     <string name="wechat_login">微信登录</string>
     <string name="description_change_password">忘记密码</string>
     <string name="download_gospel">下载信息</string>
+    <string name="send_verification_code">发送验证码</string>
 </resources>
