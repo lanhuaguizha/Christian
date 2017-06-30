@@ -3,6 +3,7 @@ package com.christian.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 
 import com.christian.R;
@@ -18,6 +19,10 @@ import org.xutils.x;
 public class BaseActivity extends AppCompatActivity {
     static final String TAG = BaseActivity.class.getSimpleName();
     private Toolbar mActionBarToolbar;
+
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
