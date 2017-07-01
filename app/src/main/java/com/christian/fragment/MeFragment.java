@@ -3,6 +3,7 @@ package com.christian.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -87,12 +88,16 @@ public class MeFragment extends BaseFragment {
 //        }
 //    }
 
-    @Event({R.id.sign_in})
+    @Event({R.id.sign_in, R.id.fab})
     private void onClick(View v) {
         Intent intent = null;
         switch (v.getId()) {
             case R.id.sign_in:
                 intent = new Intent(getActivity(), LoginActivity.class);
+                break;
+            case R.id.fab:
+                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
                 break;
             default:
                 break;
