@@ -42,6 +42,4 @@ dependencies {
     compile 'org.xutils:xutils:3.5.0'
     // Circle Image View
     compile 'com.mikhaellopez:circularimageview:3.0.2'
-    // Material favorite button
-    compile 'com.github.ivbaranov:materialfavoritebutton:0.1.4'
 }
