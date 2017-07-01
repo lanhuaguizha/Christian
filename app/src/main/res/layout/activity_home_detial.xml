@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageView
+                    <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/gospel_img"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -60,12 +60,28 @@
 
                     <TextView
                         android:id="@+id/gospel_title"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:padding="@dimen/activity_horizontal_margin"
                         android:text="标题"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="?android:attr/textColorPrimaryNoDisable" />
+
+                    <com.github.ivbaranov.mfb.MaterialFavoriteButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:scaleType="centerCrop"
+                        app:mfb_bounce_duration="200"
+                        app:mfb_favorite_image="@drawable/ic_favorite_red_24dp"
+                        app:mfb_not_favorite_image="@drawable/ic_favorite_gray_24dp"
+                        app:mfb_padding="0"
+                        app:mfb_rotation_angle="0"
+                        app:mfb_rotation_duration="0"
+                        app:mfb_size="34"
+                        android:layout_marginRight="10dp" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -89,8 +105,8 @@
                     android:id="@+id/gospel_detail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/activity_horizontal_margin"
                     android:lineSpacingMultiplier="1.5"
+                    android:padding="@dimen/activity_horizontal_margin"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="?android:attr/textColorPrimaryNoDisable" />
             </android.support.v7.widget.CardView>
