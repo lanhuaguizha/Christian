@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="false">
 
             <RelativeLayout
@@ -103,7 +103,6 @@
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/AppTheme.AppBarOverlay"
                 app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -111,7 +110,7 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:behavior_overlapTop="22dp"
+        app:behavior_overlapTop="38dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".activity.BottomNavigationActivity">
 
@@ -122,6 +121,7 @@
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:layout_height="64dp"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
