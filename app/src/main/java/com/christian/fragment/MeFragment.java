@@ -36,8 +36,6 @@ public class MeFragment extends BaseFragment {
     private static final String TAG = MeFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
-    @ViewInject(R.id.app_bar)
-    private AppBarLayout appBarLayout;
 //    private OnClickListener mOnClickListener;
 
 //    @Event(value = R.id.app_bar, type = AppBarLayout.OnOffsetChangedListener.class)
@@ -80,27 +78,7 @@ public class MeFragment extends BaseFragment {
             }
         });
 //        view.findViewById(R.id.sign_in).setOnClickListener(mOnClickListener);
-        appBarLayout.addOnOffsetChangedListener(onOffsetChangedListener);
     }
-
-    AppBarLayout.OnOffsetChangedListener onOffsetChangedListener = new AppBarLayout.OnOffsetChangedListener() {
-        @Override
-        public void onOffsetChanged(final AppBarLayout appBarLayout, int verticalOffset) {
-            if (verticalOffset <= -appBarLayout.getTotalScrollRange() + toolbar.getHeight()) {
-                //Toolbar Collapsed
-                toolbar.setTitle(getString(R.string.title_me));
-            } else {
-                //Toolbar Expanded
-                toolbar.setTitle(" ");
-            }
-            appBarLayout.post(new Runnable() {
-                @Override
-                public void run() {
-                    appBarLayout.removeOnOffsetChangedListener(onOffsetChangedListener);
-                }
-            });
-        }
-    };
 
     private void initView() {
         toolbar.inflateMenu(R.menu.menu_me);
