@@ -85,7 +85,7 @@ public class MeFragment extends BaseFragment {
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
                 if (verticalOffset <= -appBarLayout.getTotalScrollRange() + toolbar.getHeight()) {
                     //Toolbar Collapsed
-                    toolbar.setTitle("Your title here");
+                    toolbar.setTitle(getString(R.string.title_me));
                 } else {
                     //Toolbar Expanded
                     toolbar.setTitle(" ");
