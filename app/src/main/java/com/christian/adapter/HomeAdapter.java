@@ -86,33 +86,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         int adapterPosition = viewHolder.getAdapterPosition();
         Animation animation = null;
-        if (adapterPosition <= 6) {
+        if (adapterPosition > 6) {
             if (adapterPosition >= lastPosition) {
-                animation = new TranslateAnimation(0, 0, 5000, 0);
-                if (adapterPosition == 0) {
-                    animation.setDuration(200);
-                } else if (adapterPosition == 1) {
-                    animation.setDuration(400);
-                } else if (adapterPosition == 2) {
-                    animation.setDuration(600);
-                } else if (adapterPosition == 3) {
-                    animation.setDuration(800);
-                } else if (adapterPosition == 4) {
-                    animation.setDuration(1000);
-                } else if (adapterPosition == 5) {
-                    animation.setDuration(1200);
-                } else if (adapterPosition == 6) {
-                    animation.setDuration(1400);
-                }
-                animation.setInterpolator(new DecelerateInterpolator());
-            } else {
-                animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.down_from_top);
+                animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(),
+                        R.anim.up_from_bottom);
             }
-        } else {
-            animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(),
-                    (adapterPosition >= lastPosition) ? R.anim.up_from_bottom
-                            : R.anim.down_from_top);
-            viewHolder.itemView.startAnimation(animation);
         }
         if (animation != null)
             viewHolder.itemView.startAnimation(animation);
