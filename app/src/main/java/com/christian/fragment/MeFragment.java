@@ -3,8 +3,10 @@ package com.christian.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -33,7 +35,20 @@ public class MeFragment extends BaseFragment {
     private static final String TAG = MeFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
+    @ViewInject(R.id.app_bar)
+    private AppBarLayout appBarLayout;
 //    private OnClickListener mOnClickListener;
+
+//    @Event(value = R.id.app_bar, type = AppBarLayout.OnOffsetChangedListener.class)
+//    private void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+//        if (verticalOffset <= -appBarLayout.getTotalScrollRange() + toolbar.getHeight()) {
+//            //Toolbar Collapsed
+//            toolbar.setTitle(getString(R.string.title_me));
+//        } else {
+//            //Toolbar Expanded
+//            toolbar.setTitle(" ");
+//        }
+//    }
 
     public MeFragment() {
         // Required empty public constructor
@@ -64,6 +79,19 @@ public class MeFragment extends BaseFragment {
             }
         });
 //        view.findViewById(R.id.sign_in).setOnClickListener(mOnClickListener);
+
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset <= -appBarLayout.getTotalScrollRange() + toolbar.getHeight()) {
+                    //Toolbar Collapsed
+                    toolbar.setTitle("Your title here");
+                } else {
+                    //Toolbar Expanded
+                    toolbar.setTitle(" ");
+                }
+            }
+        });
     }
 
     private void initView() {
