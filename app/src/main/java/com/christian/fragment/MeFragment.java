@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewParent;
 
 import com.christian.R;
 import com.christian.activity.LoginActivity;
@@ -79,20 +80,27 @@ public class MeFragment extends BaseFragment {
             }
         });
 //        view.findViewById(R.id.sign_in).setOnClickListener(mOnClickListener);
-
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset <= -appBarLayout.getTotalScrollRange() + toolbar.getHeight()) {
-                    //Toolbar Collapsed
-                    toolbar.setTitle(getString(R.string.title_me));
-                } else {
-                    //Toolbar Expanded
-                    toolbar.setTitle(" ");
-                }
-            }
-        });
+        appBarLayout.addOnOffsetChangedListener(onOffsetChangedListener);
     }
+
+    AppBarLayout.OnOffsetChangedListener onOffsetChangedListener = new AppBarLayout.OnOffsetChangedListener() {
+        @Override
+        public void onOffsetChanged(final AppBarLayout appBarLayout, int verticalOffset) {
+            if (verticalOffset <= -appBarLayout.getTotalScrollRange() + toolbar.getHeight()) {
+                //Toolbar Collapsed
+                toolbar.setTitle(getString(R.string.title_me));
+            } else {
+                //Toolbar Expanded
+                toolbar.setTitle(" ");
+            }
+            appBarLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    appBarLayout.removeOnOffsetChangedListener(onOffsetChangedListener);
+                }
+            });
+        }
+    };
 
     private void initView() {
         toolbar.inflateMenu(R.menu.menu_me);
