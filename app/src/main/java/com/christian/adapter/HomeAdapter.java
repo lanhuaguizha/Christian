@@ -116,12 +116,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 // Load animation form xml
                 animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.up_from_bottom);
                 viewHolder.itemView.startAnimation(animation);
-                viewHolder.textView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        viewHolder.itemView.clearAnimation();
-                    }
-                }, 200);
 
                 // Load animator form xml
 //                ObjectAnimator animator = (ObjectAnimator) AnimatorInflater.loadAnimator(viewHolder.itemView.getContext(), R.animator.up_from_bottom);
