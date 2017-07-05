@@ -88,7 +88,25 @@ public class HomeDetailFragment extends BaseFragment {
 
     @Event(value = R.id.nested_scroll_view, type = NestedScrollView.OnScrollChangeListener.class)
     private void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-        Log.i(TAG, "onScrollChange: HomeDetailFragment");
+//                    Log.i(TAG, "scrollY: " + scrollY);
+//                    Log.i(TAG, "oldScrollX: " + oldScrollX);
+//                    Log.i(TAG, "oldScrollY: " + oldScrollY);
+//
+//                    Log.i(TAG, "v.getChildAt(0).getHeight(): " + v.getChildAt(0).getHeight());
+//                    Log.i(TAG, "v.getHeight(): " + v.getHeight());
+//                    Log.i(TAG, "v.getScrollY(): " + v.getScrollY());
+        if (v.getChildAt(0).getHeight() == v.getHeight() + v.getScrollY()) {
+            isScrollToBottom = true;
+            scaleToShow();
+        } else if (v.getScrollY() == 0) {
+            isScrollToBottom = false;
+            scaleToShow();
+        } else {
+            if (!hasHidePerformedOnce) {
+                Log.i(TAG, "onScrollChange: perform scale to hide");
+                scaleToHide();
+            }
+        }
     }
 
     @Override
@@ -111,35 +129,6 @@ public class HomeDetailFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     getActivity().finish();
-                }
-            });
-        if (nestedScrollView != null)
-            nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//
-//                    Log.i(TAG, "scrollX: " + scrollX);
-//                    Log.i(TAG, "scrollY: " + scrollY);
-//                    Log.i(TAG, "oldScrollX: " + oldScrollX);
-//                    Log.i(TAG, "oldScrollY: " + oldScrollY);
-//
-//                    Log.i(TAG, "v.getChildAt(0).getHeight(): " + v.getChildAt(0).getHeight());
-//                    Log.i(TAG, "v.getHeight(): " + v.getHeight());
-//                    Log.i(TAG, "v.getScrollY(): " + v.getScrollY());
-                    if (v.getChildAt(0).getHeight() == v.getHeight() + v.getScrollY()) {
-                        isScrollToBottom = true;
-                        scaleToShow();
-
-                    } else if (v.getScrollY() == 0) {
-                        isScrollToBottom = false;
-                        scaleToShow();
-
-                    } else {
-                        if (!hasHidePerformedOnce) {
-                            Log.i(TAG, "onScrollChange: perform scale to hide");
-                            scaleToHide();
-                        }
-                    }
                 }
             });
     }
@@ -266,4 +255,4 @@ public class HomeDetailFragment extends BaseFragment {
             });
         }
     }
-  }
+}
