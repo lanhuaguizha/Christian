@@ -8,6 +8,8 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
@@ -153,22 +155,17 @@ public class HomeDetailFragment extends BaseFragment {
 //        restoreScrollPosition();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-    }
-
     private void enableBackButton() {
-//        setSupportActionBar(toolbar);
-//        // Get a support ActionBar corresponding to this toolbar
-//        ActionBar ab = getSupportActionBar();
-//        // Enable the Up button
-//        if (ab != null) {
-//            ab.setDisplayHomeAsUpEnabled(true);
-//        }
-//        if (toolbar != null) {
-//            toolbar.setNavigationContentDescription(R.string.go_back);
-//        }
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        // Enable the Up button
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
+        if (toolbar != null) {
+            toolbar.setNavigationContentDescription(R.string.go_back);
+        }
     }
 
     private void restoreScrollPosition() {
