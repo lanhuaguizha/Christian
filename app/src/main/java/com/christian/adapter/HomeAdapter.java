@@ -99,7 +99,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                     .translationY(0)
                     .setStartDelay(200 * position)
                     .setInterpolator(new DecelerateInterpolator(3.f))
-                    .setDuration(200)
+                    .setDuration(400)
                     .start();
         }
     }
