@@ -99,6 +99,7 @@ public class HomeDetailFragment extends BaseFragment {
     }
 
     private void initView() {
+        setHasOptionsMenu(true);
         enableBackButton();
 //        restoreScrollPosition();
         loadGospelDetail();
