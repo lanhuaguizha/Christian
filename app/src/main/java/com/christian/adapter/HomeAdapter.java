@@ -16,6 +16,8 @@
 
 package com.christian.adapter;
 
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -31,6 +33,7 @@ import android.widget.TextView;
 
 import com.christian.R;
 import com.christian.activity.GospelHomeDetailActivity;
+import com.christian.util.Utils;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -39,7 +42,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     private int lastPosition;
     private static final String TAG = "HomeAdapter";
     private String[] mDataSet;
-
+    private boolean animateItems = false;
+    private static final int ANIMATED_ITEMS_COUNT = 4;
+    private int lastAnimatedPosition = 0;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
@@ -82,18 +87,57 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         holder.itemView.clearAnimation();
     }
 
+    private void runEnterAnimation(View view, int position) {
+//        if (!animateItems || position >= ANIMATED_ITEMS_COUNT - 1) {
+//            return;
+//        }
+
+        if (position >= lastAnimatedPosition) {
+            lastAnimatedPosition = position;
+            view.setTranslationY(Utils.getScreenHeight(view.getContext()));
+            view.animate()
+                    .translationY(0)
+                    .setStartDelay(200 * position)
+                    .setInterpolator(new DecelerateInterpolator(3.f))
+                    .setDuration(200)
+                    .start();
+        }
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         int adapterPosition = viewHolder.getAdapterPosition();
-        Animation animation = null;
-        if (adapterPosition > 6) {
-            if (adapterPosition >= lastPosition) {
-                animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(),
-                        R.anim.up_from_bottom);
+        if (adapterPosition >= lastPosition) {
+            Animation animation = null;
+            viewHolder.itemView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            int screenItems = Utils.getScreenHeight(viewHolder.itemView.getContext()) / viewHolder.itemView.getMeasuredHeight();
+            if (adapterPosition > screenItems) {
+
+                // Load animation form xml
+                animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.up_from_bottom);
+                viewHolder.itemView.startAnimation(animation);
+                viewHolder.textView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        viewHolder.itemView.clearAnimation();
+                    }
+                }, 200);
+
+                // Load animator form xml
+//                ObjectAnimator animator = (ObjectAnimator) AnimatorInflater.loadAnimator(viewHolder.itemView.getContext(), R.animator.up_from_bottom);
+//                animator.setTarget(viewHolder.itemView);
+//                animator.start();
+
+//                viewHolder.itemView.setTranslationY(viewHolder.itemView.getMeasuredHeight());
+//                viewHolder.itemView.animate()
+//                        .translationY(0)
+//                        .setInterpolator(new DecelerateInterpolator(3.f))
+//                        .setDuration(200)
+//                        .start();
+            } else {
+                runEnterAnimation(viewHolder.itemView, adapterPosition);
             }
         }
-        if (animation != null)
-            viewHolder.itemView.startAnimation(animation);
         lastPosition = adapterPosition;
         // Get element from your dataset at this adapterPosition and replace the contents of the view
         // with that element
