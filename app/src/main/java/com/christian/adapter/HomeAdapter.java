@@ -16,23 +16,19 @@
 
 package com.christian.adapter;
 
-import android.animation.AnimatorInflater;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewPropertyAnimator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.christian.R;
-import com.christian.activity.GospelHomeDetailActivity;
+import com.christian.activity.HomeDetailActivity;
 import com.christian.util.Utils;
 
 /**
@@ -56,7 +52,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                    Intent intent = new Intent(v.getContext(), GospelHomeDetailActivity.class);
+                    Intent intent = new Intent(v.getContext(), HomeDetailActivity.class);
                     v.getContext().startActivity(intent);
                 }
             });
