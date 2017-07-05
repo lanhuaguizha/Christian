@@ -107,31 +107,37 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
         int adapterPosition = viewHolder.getAdapterPosition();
+        viewHolder.itemView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        int screenItems = Utils.getScreenHeight(viewHolder.itemView.getContext()) / viewHolder.itemView.getMeasuredHeight();
+        Animation animation = null;
         if (adapterPosition >= lastPosition) {
-            Animation animation = null;
-            viewHolder.itemView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-            int screenItems = Utils.getScreenHeight(viewHolder.itemView.getContext()) / viewHolder.itemView.getMeasuredHeight();
             if (adapterPosition > screenItems) {
-
+//                if (adapterPosition >= lastPosition) {
                 // Load animation form xml
                 animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.up_from_bottom);
-                viewHolder.itemView.startAnimation(animation);
+//                } else {
+//                    animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.stay);
+//                }
 
                 // Load animator form xml
-//                ObjectAnimator animator = (ObjectAnimator) AnimatorInflater.loadAnimator(viewHolder.itemView.getContext(), R.animator.up_from_bottom);
-//                animator.setTarget(viewHolder.itemView);
-//                animator.start();
+                //                ObjectAnimator animator = (ObjectAnimator) AnimatorInflater.loadAnimator(viewHolder.itemView.getContext(), R.animator.up_from_bottom);
+                //                animator.setTarget(viewHolder.itemView);
+                //                animator.start();
 
-//                viewHolder.itemView.setTranslationY(viewHolder.itemView.getMeasuredHeight());
-//                viewHolder.itemView.animate()
-//                        .translationY(0)
-//                        .setInterpolator(new DecelerateInterpolator(3.f))
-//                        .setDuration(200)
-//                        .start();
+                //                viewHolder.itemView.setTranslationY(viewHolder.itemView.getMeasuredHeight());
+                //                viewHolder.itemView.animate()
+                //                        .translationY(0)
+                //                        .setInterpolator(new DecelerateInterpolator(3.f))
+                //                        .setDuration(200)
+                //                        .start();
             } else {
                 runEnterAnimation(viewHolder.itemView, adapterPosition);
             }
+        } else {
+            animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.stay);
         }
+        if (animation != null)
+            viewHolder.itemView.startAnimation(animation);
         lastPosition = adapterPosition;
         // Get element from your dataset at this adapterPosition and replace the contents of the view
         // with that element

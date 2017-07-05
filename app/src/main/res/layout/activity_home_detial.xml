@@ -74,8 +74,10 @@
                         android:layout_gravity="center_vertical"
                         android:background="?selectableItemBackgroundBorderless"
                         android:paddingBottom="@dimen/activity_horizontal_margin"
-                        android:paddingEnd="@dimen/search_box_right_padding"
-                        android:paddingStart="@dimen/search_box_right_padding"
+                        android:paddingEnd="@dimen/activity_horizontal_margin"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin"
+                        android:paddingStart="@dimen/activity_horizontal_margin"
                         android:paddingTop="@dimen/activity_horizontal_margin"
                         android:scaleType="centerCrop"
                         android:theme="@style/AppTheme.PopupOverlay"
@@ -107,7 +109,7 @@
                     android:lineSpacingMultiplier="1.5"
                     android:padding="@dimen/activity_horizontal_margin"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="?android:attr/textColorPrimaryNoDisable" />
+                    android:textColor="@color/searchbox_hint_text_color" />
             </android.support.v7.widget.CardView>
 
             <Button
