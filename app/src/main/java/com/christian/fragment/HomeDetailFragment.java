@@ -1,6 +1,5 @@
 package com.christian.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +9,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
@@ -61,8 +61,10 @@ public class HomeDetailFragment extends BaseFragment {
     private ShareActionProvider mShareActionProvider;
     private boolean isScrollToBottom;
     private boolean hasHidePerformedOnce;
+    @ViewInject(R.id.more_btn)
+    private AppCompatImageButton moreBtn;
 
-    @Event(value = R.id.fab, type = View.OnClickListener.class)
+    @Event(value = {R.id.fab, R.id.more_btn}, type = View.OnClickListener.class)
     private void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab:
@@ -97,14 +99,14 @@ public class HomeDetailFragment extends BaseFragment {
 //                    Log.i(TAG, "v.getScrollY(): " + v.getScrollY());
         if (v.getChildAt(0).getHeight() == v.getHeight() + v.getScrollY()) {
             isScrollToBottom = true;
-            scaleToShow();
+            animateFabButtonToShow();
         } else if (v.getScrollY() == 0) {
             isScrollToBottom = false;
-            scaleToShow();
+            animateFabButtonToShow();
         } else {
             if (!hasHidePerformedOnce) {
                 Log.i(TAG, "onScrollChange: perform scale to hide");
-                scaleToHide();
+                animateFabButtonToHide();
             }
         }
     }
@@ -117,10 +119,9 @@ public class HomeDetailFragment extends BaseFragment {
     }
 
     private void initView() {
-        setHasOptionsMenu(true);
-        enableBackButton();
+        setUpButton();
 //        restoreScrollPosition();
-        loadGospelDetail();
+        setGospelDetail();
     }
 
     private void initListener() {
@@ -133,7 +134,7 @@ public class HomeDetailFragment extends BaseFragment {
             });
     }
 
-    private void loadGospelDetail() {
+    private void setGospelDetail() {
         appBarLayout.setExpanded(false, false);
         gospelDetail.postDelayed(new Runnable() {
             @Override
@@ -145,7 +146,7 @@ public class HomeDetailFragment extends BaseFragment {
 //        restoreScrollPosition();
     }
 
-    private void enableBackButton() {
+    private void setUpButton() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -191,6 +192,7 @@ public class HomeDetailFragment extends BaseFragment {
 //        });
     }
 
+
     private Intent createShareIntent() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
@@ -211,7 +213,7 @@ public class HomeDetailFragment extends BaseFragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void scaleToShow() {
+    private void animateFabButtonToShow() {
         Animation scaleToShow = AnimationUtils.loadAnimation(getContext(), R.anim.scale_to_show);
         floatingActionButton.startAnimation(scaleToShow);
         scaleToShow.setAnimationListener(new Animation.AnimationListener() {
@@ -233,7 +235,7 @@ public class HomeDetailFragment extends BaseFragment {
         });
     }
 
-    private void scaleToHide() {
+    private void animateFabButtonToHide() {
         Animation scaleToHide = AnimationUtils.loadAnimation(getContext(), R.anim.scale_to_hide);
         if (floatingActionButton.getVisibility() == View.VISIBLE) {
             floatingActionButton.startAnimation(scaleToHide);
