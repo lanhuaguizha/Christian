@@ -13,4 +13,6 @@
     <color name="searchbox_icon_tint">#a4a4a4</color>
     <color name="searchbox_text_color">#000000</color>
     <color name="white_transparent">#40FFFFFF</color>
+    <color name="dialog_background">#7f000000</color>
+    <color name="divider">#1f000000</color>
 </resources>

@@ -1,5 +1,6 @@
 package com.christian.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.christian.R;
+import com.christian.activity.SearchActivity;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -78,7 +80,7 @@ public class GospelFragment extends BaseFragment {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_search:
                         Log.i(TAG, "onMenuItemClick: menu_search is clicked");
-
+                        startActivity(new Intent(getActivity(), SearchActivity.class));
                         break;
                     default:
                         break;

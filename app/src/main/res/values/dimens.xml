@@ -43,4 +43,8 @@
     <dimen name="vertical_page_margin">@dimen/margin_medium</dimen>
     <dimen name="margin_top_card_view">56dp</dimen>
     <dimen name="activity_horizontal_margin_0">0dp</dimen>
+
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="spacing_normal">8dp</dimen>
 </resources>

@@ -209,4 +209,6 @@
     </string>
     <string name="description_favorite" >Favorite</string>
     <string name="title_search">Search</string>
+    <string name="search_label">Christian</string>
+    <string name="search_hint">Search Gospel</string>
 </resources>
