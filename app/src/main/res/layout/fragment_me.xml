@@ -145,9 +145,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <include layout="@layout/view_me_setting" />
+                    <include layout="@layout/view_me_setting_item" />
 
-                    <!--<include layout="@layout/view_me_setting" />-->
+                    <!--<include layout="@layout/view_me_setting_item" />-->
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 

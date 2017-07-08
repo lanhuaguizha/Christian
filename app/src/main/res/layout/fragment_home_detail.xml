@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".activity.HomeDetailActivity">
+    tools:context=".activity.GospelHomeDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"

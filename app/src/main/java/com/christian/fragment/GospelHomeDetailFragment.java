@@ -44,8 +44,8 @@ import org.xutils.view.annotation.ViewInject;
  * limitations under the License.
  */
 @ContentView(R.layout.fragment_home_detail)
-public class HomeDetailFragment extends BaseFragment {
-    private static final String TAG = HomeDetailFragment.class.getSimpleName();
+public class GospelHomeDetailFragment extends BaseFragment {
+    private static final String TAG = GospelHomeDetailFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
     @ViewInject(R.id.nested_scroll_view)

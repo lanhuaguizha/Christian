@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="50dp">
+    <TextView
+        android:paddingLeft="10dp"
+        android:textColor="@color/searchbox_hint_text_color"
+        android:fontFamily="@string/search_font_family"
+        android:text="清除历史记录"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
+</RelativeLayout>

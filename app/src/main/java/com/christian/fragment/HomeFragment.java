@@ -15,7 +15,7 @@ import android.view.View;
 
 import com.christian.R;
 import com.christian.activity.BottomNavigationActivity;
-import com.christian.adapter.HomeAdapter;
+import com.christian.adapter.GospelHomeViewAdapter;
 import com.christian.view.HomeItemDecoration;
 
 import org.xutils.view.annotation.ContentView;
@@ -39,7 +39,7 @@ public class HomeFragment extends BaseFragment {
     private RecyclerView recyclerViewHome;
     @ViewInject(R.id.app_bar)
     private AppBarLayout appBarLayout;
-    protected HomeAdapter homeAdapter;
+    protected GospelHomeViewAdapter homeAdapter;
     protected RecyclerView.LayoutManager layoutManager;
     protected LayoutManagerType currentLayoutManagerType;
     private String[] dataSet;
@@ -163,7 +163,7 @@ public class HomeFragment extends BaseFragment {
     private void initView() {
         //Recycler View set homeAdapter
         if (recyclerViewHome != null) {
-            homeAdapter = new HomeAdapter(dataSet);
+            homeAdapter = new GospelHomeViewAdapter(dataSet);
             recyclerViewHome.setAdapter(homeAdapter);
             recyclerViewHome.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.activity_horizontal_margin)));
             currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;

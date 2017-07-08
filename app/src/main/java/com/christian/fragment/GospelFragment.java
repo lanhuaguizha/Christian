@@ -2,17 +2,25 @@ package com.christian.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.christian.R;
+import com.christian.adapter.SearchViewAdapter;
+import com.christian.helper.SearchViewHelper;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
+
+import java.util.ArrayList;
 
 /**
  * author：Administrator on 2017/4/2 00:20
@@ -21,7 +29,7 @@ import org.xutils.view.annotation.ViewInject;
 
 @ContentView(R.layout.fragment_gospel)
 public class GospelFragment extends BaseFragment {
-//    @ViewInject(R.id.swipe_refresh_layout)
+    //    @ViewInject(R.id.swipe_refresh_layout)
 //    SwipeRefreshLayout swipeRefreshLayout;
     private static final String TAG = "GospelFragment";
     // TODO: Rename parameter arguments, choose names that match
@@ -34,6 +42,26 @@ public class GospelFragment extends BaseFragment {
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
     private boolean added;
+    @ViewInject(R.id.search_recycler_view)
+    private RecyclerView recyclerView;
+    @ViewInject(R.id.cardView_search)
+    private CardView mCardViewSearch;
+    @ViewInject(R.id.et_search)
+    private EditText mEtSearch;
+
+    @Event(value = {R.id.tv, R.id.iv_search_back})
+    private void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv:
+                //        swipeRefreshLayout.setRefreshing(false);
+                break;
+            case R.id.iv_search_back:
+                SearchViewHelper.handleToolBar(getContext(), mCardViewSearch, mEtSearch);
+                break;
+            default:
+                break;
+        }
+    }
 
     public GospelFragment() {
         // Required empty public constructor
@@ -43,8 +71,6 @@ public class GospelFragment extends BaseFragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment PlusOneFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -77,8 +103,7 @@ public class GospelFragment extends BaseFragment {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_search:
-                        Log.i(TAG, "onMenuItemClick: menu_search is clicked");
-
+                        SearchViewHelper.handleToolBar(getContext(), mCardViewSearch, mEtSearch);
                         break;
                     default:
                         break;
@@ -88,17 +113,37 @@ public class GospelFragment extends BaseFragment {
         });
     }
 
+    private void setSearchResultItem() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("优酷");
+        list.add("土豆");
+        list.add("爱奇艺");
+        list.add("哔哩哔哩");
+        list.add("youtube");
+        list.add("斗鱼");
+        list.add("熊猫");
+        SearchViewAdapter adapter = new SearchViewAdapter(list, new SearchViewAdapter.IListener() {
+            @Override
+            public void normalItemClick(String s) {
+                Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void clearItemClick() {
+                Toast.makeText(getContext(), "清除历史记录", Toast.LENGTH_SHORT).show();
+            }
+        });
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
             initView();
         }
-    }
-
-    @Event(value = R.id.tv)
-    private void onClick(View v) {
-//        swipeRefreshLayout.setRefreshing(false);
     }
 
     private void initView() {
@@ -110,6 +155,7 @@ public class GospelFragment extends BaseFragment {
                 added = true;
             }
         }
+        setSearchResultItem();
     }
 
     private void initData() {
