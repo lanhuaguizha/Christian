@@ -208,4 +208,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="description_favorite" >Favorite</string>
+    <string name="title_search">Search</string>
 </resources>

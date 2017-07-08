@@ -209,4 +209,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="description_favorite" >收藏</string>
+    <string name="title_search">搜索</string>
 </resources>
