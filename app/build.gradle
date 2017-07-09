@@ -41,5 +41,5 @@ dependencies {
     // xUtils3
     compile 'org.xutils:xutils:3.5.0'
     // Circle Image View
-    compile 'com.mikhaellopez:circularimageview:3.0.2'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

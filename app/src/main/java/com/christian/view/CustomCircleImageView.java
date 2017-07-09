@@ -18,9 +18,10 @@ package com.christian.view;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.mikhaellopez.circularimageview.CircularImageView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
-public class CustomCircleImageView extends CircularImageView {
+
+public class CustomCircleImageView extends CircleImageView {
 
     public CustomCircleImageView(Context context) {
         super(context);

@@ -21,25 +21,22 @@
             app:titleEnabled="false">
 
             <RelativeLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/activity_horizontal_margin"
+                android:visibility="gone"
                 app:layout_collapseMode="parallax">
 
                 <com.christian.view.CustomCircleImageView
                     android:id="@+id/avatar"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:scaleType="centerCrop"
                     android:src="@drawable/me"
                     app:civ_border_color="#FFFFFFFF"
-                    app:civ_border_width="3dp"
-                    app:civ_shadow="true"
-                    app:civ_shadow_color="#1A76BF"
-                    app:civ_shadow_radius="7" />
+                    app:civ_border_width="3dp" />
 
                 <android.support.v7.widget.AppCompatButton
                     style="@style/Widget.AppCompat.Button.Borderless"
