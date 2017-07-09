@@ -20,43 +20,22 @@
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
             app:titleEnabled="false">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <com.christian.view.CustomCircleImageView
                 android:layout_margin="@dimen/activity_horizontal_margin"
-                android:visibility="gone"
-                app:layout_collapseMode="parallax">
-
-                <com.christian.view.CustomCircleImageView
-                    android:id="@+id/avatar"
-                    android:layout_width="96dp"
-                    android:layout_height="96dp"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/me"
-                    app:civ_border_color="#FFFFFFFF"
-                    app:civ_border_width="3dp" />
-
-                <android.support.v7.widget.AppCompatButton
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
-                    android:drawableRight="@drawable/ic_chevron_right_black_24dp"
-                    android:text="编辑简介"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/white"
-                    android:theme="@style/AppTheme.AppBarOverlay" />
-            </RelativeLayout>
+                android:id="@+id/avatar"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:scaleType="centerCrop"
+                android:src="@drawable/me"
+                app:civ_border_color="#FFFFFFFF"
+                app:civ_border_width="3dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:padding="@dimen/activity_horizontal_margin"
                 app:layout_collapseMode="parallax">
 
                 <android.support.v7.widget.AppCompatButton
@@ -132,6 +111,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_horizontal_margin"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
                 app:cardBackgroundColor="@color/card"
