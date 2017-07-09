@@ -30,6 +30,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/me"
                 app:civ_border_color="#FFFFFFFF"
+                app:layout_collapseMode="parallax"
                 app:civ_border_width="3dp" />
 
             <RelativeLayout
