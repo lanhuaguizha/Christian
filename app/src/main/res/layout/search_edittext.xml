@@ -44,7 +44,7 @@
             android:gravity="center_vertical"
             android:hint="@string/search_hint"
             android:textColorHint="@color/searchbox_hint_text_color"
-            android:textSize="@dimen/search_collapsed_text_size" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <ImageView
             android:id="@+id/voice_search_button"
