@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:fontFamily="@string/search_font_family"
             android:gravity="center_vertical"
-            android:hint="@string/description_search"
+            android:hint="@string/search_hint"
             android:textColorHint="@color/searchbox_hint_text_color"
             android:textSize="@dimen/search_collapsed_text_size" />
 

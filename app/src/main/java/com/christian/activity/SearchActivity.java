@@ -44,17 +44,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.christian.R;
-import com.google.samples.apps.iosched.explore.ExploreSessionsActivity;
-import com.google.samples.apps.iosched.provider.ScheduleContract;
-import com.google.samples.apps.iosched.session.SessionDetailActivity;
-import com.google.samples.apps.iosched.util.AnalyticsHelper;
+import com.christian.provider.ScheduleContract;
 
-import static com.google.samples.apps.iosched.util.LogUtils.makeLogTag;
 
 public class SearchActivity extends BaseActivity implements
         LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
 
-    private static final String TAG = makeLogTag("SearchActivity");
+    private static final String TAG = SearchActivity.class.getSimpleName();
     private static final String SCREEN_LABEL = "Search";
     private static final String ARG_QUERY = "query";
 
@@ -77,18 +73,20 @@ public class SearchActivity extends BaseActivity implements
                 new int[]{R.id.search_result}, 0);
         mSearchResults.setAdapter(mResultsAdapter);
         mSearchResults.setOnItemClickListener(this);
-        Toolbar toolbar = getToolbar();
+        Toolbar toolbar = getActionBarToolbar();
 
-        Drawable up = DrawableCompat.wrap(
-                VectorDrawableCompat.create(getResources(), R.drawable.ic_up, getTheme()));
-        DrawableCompat.setTint(up, getResources().getColor(R.color.app_body_text_2));
-        toolbar.setNavigationIcon(up);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                navigateUpOrBack(SearchActivity.this, null);
-            }
-        });
+        VectorDrawableCompat vectorDrawableCompat = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, getTheme());
+        if (vectorDrawableCompat != null) {
+            Drawable up = DrawableCompat.wrap(vectorDrawableCompat);
+            DrawableCompat.setTint(up, getResources().getColor(R.color.gray_light));
+            toolbar.setNavigationIcon(up);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+        }
 
         String query = getIntent().getStringExtra(SearchManager.QUERY);
         query = query == null ? "" : query;
@@ -110,7 +108,7 @@ public class SearchActivity extends BaseActivity implements
      * means that instead of re-creating this Activity, a new intent is delivered via this callback.
      * This prevents multiple instances of the search dialog 'stacking up' e.g. if you perform a
      * voice search.
-     *
+     * <p>
      * See: http://developer.android.com/guide/topics/manifest/activity-element.html#lmode
      */
     @Override
@@ -192,26 +190,26 @@ public class SearchActivity extends BaseActivity implements
             // We use a view tree observer to set this up once the view is measured & laid out
             searchPanel.getViewTreeObserver().addOnPreDrawListener(
                     new ViewTreeObserver.OnPreDrawListener() {
-                @Override
-                public boolean onPreDraw() {
-                    searchPanel.getViewTreeObserver().removeOnPreDrawListener(this);
-                    // As the height will change once the initial suggestions are delivered by the
-                    // loader, we can't use the search panels height to calculate the final radius
-                    // so we fall back to it's parent to be safe
-                    final ViewGroup searchPanelParent = (ViewGroup) searchPanel.getParent();
-                    final int revealRadius = (int) Math.hypot(
-                            searchPanelParent.getWidth(), searchPanelParent.getHeight());
-                    // Center the animation on the top right of the panel i.e. near to the
-                    // search button which launched this screen.
-                    Animator show = ViewAnimationUtils.createCircularReveal(searchPanel,
-                        searchPanel.getRight(), searchPanel.getTop(), 0f, revealRadius);
-                    show.setDuration(250L);
-                    show.setInterpolator(AnimationUtils.loadInterpolator(SearchActivity.this,
-                            android.R.interpolator.fast_out_slow_in));
-                    show.start();
-                    return false;
-                }
-            });
+                        @Override
+                        public boolean onPreDraw() {
+                            searchPanel.getViewTreeObserver().removeOnPreDrawListener(this);
+                            // As the height will change once the initial suggestions are delivered by the
+                            // loader, we can't use the search panels height to calculate the final radius
+                            // so we fall back to it's parent to be safe
+                            final ViewGroup searchPanelParent = (ViewGroup) searchPanel.getParent();
+                            final int revealRadius = (int) Math.hypot(
+                                    searchPanelParent.getWidth(), searchPanelParent.getHeight());
+                            // Center the animation on the top right of the panel i.e. near to the
+                            // search button which launched this screen.
+                            Animator show = ViewAnimationUtils.createCircularReveal(searchPanel,
+                                    searchPanel.getRight(), searchPanel.getTop(), 0f, revealRadius);
+                            show.setDuration(250L);
+                            show.setInterpolator(AnimationUtils.loadInterpolator(SearchActivity.this,
+                                    android.R.interpolator.fast_out_slow_in));
+                            show.start();
+                            return false;
+                        }
+                    });
         }
     }
 
@@ -254,7 +252,6 @@ public class SearchActivity extends BaseActivity implements
     private void searchFor(String query) {
         // ANALYTICS EVENT: Start a search on the Search activity
         // Contains: Nothing (Event params are constant:  Search query not included)
-        AnalyticsHelper.sendEvent(SCREEN_LABEL, "Search", "");
         Bundle args = new Bundle(1);
         if (query == null) {
             query = "";
@@ -309,15 +306,15 @@ public class SearchActivity extends BaseActivity implements
         c.moveToPosition(position);
         boolean isTopicTag = c.getInt(SearchTopicsSessionsQuery.IS_TOPIC_TAG) == 1;
         String tagOrSessionId = c.getString(SearchTopicsSessionsQuery.TAG_OR_SESSION_ID);
-        if (isTopicTag) {
-            Intent intent = new Intent(this, ExploreSessionsActivity.class);
-            intent.putExtra(ExploreSessionsActivity.EXTRA_FILTER_TAG, tagOrSessionId);
-            startActivity(intent);
-        } else if (tagOrSessionId != null) {
-            Intent intent = new Intent(this, SessionDetailActivity.class);
-            intent.setData(ScheduleContract.Sessions.buildSessionUri(tagOrSessionId));
-            startActivity(intent);
-        }
+//        if (isTopicTag) {
+//            Intent intent = new Intent(this, ExploreSessionsActivity.class);
+//            intent.putExtra(ExploreSessionsActivity.EXTRA_FILTER_TAG, tagOrSessionId);
+//            startActivity(intent);
+//        } else if (tagOrSessionId != null) {
+//            Intent intent = new Intent(this, SessionDetailActivity.class);
+//            intent.setData(ScheduleContract.Sessions.buildSessionUri(tagOrSessionId));
+//            startActivity(intent);
+//        }
     }
 
     private interface SearchTopicsSessionsQuery {
