@@ -33,6 +33,7 @@ import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,7 +79,7 @@ public class SearchActivity extends BaseActivity implements
         VectorDrawableCompat vectorDrawableCompat = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, getTheme());
         if (vectorDrawableCompat != null) {
             Drawable up = DrawableCompat.wrap(vectorDrawableCompat);
-            DrawableCompat.setTint(up, getResources().getColor(R.color.gray_light));
+            DrawableCompat.setTint(up, getResources().getColor(R.color.searchbox_icon_tint));
             toolbar.setNavigationIcon(up);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -128,7 +129,8 @@ public class SearchActivity extends BaseActivity implements
         mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         mSearchView.setIconified(false);
         // Set the query hint.
-        mSearchView.setQueryHint(getString(R.string.search_hint));
+        mSearchView.setQueryHint(Html.fromHtml("<font color = #a4a4a4>" + getResources().getString(R.string.search_hint) + "</font>"));
+//        mSearchView.setQueryHint(getString(R.string.search_hint));
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

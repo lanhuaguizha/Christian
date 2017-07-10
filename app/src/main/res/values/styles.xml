@@ -93,7 +93,7 @@
 
     <style name="SearchViewTheme" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/searchbox_text_color</item>
-        <item name="colorControlNormal">@color/gray_light</item>
+        <item name="colorControlNormal">@color/searchbox_icon_tint</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
     </style>
 </resources>

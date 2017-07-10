@@ -210,5 +210,6 @@
     </string>
     <string name="description_favorite" >收藏</string>
     <string name="title_search">搜索</string>
+    <string name="search_label">基督徒</string>
     <string name="search_hint">搜索信息</string>
 </resources>
