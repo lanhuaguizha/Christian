@@ -1,10 +1,12 @@
 package com.christian.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.view.inputmethod.InputMethodManager;
 
 import com.christian.R;
 import com.christian.swipebacksupport.SwipeBackHelper;
@@ -57,5 +59,13 @@ public class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         SwipeBackHelper.onDestroy(this);
+    }
+
+    // To hide keyboard when finish a activity
+    @Override
+    protected void onPause() {
+        super.onPause();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getActionBarToolbar().getWindowToken(), 0);
     }
 }

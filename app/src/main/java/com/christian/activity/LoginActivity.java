@@ -315,10 +315,12 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> emails = new ArrayList<>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                emails.add(cursor.getString(ProfileQuery.ADDRESS));
+                cursor.moveToNext();
+            }
         }
 
         addEmailsToAutoComplete(emails);
@@ -405,14 +407,6 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
             mAuthTask = null;
             showProgress(false);
         }
-    }
-
-    // To hide keyboard when finish a activity
-    @Override
-    protected void onPause() {
-        super.onPause();
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(toolbar.getWindowToken(), 0);
     }
 }
 
