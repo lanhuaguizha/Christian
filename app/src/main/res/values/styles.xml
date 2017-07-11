@@ -52,7 +52,7 @@
 
     <style name="Christian.Button.White" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/white</item>
-        <item name="android:textColor">@color/searchbox_hint_text_color</item>
+        <item name="android:textColor">@color/searchbox_icon_tint</item>
     </style>
 
     <style name="Christian.Button.colorPrimary" parent="Widget.AppCompat.Button.Colored">

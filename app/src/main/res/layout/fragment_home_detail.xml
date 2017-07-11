@@ -110,7 +110,7 @@
                     android:lineSpacingMultiplier="1.5"
                     android:padding="@dimen/activity_horizontal_margin"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/searchbox_hint_text_color" />
+                    android:textColor="@color/searchbox_text_hint" />
             </android.support.v7.widget.CardView>
 
             <Button

@@ -30,7 +30,7 @@
         app:srcCompat="@drawable/ic_arrow_back_black_24dp"
         android:background="?selectableItemBackgroundBorderless"
         android:contentDescription="@string/action_menu_back_from_search"
-        android:tint="@color/colorPrimary" />
+        android:tint="@color/searchbox_icon_tint" />
 
     <EditText
         android:id="@+id/search_view"
@@ -42,11 +42,12 @@
         android:textSize="@dimen/search_text_size"
         android:fontFamily="@string/search_font_family"
         android:textColor="@color/searchbox_text_color"
-        android:textColorHint="@color/searchbox_hint_text_color"
+        android:textColorHint="@color/searchbox_text_hint"
         android:textCursorDrawable="@drawable/searchedittext_custom_cursor"
         android:background="@null"
         android:inputType="textFilter"
         android:singleLine="true"
+        android:hint="@string/search_hint"
         android:imeOptions="flagNoExtractUi" />
 
     <ImageView

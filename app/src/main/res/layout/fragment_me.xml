@@ -21,13 +21,11 @@
             app:titleEnabled="false">
 
             <com.christian.view.CustomCircleImageView
-                android:visibility="gone"
-                android:layout_margin="@dimen/activity_horizontal_margin"
                 android:id="@+id/avatar"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:scaleType="centerCrop"
                 android:src="@drawable/me"
                 app:civ_border_color="#FFFFFFFF"
@@ -144,5 +142,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:tint="@color/white"
-        app:srcCompat="@drawable/ic_add_a_photo_black_24dp" />
+        app:srcCompat="@drawable/ic_edit_black_24dp" />
 </android.support.design.widget.CoordinatorLayout>

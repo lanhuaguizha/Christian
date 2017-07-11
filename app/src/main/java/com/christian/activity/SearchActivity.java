@@ -129,7 +129,7 @@ public class SearchActivity extends BaseActivity implements
         mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         mSearchView.setIconified(false);
         // Set the query hint.
-        mSearchView.setQueryHint(Html.fromHtml("<font color = #a4a4a4>" + getResources().getString(R.string.search_hint) + "</font>"));
+        mSearchView.setQueryHint(Html.fromHtml("<font color = #737373>" + getResources().getString(R.string.search_hint) + "</font>"));
 //        mSearchView.setQueryHint(getString(R.string.search_hint));
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

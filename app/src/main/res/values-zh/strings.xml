@@ -13,7 +13,6 @@
     <string name="go_back">返回</string>
     <string name="title_me">我的</string>
     <string name="content_empty">内容为空</string>
-    <string name="search_gospel">搜索信息</string>
     <string name="description_search" msgid="3574350254520035364">"搜索信息"</string>
     <string name="description_start_voice_search" msgid="520539488194946012">"开始语音搜索"</string>
     <string name="action_menu_overflow_description" msgid="2303272250613084574">"更多选项"</string>
