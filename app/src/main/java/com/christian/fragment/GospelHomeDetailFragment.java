@@ -61,10 +61,10 @@ public class GospelHomeDetailFragment extends BaseFragment {
     private ShareActionProvider mShareActionProvider;
     private boolean isScrollToBottom;
     private boolean hasHidePerformedOnce;
-    @ViewInject(R.id.more_btn)
+    @ViewInject(R.id.favorite_btn)
     private AppCompatImageButton moreBtn;
 
-    @Event(value = {R.id.fab, R.id.more_btn}, type = View.OnClickListener.class)
+    @Event(value = {R.id.fab, R.id.favorite_btn}, type = View.OnClickListener.class)
     private void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab:
@@ -82,6 +82,9 @@ public class GospelHomeDetailFragment extends BaseFragment {
                         appBarLayout.setExpanded(true, true);
                     isScrollToBottom = false;
                 }
+                break;
+            case R.id.favorite_btn:
+                Log.i(TAG, "onClick: ");
                 break;
             default:
                 break;
