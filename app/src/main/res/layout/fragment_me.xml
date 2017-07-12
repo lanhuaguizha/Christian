@@ -130,6 +130,9 @@
             </android.support.v7.widget.CardView>
 
             <TextView
+                android:padding="@dimen/activity_horizontal_margin"
+                android:id="@+id/about_us"
+                android:text="@string/large_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
