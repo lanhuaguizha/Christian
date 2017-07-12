@@ -28,18 +28,6 @@ public class MeFragment extends BaseFragment {
     Toolbar toolbar;
     @ViewInject(R.id.nsv_me)
     private NestedScrollView nsvMe;
-//    private OnClickListener mOnClickListener;
-
-//    @Event(value = R.id.app_bar, type = AppBarLayout.OnOffsetChangedListener.class)
-//    private void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-//        if (verticalOffset <= -appBarLayout.getTotalScrollRange() + toolbar.getHeight()) {
-//            //Toolbar Collapsed
-//            toolbar.setTitle(getString(R.string.title_me));
-//        } else {
-//            //Toolbar Expanded
-//            toolbar.setTitle(" ");
-//        }
-//    }
 
     public MeFragment() {
         // Required empty public constructor
@@ -69,30 +57,11 @@ public class MeFragment extends BaseFragment {
                 return false;
             }
         });
-//        view.findViewById(R.id.sign_in).setOnClickListener(mOnClickListener);
     }
 
     private void initView() {
         toolbar.inflateMenu(R.menu.menu_me);
-//        mOnClickListener = new OnClickListener();
     }
-
-//    private class OnClickListener implements View.OnClickListener {
-//
-//        @Override
-//        public void onClick(View v) {
-//            Intent intent = null;
-//            switch (v.getId()) {
-//                case R.id.sign_in:
-//                    intent = new Intent(getActivity(), LoginActivity.class);
-//                    break;
-//                default:
-//                    break;
-//            }
-//            if (intent != null)
-//                getActivity().startActivity(intent);
-//        }
-//    }
 
     @Event({R.id.sign_in, R.id.fab})
     private void onClick(View v) {
