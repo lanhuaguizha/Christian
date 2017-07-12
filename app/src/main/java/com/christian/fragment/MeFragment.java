@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -25,6 +26,8 @@ public class MeFragment extends BaseFragment {
     private static final String TAG = MeFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
+    @ViewInject(R.id.nsv_me)
+    private NestedScrollView nsvMe;
 //    private OnClickListener mOnClickListener;
 
 //    @Event(value = R.id.app_bar, type = AppBarLayout.OnOffsetChangedListener.class)
