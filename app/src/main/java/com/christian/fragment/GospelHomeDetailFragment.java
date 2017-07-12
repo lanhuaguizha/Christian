@@ -102,14 +102,17 @@ public class GospelHomeDetailFragment extends BaseFragment {
 //                    Log.i(TAG, "v.getScrollY(): " + v.getScrollY());
         if (v.getChildAt(0).getHeight() == v.getHeight() + v.getScrollY()) {
             isScrollToBottom = true;
-            animateFabButtonToShow();
+//            animateFabButtonToShow();
+            floatingActionButton.show();
         } else if (v.getScrollY() == 0) {
             isScrollToBottom = false;
-            animateFabButtonToShow();
+//            animateFabButtonToShow();
+            floatingActionButton.show();
         } else {
             if (!hasHidePerformedOnce) {
                 Log.i(TAG, "onScrollChange: perform scale to hide");
-                animateFabButtonToHide();
+//                animateFabButtonToHide();
+                floatingActionButton.hide();
             }
         }
     }
