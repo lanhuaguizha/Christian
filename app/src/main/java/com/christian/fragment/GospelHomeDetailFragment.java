@@ -122,9 +122,15 @@ public class GospelHomeDetailFragment extends BaseFragment {
     }
 
     private void initView() {
+        setCardViewAnimation();
         setUpButton();
 //        restoreScrollPosition();
         setGospelDetail();
+    }
+
+    private void setCardViewAnimation() {
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_card_show);
+        nestedScrollView.startAnimation(animation);
     }
 
     private void initListener() {
