@@ -17,8 +17,10 @@
 package com.christian.adapter;
 
 import android.content.Intent;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +28,15 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.christian.R;
 import com.christian.activity.GospelHomeDetailActivity;
 import com.christian.util.Utils;
+
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -43,20 +50,28 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
     private int lastAnimatedPosition = 0;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
+        @ViewInject(R.id.gospel_title)
+        private TextView textView;
 
-        ViewHolder(View v) {
-            super(v);
-            // Define click listener for the ViewHolder's View.
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        @Event(value = {R.id.more_btn, R.id.gospel_item_wrapper})
+        private void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.more_btn:
+                    Toast.makeText(v.getContext(), "默认的Toast", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.gospel_item_wrapper:
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                     Intent intent = new Intent(v.getContext(), GospelHomeDetailActivity.class);
                     v.getContext().startActivity(intent);
-                }
-            });
-            textView = (TextView) v.findViewById(R.id.gospel_title);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        ViewHolder(View v) {
+            super(v);
+            x.view().inject(this, v);
         }
 
         TextView getTextView() {

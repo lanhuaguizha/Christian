@@ -2,7 +2,6 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/search_panel"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/card"
@@ -10,6 +9,7 @@
     app:cardElevation="@dimen/card_elevation">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/gospel_item_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackgroundBorderless"
@@ -48,16 +48,13 @@
             android:id="@+id/gospel_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
             android:text="13:29"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="?android:attr/textColorSecondaryNoDisable"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="311dp"
-            tools:layout_editor_absoluteY="14dp"
-            android:layout_marginRight="16dp" />
+            android:layout_marginTop="16dp"
+            app:layout_constraintRight_toLeftOf="@+id/more_btn"
+            android:layout_marginRight="8dp" />
 
         <TextView
             android:id="@+id/gospel_content"
@@ -85,17 +82,33 @@
             android:id="@+id/gospel_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
             android:text="未知"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="?android:attr/textColorSecondaryNoDisable"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/gospel_time"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/gospel_time" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:background="?selectableItemBackgroundBorderless"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gospel_title"
-            app:layout_constraintVertical_bias="0.0"
-            android:layout_marginRight="16dp" />
+            android:id="@+id/more_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_more_vert_black_24dp"
+            android:tint="@color/gray_light"
+            app:layout_constraintLeft_toRightOf="@+id/gospel_author"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
