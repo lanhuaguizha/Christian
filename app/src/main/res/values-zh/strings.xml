@@ -211,4 +211,18 @@
     <string name="title_search">搜索</string>
     <string name="search_label">基督徒</string>
     <string name="search_hint">搜索信息</string>
+
+    <!--SettingActivity-->
+    <string name="pref_on_preference_click">onPreferenceClick</string>
+    <string name="settings_switch_preference_summary">Switch Preference Summary</string>
+    <string name="settings_switch_preference_title">Switch Preference</string>
+    <string name="settings_check_box_preference_title">Check Box Preference</string>
+    <string name="settings_edit_text_preference_default_value">Material Design</string>
+    <string name="settings_edit_text_preference_title">Edit Text Preference</string>
+    <string name="settings_list_preference_dialog_title">List Preference</string>
+    <string name="settings_list_preference_title">List Preference</string>
+    <string name="settings_multi_select_list_preference_dialog_title">Multi Select List Preference</string>
+    <string name="settings_multi_select_list_preference_title">Multi Select List Preference</string>
+    <string name="settings_preference_click_title">OnPreferenceClickListener</string>
+    <string name="settings_preference_click_to_activity">Click to start an activity</string>
 </resources>
