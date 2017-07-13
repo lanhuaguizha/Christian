@@ -3,6 +3,7 @@ package com.christian.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
@@ -26,8 +27,35 @@ public class MeFragment extends BaseFragment {
     private static final String TAG = MeFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar toolbar;
-    @ViewInject(R.id.nsv_me)
-    private NestedScrollView nsvMe;
+    @ViewInject(R.id.fabMe)
+    private FloatingActionButton fabMe;
+
+    @Event(value = R.id.nsv_me, type = NestedScrollView.OnScrollChangeListener.class)
+    private void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+        if (scrollY > oldScrollY) {
+            Log.i(TAG, "Scroll DOWN");
+            fabMe.hide();
+        } else {
+            fabMe.show();
+        }
+//        if (scrollY < oldScrollY) {
+//            Log.i(TAG, "Scroll UP");
+//            fabMe.hide();
+//        } else {
+//            fabMe.show();
+//        }
+//
+//        if (scrollY == 0) {
+//            Log.i(TAG, "TOP SCROLL");
+//            fabMe.hide();
+//        }
+//
+//        if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+//            Log.i(TAG, "BOTTOM SCROLL");
+//            fabMe.hide();
+//        }
+    }
 
     public MeFragment() {
         // Required empty public constructor
@@ -63,14 +91,14 @@ public class MeFragment extends BaseFragment {
         toolbar.inflateMenu(R.menu.menu_me);
     }
 
-    @Event({R.id.sign_in, R.id.fab})
+    @Event({R.id.sign_in, R.id.fabMe})
     private void onClick(View v) {
         Intent intent = null;
         switch (v.getId()) {
             case R.id.sign_in:
                 intent = new Intent(getActivity(), LoginActivity.class);
                 break;
-            case R.id.fab:
+            case R.id.fabMe:
                 Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
                 break;

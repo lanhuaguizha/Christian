@@ -52,7 +52,7 @@ public class GospelHomeDetailFragment extends BaseFragment {
     NestedScrollView nestedScrollView;
     @ViewInject(R.id.app_bar)
     AppBarLayout appBarLayout;
-    @ViewInject(R.id.fab)
+    @ViewInject(R.id.fabMe)
     FloatingActionButton floatingActionButton;
     @ViewInject(R.id.gospel_detail)
     TextView gospelDetail;
@@ -64,10 +64,10 @@ public class GospelHomeDetailFragment extends BaseFragment {
     @ViewInject(R.id.favorite_btn)
     private AppCompatImageButton moreBtn;
 
-    @Event(value = {R.id.fab, R.id.favorite_btn}, type = View.OnClickListener.class)
+    @Event(value = {R.id.fabMe, R.id.favorite_btn}, type = View.OnClickListener.class)
     private void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fab:
+            case R.id.fabMe:
                 nestedScrollView.setSmoothScrollingEnabled(true);
                 if (!isScrollToBottom) {
                     if (nestedScrollView != null)
