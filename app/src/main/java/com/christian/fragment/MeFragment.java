@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.christian.R;
 import com.christian.activity.LoginActivity;
+import com.christian.activity.SettingsActivity;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -80,8 +81,8 @@ public class MeFragment extends BaseFragment {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Log.i(TAG, "onMenuItemClick: ");
-//                Intent intentSetting = new Intent(getActivity(), SettingsActivity.class);
-//                startActivity(intentSetting);
+                Intent intentSetting = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(intentSetting);
                 return false;
             }
         });
