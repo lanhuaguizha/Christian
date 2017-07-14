@@ -205,7 +205,7 @@ public class SearchActivity extends BaseActivity implements
                             // search button which launched this screen.
                             Animator show = ViewAnimationUtils.createCircularReveal(searchPanel,
                                     searchPanel.getRight(), searchPanel.getTop(), 0f, revealRadius);
-                            show.setDuration(250L);
+                            show.setDuration(400L);
                             show.setInterpolator(AnimationUtils.loadInterpolator(SearchActivity.this,
                                     android.R.interpolator.fast_out_slow_in));
                             show.start();
@@ -244,7 +244,7 @@ public class SearchActivity extends BaseActivity implements
         // We also animate out the translucent background at the same time.
         findViewById(R.id.scrim).animate()
                 .alpha(0f)
-                .setDuration(200L)
+                .setDuration(400L)
                 .setInterpolator(
                         AnimationUtils.loadInterpolator(SearchActivity.this,
                                 android.R.interpolator.fast_out_slow_in))
