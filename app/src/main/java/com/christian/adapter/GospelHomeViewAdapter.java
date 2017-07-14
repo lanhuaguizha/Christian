@@ -110,7 +110,7 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
                     .translationY(0)
                     .setStartDelay(200 * position)
                     .setInterpolator(new DecelerateInterpolator(3.f))
-                    .setDuration(400)
+                    .setDuration(1200)
                     .start();
         }
     }

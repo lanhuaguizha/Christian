@@ -1,6 +1,6 @@
 <resources>
 
-    <!-- setting theme. -->
+    <!-- settingChristian.Button.White theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -61,7 +61,7 @@
 
     <style name="Christian.Button.White" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/white</item>
-        <item name="android:textColor">@color/searchbox_icon_tint</item>
+        <item name="android:textColor">@color/searchbox_text_hint</item>
     </style>
 
     <style name="Christian.Button.colorPrimary" parent="Widget.AppCompat.Button.Colored">

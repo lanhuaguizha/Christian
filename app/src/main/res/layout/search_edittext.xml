@@ -43,8 +43,8 @@
             android:fontFamily="@string/search_font_family"
             android:gravity="center_vertical"
             android:hint="@string/search_hint"
-            android:textColorHint="@color/searchbox_text_hint"
-            android:textSize="@dimen/search_collapsed_text_size" />
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textColorHint="@color/searchbox_text_hint" />
 
         <ImageView
             android:id="@+id/voice_search_button"
@@ -66,10 +66,10 @@
             android:paddingEnd="@dimen/search_box_right_padding"
             android:paddingLeft="@dimen/activity_horizontal_margin_0"
             android:paddingRight="@dimen/search_box_right_padding"
-            android:visibility="gone"
             android:paddingStart="@dimen/activity_horizontal_margin_0"
             android:scaleType="center"
             android:tint="@color/searchbox_icon_tint"
+            android:visibility="gone"
             app:srcCompat="@drawable/ic_more_vert_black_24dp" />
 
     </LinearLayout>
