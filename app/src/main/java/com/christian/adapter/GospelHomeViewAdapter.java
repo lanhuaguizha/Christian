@@ -122,7 +122,7 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
         int screenItems = Utils.getScreenHeight(viewHolder.itemView.getContext()) / viewHolder.itemView.getMeasuredHeight();
         Animation animation = null;
         if (adapterPosition >= lastPosition) {
-            if (adapterPosition > screenItems) {
+            if (adapterPosition - 1 > screenItems) {
 //                if (adapterPosition >= lastPosition) {
                 // Load animation form xml
                 animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.up_from_bottom);
