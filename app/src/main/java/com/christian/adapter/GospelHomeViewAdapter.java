@@ -18,10 +18,13 @@ package com.christian.adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -57,7 +60,15 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
         private void onClick(View v) {
             switch (v.getId()) {
                 case R.id.more_btn:
-                    Toast.makeText(v.getContext(), "默认的Toast", Toast.LENGTH_SHORT).show();
+                    PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+                    popupMenu.getMenuInflater().inflate(R.menu.menu_share, popupMenu.getMenu());
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            return false;
+                        }
+                    });
+                    popupMenu.show();
                     break;
                 case R.id.gospel_item_wrapper:
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
