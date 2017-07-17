@@ -107,11 +107,11 @@ public class GospelHomeDetailFragment extends BaseFragment {
 //            animateFabButtonToShow();
             floatingActionButton.show();
         } else {
-            if (!hasHidePerformedOnce) {
-                Log.i(TAG, "onScrollChange: perform scale to hide");
+            floatingActionButton.hide();
+//            if (!hasHidePerformedOnce) {
+//                Log.i(TAG, "onScrollChange: perform scale to hide");
 //                animateFabButtonToHide();
-                floatingActionButton.hide();
-            }
+//            }
         }
     }
 
