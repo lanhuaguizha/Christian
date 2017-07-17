@@ -74,13 +74,11 @@ public class GospelHomeDetailFragment extends BaseFragment {
                         nestedScrollView.fullScroll(View.FOCUS_DOWN);
                     if (appBarLayout != null)
                         appBarLayout.setExpanded(false, true);
-                    isScrollToBottom = true;
                 } else {
                     if (nestedScrollView != null)
                         nestedScrollView.fullScroll(View.FOCUS_UP);
                     if (appBarLayout != null)
                         appBarLayout.setExpanded(true, true);
-                    isScrollToBottom = false;
                 }
                 break;
             case R.id.favorite_btn:
@@ -125,9 +123,7 @@ public class GospelHomeDetailFragment extends BaseFragment {
     }
 
     private void initView() {
-        setCardViewAnimation();
         setUpButton();
-//        restoreScrollPosition();
         setGospelDetail();
     }
 
@@ -147,14 +143,14 @@ public class GospelHomeDetailFragment extends BaseFragment {
     }
 
     private void setGospelDetail() {
-        appBarLayout.setExpanded(false, false);
         gospelDetail.postDelayed(new Runnable() {
             @Override
             public void run() {
                 gospelDetail.setText(getString(R.string.large_text));
                 gospelDetailWrapper.setVisibility(View.VISIBLE);
+                setCardViewAnimation();
             }
-        }, 150);
+        }, 200);
 //        restoreScrollPosition();
     }
 
