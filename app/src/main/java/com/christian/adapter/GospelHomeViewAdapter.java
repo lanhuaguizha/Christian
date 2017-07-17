@@ -61,7 +61,7 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
             switch (v.getId()) {
                 case R.id.more_btn:
                     PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-                    popupMenu.getMenuInflater().inflate(R.menu.menu_share, popupMenu.getMenu());
+                    popupMenu.getMenuInflater().inflate(R.menu.menu_home, popupMenu.getMenu());
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {

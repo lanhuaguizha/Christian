@@ -70,12 +70,12 @@ public class GospelHomeDetailFragment extends BaseFragment {
             case R.id.fabMe:
                 nestedScrollView.setSmoothScrollingEnabled(true);
                 if (!isScrollToBottom) {
-                    if (nestedScrollView != null)
+//                    if (nestedScrollView != null)
                         nestedScrollView.fullScroll(View.FOCUS_DOWN);
                     if (appBarLayout != null)
                         appBarLayout.setExpanded(false, true);
                 } else {
-                    if (nestedScrollView != null)
+//                    if (nestedScrollView != null)
                         nestedScrollView.fullScroll(View.FOCUS_UP);
                     if (appBarLayout != null)
                         appBarLayout.setExpanded(true, true);
