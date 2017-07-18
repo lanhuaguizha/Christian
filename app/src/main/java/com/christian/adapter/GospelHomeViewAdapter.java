@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +56,8 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
     static class ViewHolder extends RecyclerView.ViewHolder {
         @ViewInject(R.id.gospel_title)
         private TextView textView;
+        @ViewInject(R.id.more_btn)
+        private Button moreBtn;
 
         @Event(value = {R.id.more_btn, R.id.gospel_item_wrapper})
         private void onClick(View v) {
@@ -87,6 +90,10 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
 
         TextView getTextView() {
             return textView;
+        }
+
+        Button getMoreBtn() {
+            return moreBtn;
         }
     }
 

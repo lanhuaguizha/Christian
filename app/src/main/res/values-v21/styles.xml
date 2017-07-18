@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
 
+        <!--PopupMenu theme-->
+        <item name="android:textColor">@color/searchbox_text_color</item>
+        <item name="android:itemBackground">@color/white</item>
+
         <item name="android:windowIsTranslucent">true</item>
         <!--set the right in/out animation of Activity,you can change this to yours-->
         <item name="android:windowAnimationStyle">@style/Christian.Activity</item>
