@@ -17,8 +17,10 @@
 package com.christian.adapter;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,6 +62,9 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
             switch (v.getId()) {
                 case R.id.more_btn:
                     PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        popupMenu.setGravity(Gravity.END);
+                    }
                     popupMenu.getMenuInflater().inflate(R.menu.menu_home, popupMenu.getMenu());
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
