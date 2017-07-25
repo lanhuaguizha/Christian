@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".activity.GospelHomeDetailActivity">
+    tools:context=".activity.HomeDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -60,7 +60,7 @@
                         app:srcCompat="@color/colorAccent" />
 
                     <TextView
-                        android:id="@+id/gospel_title"
+                        android:id="@+id/tv_home_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

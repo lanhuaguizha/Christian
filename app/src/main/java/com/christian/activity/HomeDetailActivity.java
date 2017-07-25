@@ -13,8 +13,8 @@ import org.xutils.view.annotation.ContentView;
  */
 
 @ContentView(R.layout.activity_home_detial)
-public class GospelHomeDetailActivity extends BaseActivity {
-    private static String TAG = GospelHomeDetailActivity.class.getSimpleName();
+public class HomeDetailActivity extends BaseActivity {
+    private static String TAG = HomeDetailActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

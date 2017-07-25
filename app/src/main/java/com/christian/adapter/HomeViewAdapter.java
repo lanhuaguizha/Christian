@@ -17,10 +17,9 @@
 package com.christian.adapter;
 
 import android.content.Intent;
-import android.os.Build;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,11 +28,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.christian.R;
-import com.christian.activity.GospelHomeDetailActivity;
+import com.christian.activity.HomeDetailActivity;
 import com.christian.util.Utils;
 
 import org.xutils.view.annotation.Event;
@@ -43,24 +43,26 @@ import org.xutils.x;
 /**
  * Provide views to RecyclerView with data from mDataSet.
  */
-public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAdapter.ViewHolder> {
+public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHolder> {
     private int lastPosition;
-    private static final String TAG = "GospelHomeViewAdapter";
+    private static final String TAG = "HomeViewAdapter";
     private String[] mDataSet;
     private boolean animateItems = false;
     private static final int ANIMATED_ITEMS_COUNT = 4;
     private int lastAnimatedPosition = 0;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @ViewInject(R.id.gospel_title)
-        private TextView textView;
-        @ViewInject(R.id.more_btn)
-        private Button moreBtn;
+        @ViewInject(R.id.tv_home_title)
+        private TextView tvHomeTitle;
+        @ViewInject(R.id.btn_home_more)
+        private Button btnHomeMore;
+        @ViewInject(R.id.iv_home_audio)
+        private AppCompatImageView ivHomeAudio;
 
-        @Event(value = {R.id.more_btn, R.id.gospel_item_wrapper})
+        @Event(value = {R.id.btn_home_more, R.id.cl_item_wrapper})
         private void onClick(View v) {
             switch (v.getId()) {
-                case R.id.more_btn:
+                case R.id.btn_home_more:
                     PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
                     popupMenu.getMenuInflater().inflate(R.menu.menu_home, popupMenu.getMenu());
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -71,9 +73,9 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
                     });
                     popupMenu.show();
                     break;
-                case R.id.gospel_item_wrapper:
+                case R.id.cl_item_wrapper:
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                    Intent intent = new Intent(v.getContext(), GospelHomeDetailActivity.class);
+                    Intent intent = new Intent(v.getContext(), HomeDetailActivity.class);
                     v.getContext().startActivity(intent);
                     break;
                 default:
@@ -86,16 +88,20 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
             x.view().inject(this, v);
         }
 
-        TextView getTextView() {
-            return textView;
+        TextView getTvHomeTitle() {
+            return tvHomeTitle;
         }
 
-        Button getMoreBtn() {
-            return moreBtn;
+        Button getBtnHomeMore() {
+            return btnHomeMore;
+        }
+
+        ImageView getIvHomeAudio() {
+            return ivHomeAudio;
         }
     }
 
-    public GospelHomeViewAdapter(String[] dataSet) {
+    public HomeViewAdapter(String[] dataSet) {
         mDataSet = dataSet;
     }
 
@@ -103,7 +109,7 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.view_home_gospel_item, viewGroup, false);
+                .inflate(R.layout.view_home_item, viewGroup, false);
 
         return new ViewHolder(v);
     }
@@ -168,7 +174,11 @@ public class GospelHomeViewAdapter extends RecyclerView.Adapter<GospelHomeViewAd
         lastPosition = adapterPosition;
         // Get element from your dataset at this adapterPosition and replace the contents of the view
         // with that element
-        viewHolder.getTextView().setText(mDataSet[adapterPosition]);
+        viewHolder.getTvHomeTitle().setText(mDataSet[adapterPosition]);
+
+        if (adapterPosition == 0) {
+            viewHolder.getIvHomeAudio().setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

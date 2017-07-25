@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.GospelHomeDetailActivity"
+            android:name=".activity.HomeDetailActivity"
             android:label="@string/title_home_detail"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.BottomNavigationActivity">
