@@ -44,8 +44,8 @@ import org.xutils.view.annotation.ViewInject;
  * limitations under the License.
  */
 @ContentView(R.layout.fragment_home_detail)
-public class GospelHomeDetailFragment extends BaseFragment {
-    private static final String TAG = GospelHomeDetailFragment.class.getSimpleName();
+public class HomeDetailFragment extends BaseFragment {
+    private static final String TAG = HomeDetailFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
     @ViewInject(R.id.nested_scroll_view)
@@ -61,28 +61,21 @@ public class GospelHomeDetailFragment extends BaseFragment {
     private ShareActionProvider mShareActionProvider;
     private boolean isScrollToBottom;
     private boolean hasHidePerformedOnce;
-    @ViewInject(R.id.favorite_btn)
-    private AppCompatImageButton moreBtn;
 
-    @Event(value = {R.id.fabMe, R.id.favorite_btn}, type = View.OnClickListener.class)
+    @Event(value = {R.id.fabMe}, type = View.OnClickListener.class)
     private void onClick(View v) {
         switch (v.getId()) {
             case R.id.fabMe:
                 nestedScrollView.setSmoothScrollingEnabled(true);
                 if (!isScrollToBottom) {
-//                    if (nestedScrollView != null)
-                        nestedScrollView.fullScroll(View.FOCUS_DOWN);
+                    nestedScrollView.fullScroll(View.FOCUS_DOWN);
                     if (appBarLayout != null)
                         appBarLayout.setExpanded(false, true);
                 } else {
-//                    if (nestedScrollView != null)
-                        nestedScrollView.fullScroll(View.FOCUS_UP);
+                    nestedScrollView.fullScroll(View.FOCUS_UP);
                     if (appBarLayout != null)
                         appBarLayout.setExpanded(true, true);
                 }
-                break;
-            case R.id.favorite_btn:
-                Log.i(TAG, "onClick: ");
                 break;
             default:
                 break;
