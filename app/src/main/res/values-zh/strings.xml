@@ -19,7 +19,7 @@
     <string name="action_menu_back_from_search" msgid="1138551123844019647">"停止搜索"</string>
     <string name="description_clear_search" msgid="3893511425518852086">"清除搜索内容"</string>
     <string name="search_font_family">sans-serif</string>
-    <string name="collection_gospel">信息收藏</string>
+    <string name="description_gospel">信息收藏</string>
     <string name="read_history">历史记录</string>
 
     <string name="title_activity_settings">Settings</string>
@@ -116,7 +116,7 @@
     <string name="description_setting">设置</string>
     <string name="wechat_login">微信登录</string>
     <string name="description_change_password">忘记密码</string>
-    <string name="download_gospel">下载信息</string>
+    <string name="description_download">下载信息</string>
     <string name="send_verification_code">发送验证码</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"

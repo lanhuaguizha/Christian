@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.christian.R;
@@ -111,6 +112,7 @@ public class HomeDetailFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);//添加菜单不调用该方法是没有用的
         initView();
         initListener();
     }
@@ -126,13 +128,14 @@ public class HomeDetailFragment extends BaseFragment {
     }
 
     private void initListener() {
-        if (toolbar != null)
+        if (toolbar != null) {
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     getActivity().finish();
                 }
             });
+        }
     }
 
     private void setGospelDetail() {
@@ -178,21 +181,23 @@ public class HomeDetailFragment extends BaseFragment {
         MenuItem shareItem = menu.findItem(R.id.menu_share);
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
         setShareIntent(createShareIntent());
-
-        // Configure the search info and add any event listeners...
-//        shareItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.menu_share:
-//                        Log.i("", "onMenuItemClick: ");
-//                        return true;
-//                }
-//                return false;
-//            }
-//        });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_share:
+                getActivity().finish();
+                return true;
+            case R.id.menu_download:
+                getActivity().finish();
+                return true;
+            case R.id.menu_collection:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private Intent createShareIntent() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
@@ -207,11 +212,6 @@ public class HomeDetailFragment extends BaseFragment {
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(shareIntent);
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 
     private void animateFabButtonToShow() {

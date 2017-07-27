@@ -18,7 +18,7 @@
     <string name="action_menu_overflow_description" msgid="2295659037509008453">More options</string>
     <string name="action_menu_back_from_search">stop searching</string>
     <string name="description_clear_search">Clear search</string>
-    <string name="collection_gospel">Collection Gospel</string>
+    <string name="description_gospel">Collection Gospel</string>
     <string name="read_history">Read History</string>
     <string name="title_activity_settings">Settings</string>
 
@@ -113,7 +113,7 @@
     <string name="description_setting">Setting</string>
     <string name="wechat_login">Wechat Login</string>
     <string name="description_change_password">Forgot Password</string>
-    <string name="download_gospel">Download Gospel</string>
+    <string name="description_download">Download Gospel</string>
     <string name="prompt_password">Verification Code</string>
     <string name="send_verification_code">Send Code</string>
 
