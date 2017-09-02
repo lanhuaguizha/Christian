@@ -32,6 +32,6 @@
         android:gravity="center_vertical"
         android:text="@string/download"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="?android:attr/textColorSecondaryNoDisable"
+        android:textColor="@color/text_color_tertiary"
         android:layout_toRightOf="@id/settings_img" />
 </RelativeLayout>

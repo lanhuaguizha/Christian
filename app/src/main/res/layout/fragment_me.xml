@@ -132,6 +132,7 @@
             </android.support.v7.widget.CardView>
 
             <TextView
+                android:visibility="gone"
                 android:padding="@dimen/activity_horizontal_margin"
                 android:id="@+id/about_us"
                 android:text="@string/large_text"

@@ -30,7 +30,7 @@
         app:srcCompat="@drawable/ic_arrow_back_black_24dp"
         android:background="?selectableItemBackgroundBorderless"
         android:contentDescription="@string/action_menu_back_from_search"
-        android:tint="@color/searchbox_icon_tint" />
+        android:tint="@color/text_color_tertiary" />
 
     <EditText
         android:id="@+id/search_view"
@@ -41,8 +41,8 @@
         android:layout_marginStart="@dimen/search_box_text_left_margin"
         android:textSize="@dimen/search_text_size"
         android:fontFamily="@string/search_font_family"
-        android:textColor="@color/searchbox_text_color"
-        android:textColorHint="@color/searchbox_text_hint"
+        android:textColor="@color/text_color_primary"
+        android:textColorHint="@color/text_color_secondary"
         android:textCursorDrawable="@drawable/searchedittext_custom_cursor"
         android:background="@null"
         android:inputType="textFilter"
@@ -59,6 +59,6 @@
         android:clickable="true"
         android:background="?selectableItemBackgroundBorderless"
         android:contentDescription="@string/description_clear_search"
-        android:tint="@color/searchbox_icon_tint"/>
+        android:tint="@color/text_color_tertiary"/>
 
 </LinearLayout>

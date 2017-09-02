@@ -30,7 +30,7 @@
             android:importantForAccessibility="no"
             android:padding="@dimen/search_box_search_icon_padding"
             android:scaleType="center"
-            android:tint="@color/searchbox_icon_tint"
+            android:tint="@color/text_color_tertiary"
             app:srcCompat="@drawable/ic_search_black_24dp" />
 
         <TextView
@@ -44,7 +44,7 @@
             android:gravity="center_vertical"
             android:hint="@string/search_hint"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColorHint="@color/searchbox_text_hint" />
+            android:textColorHint="@color/text_color_secondary" />
 
         <ImageView
             android:id="@+id/voice_search_button"
@@ -54,7 +54,7 @@
             android:clickable="true"
             android:contentDescription="@string/description_start_voice_search"
             android:scaleType="center"
-            android:tint="@color/searchbox_icon_tint"
+            android:tint="@color/text_color_tertiary"
             app:srcCompat="@drawable/ic_mic_black_24dp" />
 
         <ImageButton
@@ -68,7 +68,7 @@
             android:paddingRight="@dimen/search_box_right_padding"
             android:paddingStart="@dimen/activity_horizontal_margin_0"
             android:scaleType="center"
-            android:tint="@color/searchbox_icon_tint"
+            android:tint="@color/text_color_tertiary"
             android:visibility="gone"
             app:srcCompat="@drawable/ic_more_vert_black_24dp" />
 

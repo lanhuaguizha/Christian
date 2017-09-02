@@ -79,7 +79,7 @@ public class SearchActivity extends BaseActivity implements
         VectorDrawableCompat vectorDrawableCompat = VectorDrawableCompat.create(getResources(), R.drawable.ic_arrow_back_black_24dp, getTheme());
         if (vectorDrawableCompat != null) {
             Drawable up = DrawableCompat.wrap(vectorDrawableCompat);
-            DrawableCompat.setTint(up, getResources().getColor(R.color.searchbox_icon_tint));
+            DrawableCompat.setTint(up, getResources().getColor(R.color.text_color_tertiary));
             toolbar.setNavigationIcon(up);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
