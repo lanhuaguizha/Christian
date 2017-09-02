@@ -165,7 +165,7 @@ public class HomeFragment extends BaseFragment {
         if (recyclerViewHome != null) {
             homeAdapter = new HomeViewAdapter(dataSet);
             recyclerViewHome.setAdapter(homeAdapter);
-            recyclerViewHome.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.activity_horizontal_margin)));
+            recyclerViewHome.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.search_margin_horizontal)));
             currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
             setRecyclerViewLayoutManager(currentLayoutManagerType);
         }

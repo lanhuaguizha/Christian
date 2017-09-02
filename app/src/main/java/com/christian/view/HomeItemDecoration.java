@@ -22,7 +22,7 @@ public class HomeItemDecoration extends RecyclerView.ItemDecoration {
                                RecyclerView parent, RecyclerView.State state) {
         outRect.left = space;
         outRect.right = space;
-        outRect.bottom = space;
+        outRect.bottom = space * 2;
 
         // Add top margin only for the first item to avoid double space between items
         if (parent.getChildPosition(view) == 0)

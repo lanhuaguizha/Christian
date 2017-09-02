@@ -96,10 +96,6 @@ public class HomeDetailFragment extends BaseFragment {
             isScrollToBottom = true;
 //            animateFabButtonToShow();
             floatingActionButton.show();
-        } else if (v.getScrollY() == 0) {
-            isScrollToBottom = false;
-//            animateFabButtonToShow();
-            floatingActionButton.show();
         } else {
             floatingActionButton.hide();
 //            if (!hasHidePerformedOnce) {
