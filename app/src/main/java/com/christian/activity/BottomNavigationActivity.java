@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 
 import com.christian.R;
 import com.christian.fragment.GospelFragment;
@@ -26,14 +25,14 @@ import java.util.ArrayList;
 public class BottomNavigationActivity extends BaseActivity {
     private static String TAG = BottomNavigationActivity.class.getSimpleName();
     @ViewInject(R.id.navigation)
-    private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView mBottomNavigationView;
     @ViewInject(R.id.content_view_page)
-    private CustomViewPage viewPager;
-    MenuItem prevMenuItem;
+    private CustomViewPage mCustomViewPager;
+    MenuItem mPrevMenuItem;
     private static final int DEFAULT_OFFSCREEN_PAGES = 2;
-    private HomeFragment homeFragment;
-    private GospelFragment gospelFragment;
-    private MeFragment meFragment;
+    private HomeFragment mHomeFragment;
+    private GospelFragment mGospelFragment;
+    private MeFragment mMeFragment;
 
     private enum ChristianTab {
         NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC, NAVIGATION_ME;
@@ -48,7 +47,7 @@ public class BottomNavigationActivity extends BaseActivity {
         initListener();
         // Initialize the load
         if (savedInstanceState == null) {
-            viewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
+            mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
         }
     }
 
@@ -56,45 +55,45 @@ public class BottomNavigationActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         // To remain 4 tabs fragments
-        viewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
-//        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        mCustomViewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
+//        BottomNavigationViewHelper.disableShiftMode(mBottomNavigationView);
     }
 
     private void initView() {
     }
 
     private void initListener() {
-        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+        mBottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch ((item.getItemId())) {
                     case R.id.navigation_home:
-                        homeFragment.scrollToPosition();
+                        mHomeFragment.scrollToPosition();
                         break;
                     default:
                         break;
                 }
             }
         });
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
-                        viewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
+                        mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
                         return true;
                     case R.id.navigation_gospel:
-                        viewPager.setCurrentItem(ChristianTab.NAVIGATION_BOOK.ordinal());
+                        mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_BOOK.ordinal());
                         return true;
                     case R.id.navigation_account:
-                        viewPager.setCurrentItem(ChristianTab.NAVIGATION_ME.ordinal());
+                        mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_ME.ordinal());
                         return true;
                 }
                 return false;
             }
 
         });
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mCustomViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 //                Log.i(TAG, "onPageScrolled: ");
@@ -102,13 +101,13 @@ public class BottomNavigationActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (prevMenuItem != null) {
-                    prevMenuItem.setChecked(false);
+                if (mPrevMenuItem != null) {
+                    mPrevMenuItem.setChecked(false);
                 } else {
-                    bottomNavigationView.getMenu().getItem(ChristianTab.NAVIGATION_HOME.ordinal()).setChecked(false);
+                    mBottomNavigationView.getMenu().getItem(ChristianTab.NAVIGATION_HOME.ordinal()).setChecked(false);
                 }
-                bottomNavigationView.getMenu().getItem(position).setChecked(true);
-                prevMenuItem = bottomNavigationView.getMenu().getItem(position);
+                mBottomNavigationView.getMenu().getItem(position).setChecked(true);
+                mPrevMenuItem = mBottomNavigationView.getMenu().getItem(position);
             }
 
             @Override
@@ -116,7 +115,7 @@ public class BottomNavigationActivity extends BaseActivity {
 //                Log.i(TAG, "onPageScrollStateChanged: ");
             }
         });
-        viewPager.setAdapter(new CustomFragmentPagerAdapter(getSupportFragmentManager()));
+        mCustomViewPager.setAdapter(new CustomFragmentPagerAdapter(getSupportFragmentManager()));
     }
 
     //    @Override
@@ -146,12 +145,12 @@ public class BottomNavigationActivity extends BaseActivity {
         CustomFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
             fragments = new ArrayList<>();
-            homeFragment = HomeFragment.newInstance();
-            gospelFragment = GospelFragment.newInstance();
-            meFragment = MeFragment.newInstance();
-            fragments.add(homeFragment);
-            fragments.add(gospelFragment);
-            fragments.add(meFragment);
+            mHomeFragment = HomeFragment.newInstance();
+            mGospelFragment = GospelFragment.newInstance();
+            mMeFragment = MeFragment.newInstance();
+            fragments.add(mHomeFragment);
+            fragments.add(mGospelFragment);
+            fragments.add(mMeFragment);
         }
 
 //        @Override

@@ -27,34 +27,34 @@ import org.xutils.view.annotation.ViewInject;
 public class MeFragment extends BaseFragment {
     private static final String TAG = MeFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
-    Toolbar toolbar;
+    Toolbar mToolbar;
     @ViewInject(R.id.fabMe)
-    private FloatingActionButton fabMe;
+    private FloatingActionButton mFabMe;
 
     @Event(value = R.id.nsv_me, type = NestedScrollView.OnScrollChangeListener.class)
     private void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
         if (scrollY > oldScrollY) {
             Log.i(TAG, "Scroll DOWN");
-            fabMe.hide();
+            mFabMe.hide();
         } else {
-            fabMe.show();
+            mFabMe.show();
         }
 //        if (scrollY < oldScrollY) {
 //            Log.i(TAG, "Scroll UP");
-//            fabMe.hide();
+//            mFabMe.hide();
 //        } else {
-//            fabMe.show();
+//            mFabMe.show();
 //        }
 //
 //        if (scrollY == 0) {
 //            Log.i(TAG, "TOP SCROLL");
-//            fabMe.hide();
+//            mFabMe.hide();
 //        }
 //
 //        if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
 //            Log.i(TAG, "BOTTOM SCROLL");
-//            fabMe.hide();
+//            mFabMe.hide();
 //        }
     }
 
@@ -77,7 +77,7 @@ public class MeFragment extends BaseFragment {
     }
 
     private void initListener(View view) {
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 Log.i(TAG, "onMenuItemClick: ");
@@ -89,7 +89,7 @@ public class MeFragment extends BaseFragment {
     }
 
     private void initView() {
-        toolbar.inflateMenu(R.menu.menu_me);
+        mToolbar.inflateMenu(R.menu.menu_me);
     }
 
     @Event({R.id.sign_in, R.id.fabMe})

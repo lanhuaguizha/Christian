@@ -152,7 +152,7 @@ public class HomeDetailFragment extends BaseFragment {
 
     private void setUpButton() {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        // Get a support ActionBar corresponding to this toolbar
+        // Get a support ActionBar corresponding to this mToolbar
         ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
         // Enable the Up button
         if (ab != null) {

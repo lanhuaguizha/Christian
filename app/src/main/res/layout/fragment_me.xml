@@ -21,6 +21,7 @@
             app:titleEnabled="false">
 
             <com.christian.view.CustomCircleImageView
+                android:visibility="gone"
                 android:id="@+id/avatar"
                 android:layout_width="96dp"
                 android:layout_height="96dp"

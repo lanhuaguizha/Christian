@@ -3,7 +3,6 @@ package com.christian.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -34,8 +33,8 @@ public class GospelFragment extends BaseFragment {
     private String mParam1;
     private String mParam2;
     @ViewInject(R.id.toolbar_actionbar)
-    Toolbar toolbar;
-    private boolean added;
+    Toolbar mToolbar;
+    private boolean isAdded;
 
     public GospelFragment() {
         // Required empty public constructor
@@ -74,7 +73,7 @@ public class GospelFragment extends BaseFragment {
     }
 
     private void initListener() {
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
@@ -104,12 +103,12 @@ public class GospelFragment extends BaseFragment {
     }
 
     private void initView() {
-        if (toolbar != null) {
-            toolbar.setTitle(getString(R.string.title_book));
+        if (mToolbar != null) {
+            mToolbar.setTitle(getString(R.string.title_book));
             // Removing more of Book Fragment
-            if (!added) {
-                toolbar.inflateMenu(R.menu.menu_gospel);
-                added = true;
+            if (!isAdded) {
+                mToolbar.inflateMenu(R.menu.menu_gospel);
+                isAdded = true;
             }
         }
     }

@@ -46,16 +46,16 @@ import org.xutils.x;
  * Provide views to RecyclerView with data from mDataSet.
  */
 public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHolder> {
-    private int lastPosition;
+    private int mLastPosition;
     private static final String TAG = "HomeViewAdapter";
     private String[] mDataSet;
-    private boolean animateItems = false;
+    private boolean mAnimateItems = false;
     private static final int ANIMATED_ITEMS_COUNT = 4;
-    private int lastAnimatedPosition = 0;
+    private int mLastAnimatedPosition = 0;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         @ViewInject(R.id.tv_home_title)
-        private TextView tvHomeTitle;
+        private TextView mTvHomeTitle;
         @ViewInject(R.id.btn_home_more)
         private Button btnHomeMore;
         @ViewInject(R.id.iv_home_audio)
@@ -94,7 +94,7 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
         }
 
         TextView getTvHomeTitle() {
-            return tvHomeTitle;
+            return mTvHomeTitle;
         }
 
         Button getBtnHomeMore() {
@@ -126,12 +126,12 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
     }
 
     private void runEnterAnimation(View view, int position) {
-//        if (!animateItems || position >= ANIMATED_ITEMS_COUNT - 1) {
+//        if (!mAnimateItems || position >= ANIMATED_ITEMS_COUNT - 1) {
 //            return;
 //        }
 
-        if (position >= lastAnimatedPosition) {
-            lastAnimatedPosition = position;
+        if (position >= mLastAnimatedPosition) {
+            mLastAnimatedPosition = position;
             view.setTranslationY(Utils.getScreenHeight(view.getContext()));
             view.animate()
                     .translationY(0)
@@ -148,9 +148,9 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
         viewHolder.itemView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         int screenItems = Utils.getScreenHeight(viewHolder.itemView.getContext()) / viewHolder.itemView.getMeasuredHeight();
         Animation animation = null;
-        if (adapterPosition >= lastPosition) {
+        if (adapterPosition >= mLastPosition) {
             if (adapterPosition - 1 > screenItems) {
-//                if (adapterPosition >= lastPosition) {
+//                if (adapterPosition >= mLastPosition) {
                 // Load animation form xml
                 animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.up_from_bottom);
 //                } else {
@@ -176,7 +176,7 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
         }
         if (animation != null)
             viewHolder.itemView.startAnimation(animation);
-        lastPosition = adapterPosition;
+        mLastPosition = adapterPosition;
         // Get element from your dataset at this adapterPosition and replace the contents of the view
         // with that element
         viewHolder.getTvHomeTitle().setText(mDataSet[adapterPosition]);

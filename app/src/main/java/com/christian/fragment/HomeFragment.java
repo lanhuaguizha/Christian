@@ -44,7 +44,7 @@ public class HomeFragment extends BaseFragment {
     protected LayoutManagerType currentLayoutManagerType;
     private String[] dataSet;
     //    @ViewInject(R.id.toolbar_actionbar)
-//    private Toolbar toolbar;
+//    private Toolbar mToolbar;
     @ViewInject(R.id.swipe_refresh_layout)
     private SwipeRefreshLayout swipeRefreshLayout;
     @ViewInject(R.id.toolbar_actionbar)
@@ -107,7 +107,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initListener() {
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                if (navigation.getVisibility() != View.VISIBLE) {
