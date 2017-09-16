@@ -26,12 +26,7 @@
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_margin="@dimen/search_margin_horizontal"
         app:cardBackgroundColor="@color/card"
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -128,6 +123,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_horizontal_margin"
                     android:background="?selectableItemBackgroundBorderless"
+                    android:padding="@dimen/activity_vertical_margin"
+                    android:layout_marginBottom="@dimen/activity_horizontal_margin"
                     android:tint="@color/colorPrimary"
                     app:srcCompat="@drawable/ic_wechat_black_60dp" />
             </LinearLayout>

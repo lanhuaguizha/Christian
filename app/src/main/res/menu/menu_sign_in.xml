@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_change_password"
-        android:icon="@drawable/ic_vpn_key_black_24dp"
+        android:icon="@drawable/ic_help_black_24dp"
         android:orderInCategory="1"
         android:title="@string/description_change_password"
         app:showAsAction="always" />
