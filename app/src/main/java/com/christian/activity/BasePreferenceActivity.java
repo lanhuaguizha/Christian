@@ -12,11 +12,13 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.christian.swipebacksupport.SwipeBackHelper;
+
 /**
  * A {@link android.preference.PreferenceActivity} which implements and proxies the necessary calls
  * to be used with AppCompat.
  */
-public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
+public abstract class BasePreferenceActivity extends PreferenceActivity {
 
     private AppCompatDelegate mDelegate;
 
@@ -25,6 +27,15 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
+        // For swipe back --start
+        SwipeBackHelper.onCreate(this);
+        SwipeBackHelper.getCurrentPage(this)
+                .setSwipeBackEnable(true)
+                .setSwipeSensitivity(0.5f)
+                .setSwipeRelateEnable(false)
+                .setSwipeRelateOffset(300)
+                .setSwipeEdgePercent(1);
+        // --end
     }
 
     @Override

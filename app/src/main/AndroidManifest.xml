@@ -43,10 +43,10 @@
             android:label="@string/title_activity_settings"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".activity.BaseActivity">
+            android:parentActivityName=".activity.BottomNavigationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.activity.BaseActivity" />
+                android:value="com.christian.activity.BottomNavigationActivity" />
         </activity>
         <activity
             android:name=".activity.LoginActivity"

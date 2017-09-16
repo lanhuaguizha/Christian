@@ -5,20 +5,17 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
-import android.preference.MultiSelectListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.christian.R;
-import com.christian.activity.AppCompatPreferenceActivity;
 
-public class SettingsActivity extends AppCompatPreferenceActivity {
+public class SettingsActivity extends BasePreferenceActivity {
 
     /**
      * A preference value change listener that updates the preference's summary to reflect its new value.
@@ -109,9 +106,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         int id = item.getItemId();
         if (id == android.R.id.home) {
             if (!super.onMenuItemSelected(featureId, item)) {
-                NavUtils.navigateUpFromSameTask(this);
+//                NavUtils.navigateUpFromSameTask(this);
                 //startActivity(new Intent(this, SettingsActivity.class));
-                //OR USING finish();
+                finish();
             }
             return true;
         }

@@ -18,6 +18,7 @@ package com.christian.adapter;
 
 import android.content.Intent;
 import android.os.Build;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -57,7 +58,7 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
         @ViewInject(R.id.tv_home_title)
         private TextView mTvHomeTitle;
         @ViewInject(R.id.btn_home_more)
-        private Button btnHomeMore;
+        private AppCompatImageButton btnHomeMore;
         @ViewInject(R.id.iv_home_audio)
         private AppCompatImageView ivHomeAudio;
 
@@ -97,7 +98,7 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
             return mTvHomeTitle;
         }
 
-        Button getBtnHomeMore() {
+        AppCompatImageButton getBtnHomeMore() {
             return btnHomeMore;
         }
 
@@ -182,7 +183,7 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
         viewHolder.getTvHomeTitle().setText(mDataSet[adapterPosition]);
 
         if (adapterPosition == 0) {
-            viewHolder.getIvHomeAudio().setVisibility(View.VISIBLE);
+            viewHolder.getIvHomeAudio().setVisibility(View.GONE);
         }
     }
 
