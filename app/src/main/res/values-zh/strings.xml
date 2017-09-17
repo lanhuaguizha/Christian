@@ -21,8 +21,7 @@
     <string name="search_font_family">sans-serif</string>
     <string name="description_gospel">信息收藏</string>
     <string name="read_history">历史记录</string>
-
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings">设置</string>
 
     <!-- Strings related to Settings -->
 
@@ -95,15 +94,18 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
-    <string name="download">已下载</string>
+    <string name="download">已缓存</string>
     <string name="sign_in">登录</string>
     <string name="register">注册</string>
     <string name="sign_out">登出</string>
     <string name="title_activity_login">登录</string>
+    <string name="title_activity_register">注册</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">手机号码</string>
-    <string name="prompt_password">验证码</string>
+    <string name="prompt_phone_number">手机号码</string>
+    <string name="prompt_email">用户名/邮箱/手机号码</string>
+    <string name="prompt_verification_code">验证码</string>
+    <string name="prompt_password">密码</string>
     <string name="action_sign_in">登录</string>
     <string name="action_sign_in_short">登录</string>
     <string name="error_invalid_email">This email address is invalid</string>

@@ -98,9 +98,11 @@
     <string name="register">注册</string>
     <string name="sign_out">登出</string>
     <string name="title_activity_login">Sign In</string>
+    <string name="title_activity_register">Register</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Phone Number</string>
+    <string name="prompt_phone_number">Phone Number</string>
+    <string name="prompt_email">User Name/Email/Phone Number</string>
     <string name="action_sign_in">Sign In</string>
     <string name="action_sign_in_short">Sign In</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -114,7 +116,8 @@
     <string name="wechat_login">Wechat Login</string>
     <string name="description_change_password">Forgot Password</string>
     <string name="description_download">Download Gospel</string>
-    <string name="prompt_password">Verification Code</string>
+    <string name="prompt_verification_code">Verification Code</string>
+    <string name="prompt_password">Password</string>
     <string name="send_verification_code">Send Code</string>
 
     <string name="large_text">

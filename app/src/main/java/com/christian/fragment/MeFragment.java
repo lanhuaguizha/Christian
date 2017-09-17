@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.christian.R;
 import com.christian.activity.LoginActivity;
+import com.christian.activity.RegisterActivity;
 import com.christian.activity.SettingsActivity;
 
 import org.xutils.view.annotation.ContentView;
@@ -92,12 +93,15 @@ public class MeFragment extends BaseFragment {
         mToolbar.inflateMenu(R.menu.menu_me);
     }
 
-    @Event({R.id.sign_in, R.id.fabMe})
+    @Event({R.id.sign_in, R.id.register, R.id.fabMe})
     private void onClick(View v) {
         Intent intent = null;
         switch (v.getId()) {
             case R.id.sign_in:
                 intent = new Intent(getActivity(), LoginActivity.class);
+                break;
+            case R.id.register:
+                intent = new Intent(getActivity(), RegisterActivity.class);
                 break;
             case R.id.fabMe:
                 Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_SHORT)
