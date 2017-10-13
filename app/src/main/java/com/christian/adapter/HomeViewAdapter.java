@@ -59,8 +59,6 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
         private TextView mTvHomeTitle;
         @ViewInject(R.id.btn_home_more)
         private AppCompatImageButton btnHomeMore;
-        @ViewInject(R.id.iv_home_audio)
-        private AppCompatImageView ivHomeAudio;
 
         @Event(value = {R.id.btn_home_more, R.id.cl_item_wrapper})
         private void onClick(View v) {
@@ -102,9 +100,6 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
             return btnHomeMore;
         }
 
-        ImageView getIvHomeAudio() {
-            return ivHomeAudio;
-        }
     }
 
     public HomeViewAdapter(String[] dataSet) {
@@ -180,11 +175,7 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
         mLastPosition = adapterPosition;
         // Get element from your dataset at this adapterPosition and replace the contents of the view
         // with that element
-        viewHolder.getTvHomeTitle().setText(mDataSet[adapterPosition]);
-
-        if (adapterPosition == 0) {
-            viewHolder.getIvHomeAudio().setVisibility(View.GONE);
-        }
+//        viewHolder.getTvHomeTitle().setText(mDataSet[adapterPosition]);
     }
 
     @Override
