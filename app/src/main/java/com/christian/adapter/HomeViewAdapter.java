@@ -131,9 +131,9 @@ public class HomeViewAdapter extends RecyclerView.Adapter<HomeViewAdapter.ViewHo
             view.setTranslationY(Utils.getScreenHeight(view.getContext()));
             view.animate()
                     .translationY(0)
-                    .setStartDelay(200 * position)
+                    .setStartDelay(40 * position)
                     .setInterpolator(new DecelerateInterpolator(3.f))
-                    .setDuration(1200)
+                    .setDuration(200)
                     .start();
         }
     }
