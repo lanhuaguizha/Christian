@@ -161,14 +161,14 @@ public class SearchEditTextLayout extends FrameLayout {
             }
         });
 
-        findViewById(R.id.search_back_button).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mCallback != null) {
-                    mCallback.onBackButtonClicked();
-                }
-            }
-        });
+//        findViewById(R.id.search_back_button).setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (mCallback != null) {
+//                    mCallback.onBackButtonClicked();
+//                }
+//            }
+//        });
 
         super.onFinishInflate();
     }

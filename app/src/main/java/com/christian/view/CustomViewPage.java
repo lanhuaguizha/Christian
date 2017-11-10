@@ -3,6 +3,7 @@ package com.christian.view;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 /**
@@ -53,4 +54,9 @@ public class CustomViewPage extends ViewPager {
         view.measure(0, 0);
         return view.getMeasuredHeight();
     }
+
+//    @Override
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {
+//        return false;
+//    }
 }

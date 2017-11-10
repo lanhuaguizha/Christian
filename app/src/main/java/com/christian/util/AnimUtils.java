@@ -24,12 +24,12 @@ import android.view.ViewPropertyAnimator;
 import android.view.animation.Interpolator;
 
 public class AnimUtils {
-    public static final int DEFAULT_DURATION = -1;
-    public static final int NO_DELAY = 0;
+    private static final int DEFAULT_DURATION = -1;
+    private static final int NO_DELAY = 0;
 
     public static class AnimationCallback {
-        public void onAnimationEnd() {}
-        public void onAnimationCancel() {}
+        void onAnimationEnd() {}
+        void onAnimationCancel() {}
     }
 
     public static void crossFadeViews(View fadeIn, View fadeOut, int duration) {
@@ -37,7 +37,7 @@ public class AnimUtils {
         fadeOut(fadeOut, duration);
     }
 
-    public static void fadeOut(View fadeOut, int duration) {
+    private static void fadeOut(View fadeOut, int duration) {
         fadeOut(fadeOut, duration, null);
     }
 

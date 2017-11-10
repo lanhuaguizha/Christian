@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Christian">
         <activity
-            android:name=".activity.BottomNavigationActivity"
+            android:name=".NavigationActivity"
             android:theme="@style/BottomNavigationActivityTheme"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
@@ -28,61 +28,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.HomeDetailActivity"
+            android:name=".detail.DetailActivity"
             android:label="@string/title_home_detail"
             android:launchMode="singleTop"
-            android:parentActivityName=".activity.BottomNavigationActivity">
+            android:parentActivityName=".NavigationActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.BottomNavigationActivity" />
+                android:value=".NavigationActivity" />
         </activity>
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name=".setting.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".activity.BottomNavigationActivity">
+            android:parentActivityName=".NavigationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.activity.BottomNavigationActivity" />
+                android:value="com.christian.NavigationActivity" />
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".login.LoginActivity"
             android:label="@string/title_activity_login"
             android:launchMode="singleTop"
-            android:parentActivityName=".activity.BottomNavigationActivity">
+            android:parentActivityName=".NavigationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.activity.BottomNavigationActivity" />
+                android:value="com.christian.NavigationActivity" />
         </activity>
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name=".login.RegisterActivity"
             android:label="@string/title_activity_register"
             android:launchMode="singleTop"
-            android:parentActivityName=".activity.BottomNavigationActivity">
+            android:parentActivityName=".NavigationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.activity.BottomNavigationActivity" />
-        </activity>
-        <activity
-            android:name=".activity.SearchActivity"
-            android:exported="false"
-            android:label="@string/title_search"
-            android:launchMode="singleTop"
-            android:theme="@style/Christian.Search">
-            <!-- This Activity handles the search intent -->
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-                <!-- Intent filter does not need a category = default, since the system delivers
-                     the ACTION_SEARCH intent explicitly to the searcheable activity,
-                     using component name.
-                  -->
-            </intent-filter>
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+                android:value="com.christian.NavigationActivity" />
         </activity>
     </application>
 

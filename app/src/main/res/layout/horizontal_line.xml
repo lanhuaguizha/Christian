@@ -6,4 +6,4 @@
     android:layout_width="match_parent"
     android:layout_height="0.5dp"
     android:background="@color/gray_background"
-    tools:showIn="@layout/fragment_me" />
+    tools:showIn="@layout/me_frag" />

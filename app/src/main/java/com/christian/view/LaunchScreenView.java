@@ -33,7 +33,7 @@ public class LaunchScreenView extends CoordinatorLayout {
     }
 
     private void loadLaunchScreenLayout(Context context) {
-        view = LayoutInflater.from(context).inflate(R.layout.view_launch_screen, this, true);
+        view = LayoutInflater.from(context).inflate(R.layout.launch_screen, this, true);
         animateLaunchScreenView();
     }
 

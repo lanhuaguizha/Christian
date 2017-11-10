@@ -1,7 +1,28 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--屏幕适配使用dimens文件用法：-->
+    <!--(120dpi)ldpi 1dp=3/4px-->
+    <!--(160dpi) mdip 1dp = 1px-->
+    <!--(240dpi)hdip 1dp=1.5px-->
+    <!--(320dpi)xhdip 1dp=2xp-->
+    <!--(480dpi)xxhdip 1dp=3px-->
+    <!--(640dpi)xxxdip 1dp=4px-->
+    <!--总结：dp = px / (dpi / 160)      sp = px / (dpi / 160)-->
+    <!--dpi= √（长度像素数² + 宽度像素数²） / 屏幕对角线英寸数-->
+
+    <!--activity-->
+    <dimen name="activity_margin">16dp</dimen>
+
+    <dimen name="activity_padding">16dp</dimen>
+
+    <!--cardView-->
+    <dimen name="card_view_margin">8dp</dimen>
+
+    <dimen name="card_view_padding">8dp</dimen>
+
+
+
+
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
@@ -15,10 +36,7 @@
     <!-- Margin below the search box. -->
     <dimen name="search_bottom_margin">8dp</dimen>
     <dimen name="search_collapsed_text_size">14sp</dimen>
-    <!-- Search box interior padding - left -->
-    <dimen name="search_box_left_padding">8dp</dimen>
-    <!-- Search box interior padding - right -->
-    <dimen name="search_box_right_padding">8dp</dimen>
+
     <dimen name="search_box_elevation">3dp</dimen>
     <dimen name="search_box_icon_size">36dp</dimen>
     <dimen name="search_box_search_icon_padding">2dp</dimen>

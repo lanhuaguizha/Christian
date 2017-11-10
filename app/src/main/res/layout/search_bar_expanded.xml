@@ -47,7 +47,6 @@
         android:background="@null"
         android:inputType="textFilter"
         android:singleLine="true"
-        android:hint="@string/search_hint"
         android:imeOptions="flagNoExtractUi" />
 
     <ImageView

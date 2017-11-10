@@ -19,9 +19,9 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingEnd="@dimen/activity_horizontal_margin_0"
-        android:paddingLeft="@dimen/search_box_left_padding"
+        android:paddingLeft="@dimen/card_view_padding"
         android:paddingRight="@dimen/activity_horizontal_margin_0"
-        android:paddingStart="@dimen/search_box_left_padding">
+        android:paddingStart="@dimen/card_view_padding">
 
         <ImageView
             android:id="@+id/search_magnifying_glass"
@@ -63,9 +63,9 @@
             android:layout_height="match_parent"
             android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@string/action_menu_overflow_description"
-            android:paddingEnd="@dimen/search_box_right_padding"
+            android:paddingEnd="@dimen/card_view_padding"
             android:paddingLeft="@dimen/activity_horizontal_margin_0"
-            android:paddingRight="@dimen/search_box_right_padding"
+            android:paddingRight="@dimen/card_view_padding"
             android:paddingStart="@dimen/activity_horizontal_margin_0"
             android:scaleType="center"
             android:tint="@color/text_color_tertiary"
