@@ -229,7 +229,7 @@ public class SearchEditTextLayout extends FrameLayout {
         int paddingStart = this.getPaddingStart();
         int paddingBottom = this.getPaddingBottom();
         int paddingEnd = this.getPaddingEnd();
-//        setBackgroundResource(R.drawable.search_shadow);
+        setBackgroundResource(R.drawable.search_shadow);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setElevation(0);
         }
