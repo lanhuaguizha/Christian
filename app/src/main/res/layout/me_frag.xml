@@ -76,7 +76,6 @@
         android:id="@+id/nsv_me"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:behavior_overlapTop="38dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".NavigationActivity">
 
@@ -90,7 +89,7 @@
                 android:layout_height="64dp"
                 android:layout_marginStart="@dimen/search_margin_horizontal"
                 android:layout_marginEnd="@dimen/search_margin_horizontal"
-                android:layout_marginTop="@dimen/activity_margin"
+                android:layout_marginTop="@dimen/search_margin_horizontal"
                 app:cardBackgroundColor="@color/card"
                 app:cardCornerRadius="@dimen/card_corner_radius">
 
@@ -112,7 +111,7 @@
                 android:layout_marginBottom="@dimen/activity_margin"
                 android:layout_marginStart="@dimen/search_margin_horizontal"
                 android:layout_marginEnd="@dimen/search_margin_horizontal"
-                android:layout_marginTop="@dimen/card_view_margin"
+                android:layout_marginTop="@dimen/search_margin_horizontal"
                 app:cardBackgroundColor="@color/card"
                 app:cardCornerRadius="@dimen/card_corner_radius">
 
@@ -129,6 +128,7 @@
             </com.christian.view.CustomCardView>
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/about_us"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
