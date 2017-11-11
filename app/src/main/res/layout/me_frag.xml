@@ -87,8 +87,8 @@
             <com.christian.view.CustomCardView
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:layout_marginStart="@dimen/search_margin_horizontal"
                 android:layout_marginEnd="@dimen/search_margin_horizontal"
+                android:layout_marginStart="@dimen/search_margin_horizontal"
                 android:layout_marginTop="@dimen/search_margin_horizontal"
                 app:cardBackgroundColor="@color/card"
                 app:cardCornerRadius="@dimen/card_corner_radius">
@@ -99,9 +99,13 @@
                     android:baselineAligned="false"
                     android:orientation="horizontal">
 
-                    <include layout="@layout/me_setting_head" />
+                    <include
+                        android:id="@+id/favorite"
+                        layout="@layout/me_setting_head" />
 
-                    <include layout="@layout/me_setting_head" />
+                    <include
+                        android:id="@+id/read"
+                        layout="@layout/me_setting_head" />
                 </LinearLayout>
             </com.christian.view.CustomCardView>
 
@@ -109,8 +113,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin"
-                android:layout_marginStart="@dimen/search_margin_horizontal"
                 android:layout_marginEnd="@dimen/search_margin_horizontal"
+                android:layout_marginStart="@dimen/search_margin_horizontal"
                 android:layout_marginTop="@dimen/search_margin_horizontal"
                 app:cardBackgroundColor="@color/card"
                 app:cardCornerRadius="@dimen/card_corner_radius">
@@ -128,24 +132,24 @@
             </com.christian.view.CustomCardView>
 
             <TextView
-                android:visibility="gone"
                 android:id="@+id/about_us"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingEnd="@dimen/activity_margin"
                 android:paddingStart="@dimen/activity_margin"
                 android:text="@string/large_text"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:visibility="gone" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
         android:id="@+id/fabMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:tint="@color/white"
-        android:visibility="gone"
         app:srcCompat="@drawable/ic_edit_black_24dp" />
 </android.support.design.widget.CoordinatorLayout>

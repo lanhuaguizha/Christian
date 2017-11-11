@@ -34,7 +34,8 @@
             android:paddingStart="@dimen/activity_margin"
             android:padding="@dimen/activity_margin"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/text_color_secondary" />
+            android:textColor="@color/text_color_secondary"
+            android:paddingLeft="@dimen/activity_margin" />
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
@@ -45,5 +46,5 @@
         android:layout_margin="@dimen/fab_margin"
         android:tint="@color/white"
         android:visibility="gone"
-        app:srcCompat="@drawable/ic_arrow_upward_black_24dp" />
+        app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp" />
 </android.support.design.widget.CoordinatorLayout>

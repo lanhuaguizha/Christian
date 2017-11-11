@@ -19,7 +19,7 @@
         android:layout_marginStart="@dimen/card_view_padding"
         android:contentDescription="@string/download"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_file_download_black_24dp" />
+        app:srcCompat="@drawable/ic_brightness_2_black_24dp" />
 
     <TextView
         android:id="@+id/settings_title"
@@ -28,8 +28,14 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/settings_img"
         android:gravity="center_vertical"
-        android:text="@string/download"
+        android:text="@string/night_mode"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/text_color_tertiary"
         android:layout_toRightOf="@id/settings_img" />
+
+    <Switch
+        android:layout_marginEnd="@dimen/search_margin_horizontal"
+        android:layout_marginStart="@dimen/search_margin_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

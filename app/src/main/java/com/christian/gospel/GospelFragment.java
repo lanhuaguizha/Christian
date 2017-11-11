@@ -2,13 +2,10 @@ package com.christian.gospel;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +14,7 @@ import com.christian.NavigationActivity;
 import com.christian.R;
 import com.christian.base.BaseFragment;
 import com.christian.home.HomeFragment;
+import com.christian.view.CustomSubViewPage;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -47,7 +45,7 @@ public class GospelFragment extends BaseFragment {
     @ViewInject(R.id.tabs)
     private TabLayout mTabLayout;
     @ViewInject(R.id.vp_view)
-    private ViewPager mViewPager;
+    private CustomSubViewPage mViewPager;
     private LayoutInflater mInflater;
     private List<String> mTitleList = new ArrayList<>();//页卡标题集合
     private List<Fragment> mViewList = new ArrayList<>();//页卡视图集合
@@ -180,6 +178,7 @@ public class GospelFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
+            mViewPager.setPosition(position);
             return mViewList.get(position);
         }
 

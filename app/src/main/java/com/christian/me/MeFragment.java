@@ -1,6 +1,7 @@
 package com.christian.me;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -9,13 +10,16 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.christian.R;
+import com.christian.base.BaseFragment;
 import com.christian.login.LoginActivity;
 import com.christian.login.RegisterActivity;
 import com.christian.setting.SettingsActivity;
-import com.christian.base.BaseFragment;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -74,7 +78,7 @@ public class MeFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initView();
+        initView(view);
         initListener(view);
     }
 
@@ -90,8 +94,10 @@ public class MeFragment extends BaseFragment {
         });
     }
 
-    private void initView() {
+    private void initView(View view) {
         mToolbar.inflateMenu(R.menu.menu_me);
+        ((TextView) view.findViewById(R.id.favorite).findViewById(R.id.tv)).setText("阅读");
+        ((TextView) view.findViewById(R.id.read).findViewById(R.id.tv)).setText("收藏");
     }
 
     @Event({R.id.sign_in, R.id.register, R.id.fabMe})
@@ -105,8 +111,17 @@ public class MeFragment extends BaseFragment {
                 intent = new Intent(getActivity(), RegisterActivity.class);
                 break;
             case R.id.fabMe:
-                Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                Snackbar snackbar = Snackbar.make(v, "写下你的问题", Snackbar.LENGTH_LONG);
+//                snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                ((TextView)snackbar.getView().findViewById(R.id.snackbar_text)).setTextColor(getResources().getColor(R.color.white));
+                snackbar.setActionTextColor(getResources().getColor(R.color.white));
+               snackbar.setAction("好的", new View.OnClickListener() {
+                   @Override
+                   public void onClick(View v) {
+                       Toast.makeText(getContext(),"好的",Toast.LENGTH_SHORT).show();;
+                   }
+               });
+                snackbar.show();
                 break;
             default:
                 break;

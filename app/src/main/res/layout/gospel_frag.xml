@@ -22,7 +22,7 @@
             app:tabIndicatorColor="@color/white" />
     </android.support.design.widget.AppBarLayout>
 
-    <com.christian.view.CustomViewPage
+    <com.christian.view.CustomSubViewPage
         android:id="@+id/vp_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

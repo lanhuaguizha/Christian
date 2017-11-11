@@ -63,13 +63,14 @@ public class DetailFragment extends BaseFragment {
         switch (v.getId()) {
             case R.id.fabMe:
                 nestedScrollView.setSmoothScrollingEnabled(true);
-                if (!isScrollToBottom) {
-                    nestedScrollView.fullScroll(View.FOCUS_DOWN);
-                    appBarLayout.setExpanded(false, true);
-                } else {
-                    nestedScrollView.fullScroll(View.FOCUS_UP);
-                    appBarLayout.setExpanded(true, true);
-                }
+//                if (!isScrollToBottom) {
+//                    nestedScrollView.fullScroll(View.FOCUS_DOWN);
+//                    appBarLayout.setExpanded(false, true);
+//                } else {
+                nestedScrollView.smoothScrollTo(0, 0);
+//                    nestedScrollView.fullScroll(View.FOCUS_UP);
+                appBarLayout.setExpanded(true, true);
+//                }
                 break;
             default:
                 break;
