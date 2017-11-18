@@ -65,7 +65,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm != null) {
+        if (imm != null && getActionBarToolbar() != null) {
             imm.hideSoftInputFromWindow(getActionBarToolbar().getWindowToken(), 0);
         }
     }

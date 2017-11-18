@@ -15,8 +15,10 @@ import com.christian.R;
 import com.christian.base.BaseFragment;
 import com.christian.home.HomeFragment;
 import com.christian.view.CustomSubViewPage;
+import com.christian.view.SearchEditTextLayout;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
@@ -49,6 +51,31 @@ public class GospelFragment extends BaseFragment {
     private LayoutInflater mInflater;
     private List<String> mTitleList = new ArrayList<>();//页卡标题集合
     private List<Fragment> mViewList = new ArrayList<>();//页卡视图集合
+
+    @ViewInject(R.id.search_view_container)
+    private SearchEditTextLayout mSearchEditTextLayout;
+
+    @Event({R.id.search_view_container, R.id.search_magnifying_glass, R.id.search_box_start_search, R.id.search_back_button})
+    private void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.search_view_container:
+            case R.id.search_magnifying_glass:
+            case R.id.search_box_start_search:
+                if (!mSearchEditTextLayout.isExpanded()) {
+                    mSearchEditTextLayout.expand(true, true);
+                }
+                break;
+            case R.id.search_back_button:
+                if (mSearchEditTextLayout.isExpanded()) {
+                    mSearchEditTextLayout.collapse(true);
+                }
+                if (mSearchEditTextLayout.isFadedOut()) {
+                    mSearchEditTextLayout.fadeIn();
+                }
+            default:
+                break;
+        }
+    }
 
     public GospelFragment() {
         // Required empty public constructor

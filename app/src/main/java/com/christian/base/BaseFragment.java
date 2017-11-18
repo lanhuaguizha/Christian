@@ -26,30 +26,30 @@ import org.xutils.x;
 
 public class BaseFragment extends Fragment {
     private static final String TAG = BaseFragment.class.getSimpleName();
-    @ViewInject(R.id.search_view_container)
-    private SearchEditTextLayout mSearchEditTextLayout;
+//    @ViewInject(R.id.search_view_container)
+//    private SearchEditTextLayout mSearchEditTextLayout;
 
-    @Event({R.id.search_view_container, R.id.search_magnifying_glass, R.id.search_box_start_search, R.id.search_back_button})
-    private void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.search_view_container:
-            case R.id.search_magnifying_glass:
-            case R.id.search_box_start_search:
-                if (!mSearchEditTextLayout.isExpanded()) {
-                    mSearchEditTextLayout.expand(true, true);
-                }
-                break;
-            case R.id.search_back_button:
-                if (mSearchEditTextLayout.isExpanded()) {
-                    mSearchEditTextLayout.collapse(true);
-                }
-                if (mSearchEditTextLayout.isFadedOut()) {
-                    mSearchEditTextLayout.fadeIn();
-                }
-            default:
-                break;
-        }
-    }
+//    @Event({R.id.search_view_container, R.id.search_magnifying_glass, R.id.search_box_start_search, R.id.search_back_button})
+//    private void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.search_view_container:
+//            case R.id.search_magnifying_glass:
+//            case R.id.search_box_start_search:
+//                if (!mSearchEditTextLayout.isExpanded()) {
+//                    mSearchEditTextLayout.expand(true, true);
+//                }
+//                break;
+//            case R.id.search_back_button:
+//                if (mSearchEditTextLayout.isExpanded()) {
+//                    mSearchEditTextLayout.collapse(true);
+//                }
+//                if (mSearchEditTextLayout.isFadedOut()) {
+//                    mSearchEditTextLayout.fadeIn();
+//                }
+//            default:
+//                break;
+//        }
+//    }
 
     public enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
