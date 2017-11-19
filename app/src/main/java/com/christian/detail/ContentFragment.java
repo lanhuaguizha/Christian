@@ -2,6 +2,7 @@ package com.christian.detail;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
@@ -21,6 +22,8 @@ public class ContentFragment extends BaseFragment {
 
     @ViewInject(R.id.toolbar)
     private Toolbar mToolbar;
+    @ViewInject(R.id.toolbar_layout)
+    private CollapsingToolbarLayout mToolbarLayout;
 
     @Event(R.id.fab)
     private void onClick(View view) {
@@ -35,6 +38,7 @@ public class ContentFragment extends BaseFragment {
     }
 
     private void initView() {
+        mToolbar.setTitle("");
         setUpButton();
         initListener();
     }

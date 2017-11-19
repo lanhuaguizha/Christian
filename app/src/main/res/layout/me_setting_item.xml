@@ -19,7 +19,7 @@
         android:layout_marginStart="@dimen/card_view_padding"
         android:contentDescription="@string/download"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/ic_brightness_2_black_24dp" />
+        app:srcCompat="@drawable/ic_brightness_3_black_24dp" />
 
     <TextView
         android:id="@+id/settings_title"
