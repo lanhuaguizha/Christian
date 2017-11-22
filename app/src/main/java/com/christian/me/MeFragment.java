@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
@@ -36,6 +38,8 @@ public class MeFragment extends BaseFragment {
     Toolbar mToolbar;
     @ViewInject(R.id.fabMe)
     private FloatingActionButton mFabMe;
+    @ViewInject(R.id.app_bar)
+    private AppBarLayout mAppBar;
 
     @Event(value = R.id.nsv_me, type = NestedScrollView.OnScrollChangeListener.class)
     private void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -62,6 +66,10 @@ public class MeFragment extends BaseFragment {
 //            Log.i(TAG, "BOTTOM SCROLL");
 //            mFabMe.hide();
 //        }
+    }
+
+    public void scrollToTop() {
+        mAppBar.setExpanded(true, true);
     }
 
     public MeFragment() {
@@ -113,14 +121,15 @@ public class MeFragment extends BaseFragment {
             case R.id.fabMe:
                 Snackbar snackbar = Snackbar.make(v, "写下你的问题", Snackbar.LENGTH_LONG);
 //                snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                ((TextView)snackbar.getView().findViewById(R.id.snackbar_text)).setTextColor(getResources().getColor(R.color.white));
+                ((TextView) snackbar.getView().findViewById(R.id.snackbar_text)).setTextColor(getResources().getColor(R.color.white));
                 snackbar.setActionTextColor(getResources().getColor(R.color.white));
-               snackbar.setAction("好的", new View.OnClickListener() {
-                   @Override
-                   public void onClick(View v) {
-                       Toast.makeText(getContext(),"好的",Toast.LENGTH_SHORT).show();;
-                   }
-               });
+                snackbar.setAction("好的", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getContext(), "好的", Toast.LENGTH_SHORT).show();
+                        ;
+                    }
+                });
                 snackbar.show();
                 break;
             default:

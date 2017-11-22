@@ -70,13 +70,17 @@ public class NavigationActivity extends BaseActivity {
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch ((item.getItemId())) {
                     case R.id.navigation_home:
-                        mHomeFragment.scrollToTop();
+                        if (mHomeFragment != null) {
+                            mHomeFragment.scrollToTop();
+                        }
                         break;
                     case R.id.navigation_gospel:
-//                        mBaseFragment.scrollToTop();
+                        if (mGospelFragment != null) {
+                            mGospelFragment.scrollToTop();
+                        }
                         break;
                     case R.id.navigation_me:
-//                        mBaseFragment.scrollToTop();
+                        mMeFragment.scrollToTop();
                         break;
                     default:
                         break;

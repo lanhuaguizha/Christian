@@ -29,7 +29,7 @@ public class SwipeBackLayout extends FrameLayout {
 
     private static final int DEFAULT_SCRIM_COLOR = 0x99000000;
 
-    private static final int FULL_ALPHA = 100;
+    private static final int FULL_ALPHA = 255;
 
 
     /**
@@ -313,7 +313,7 @@ public class SwipeBackLayout extends FrameLayout {
         final Rect childRect = mTmpRect;
         child.getHitRect(childRect);
 
-        mShadowLeft.setBounds(childRect.left - mShadowLeft.getIntrinsicWidth() / 3, childRect.top,
+        mShadowLeft.setBounds(childRect.left - mShadowLeft.getIntrinsicWidth(), childRect.top,
                 childRect.left, childRect.bottom);
         mShadowLeft.setAlpha((int) (mScrimOpacity * FULL_ALPHA));
         mShadowLeft.draw(canvas);

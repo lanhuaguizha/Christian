@@ -124,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <include layout="@layout/me_setting_item" />
+                    <!--<include layout="@layout/me_setting_item" />-->
 
                     <!--<include layout="@layme_setting_itemitem" />-->
 

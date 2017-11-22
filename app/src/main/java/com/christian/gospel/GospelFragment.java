@@ -2,10 +2,12 @@ package com.christian.gospel;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,12 +50,14 @@ public class GospelFragment extends BaseFragment {
     private TabLayout mTabLayout;
     @ViewInject(R.id.vp_view)
     private CustomSubViewPage mViewPager;
-    private LayoutInflater mInflater;
     private List<String> mTitleList = new ArrayList<>();//页卡标题集合
-    private List<Fragment> mViewList = new ArrayList<>();//页卡视图集合
+    private List<HomeFragment> mViewList = new ArrayList<>();//页卡视图集合
+    @ViewInject(R.id.app_bar)
+    AppBarLayout mAppBar;
 
     @ViewInject(R.id.search_view_container)
     private SearchEditTextLayout mSearchEditTextLayout;
+    private HomeFragment homeFragment;
 
     @Event({R.id.search_view_container, R.id.search_magnifying_glass, R.id.search_box_start_search, R.id.search_back_button})
     private void onClick(View v) {
@@ -103,12 +107,38 @@ public class GospelFragment extends BaseFragment {
         return fragment;
     }
 
+    public void scrollToTop() {
+        if (homeFragment != null) {
+            homeFragment.scrollToTop();
+        }
+        mAppBar.setExpanded(true, true);
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
-//        initListener();
+        initListener();
         initData();
+    }
+
+    private void initListener() {
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                homeFragment = mViewList.get(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
 //    private void initListener() {
@@ -144,20 +174,20 @@ public class GospelFragment extends BaseFragment {
 //                isAdded = true;
 //            }
 
-
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>copy
 
-        mInflater = LayoutInflater.from(getContext());
-
         //添加页卡视图
-        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+        for (int i = 0; i < 27; i++) {
+            HomeFragment homeFragment = HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal());
+            mViewList.add(homeFragment);
+        }
+//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
 
         //添加页卡标题
         mTitleList.add("马太福音");
@@ -168,22 +198,46 @@ public class GospelFragment extends BaseFragment {
         mTitleList.add("罗马书");
         mTitleList.add("哥林多前书");
         mTitleList.add("哥林多后书");
+        mTitleList.add("加拉太书");
+        mTitleList.add("以弗所书");
+        mTitleList.add("腓立比书");
+        mTitleList.add("歌罗西书");
+        mTitleList.add("帖撒罗尼迦前书");
+        mTitleList.add("帖撒罗尼迦后书");
+        mTitleList.add("提摩太前书");
+        mTitleList.add("提摩太后书");
+        mTitleList.add("提多书");
+        mTitleList.add("腓利门书");
+        mTitleList.add("希伯来书");
+        mTitleList.add("雅各书");
+        mTitleList.add("彼得前书");
+        mTitleList.add("彼得后书");
+        mTitleList.add("约翰一书");
+        mTitleList.add("约翰二书");
+        mTitleList.add("约翰三书");
+        mTitleList.add("犹太书");
+        mTitleList.add("启示录");
+
 
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);//设置tab模式，当前为系统默认模式
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(0)));//添加tab选项卡
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(1)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(2)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(3)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(4)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(5)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(6)));
-        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(7)));
+        for (int i = 0; i < 27; i++) {
+            mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(i)));//添加tab选项卡
+        }
+//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(1)));
+//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(2)));
+//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(3)));
+//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(4)));
+//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(5)));
+//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(6)));
+//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(7)));
 
 
         MyPagerAdapter mAdapter = new MyPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mAdapter);//给ViewPager设置适配器
-        mViewPager.setOffscreenPageLimit(66);
+        mViewPager.setOffscreenPageLimit(27);
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。
+        // 设置初始化的福音page
+        mViewPager.setCurrentItem(20);
 //        mTabLayout.setTabsFromPagerAdapter(mAdapter);//给Tabs设置适配器 //用setupWithViewPager就足够了
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>copy
     }
