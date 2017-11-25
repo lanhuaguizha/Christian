@@ -128,9 +128,9 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
             view.setTranslationY(ChristianUtil.getScreenHeight(view.getContext()));
             view.animate()
                     .translationY(0)
-                    .setStartDelay(400 * position)
-                    .setInterpolator(new DecelerateInterpolator(3.f))
-                    .setDuration(800)
+                    .setStartDelay(200 * position)
+//                    .setInterpolator(new DecelerateInterpolator(3.f))
+                    .setDuration(400)
                     .start();
         }
     }
