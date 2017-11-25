@@ -50,7 +50,7 @@ public class HomeFragment extends BaseFragment {
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
     private static final int SPAN_COUNT = 2;
-    private static final int DATA_SET_COUNT = 4;
+    private static final int DATA_SET_COUNT = 20;
     @ViewInject(R.id.recycler_view)
     public RecyclerView mRecyclerView;
     @ViewInject(R.id.app_bar)
@@ -86,9 +86,9 @@ public class HomeFragment extends BaseFragment {
     public void scrollToTop() {
         // 这里明明可能为Null，每次re-点击首页返回顶部都崩溃
         if (mRecyclerView != null) {
-            mRecyclerView.scrollToPosition(TOP);
+            mRecyclerView.smoothScrollToPosition(TOP);
         }
-//        mAppBarLayout.setExpanded(true, true);
+        mAppBarLayout.setExpanded(true, true);
     }
 
     public HomeFragment() {
@@ -265,7 +265,7 @@ public class HomeFragment extends BaseFragment {
     private void initDataSet() {
         dataSet = new String[DATA_SET_COUNT];
         for (int i = 0; i < DATA_SET_COUNT; i++) {
-            dataSet[i] = getString(R.string.next_week);
+            dataSet[i] = getString(R.string.next_week) + i;
         }
     }
 

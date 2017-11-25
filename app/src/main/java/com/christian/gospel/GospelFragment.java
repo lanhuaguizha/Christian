@@ -111,7 +111,7 @@ public class GospelFragment extends BaseFragment {
         if (homeFragment != null) {
             homeFragment.scrollToTop();
         }
-//        mAppBar.setExpanded(true, true);
+        mAppBar.setExpanded(true, true);
     }
 
     @Override

@@ -128,9 +128,9 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
             view.setTranslationY(ChristianUtil.getScreenHeight(view.getContext()));
             view.animate()
                     .translationY(0)
-                    .setStartDelay(40 * position)
+                    .setStartDelay(400 * position)
                     .setInterpolator(new DecelerateInterpolator(3.f))
-                    .setDuration(200)
+                    .setDuration(800)
                     .start();
         }
     }
@@ -142,7 +142,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
         int screenItems = ChristianUtil.getScreenHeight(viewHolder.itemView.getContext()) / viewHolder.itemView.getMeasuredHeight();
         Animation animation = null;
         if (adapterPosition >= mLastPosition) {
-            if (adapterPosition - 1 > screenItems) {
+            if (adapterPosition >= screenItems) {
 //                if (adapterPosition >= mLastPosition) {
                 // Load animation form xml
                 animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.up_from_bottom);
@@ -162,7 +162,9 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
                 //                        .setDuration(200)
                 //                        .start();
             } else {
-//                runEnterAnimation(viewHolder.itemView, adapterPosition);
+                if (viewHolder.itemView.getVisibility() == View.VISIBLE) {
+                    runEnterAnimation(viewHolder.itemView, adapterPosition);
+                }
             }
         } else {
             animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.stay);
