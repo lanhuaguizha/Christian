@@ -86,7 +86,7 @@ public class HomeFragment extends BaseFragment {
     public void scrollToTop() {
         // 这里明明可能为Null，每次re-点击首页返回顶部都崩溃
         if (mRecyclerView != null) {
-            mRecyclerView.smoothScrollToPosition(TOP);
+            mRecyclerView.scrollToPosition(TOP);
         }
 //        mAppBarLayout.setExpanded(true, true);
     }
