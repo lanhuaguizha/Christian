@@ -69,7 +69,7 @@ public class MeFragment extends BaseFragment {
     }
 
     public void scrollToTop() {
-        mAppBar.setExpanded(true, true);
+//        mAppBar.setExpanded(true, true);
     }
 
     public MeFragment() {

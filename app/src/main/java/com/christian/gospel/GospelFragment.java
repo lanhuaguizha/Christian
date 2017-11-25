@@ -111,7 +111,7 @@ public class GospelFragment extends BaseFragment {
         if (homeFragment != null) {
             homeFragment.scrollToTop();
         }
-        mAppBar.setExpanded(true, true);
+//        mAppBar.setExpanded(true, true);
     }
 
     @Override
@@ -218,7 +218,6 @@ public class GospelFragment extends BaseFragment {
         mTitleList.add("犹太书");
         mTitleList.add("启示录");
 
-
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);//设置tab模式，当前为系统默认模式
         for (int i = 0; i < 27; i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(i)));//添加tab选项卡
@@ -236,8 +235,6 @@ public class GospelFragment extends BaseFragment {
         mViewPager.setAdapter(mAdapter);//给ViewPager设置适配器
         mViewPager.setOffscreenPageLimit(27);
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。
-        // 设置初始化的福音page
-        mViewPager.setCurrentItem(20);
 //        mTabLayout.setTabsFromPagerAdapter(mAdapter);//给Tabs设置适配器 //用setupWithViewPager就足够了
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>copy
     }

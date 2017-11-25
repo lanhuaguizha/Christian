@@ -28,7 +28,6 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/settings_img"
         android:gravity="center_vertical"
-        android:text="@string/night_mode"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/text_color_tertiary"
         android:layout_toRightOf="@id/settings_img" />
