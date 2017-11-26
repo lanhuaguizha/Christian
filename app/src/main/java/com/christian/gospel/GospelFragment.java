@@ -111,7 +111,9 @@ public class GospelFragment extends BaseFragment {
         if (homeFragment != null) {
             homeFragment.scrollToTop();
         }
-        mAppBar.setExpanded(true, true);
+        if (mAppBar != null) {
+            mAppBar.setExpanded(true, true);
+        }
     }
 
     @Override
@@ -233,8 +235,16 @@ public class GospelFragment extends BaseFragment {
 
         MyPagerAdapter mAdapter = new MyPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mAdapter);//给ViewPager设置适配器
-        mViewPager.setOffscreenPageLimit(27);
+        mViewPager.setOffscreenPageLimit(0);
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。
+        mViewPager.setCurrentItem(1);
+
+        mViewPager.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mViewPager.setCurrentItem(0);
+            }
+        },100);
 //        mTabLayout.setTabsFromPagerAdapter(mAdapter);//给Tabs设置适配器 //用setupWithViewPager就足够了
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>copy
     }

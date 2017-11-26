@@ -31,7 +31,7 @@ public class NavigationActivity extends BaseActivity {
     private CustomViewPage mCustomViewPager;
 
     MenuItem mPrevMenuItem;
-    private static final int DEFAULT_OFFSCREEN_PAGES = 2;
+    private static final int DEFAULT_OFFSCREEN_PAGES = 0;
     private HomeFragment mHomeFragment;
     private GospelFragment mGospelFragment;
     private MeFragment mMeFragment;

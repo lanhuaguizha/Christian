@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -129,8 +130,8 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
             view.animate()
                     .translationY(0)
                     .setStartDelay(200 * position)
-//                    .setInterpolator(new DecelerateInterpolator(3.f))
-                    .setDuration(400)
+                    .setInterpolator(new AccelerateDecelerateInterpolator())
+                    .setDuration(200)
                     .start();
         }
     }
