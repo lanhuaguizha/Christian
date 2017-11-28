@@ -165,10 +165,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
                 //                        .setDuration(200)
                 //                        .start();
             } else {
-                if (mHomeFragRecyclerView.getScrollY() == 0) {
-                    Log.i(TAG, "mHomeFragRecyclerView.getScrollY(): " + mHomeFragRecyclerView.getScrollY());
-                    runEnterAnimation(viewHolder.itemView, adapterPosition);
-                }
+                runEnterAnimation(viewHolder.itemView, adapterPosition);
             }
         } else {
             animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.stay);
