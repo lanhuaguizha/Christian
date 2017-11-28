@@ -45,6 +45,7 @@ import org.xutils.x;
  * Provide views to RecyclerView with data from mDataSet.
  */
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder> {
+    private final RecyclerView mHomeFragRecyclerView;
     private int mLastPosition;
     private static final String TAG = "DetailAdapter";
     private String[] mDataSet;
@@ -100,7 +101,8 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
 
     }
 
-    public DetailAdapter(String[] dataSet) {
+    public DetailAdapter(RecyclerView homeFragRecyclerView, String[] dataSet) {
+        mHomeFragRecyclerView = homeFragRecyclerView;
         mDataSet = dataSet;
     }
 
@@ -163,7 +165,8 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
                 //                        .setDuration(200)
                 //                        .start();
             } else {
-                if (viewHolder.itemView.getVisibility() == View.VISIBLE) {
+                if (mHomeFragRecyclerView.getScrollY() == 0) {
+                    Log.i(TAG, "mHomeFragRecyclerView.getScrollY(): " + mHomeFragRecyclerView.getScrollY());
                     runEnterAnimation(viewHolder.itemView, adapterPosition);
                 }
             }

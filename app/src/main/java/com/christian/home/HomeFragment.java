@@ -45,16 +45,16 @@ public class HomeFragment extends BaseFragment {
     private String[] dataSet;
     //    @ViewInject(R.id.toolbar_actionbar)
 //    private Toolbar mToolbar;
-    @ViewInject(R.id.swipe_refresh_layout)
-    private SwipeRefreshLayout swipeRefreshLayout;
+    @ViewInject(R.id.home_frag_swipe_refresh_layout)
+    private SwipeRefreshLayout mHomeFragSwipeRefreshLayout;
     @ViewInject(R.id.toolbar_actionbar)
-    private Toolbar toolbar;
+    private Toolbar mToolbarActionbar;
     private static final int SPAN_COUNT = 2;
     private static final int DATA_SET_COUNT = 20;
-    @ViewInject(R.id.recycler_view)
-    public RecyclerView mRecyclerView;
-    @ViewInject(R.id.app_bar)
-    public AppBarLayout mAppBarLayout;
+    @ViewInject(R.id.home_frag_recycler_view)
+    public RecyclerView mHomeFragRecyclerView;
+    @ViewInject(R.id.home_frag_app_bar_layout)
+    public AppBarLayout mHomeFragAppBarLayout;
     public static final int TOP = 0;
 
     @ViewInject(R.id.search_view_container)
@@ -85,10 +85,10 @@ public class HomeFragment extends BaseFragment {
     // For clicking the navigation menu to scroll the recycler view to the top when the menu is checked
     public void scrollToTop() {
         // 这里明明可能为Null，每次re-点击首页返回顶部都崩溃
-        if (mRecyclerView != null) {
-            mRecyclerView.smoothScrollToPosition(TOP);
+        if (mHomeFragRecyclerView != null) {
+            mHomeFragRecyclerView.smoothScrollToPosition(TOP);
         }
-        mAppBarLayout.setExpanded(true, true);
+        mHomeFragAppBarLayout.setExpanded(true, true);
     }
 
     public HomeFragment() {
@@ -150,7 +150,7 @@ public class HomeFragment extends BaseFragment {
 //            }
 //        });
 
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        mToolbarActionbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
@@ -163,7 +163,7 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mHomeFragSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
@@ -175,7 +175,7 @@ public class HomeFragment extends BaseFragment {
 //                            newDatas.add("new item" + index);
 //                        }
 //                        homeAdapter.addItem(newDatas);
-                        swipeRefreshLayout.setRefreshing(false);
+                        mHomeFragSwipeRefreshLayout.setRefreshing(false);
                     }
                 }, 700);
             }
@@ -193,30 +193,30 @@ public class HomeFragment extends BaseFragment {
     private void initView() {
 
         if (getArguments().getInt("fromWho") == NavigationActivity.ChristianTab.NAVIGATION_HOME.ordinal()) {
-            mAppBarLayout.setVisibility(View.VISIBLE);
+            mHomeFragAppBarLayout.setVisibility(View.VISIBLE);
         } else if (getArguments().getInt("fromWho") == NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()) {
-            mAppBarLayout.setVisibility(View.GONE);
+            mHomeFragAppBarLayout.setVisibility(View.GONE);
         }
 
         //Recycler View set homeAdapter
-        homeAdapter = new DetailAdapter(dataSet);
-        mRecyclerView.setAdapter(homeAdapter);
-        mRecyclerView.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.search_margin_horizontal)));
+        homeAdapter = new DetailAdapter(mHomeFragRecyclerView, dataSet);
+        mHomeFragRecyclerView.setAdapter(homeAdapter);
+        mHomeFragRecyclerView.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.search_margin_horizontal)));
         currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         setRecyclerViewLayoutManager(currentLayoutManagerType);
 
 //        if (bottomNavigationActivity != null && bottomNavigationActivity.getSupportActionBar() != null) {
 //            bottomNavigationActivity.getSupportActionBar().setTitle(getString(R.string.title_home));
 //        }
-        toolbar.setTitle(getString(R.string.title_home));
+        mToolbarActionbar.setTitle(getString(R.string.title_home));
 //        if (!added && false) {
-//            toolbar.inflateMenu(R.menu.menu_gospel);
+//            mToolbarActionbar.inflateMenu(R.menu.menu_gospel);
 //            added = true;
 //        }
 
         Toolbar toolbar = ((NavigationActivity) getActivity()).getActionBarToolbar();
 
-        swipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        mHomeFragSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorAccent));
     }
 
     private void initData() {
@@ -235,8 +235,8 @@ public class HomeFragment extends BaseFragment {
         int scrollPosition = 0;
 
         // If a layout manager has already been set, get current scroll position.
-        if (mRecyclerView.getLayoutManager() != null) {
-            scrollPosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager())
+        if (mHomeFragRecyclerView.getLayoutManager() != null) {
+            scrollPosition = ((LinearLayoutManager) mHomeFragRecyclerView.getLayoutManager())
                     .findFirstCompletelyVisibleItemPosition();
         }
 
@@ -254,8 +254,8 @@ public class HomeFragment extends BaseFragment {
                 currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         }
 
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.scrollToPosition(scrollPosition);
+        mHomeFragRecyclerView.setLayoutManager(layoutManager);
+        mHomeFragRecyclerView.scrollToPosition(scrollPosition);
     }
 
     /**
