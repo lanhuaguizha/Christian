@@ -3,11 +3,14 @@ package com.christian;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.christian.base.BaseActivity;
 import com.christian.base.BaseFragment;
@@ -29,7 +32,7 @@ public class NavigationActivity extends BaseActivity {
     private BottomNavigationView mBottomNavigationView;
     @ViewInject(R.id.content_view_page)
     private CustomViewPage mCustomViewPager;
-
+    private long exitTime = 0;
     MenuItem mPrevMenuItem;
     private static final int DEFAULT_OFFSCREEN_PAGES = 0;
     private HomeFragment mHomeFragment;
@@ -186,6 +189,20 @@ public class NavigationActivity extends BaseActivity {
         @Override
         public int getCount() {
             return fragments.size();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if ((currentTime - exitTime) < 2000) {
+            super.onBackPressed();
+        } else {
+            Snackbar snackbar = Snackbar.make(mCustomViewPager, R.string.double_click_exit, Snackbar.LENGTH_SHORT);
+            ((TextView) snackbar.getView().findViewById(R.id.snackbar_text)).setTextColor(getResources().getColor(R.color.white));
+            snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            snackbar.setAction("确定", null).show();
+            exitTime = currentTime;
         }
     }
 }

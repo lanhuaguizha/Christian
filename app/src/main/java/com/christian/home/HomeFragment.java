@@ -2,6 +2,7 @@ package com.christian.home;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
@@ -88,7 +89,9 @@ public class HomeFragment extends BaseFragment {
         if (mHomeFragRecyclerView != null) {
             mHomeFragRecyclerView.smoothScrollToPosition(TOP);
         }
-        mHomeFragAppBarLayout.setExpanded(true, true);
+        if (mHomeFragAppBarLayout != null) {
+            mHomeFragAppBarLayout.setExpanded(true, true);
+        }
     }
 
     public HomeFragment() {
