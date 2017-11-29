@@ -67,13 +67,12 @@ public class DetailFragment extends BaseFragment {
 //                    nestedScrollView.fullScroll(View.FOCUS_DOWN);
 //                    appBarLayout.setExpanded(false, true);
 //                } else {
-                nestedScrollView.smoothScrollTo(0, 0);
                 nestedScrollView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         nestedScrollView.smoothScrollTo(0, 0);//解决间接性不能到顶部
                     }
-                }, 100);
+                }, 10);
 //                    nestedScrollView.fullScroll(View.FOCUS_UP);
                 appBarLayout.setExpanded(true, true);
 //                }
