@@ -145,7 +145,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
         int screenItems = ChristianUtil.getScreenHeight(viewHolder.itemView.getContext()) / viewHolder.itemView.getMeasuredHeight();
         Animation animation = null;
         if (adapterPosition >= mLastPosition) {
-            if (adapterPosition >= screenItems) {
+//            if (adapterPosition >= screenItems) {
 //                if (adapterPosition >= mLastPosition) {
                 // Load animation form xml
                 animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.up_from_bottom);
@@ -164,9 +164,9 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
                 //                        .setInterpolator(new DecelerateInterpolator(3.f))
                 //                        .setDuration(200)
                 //                        .start();
-            } else {
-                runEnterAnimation(viewHolder.itemView, adapterPosition);
-            }
+//            } else {
+//                runEnterAnimation(viewHolder.itemView, adapterPosition);
+//            }
         } else {
             animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.stay);
         }
