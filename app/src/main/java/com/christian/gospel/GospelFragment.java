@@ -235,7 +235,7 @@ public class GospelFragment extends BaseFragment {
 
         MyPagerAdapter mAdapter = new MyPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mAdapter);//给ViewPager设置适配器
-        mViewPager.setOffscreenPageLimit(0);
+        mViewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。
         mViewPager.setCurrentItem(1);
 
