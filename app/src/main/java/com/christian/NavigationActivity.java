@@ -116,6 +116,7 @@ public class NavigationActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
+                // 底部栏颜色变化
                 if (mPrevMenuItem != null) {
                     mPrevMenuItem.setChecked(false);
                 } else {
@@ -123,6 +124,13 @@ public class NavigationActivity extends BaseActivity {
                 }
                 mBottomNavigationView.getMenu().getItem(position).setChecked(true);
                 mPrevMenuItem = mBottomNavigationView.getMenu().getItem(position);
+
+                //Fab显示隐藏
+                if (position == mCustomViewPager.getChildCount() - 1) {
+                    mMeFragment.showMeFragFab();
+                } else {
+                    mMeFragment.hideMeFragFab();
+                }
             }
 
             @Override

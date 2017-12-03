@@ -1,18 +1,15 @@
 package com.christian.me;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,35 +33,55 @@ public class MeFragment extends BaseFragment {
     private static final String TAG = MeFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar mToolbar;
-    @ViewInject(R.id.fabMe)
-    private FloatingActionButton mFabMe;
+    @ViewInject(R.id.me_frag_fab)
+    private FloatingActionButton mMeFragFab;
     @ViewInject(R.id.app_bar)
     private AppBarLayout mAppBar;
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView(view);
+        initListener(view);
+    }
+
+    public void showMeFragFab() {
+        mMeFragFab.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mMeFragFab.show();
+            }
+        }, 200);
+    }
+
+    public void hideMeFragFab() {
+        mMeFragFab.hide();
+    }
 
     @Event(value = R.id.nsv_me, type = NestedScrollView.OnScrollChangeListener.class)
     private void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
         if (scrollY > oldScrollY) {
             Log.i(TAG, "Scroll DOWN");
-            mFabMe.hide();
+            mMeFragFab.hide();
         } else {
-//            mFabMe.show();
+//            mMeFragFab.show();
         }
 //        if (scrollY < oldScrollY) {
 //            Log.i(TAG, "Scroll UP");
-//            mFabMe.hide();
+//            mMeFragFab.hide();
 //        } else {
-//            mFabMe.show();
+//            mMeFragFab.show();
 //        }
 //
 //        if (scrollY == 0) {
 //            Log.i(TAG, "TOP SCROLL");
-//            mFabMe.hide();
+//            mMeFragFab.hide();
 //        }
 //
 //        if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
 //            Log.i(TAG, "BOTTOM SCROLL");
-//            mFabMe.hide();
+//            mMeFragFab.hide();
 //        }
     }
 
@@ -81,13 +98,6 @@ public class MeFragment extends BaseFragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        initView(view);
-        initListener(view);
     }
 
     private void initListener(View view) {
