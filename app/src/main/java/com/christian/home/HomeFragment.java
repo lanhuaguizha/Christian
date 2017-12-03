@@ -53,9 +53,9 @@ public class HomeFragment extends BaseFragment {
     private static final int SPAN_COUNT = 2;
     private static final int DATA_SET_COUNT = 20;
     @ViewInject(R.id.home_frag_recycler_view)
-    public RecyclerView mHomeFragRecyclerView;
+    private RecyclerView mHomeFragRecyclerView;
     @ViewInject(R.id.home_frag_app_bar_layout)
-    public AppBarLayout mHomeFragAppBarLayout;
+    private AppBarLayout mHomeFragAppBarLayout;
     public static final int TOP = 0;
 
     @ViewInject(R.id.search_view_container)
@@ -86,12 +86,8 @@ public class HomeFragment extends BaseFragment {
     // For clicking the navigation menu to scroll the recycler view to the top when the menu is checked
     public void scrollToTop() {
         // 这里明明可能为Null，每次re-点击首页返回顶部都崩溃
-        if (mHomeFragRecyclerView != null) {
-            mHomeFragRecyclerView.smoothScrollToPosition(TOP);
-        }
-        if (mHomeFragAppBarLayout != null) {
-            mHomeFragAppBarLayout.setExpanded(true, true);
-        }
+        mHomeFragRecyclerView.smoothScrollToPosition(TOP);
+        mHomeFragAppBarLayout.setExpanded(true, true);
     }
 
     public HomeFragment() {
