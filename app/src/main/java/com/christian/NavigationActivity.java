@@ -195,7 +195,7 @@ public class NavigationActivity extends BaseActivity {
         }
     }
 
-    private class CustomFragmentPagerAdapter extends FragmentStatePagerAdapter {
+    private class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
         private int mCurrentPosition = -1;
 
         CustomFragmentPagerAdapter(FragmentManager fm) {
