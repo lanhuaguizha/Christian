@@ -266,7 +266,6 @@ public class GospelFragment extends BaseFragment {
 
         @Override
         public Fragment getItem(int position) {
-            mViewPager.setPosition(position);
             return mViewList.get(position);
         }
 

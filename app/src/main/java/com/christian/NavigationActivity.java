@@ -7,13 +7,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.christian.base.BaseActivity;
-import com.christian.base.BaseFragment;
 import com.christian.gospel.GospelFragment;
 import com.christian.home.HomeFragment;
 import com.christian.me.MeFragment;
@@ -38,6 +38,8 @@ public class NavigationActivity extends BaseActivity {
     private HomeFragment mHomeFragment;
     private GospelFragment mGospelFragment;
     private MeFragment mMeFragment;
+    private ArrayList<Fragment> fragments;
+    private CustomFragmentPagerAdapter adapter;
 
     public enum ChristianTab {
         NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC, NAVIGATION_ME;
@@ -46,6 +48,7 @@ public class NavigationActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, "onCreate: ");
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true);
         initView();
@@ -59,12 +62,33 @@ public class NavigationActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.i(TAG, "onStart: " + adapter);
         // To remain 4 tabs fragments
         mCustomViewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
+        if (adapter == null) {
+            adapter = new CustomFragmentPagerAdapter(getSupportFragmentManager());
+            adapter.notifyDataSetChanged();
+            Log.i(TAG, "notifyDataSetChanged: ");
+        }
+        mCustomViewPager.setAdapter(adapter);
 //        NavigationViewHelper.disableShiftMode(mBottomNavigationView);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: ");
+    }
+
     private void initView() {
+        fragments = new ArrayList<>();
+        mHomeFragment = HomeFragment.newInstance(ChristianTab.NAVIGATION_HOME.ordinal());
+        mGospelFragment = GospelFragment.newInstance();
+        mMeFragment = MeFragment.newInstance();
+        fragments.add(mHomeFragment);
+        fragments.add(mGospelFragment);
+        fragments.add(mMeFragment);
+
     }
 
     private void initListener() {
@@ -73,17 +97,13 @@ public class NavigationActivity extends BaseActivity {
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch ((item.getItemId())) {
                     case R.id.navigation_home:
-                        if (mHomeFragment != null) {
-                            mHomeFragment.scrollToTop();
-                        }
+                        ((HomeFragment)fragments.get(0)).scrollToTop();
                         break;
                     case R.id.navigation_gospel:
-                        if (mGospelFragment != null) {
-                            mGospelFragment.scrollToTop();
-                        }
+                        ((GospelFragment)fragments.get(1)).scrollToTop();
                         break;
                     case R.id.navigation_me:
-                        mMeFragment.scrollToTop();
+                        ((MeFragment)fragments.get(2)).scrollToTop();
                         break;
                     default:
                         break;
@@ -138,7 +158,6 @@ public class NavigationActivity extends BaseActivity {
 //                Log.i(TAG, "onPageScrollStateChanged: ");
             }
         });
-        mCustomViewPager.setAdapter(new CustomFragmentPagerAdapter(getSupportFragmentManager()));
     }
 
     //    @Override
@@ -161,19 +180,26 @@ public class NavigationActivity extends BaseActivity {
 //        }
 //        return false;
 //    }
-    private class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
-        private ArrayList<Fragment> fragments;
+
+    @Override
+    public void onBackPressed() {
+        long currentTime = System.currentTimeMillis();
+        if ((currentTime - exitTime) < 2000) {
+            super.onBackPressed();
+        } else {
+            Snackbar snackbar = Snackbar.make(mCustomViewPager, R.string.double_click_exit, Snackbar.LENGTH_SHORT);
+            ((TextView) snackbar.getView().findViewById(R.id.snackbar_text)).setTextColor(getResources().getColor(R.color.white));
+            snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            snackbar.setAction("确定", null).show();
+            exitTime = currentTime;
+        }
+    }
+
+    private class CustomFragmentPagerAdapter extends FragmentStatePagerAdapter {
         private int mCurrentPosition = -1;
 
         CustomFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
-            fragments = new ArrayList<>();
-            mHomeFragment = HomeFragment.newInstance(ChristianTab.NAVIGATION_HOME.ordinal());
-            mGospelFragment = GospelFragment.newInstance();
-            mMeFragment = MeFragment.newInstance();
-            fragments.add(mHomeFragment);
-            fragments.add(mGospelFragment);
-            fragments.add(mMeFragment);
         }
 
 //        @Override
@@ -191,6 +217,7 @@ public class NavigationActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
+            Log.i(TAG, "getItem: " + fragments);
             return fragments.get(position);
         }
 
@@ -201,16 +228,22 @@ public class NavigationActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        long currentTime = System.currentTimeMillis();
-        if ((currentTime - exitTime) < 2000) {
-            super.onBackPressed();
-        } else {
-            Snackbar snackbar = Snackbar.make(mCustomViewPager, R.string.double_click_exit, Snackbar.LENGTH_SHORT);
-            ((TextView) snackbar.getView().findViewById(R.id.snackbar_text)).setTextColor(getResources().getColor(R.color.white));
-            snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorAccent));
-            snackbar.setAction("确定", null).show();
-            exitTime = currentTime;
-        }
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause: ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter = null;
+        finish();
+        Log.i(TAG, "onStop: " + adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroy: ");
     }
 }
