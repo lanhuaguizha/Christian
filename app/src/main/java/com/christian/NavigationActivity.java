@@ -55,10 +55,6 @@ public class NavigationActivity extends BaseActivity {
         clearFragmentToAvoidCrash();
         initView();
         initListener();
-        // Initialize the load
-        if (savedInstanceState == null) {
-            mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
-        }
     }
 
     private void clearFragmentToAvoidCrash() {
@@ -75,27 +71,6 @@ public class NavigationActivity extends BaseActivity {
             transaction.commitNow();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i(TAG, "onStart: " + adapter);
-        // To remain 4 tabs fragments
-        mCustomViewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
-        if (adapter == null) {
-            adapter = new CustomFragmentPagerAdapter(getSupportFragmentManager());
-            adapter.notifyDataSetChanged();
-            Log.i(TAG, "notifyDataSetChanged: ");
-        }
-        mCustomViewPager.setAdapter(adapter);
-//        NavigationViewHelper.disableShiftMode(mBottomNavigationView);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i(TAG, "onResume: ");
-    }
-
     private void initView() {
         fragments = new ArrayList<>();
         mHomeFragment = HomeFragment.newInstance(ChristianTab.NAVIGATION_HOME.ordinal());
@@ -105,6 +80,12 @@ public class NavigationActivity extends BaseActivity {
         fragments.add(mGospelFragment);
         fragments.add(mMeFragment);
 
+        // To remain 4 tabs fragments
+        mCustomViewPager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGES);
+        adapter = new CustomFragmentPagerAdapter(getSupportFragmentManager());
+        mCustomViewPager.setAdapter(adapter);
+        mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
+//        NavigationViewHelper.disableShiftMode(mBottomNavigationView);
     }
 
     private void initListener() {
@@ -241,25 +222,5 @@ public class NavigationActivity extends BaseActivity {
         public int getCount() {
             return fragments.size();
         }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i(TAG, "onPause: ");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter = null;
-//        finish();
-        Log.i(TAG, "onStop: " + adapter);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "onDestroy: ");
     }
 }
