@@ -7,7 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
@@ -24,6 +24,7 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @ContentView(R.layout.navigation_act)
 public class NavigationActivity extends BaseActivity {
@@ -51,12 +52,27 @@ public class NavigationActivity extends BaseActivity {
         Log.i(TAG, "onCreate: ");
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true);
+        clearFragmentToAvoidCrash();
         initView();
         initListener();
         // Initialize the load
         if (savedInstanceState == null) {
             mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
         }
+    }
+
+    private void clearFragmentToAvoidCrash() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (transaction == null || fragments == null || fragments.size() == 0)
+            return;
+        boolean doCommit = false;
+        for (Fragment fragment : fragments) {
+            transaction.remove(fragment);
+            doCommit = true;
+        }
+        if (doCommit)
+            transaction.commitNow();
     }
 
     @Override
@@ -97,13 +113,13 @@ public class NavigationActivity extends BaseActivity {
             public void onNavigationItemReselected(@NonNull MenuItem item) {
                 switch ((item.getItemId())) {
                     case R.id.navigation_home:
-                        ((HomeFragment)fragments.get(0)).scrollToTop();
+                        ((HomeFragment) fragments.get(0)).scrollToTop();
                         break;
                     case R.id.navigation_gospel:
-                        ((GospelFragment)fragments.get(1)).scrollToTop();
+                        ((GospelFragment) fragments.get(1)).scrollToTop();
                         break;
                     case R.id.navigation_me:
-                        ((MeFragment)fragments.get(2)).scrollToTop();
+                        ((MeFragment) fragments.get(2)).scrollToTop();
                         break;
                     default:
                         break;
@@ -239,11 +255,6 @@ public class NavigationActivity extends BaseActivity {
         adapter = null;
 //        finish();
         Log.i(TAG, "onStop: " + adapter);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
     }
 
     @Override
