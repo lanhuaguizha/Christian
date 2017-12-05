@@ -237,8 +237,13 @@ public class NavigationActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
         adapter = null;
-        finish();
+//        finish();
         Log.i(TAG, "onStop: " + adapter);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
     }
 
     @Override
