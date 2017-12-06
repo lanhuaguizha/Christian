@@ -1,6 +1,7 @@
 package com.christian;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
@@ -41,6 +42,7 @@ public class NavigationActivity extends BaseActivity {
     private MeFragment mMeFragment;
     private ArrayList<Fragment> fragments;
     private CustomFragmentPagerAdapter adapter;
+    private boolean isOnSaveState;
 
     public enum ChristianTab {
         NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC, NAVIGATION_ME;
@@ -52,23 +54,27 @@ public class NavigationActivity extends BaseActivity {
         Log.i(TAG, "onCreate: ");
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true);
-        clearFragmentToAvoidCrash();
-        initView();
-        initListener();
-    }
 
-    private void clearFragmentToAvoidCrash() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        if (transaction == null || fragments == null || fragments.size() == 0)
-            return;
-        boolean doCommit = false;
-        for (Fragment fragment : fragments) {
-            transaction.remove(fragment);
-            doCommit = true;
-        }
-        if (doCommit)
+
+        if (transaction == null || fragments == null || fragments.size() == 0) {
+            initView();
+            initListener();
+        } else {
+            for (Fragment fragment : fragments) {
+                transaction.remove(fragment);
+            }
             transaction.commitNow();
+            initView();
+            initListener();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        isOnSaveState = true;
     }
 
     private void initView() {
