@@ -33,8 +33,6 @@ public class MeFragment extends BaseFragment {
     private static final String TAG = MeFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar mToolbar;
-    @ViewInject(R.id.me_frag_fab)
-    private FloatingActionButton mMeFragFab;
     @ViewInject(R.id.app_bar)
     private AppBarLayout mAppBar;
 
@@ -45,28 +43,15 @@ public class MeFragment extends BaseFragment {
         initListener(view);
     }
 
-    public void showMeFragFab() {
-        mMeFragFab.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mMeFragFab.show();
-            }
-        }, 200);
-    }
-
-    public void hideMeFragFab() {
-        mMeFragFab.hide();
-    }
-
     @Event(value = R.id.nsv_me, type = NestedScrollView.OnScrollChangeListener.class)
     private void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
-        if (scrollY > oldScrollY) {
-            Log.i(TAG, "Scroll DOWN");
-            mMeFragFab.hide();
-        } else {
-//            mMeFragFab.show();
-        }
+//        if (scrollY > oldScrollY) {
+////            Log.i(TAG, "Scroll DOWN");
+////            mMeFragFab.hide();
+//        } else {
+////            mMeFragFab.show();
+//        }
 //        if (scrollY < oldScrollY) {
 //            Log.i(TAG, "Scroll UP");
 //            mMeFragFab.hide();

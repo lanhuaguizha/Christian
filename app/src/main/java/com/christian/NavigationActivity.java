@@ -1,17 +1,19 @@
 package com.christian;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.christian.base.BaseActivity;
@@ -25,7 +27,6 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @ContentView(R.layout.navigation_act)
 public class NavigationActivity extends BaseActivity {
@@ -43,6 +44,10 @@ public class NavigationActivity extends BaseActivity {
     private ArrayList<Fragment> fragments;
     private CustomFragmentPagerAdapter adapter;
     private boolean isOnSaveState;
+    private ArrayList<CharSequence> mFragmentNameList = new ArrayList<>();
+    private static final String MFRAGMENTNAMELIST = "mFragmentNameList";
+    @ViewInject(R.id.navigation_act_fab)
+    private FloatingActionButton mNavigationActFab;
 
     public enum ChristianTab {
         NAVIGATION_HOME, NAVIGATION_BOOK, NAVIGATION_MUSIC, NAVIGATION_ME;
@@ -55,33 +60,23 @@ public class NavigationActivity extends BaseActivity {
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-
-        if (transaction == null || fragments == null || fragments.size() == 0) {
-            initView();
-            initListener();
+        if (savedInstanceState != null) {
+            mFragmentNameList = savedInstanceState.getCharSequenceArrayList(MFRAGMENTNAMELIST);
+            mHomeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(0).toString());
+            mGospelFragment = (GospelFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(1).toString());
+            mMeFragment = (MeFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(2).toString());
         } else {
-            for (Fragment fragment : fragments) {
-                transaction.remove(fragment);
-            }
-            transaction.commitNow();
-            initView();
-            initListener();
+            mHomeFragment = HomeFragment.newInstance(ChristianTab.NAVIGATION_HOME.ordinal());
+            mGospelFragment = GospelFragment.newInstance();
+            mMeFragment = MeFragment.newInstance();
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        isOnSaveState = true;
+        initView();
+        initListener();
     }
 
     private void initView() {
         fragments = new ArrayList<>();
-        mHomeFragment = HomeFragment.newInstance(ChristianTab.NAVIGATION_HOME.ordinal());
-        mGospelFragment = GospelFragment.newInstance();
-        mMeFragment = MeFragment.newInstance();
+
         fragments.add(mHomeFragment);
         fragments.add(mGospelFragment);
         fragments.add(mMeFragment);
@@ -150,9 +145,9 @@ public class NavigationActivity extends BaseActivity {
 
                 //Fab显示隐藏
                 if (position == mCustomViewPager.getChildCount() - 1) {
-                    mMeFragment.showMeFragFab();
+                    mNavigationActFab.show();
                 } else {
-                    mMeFragment.hideMeFragFab();
+                    mNavigationActFab.hide();
                 }
             }
 
@@ -218,6 +213,14 @@ public class NavigationActivity extends BaseActivity {
 //            }
 //        }
 
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            String name = makeFragmentName(container.getId(), position);
+            mFragmentNameList.add(name);
+            return super.instantiateItem(container, position);
+        }
+
         @Override
         public Fragment getItem(int position) {
             Log.i(TAG, "getItem: " + fragments);
@@ -228,5 +231,15 @@ public class NavigationActivity extends BaseActivity {
         public int getCount() {
             return fragments.size();
         }
+
+        private String makeFragmentName(int viewId, long id) {
+            return "android:switcher:" + viewId + ":" + id;
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putCharSequenceArrayList(MFRAGMENTNAMELIST, mFragmentNameList);
     }
 }
