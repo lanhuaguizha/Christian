@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.christian.NavigationActivity;
 import com.christian.R;
@@ -58,6 +59,8 @@ public class GospelFragment extends BaseFragment {
     @ViewInject(R.id.search_view_container)
     private SearchEditTextLayout mSearchEditTextLayout;
     private HomeFragment homeFragment;
+    private ArrayList<CharSequence> mFragmentNameList = new ArrayList<>();
+    private static final String MFRAGMENTNAMELIST = "mFragmentNameList";
 
     @Event({R.id.search_view_container, R.id.search_magnifying_glass, R.id.search_box_start_search, R.id.search_back_button})
     private void onClick(View v) {
@@ -108,20 +111,32 @@ public class GospelFragment extends BaseFragment {
     }
 
     public void scrollToTop() {
-        if (homeFragment != null) {
-            homeFragment.scrollToTop();
-        }
-        if (mAppBar != null) {
-            mAppBar.setExpanded(true, true);
-        }
+        homeFragment.scrollToTop();
+        mAppBar.setExpanded(true, true);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (savedInstanceState != null) {
+            mFragmentNameList = savedInstanceState.getCharSequenceArrayList(MFRAGMENTNAMELIST);
+            if (mFragmentNameList != null) {
+                for (int i = 0; i < mFragmentNameList.size(); i++) {
+                    mViewList.add((HomeFragment) getChildFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString()));
+                }
+            }
+        } else {
+            //添加页卡视图
+            for (int i = 0; i < 27; i++) {
+                HomeFragment homeFragment = HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal());
+                mViewList.add(homeFragment);
+            }
+        }
+
+        initData();
         initView();
         initListener();
-        initData();
     }
 
     private void initListener() {
@@ -178,11 +193,7 @@ public class GospelFragment extends BaseFragment {
 
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>copy
 
-        //添加页卡视图
-        for (int i = 0; i < 27; i++) {
-            HomeFragment homeFragment = HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal());
-            mViewList.add(homeFragment);
-        }
+
 //        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
 //        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
 //        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
@@ -244,7 +255,7 @@ public class GospelFragment extends BaseFragment {
             public void run() {
                 mViewPager.setCurrentItem(0);
             }
-        },100);
+        }, 100);
 //        mTabLayout.setTabsFromPagerAdapter(mAdapter);//给Tabs设置适配器 //用setupWithViewPager就足够了
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>copy
     }
@@ -269,6 +280,13 @@ public class GospelFragment extends BaseFragment {
             return mViewList.get(position);
         }
 
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            String name = makeFragmentName(container.getId(), position);
+            mFragmentNameList.add(name);
+            return super.instantiateItem(container, position);
+        }
+
 
         @Override
         public int getCount() {
@@ -280,6 +298,15 @@ public class GospelFragment extends BaseFragment {
             return mTitleList.get(position);//页卡标题
         }
 
+        private String makeFragmentName(int viewId, long id) {
+            return "android:switcher:" + viewId + ":" + id;
+        }
+
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putCharSequenceArrayList(MFRAGMENTNAMELIST, mFragmentNameList);
+    }
 }
