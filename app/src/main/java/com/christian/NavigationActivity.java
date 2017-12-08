@@ -1,7 +1,5 @@
 package com.christian;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -59,11 +56,21 @@ public class NavigationActivity extends BaseActivity {
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true);
 
-        if (savedInstanceState != null && mFragmentNameList.size() != 0) {
+        if (savedInstanceState != null) {
             mFragmentNameList = savedInstanceState.getCharSequenceArrayList(MFRAGMENTNAMELIST);
-            mHomeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(0).toString());
-            mGospelFragment = (GospelFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(1).toString());
-            mMeFragment = (MeFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(2).toString());
+            if (mFragmentNameList != null) {
+                for (int i = 0; i < mFragmentNameList.size(); i++) {
+                    if (getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString()).toString().contains(HomeFragment.class.getSimpleName())) {
+                        mHomeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString());
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString()).toString().contains(GospelFragment.class.getSimpleName())) {
+                        mGospelFragment = (GospelFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString());
+                    }
+                    if (getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString()).toString().contains(MeFragment.class.getSimpleName())) {
+                        mMeFragment = (MeFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString());
+                    }
+                }
+            }
         } else {
             mHomeFragment = HomeFragment.newInstance(ChristianTab.NAVIGATION_HOME.ordinal());
             mGospelFragment = GospelFragment.newInstance();

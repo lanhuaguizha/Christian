@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,7 +17,6 @@ import com.christian.NavigationActivity;
 import com.christian.R;
 import com.christian.base.BaseFragment;
 import com.christian.home.HomeFragment;
-import com.christian.view.CustomSubViewPage;
 import com.christian.view.SearchEditTextLayout;
 
 import org.xutils.view.annotation.ContentView;
@@ -52,7 +50,7 @@ public class GospelFragment extends BaseFragment {
     @ViewInject(R.id.tabs)
     private TabLayout mTabLayout;
     @ViewInject(R.id.vp_view)
-    private CustomSubViewPage mViewPager;
+    private ViewPager mViewPager;
     private List<String> mTitleList = new ArrayList<>();//页卡标题集合
     private List<HomeFragment> mViewList = new ArrayList<>();//页卡视图集合
     @ViewInject(R.id.app_bar)
@@ -121,7 +119,7 @@ public class GospelFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (savedInstanceState != null && mFragmentNameList.size() != 0) {
+        if (savedInstanceState != null) {
             mFragmentNameList = savedInstanceState.getCharSequenceArrayList(MFRAGMENTNAMELIST);
             if (mFragmentNameList != null) {
                 Log.d(TAG, "onViewCreated: mFragmentNameListSize: " + mFragmentNameList.size());
@@ -261,8 +259,6 @@ public class GospelFragment extends BaseFragment {
                 mViewPager.setCurrentItem(0);
             }
         }, 100);
-//        mTabLayout.setTabsFromPagerAdapter(mAdapter);//给Tabs设置适配器 //用setupWithViewPager就足够了
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>copy
     }
 
     private void initData() {

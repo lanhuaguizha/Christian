@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <android.support.design.widget.FloatingActionButton
+        <com.christian.view.AlwaysAnimatedFloatingActionButton
             android:id="@+id/navigation_act_fab"
             android:visibility="gone"
             android:layout_width="wrap_content"

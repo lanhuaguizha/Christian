@@ -38,7 +38,7 @@
             android:paddingLeft="@dimen/activity_margin" />
     </android.support.v4.widget.NestedScrollView>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.christian.view.AlwaysAnimatedFloatingActionButton
         android:id="@+id/fabMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
