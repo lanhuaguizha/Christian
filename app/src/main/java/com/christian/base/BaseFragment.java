@@ -25,7 +25,7 @@ import org.xutils.x;
  */
 
 public class BaseFragment extends Fragment {
-    private static final String TAG = BaseFragment.class.getSimpleName();
+
 //    @ViewInject(R.id.search_view_container)
 //    private SearchEditTextLayout mSearchEditTextLayout;
 
@@ -62,14 +62,12 @@ public class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         injected = true;
-        Log.i(TAG, "onCreateView: >>>>>>>");
         return x.view().inject(this, inflater, container);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.i(TAG, "onCreateView: >>>>>>>!injected");
         if (!injected) {
             x.view().inject(this, this.getView());
         }

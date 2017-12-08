@@ -30,7 +30,6 @@ import org.xutils.view.annotation.ViewInject;
  */
 @ContentView(R.layout.me_frag)
 public class MeFragment extends BaseFragment {
-    private static final String TAG = MeFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     Toolbar mToolbar;
     @ViewInject(R.id.app_bar)
@@ -89,7 +88,6 @@ public class MeFragment extends BaseFragment {
         mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                Log.i(TAG, "onMenuItemClick: ");
                 Intent intentSetting = new Intent(getActivity(), SettingsActivity.class);
                 startActivity(intentSetting);
                 return false;

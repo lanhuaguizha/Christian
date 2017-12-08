@@ -55,10 +55,4 @@ public class CustomViewPage extends ViewPager {
         view.measure(0, 0);
         return view.getMeasuredHeight();
     }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        Log.i("CustomViewPage", "onInterceptTouchEvent: " + getChildCount());
-        return super.onInterceptTouchEvent(ev);
-    }
 }

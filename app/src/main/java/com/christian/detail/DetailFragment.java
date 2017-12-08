@@ -43,7 +43,6 @@ import org.xutils.view.annotation.ViewInject;
  */
 @ContentView(R.layout.detail_frag)
 public class DetailFragment extends BaseFragment {
-    private static final String TAG = DetailFragment.class.getSimpleName();
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar toolbar;
     @ViewInject(R.id.nested_scroll_view)

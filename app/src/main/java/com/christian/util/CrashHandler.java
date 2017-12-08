@@ -75,7 +75,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         if (!filedir.exists()) {
             boolean isDirectoryCreated = filedir.mkdirs();
             if (isDirectoryCreated) {
-                Log.i(TAG, "writeToSDcard: ");
+                Log.i(TAG, "writeToSDCard: ");
             }
         }
         long currenttime = System.currentTimeMillis();

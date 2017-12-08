@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SwipeBackLayout extends FrameLayout {
-    private static final String TAG = "ViewDragHelper";
-
     /**
      * Minimum velocity that will be detected as a fling
      */

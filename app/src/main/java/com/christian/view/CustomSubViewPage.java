@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 
 public class CustomSubViewPage extends ViewPager {
 
-    private static final String TAG = CustomSubViewPage.class.getSimpleName();
     private int mPosition;
 
     public CustomSubViewPage(Context context) {
@@ -27,9 +26,4 @@ public class CustomSubViewPage extends ViewPager {
         mPosition = position;
     }
 
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        Log.i(TAG, "onInterceptTouchEvent: " + mPosition);
-        return super.onInterceptTouchEvent(ev);
-    }
 }

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class GospelFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    public static final int OFFSCREEN_PAGE_LIMIT = 26;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -119,8 +121,11 @@ public class GospelFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && mFragmentNameList.size() != 0) {
             mFragmentNameList = savedInstanceState.getCharSequenceArrayList(MFRAGMENTNAMELIST);
+            if (mFragmentNameList != null) {
+                Log.d(TAG, "onViewCreated: mFragmentNameListSize: " + mFragmentNameList.size());
+            }
             if (mFragmentNameList != null) {
                 for (int i = 0; i < mFragmentNameList.size(); i++) {
                     mViewList.add((HomeFragment) getChildFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString()));
@@ -246,7 +251,7 @@ public class GospelFragment extends BaseFragment {
 
         MyPagerAdapter mAdapter = new MyPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mAdapter);//给ViewPager设置适配器
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。
         mViewPager.setCurrentItem(1);
 
@@ -273,6 +278,7 @@ public class GospelFragment extends BaseFragment {
 
         MyPagerAdapter(FragmentManager fm) {
             super(fm);
+            mFragmentNameList.clear();
         }
 
         @Override
@@ -308,5 +314,6 @@ public class GospelFragment extends BaseFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putCharSequenceArrayList(MFRAGMENTNAMELIST, mFragmentNameList);
+        Log.d(TAG, "onSaveInstanceState: mFragmentNameListSize: " + mFragmentNameList.size());
     }
 }

@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 @ContentView(R.layout.navigation_act)
 public class NavigationActivity extends BaseActivity {
-    private static String TAG = NavigationActivity.class.getSimpleName();
+
     @ViewInject(R.id.navigation)
     private BottomNavigationView mBottomNavigationView;
     @ViewInject(R.id.content_view_page)
@@ -56,11 +56,10 @@ public class NavigationActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate: ");
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true);
 
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && mFragmentNameList.size() != 0) {
             mFragmentNameList = savedInstanceState.getCharSequenceArrayList(MFRAGMENTNAMELIST);
             mHomeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(0).toString());
             mGospelFragment = (GospelFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(1).toString());
@@ -198,6 +197,7 @@ public class NavigationActivity extends BaseActivity {
 
         CustomFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
+            mFragmentNameList.clear();
         }
 
 //        @Override
@@ -223,7 +223,6 @@ public class NavigationActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Log.i(TAG, "getItem: " + fragments);
             return fragments.get(position);
         }
 

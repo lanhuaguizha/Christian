@@ -15,7 +15,6 @@ import org.xutils.view.annotation.ContentView;
 
 @ContentView(R.layout.detail_act)
 public class DetailActivity extends BaseActivity {
-    private static String TAG = DetailActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
