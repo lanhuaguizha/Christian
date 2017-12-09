@@ -101,7 +101,7 @@ public class MeFragment extends BaseFragment {
         ((TextView) view.findViewById(R.id.read).findViewById(R.id.tv)).setText("收藏");
     }
 
-    @Event({R.id.sign_in, R.id.register, R.id.fabMe})
+    @Event({R.id.sign_in, R.id.register})
     private void onClick(View v) {
         Intent intent = null;
         switch (v.getId()) {
@@ -110,20 +110,6 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.register:
                 intent = new Intent(getActivity(), RegisterActivity.class);
-                break;
-            case R.id.fabMe:
-                Snackbar snackbar = Snackbar.make(v, "写下你的问题", Snackbar.LENGTH_LONG);
-//                snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                ((TextView) snackbar.getView().findViewById(R.id.snackbar_text)).setTextColor(getResources().getColor(R.color.white));
-                snackbar.setActionTextColor(getResources().getColor(R.color.white));
-                snackbar.setAction("好的", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(getContext(), "好的", Toast.LENGTH_SHORT).show();
-                        ;
-                    }
-                });
-                snackbar.show();
                 break;
             default:
                 break;

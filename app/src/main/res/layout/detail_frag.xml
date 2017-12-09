@@ -9,7 +9,7 @@
     tools:context=".detail.DetailActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+        android:id="@+id/detail_frag_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -39,7 +39,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <com.christian.view.AlwaysAnimatedFloatingActionButton
-        android:id="@+id/fabMe"
+        android:id="@+id/detail_frag_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

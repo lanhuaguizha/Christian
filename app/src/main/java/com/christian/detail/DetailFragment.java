@@ -19,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.christian.NavigationActivity;
 import com.christian.R;
 import com.christian.base.BaseFragment;
 
@@ -43,38 +44,43 @@ import org.xutils.view.annotation.ViewInject;
  */
 @ContentView(R.layout.detail_frag)
 public class DetailFragment extends BaseFragment {
+
+    private static final String FROM_PAGE = "fromPage";
     @ViewInject(R.id.toolbar_actionbar)
-    private Toolbar toolbar;
+    private Toolbar mToolbar;
     @ViewInject(R.id.nested_scroll_view)
     NestedScrollView nestedScrollView;
-    @ViewInject(R.id.app_bar)
-    AppBarLayout appBarLayout;
-    @ViewInject(R.id.fabMe)
-    FloatingActionButton floatingActionButton;
+    @ViewInject(R.id.detail_frag_app_bar)
+    AppBarLayout mDetailFragAppBarLayout;
+    @ViewInject(R.id.detail_frag_fab)
+    FloatingActionButton mDetailFragFab;
     @ViewInject(R.id.gospel_detail)
     TextView gospelDetail;
     private ShareActionProvider mShareActionProvider;
-    private boolean isScrollToBottom;
     private boolean hasHidePerformedOnce;
+    private int mFromPage;
 
-    @Event(value = {R.id.fabMe}, type = View.OnClickListener.class)
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);//添加菜单不调用该方法是没有用的
+        initData();
+        initView();
+        initListener();
+    }
+
+    private void initData() {
+        if (getArguments() != null) {
+            mFromPage = getArguments().getInt(FROM_PAGE);
+        }
+    }
+
+    @Event(value = {R.id.detail_frag_fab}, type = View.OnClickListener.class)
     private void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fabMe:
-                nestedScrollView.setSmoothScrollingEnabled(true);
-//                if (!isScrollToBottom) {
-//                    nestedScrollView.fullScroll(View.FOCUS_DOWN);
-//                    appBarLayout.setExpanded(false, true);
-//                } else {
-                nestedScrollView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        nestedScrollView.smoothScrollTo(0, 0);//解决间接性不能到顶部
-                    }
-                }, 10);
-//                    nestedScrollView.fullScroll(View.FOCUS_UP);
-                appBarLayout.setExpanded(true, true);
-//                }
+            case R.id.detail_frag_fab:
+                nestedScrollView.fullScroll(View.FOCUS_UP);
+                mDetailFragAppBarLayout.setExpanded(true, true);
                 break;
             default:
                 break;
@@ -83,35 +89,24 @@ public class DetailFragment extends BaseFragment {
 
     @Event(value = R.id.nested_scroll_view, type = NestedScrollView.OnScrollChangeListener.class)
     private void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                    Log.i(TAG, "scrollY: " + scrollY);
-//                    Log.i(TAG, "oldScrollX: " + oldScrollX);
-//                    Log.i(TAG, "oldScrollY: " + oldScrollY);
-//
-//                    Log.i(TAG, "v.getChildAt(0).getHeight(): " + v.getChildAt(0).getHeight());
-//                    Log.i(TAG, "v.getHeight(): " + v.getHeight());
-//                    Log.i(TAG, "v.getScrollY(): " + v.getScrollY());
         if (v.getChildAt(0).getHeight() == v.getHeight() + v.getScrollY()) {
-            isScrollToBottom = true;
-//            animateFabButtonToShow();
-            floatingActionButton.show();
+            mDetailFragFab.show();
         } else {
-            floatingActionButton.hide();
-//            if (!hasHidePerformedOnce) {
-//                Log.i(TAG, "onScrollChange: perform scale to hide");
-//                animateFabButtonToHide();
-//            }
+            mDetailFragFab.hide();
         }
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        setHasOptionsMenu(true);//添加菜单不调用该方法是没有用的
-        initView();
-        initListener();
+    public static DetailFragment newInstance(Integer fromPage) {
+        DetailFragment fragment = new DetailFragment();
+        Bundle bundle = new Bundle();
+        Bundle args = new Bundle();
+        args.putInt(FROM_PAGE, fromPage);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private void initView() {
+        nestedScrollView.setSmoothScrollingEnabled(true);
         setUpButton();
         setGospelDetail();
     }
@@ -122,7 +117,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void initListener() {
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
@@ -143,18 +138,25 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void setUpButton() {
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         // Get a support ActionBar corresponding to this mToolbar
-        ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        ActionBar supportActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         // Enable the Up button
-        if (ab != null) {
-            ab.setDisplayHomeAsUpEnabled(true);
+        if (supportActionBar != null) {
+            supportActionBar.setDisplayHomeAsUpEnabled(true);
         }
-        toolbar.setNavigationContentDescription(R.string.go_back);
+        if (supportActionBar != null) {
+            if (mFromPage == NavigationActivity.ChristianTab.NAVIGATION_HOME.ordinal()) {
+                supportActionBar.setTitle(R.string.title_home);
+            } else if (mFromPage == NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()) {
+                supportActionBar.setTitle(R.string.title_book);
+            }
+        }
+        mToolbar.setNavigationContentDescription(R.string.go_back);
     }
 
     private void restoreScrollPosition() {
-        appBarLayout.setExpanded(false, false);
+        mDetailFragAppBarLayout.setExpanded(false, false);
         // Must using post.Runnable, this is so suck!
         nestedScrollView.postDelayed(new Runnable() {
             @Override
@@ -206,7 +208,7 @@ public class DetailFragment extends BaseFragment {
 
     private void animateFabButtonToShow() {
         Animation scaleToShow = AnimationUtils.loadAnimation(getContext(), R.anim.scale_to_show);
-        floatingActionButton.startAnimation(scaleToShow);
+        mDetailFragFab.startAnimation(scaleToShow);
         scaleToShow.setAnimationListener(new Animation.AnimationListener() {
 
             @Override
@@ -216,7 +218,7 @@ public class DetailFragment extends BaseFragment {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                floatingActionButton.setVisibility(View.VISIBLE);
+                mDetailFragFab.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -228,8 +230,8 @@ public class DetailFragment extends BaseFragment {
 
     private void animateFabButtonToHide() {
         Animation scaleToHide = AnimationUtils.loadAnimation(getContext(), R.anim.scale_to_hide);
-        if (floatingActionButton.getVisibility() == View.VISIBLE) {
-            floatingActionButton.startAnimation(scaleToHide);
+        if (mDetailFragFab.getVisibility() == View.VISIBLE) {
+            mDetailFragFab.startAnimation(scaleToHide);
             scaleToHide.setAnimationListener(new Animation.AnimationListener() {
 
                 @Override
@@ -239,7 +241,7 @@ public class DetailFragment extends BaseFragment {
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    floatingActionButton.setVisibility(View.GONE);
+                    mDetailFragFab.setVisibility(View.GONE);
                 }
 
                 @Override

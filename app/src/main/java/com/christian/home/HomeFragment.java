@@ -2,7 +2,6 @@ package com.christian.home;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
@@ -32,20 +31,13 @@ import org.xutils.view.annotation.ViewInject;
 
 @ContentView(R.layout.home_frag)
 public class HomeFragment extends BaseFragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
+    private static final String FROM_PAGE = "fromPage";
+    private int mFromPage;
     protected DetailAdapter homeAdapter;
     protected RecyclerView.LayoutManager layoutManager;
     protected LayoutManagerType currentLayoutManagerType;
     private String[] dataSet;
-    //    @ViewInject(R.id.toolbar_actionbar)
-//    private Toolbar mToolbar;
     @ViewInject(R.id.home_frag_swipe_refresh_layout)
     private SwipeRefreshLayout mHomeFragSwipeRefreshLayout;
     @ViewInject(R.id.toolbar_actionbar)
@@ -107,15 +99,15 @@ public class HomeFragment extends BaseFragment {
 //    public static HomeFragment newInstance(String param1, String param2) {
 //        HomeFragment fragment = new HomeFragment();
 //        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
+//        args.putString(FROM_PAGE, param1);
 //        args.putString(ARG_PARAM2, param2);
 //        fragment.setArguments(args);
 //        return fragment;
 //    }
-    public static HomeFragment newInstance(Integer fromWho) {
+    public static HomeFragment newInstance(Integer fromPage) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-        args.putInt("fromWho", fromWho);
+        args.putInt(FROM_PAGE, fromPage);
         fragment.setArguments(args);
         return fragment;
     }
@@ -130,9 +122,9 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initData();
         initView();
         initListener();
-        initData();
     }
 
     private void initListener() {
@@ -191,14 +183,13 @@ public class HomeFragment extends BaseFragment {
 
     private void initView() {
 
-        if (getArguments().getInt("fromWho") == NavigationActivity.ChristianTab.NAVIGATION_HOME.ordinal()) {
+        if (mFromPage == NavigationActivity.ChristianTab.NAVIGATION_HOME.ordinal()) {
             mHomeFragAppBarLayout.setVisibility(View.VISIBLE);
-        } else if (getArguments().getInt("fromWho") == NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()) {
+        } else if (mFromPage == NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()) {
             mHomeFragAppBarLayout.setVisibility(View.GONE);
         }
 
-        //Recycler View set homeAdapter
-        homeAdapter = new DetailAdapter(mHomeFragRecyclerView, dataSet);
+        homeAdapter = new DetailAdapter(dataSet);
         mHomeFragRecyclerView.setAdapter(homeAdapter);
         mHomeFragRecyclerView.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.search_margin_horizontal)));
         currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
@@ -220,8 +211,7 @@ public class HomeFragment extends BaseFragment {
 
     private void initData() {
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mFromPage = getArguments().getInt(FROM_PAGE);
         }
     }
 

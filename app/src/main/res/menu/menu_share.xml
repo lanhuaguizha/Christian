@@ -20,15 +20,20 @@
         android:icon="@drawable/ic_share_black_24dp"
         android:orderInCategory="1"
         android:title="@string/description_share"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_download"
         android:orderInCategory="1"
-        android:title="@string/description_download"
+        android:title="收藏"
         app:showAsAction="never" />
     <item
         android:id="@+id/menu_collection"
         android:orderInCategory="1"
-        android:title="@string/description_gospel"
+        android:title="字体"
+        app:showAsAction="never" />
+
+    <item
+        android:orderInCategory="1"
+        android:title="刷新"
         app:showAsAction="never" />
 </menu>

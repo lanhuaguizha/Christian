@@ -29,10 +29,10 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.christian.NavigationActivity;
 import com.christian.R;
 import com.christian.detail.DetailActivity;
 import com.christian.util.ChristianUtil;
@@ -45,7 +45,6 @@ import org.xutils.x;
  * Provide views to RecyclerView with data from mDataSet.
  */
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder> {
-    private final RecyclerView mHomeFragRecyclerView;
     private int mLastPosition;
     private static final String TAG = "DetailAdapter";
     private String[] mDataSet;
@@ -101,8 +100,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
 
     }
 
-    public DetailAdapter(RecyclerView homeFragRecyclerView, String[] dataSet) {
-        mHomeFragRecyclerView = homeFragRecyclerView;
+    public DetailAdapter(String[] dataSet) {
         mDataSet = dataSet;
     }
 
@@ -111,7 +109,6 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.detail_item, viewGroup, false);
-
         return new ViewHolder(v);
     }
 
