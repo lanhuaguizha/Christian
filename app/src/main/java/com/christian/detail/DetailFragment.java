@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -45,6 +46,7 @@ import org.xutils.view.annotation.ViewInject;
 @ContentView(R.layout.detail_frag)
 public class DetailFragment extends BaseFragment {
 
+    private static final String TAG = DetailFragment.class.getSimpleName();
     private static final String FROM_PAGE = "fromPage";
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar mToolbar;
@@ -79,8 +81,10 @@ public class DetailFragment extends BaseFragment {
     private void onClick(View v) {
         switch (v.getId()) {
             case R.id.detail_frag_fab:
-                nestedScrollView.fullScroll(View.FOCUS_UP);
+                nestedScrollView.scrollTo(0, 0);
+                Log.i(TAG, "onClick: " + nestedScrollView.toString());
                 mDetailFragAppBarLayout.setExpanded(true, true);
+                Log.i(TAG, "onClick: " + mDetailFragAppBarLayout.toString());
                 break;
             default:
                 break;
