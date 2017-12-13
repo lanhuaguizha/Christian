@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.NestedScrollView;
@@ -61,6 +62,8 @@ public class DetailFragment extends BaseFragment {
     private ShareActionProvider mShareActionProvider;
     private boolean hasHidePerformedOnce;
     private int mFromPage;
+    @ViewInject(R.id.gospel_detail_collapsing_toolbar_layout)
+    private CollapsingToolbarLayout mGospelDetailCollapsingToolbarLayout;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -116,8 +119,8 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void setCardViewAnimation() {
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_card_show);
-        nestedScrollView.startAnimation(animation);
+//        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_card_show);
+//        nestedScrollView.startAnimation(animation);
     }
 
     private void initListener() {
