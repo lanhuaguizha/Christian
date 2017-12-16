@@ -62,8 +62,6 @@ public class DetailFragment extends BaseFragment {
     private ShareActionProvider mShareActionProvider;
     private boolean hasHidePerformedOnce;
     private int mFromPage;
-    @ViewInject(R.id.gospel_detail_collapsing_toolbar_layout)
-    private CollapsingToolbarLayout mGospelDetailCollapsingToolbarLayout;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

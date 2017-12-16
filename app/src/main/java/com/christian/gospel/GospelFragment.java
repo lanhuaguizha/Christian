@@ -1,6 +1,7 @@
 package com.christian.gospel;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -59,8 +60,7 @@ public class GospelFragment extends BaseFragment {
     @ViewInject(R.id.search_view_container)
     private SearchEditTextLayout mSearchEditTextLayout;
     private HomeFragment homeFragment;
-    private ArrayList<CharSequence> mFragmentNameList = new ArrayList<>();
-    private static final String MFRAGMENTNAMELIST = "mFragmentNameList";
+    private static final String MFRAGMENTNAMELIST = "mViewList";
 
     @Event({R.id.search_view_container, R.id.search_magnifying_glass, R.id.search_box_start_search, R.id.search_back_button})
     private void onClick(View v) {
@@ -119,46 +119,26 @@ public class GospelFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (savedInstanceState != null) {
-            mFragmentNameList = savedInstanceState.getCharSequenceArrayList(MFRAGMENTNAMELIST);
-            if (mFragmentNameList != null) {
-                Log.d(TAG, "onViewCreated: mFragmentNameListSize: " + mFragmentNameList.size());
-            }
-            if (mFragmentNameList != null) {
-                for (int i = 0; i < mFragmentNameList.size(); i++) {
-                    mViewList.add((HomeFragment) getChildFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString()));
-                }
-            }
+        loadViewData(savedInstanceState);
+
+        loadView();
+    }
+
+    private void loadViewData(Bundle savedInstanceState) {
+
+        if (savedInstanceState != null && savedInstanceState.size() != 0) {
         } else {
-            //添加页卡视图
+            //新建页卡视图
             for (int i = 0; i < 27; i++) {
                 HomeFragment homeFragment = HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal());
                 mViewList.add(homeFragment);
             }
         }
 
-        initData();
-        initView();
-        initListener();
-    }
-
-    private void initListener() {
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                homeFragment = mViewList.get(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
 //    private void initListener() {
@@ -182,11 +162,11 @@ public class GospelFragment extends BaseFragment {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            initView();
+            loadView();
         }
     }
 
-    private void initView() {
+    private void loadView() {
         mToolbar.setTitle(getString(R.string.title_book));
         // Removing more of Book Fragment
 //            if (!isAdded) {
@@ -259,36 +239,37 @@ public class GospelFragment extends BaseFragment {
                 mViewPager.setCurrentItem(0);
             }
         }, 100);
-    }
 
-    private void initData() {
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+        // Below are views' listeners
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                homeFragment = mViewList.get(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
 
     //ViewPager适配器
     class MyPagerAdapter extends FragmentPagerAdapter {
 
         MyPagerAdapter(FragmentManager fm) {
             super(fm);
-            mFragmentNameList.clear();
         }
 
         @Override
         public Fragment getItem(int position) {
             return mViewList.get(position);
         }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            String name = makeFragmentName(container.getId(), position);
-            mFragmentNameList.add(name);
-            return super.instantiateItem(container, position);
-        }
-
 
         @Override
         public int getCount() {
@@ -299,17 +280,9 @@ public class GospelFragment extends BaseFragment {
         public CharSequence getPageTitle(int position) {
             return mTitleList.get(position);//页卡标题
         }
-
-        private String makeFragmentName(int viewId, long id) {
-            return "android:switcher:" + viewId + ":" + id;
-        }
-
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putCharSequenceArrayList(MFRAGMENTNAMELIST, mFragmentNameList);
-        Log.d(TAG, "onSaveInstanceState: mFragmentNameListSize: " + mFragmentNameList.size());
     }
 }

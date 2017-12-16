@@ -9,8 +9,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.christian.base.BaseActivity;
@@ -40,9 +40,6 @@ public class NavigationActivity extends BaseActivity {
     private MeFragment mMeFragment;
     private ArrayList<Fragment> fragments;
     private CustomFragmentPagerAdapter adapter;
-    private boolean isOnSaveState;
-    private ArrayList<CharSequence> mFragmentNameList = new ArrayList<>();
-    private static final String MFRAGMENTNAMELIST = "mFragmentNameList";
     @ViewInject(R.id.navigation_act_fab)
     private FloatingActionButton mNavigationActFab;
 
@@ -56,21 +53,7 @@ public class NavigationActivity extends BaseActivity {
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false);
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true);
 
-        if (savedInstanceState != null) {
-            mFragmentNameList = savedInstanceState.getCharSequenceArrayList(MFRAGMENTNAMELIST);
-            if (mFragmentNameList != null) {
-                for (int i = 0; i < mFragmentNameList.size(); i++) {
-                    if (getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString()).toString().contains(HomeFragment.class.getSimpleName())) {
-                        mHomeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString());
-                    }
-                    if (getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString()).toString().contains(GospelFragment.class.getSimpleName())) {
-                        mGospelFragment = (GospelFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString());
-                    }
-                    if (getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString()).toString().contains(MeFragment.class.getSimpleName())) {
-                        mMeFragment = (MeFragment) getSupportFragmentManager().findFragmentByTag(mFragmentNameList.get(i).toString());
-                    }
-                }
-            }
+        if (savedInstanceState != null && savedInstanceState.size() != 0) {
         } else {
             mHomeFragment = HomeFragment.newInstance(ChristianTab.NAVIGATION_HOME.ordinal());
             mGospelFragment = GospelFragment.newInstance();
@@ -200,32 +183,9 @@ public class NavigationActivity extends BaseActivity {
     }
 
     private class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
-        private int mCurrentPosition = -1;
 
         CustomFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
-            mFragmentNameList.clear();
-        }
-
-//        @Override
-//        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-//            super.setPrimaryItem(container, position, object);
-//            if (position != mCurrentPosition) {
-//                Fragment fragment = (Fragment) object;
-//                CustomViewPage pager = (CustomViewPage) container;
-//                if (fragment != null && fragment.getView() != null) {
-//                    mCurrentPosition = position;
-//                    pager.measureFragment(fragment.getView());
-//                }
-//            }
-//        }
-
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            String name = makeFragmentName(container.getId(), position);
-            mFragmentNameList.add(name);
-            return super.instantiateItem(container, position);
         }
 
         @Override
@@ -237,15 +197,9 @@ public class NavigationActivity extends BaseActivity {
         public int getCount() {
             return fragments.size();
         }
-
-        private String makeFragmentName(int viewId, long id) {
-            return "android:switcher:" + viewId + ":" + id;
-        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putCharSequenceArrayList(MFRAGMENTNAMELIST, mFragmentNameList);
     }
 }
