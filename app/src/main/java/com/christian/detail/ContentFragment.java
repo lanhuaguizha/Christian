@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.christian.R;
 import com.christian.base.BaseFragment;
+import com.christian.gospel.GospelFragment;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -35,6 +36,13 @@ public class ContentFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
+    }
+
+    public static ContentFragment newInstance() {
+        ContentFragment fragment = new ContentFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private void initView() {

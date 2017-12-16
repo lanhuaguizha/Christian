@@ -22,10 +22,15 @@ public class DetailActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        FragmentManager fm = getSupportFragmentManager();
+//        FragmentTransaction ft = fm.beginTransaction();
+//        DetailFragment detailFragment = DetailFragment.newInstance(getIntent().getIntExtra("fromPage", -1));
+//        ft.replace(R.id.detail_frag_container, detailFragment);
+//        ft.commit();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        DetailFragment detailFragment = DetailFragment.newInstance(getIntent().getIntExtra("fromPage", -1));
-        ft.replace(R.id.detail_frag_container, detailFragment);
+        ContentFragment contentFragment = ContentFragment.newInstance();
+        ft.replace(R.id.detail_frag_container, contentFragment);
         ft.commit();
     }
 }
