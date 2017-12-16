@@ -168,6 +168,7 @@ public class GospelFragment extends BaseFragment {
 
     private void loadView() {
         mToolbar.setTitle(getString(R.string.title_book));
+        homeFragment = mViewList.get(0);
         // Removing more of Book Fragment
 //            if (!isAdded) {
 //                mToolbar.inflateMenu(R.menu.menu_gospel);
@@ -231,32 +232,6 @@ public class GospelFragment extends BaseFragment {
         mViewPager.setAdapter(mAdapter);//给ViewPager设置适配器
         mViewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。
-        mViewPager.setCurrentItem(1);
-
-        mViewPager.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mViewPager.setCurrentItem(0);
-            }
-        }, 100);
-
-        // Below are views' listeners
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                homeFragment = mViewList.get(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     //ViewPager适配器
