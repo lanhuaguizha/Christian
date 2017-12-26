@@ -78,7 +78,7 @@ public class HomeFragment extends BaseFragment {
     // For clicking the navigation menu to scroll the recycler view to the top when the menu is checked
     public void scrollToTop() {
         // 这里明明可能为Null，每次re-点击首页返回顶部都崩溃
-        mHomeFragRecyclerView.smoothScrollToPosition(TOP);
+        mHomeFragRecyclerView.scrollToPosition(TOP);
         mHomeFragAppBarLayout.setExpanded(true, true);
     }
 

@@ -21,7 +21,7 @@
             android:layout_height="@dimen/app_bar_height"
             android:background="@color/gray_background"
             android:scaleType="centerCrop"
-            android:src="@drawable/me"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

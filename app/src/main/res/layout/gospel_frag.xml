@@ -34,7 +34,7 @@
         </com.christian.view.NoFadeAwayAnimationCollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
+    <com.christian.view.CustomViewPage
         android:id="@+id/vp_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

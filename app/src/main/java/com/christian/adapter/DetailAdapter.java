@@ -141,7 +141,9 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
         viewHolder.itemView.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.EXACTLY), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
         int screenItems = ChristianUtil.getScreenHeight(viewHolder.itemView.getContext()) / viewHolder.itemView.getMeasuredHeight();
         Animation animation = null;
-        if (adapterPosition >= mLastPosition) {
+        // 3 conditions no animation: 1. last position < adapter position 2. screen items in front 3. destroy view
+        if (adapterPosition >= mLastPosition && adapterPosition >= screenItems) {
+            Log.i(TAG, "onBindViewHolder: " +mLastPosition + adapterPosition);
 //            if (adapterPosition >= screenItems) {
 //                if (adapterPosition >= mLastPosition) {
                 // Load animation form xml
@@ -165,6 +167,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
 //                runEnterAnimation(viewHolder.itemView, adapterPosition);
 //            }
         } else {
+            Log.i(TAG, "onBindViewHolder stay: " + mLastPosition + adapterPosition);
             animation = AnimationUtils.loadAnimation(viewHolder.itemView.getContext(), R.anim.stay);
         }
         if (animation != null)
