@@ -3,6 +3,7 @@ package com.christian.login;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -26,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -234,6 +236,10 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
             // form field with an error.
             focusView.requestFocus();
         } else {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null && getActionBarToolbar() != null) {
+                imm.hideSoftInputFromWindow(getActionBarToolbar().getWindowToken(), 0);
+            }
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
