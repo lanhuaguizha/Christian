@@ -33,6 +33,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.christian.R;
+import com.christian.content.ContentActivity;
 import com.christian.detail.DetailActivity;
 import com.christian.util.ChristianUtil;
 
@@ -76,7 +77,7 @@ public class ContentItemViewAdapter extends RecyclerView.Adapter<ContentItemView
                     break;
                 case R.id.cl_item_container:
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                    Intent intent = new Intent(v.getContext(), DetailActivity.class);
+                    Intent intent = new Intent(v.getContext(), ContentActivity.class);
                     v.getContext().startActivity(intent);
                     break;
                 default:

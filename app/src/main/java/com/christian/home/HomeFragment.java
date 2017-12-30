@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.christian.R;
 import com.christian.NavigationActivity;
+import com.christian.adapter.ContentItemViewAdapter;
 import com.christian.adapter.DetailAdapter;
 import com.christian.base.BaseFragment;
 import com.christian.view.HomeItemDecoration;
@@ -34,7 +35,7 @@ public class HomeFragment extends BaseFragment {
 
     private static final String FROM_PAGE = "fromPage";
     private int mFromPage;
-    protected DetailAdapter homeAdapter;
+    protected ContentItemViewAdapter homeAdapter;
     protected RecyclerView.LayoutManager layoutManager;
     protected LayoutManagerType currentLayoutManagerType;
     private String[] dataSet;
@@ -189,7 +190,7 @@ public class HomeFragment extends BaseFragment {
             mHomeFragAppBarLayout.setVisibility(View.GONE);
         }
 
-        homeAdapter = new DetailAdapter(dataSet);
+        homeAdapter = new ContentItemViewAdapter(dataSet);
         mHomeFragRecyclerView.setAdapter(homeAdapter);
         mHomeFragRecyclerView.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.search_margin_horizontal)));
         currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
