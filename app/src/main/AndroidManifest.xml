@@ -28,6 +28,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".content.ContentActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".NavigationActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NavigationActivity" />
+        </activity>
+        <activity
             android:name=".detail.DetailActivity"
             android:label=""
             android:launchMode="singleTop"
@@ -66,24 +75,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.christian.NavigationActivity" />
         </activity>
-        <activity
-            android:name=".detail.ScrollingDetailFragment"
-            android:label="@string/title_activity_scrolling_detail"
-            android:parentActivityName=".NavigationActivity"
-            android:theme="@style/Christian">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.NavigationActivity" />
-        </activity>
-        <activity
-            android:name=".detail.ContentFragment"
-            android:label="@string/title_activity_content_fragment"
-            android:parentActivityName=".NavigationActivity"
-            android:theme="@style/Christian">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.NavigationActivity" />
-        </activity>
+
     </application>
 
 </manifest>
