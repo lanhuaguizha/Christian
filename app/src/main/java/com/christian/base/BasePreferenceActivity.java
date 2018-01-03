@@ -13,7 +13,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.christian.swipeback.SwipeBackHelper;
+import com.christian.swipe.SwipeBackHelper;
 
 /**
  * A {@link android.preference.PreferenceActivity} which implements and proxies the necessary calls

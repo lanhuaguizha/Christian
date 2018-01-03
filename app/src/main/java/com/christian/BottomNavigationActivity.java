@@ -9,15 +9,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.christian.base.BaseActivity;
 import com.christian.gospel.GospelFragment;
+import com.christian.helper.BottomNavigationViewHelper;
 import com.christian.home.HomeFragment;
 import com.christian.me.MeFragment;
-import com.christian.swipeback.SwipeBackHelper;
+import com.christian.swipe.SwipeBackHelper;
 import com.christian.view.CustomViewPage;
 
 import org.xutils.view.annotation.ContentView;
@@ -26,7 +26,7 @@ import org.xutils.view.annotation.ViewInject;
 import java.util.ArrayList;
 
 @ContentView(R.layout.navigation_act)
-public class NavigationActivity extends BaseActivity {
+public class BottomNavigationActivity extends BaseActivity {
 
     @ViewInject(R.id.navigation)
     private BottomNavigationView mBottomNavigationView;
@@ -75,7 +75,13 @@ public class NavigationActivity extends BaseActivity {
         adapter = new CustomFragmentPagerAdapter(getSupportFragmentManager());
         mCustomViewPager.setAdapter(adapter);
         mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
-//        NavigationViewHelper.disableShiftMode(mBottomNavigationView);
+//        BottomNavigationViewHelper.disableShiftMode(mBottomNavigationView);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        BottomNavigationViewHelper.disableShiftMode(mBottomNavigationView);
     }
 
     private void initListener() {
@@ -106,6 +112,8 @@ public class NavigationActivity extends BaseActivity {
                         return true;
                     case R.id.navigation_gospel:
                         mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_BOOK.ordinal());
+                        return true;
+                    case R.id.navigation_chat:
                         return true;
                     case R.id.navigation_me:
                         mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_ME.ordinal());

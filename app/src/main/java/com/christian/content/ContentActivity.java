@@ -6,15 +6,12 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.christian.R;
-import com.christian.adapter.ContentItemViewAdapter;
 import com.christian.adapter.ContentViewAdapter;
 import com.christian.base.BaseActivity;
-import com.christian.data.ContentData;
+import com.christian.model.ContentData;
 import com.christian.view.EmptyView;
 
 import org.xutils.view.annotation.ContentView;

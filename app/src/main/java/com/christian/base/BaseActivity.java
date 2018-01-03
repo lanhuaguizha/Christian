@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.inputmethod.InputMethodManager;
 
 import com.christian.R;
-import com.christian.swipeback.SwipeBackHelper;
+import com.christian.swipe.SwipeBackHelper;
 
 import org.xutils.x;
 

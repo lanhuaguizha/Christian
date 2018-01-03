@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.NestedScrollView;
@@ -21,7 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.christian.NavigationActivity;
+import com.christian.BottomNavigationActivity;
 import com.christian.R;
 import com.christian.base.BaseFragment;
 
@@ -151,9 +150,9 @@ public class DetailFragment extends BaseFragment {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
         }
         if (supportActionBar != null) {
-            if (mFromPage == NavigationActivity.ChristianTab.NAVIGATION_HOME.ordinal()) {
+            if (mFromPage == BottomNavigationActivity.ChristianTab.NAVIGATION_HOME.ordinal()) {
                 supportActionBar.setTitle(R.string.title_home);
-            } else if (mFromPage == NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()) {
+            } else if (mFromPage == BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()) {
                 supportActionBar.setTitle(R.string.title_book);
             }
         }

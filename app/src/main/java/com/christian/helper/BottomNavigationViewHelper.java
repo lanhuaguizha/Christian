@@ -1,4 +1,4 @@
-package com.christian.util;
+package com.christian.helper;
 
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
  * email：lanhuaguizha@gmail.com
  */
 
-public class NavigationViewHelper {
+public class BottomNavigationViewHelper {
     public static void disableShiftMode(BottomNavigationView view) {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
         try {

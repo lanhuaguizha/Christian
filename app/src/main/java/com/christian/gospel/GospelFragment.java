@@ -1,20 +1,17 @@
 package com.christian.gospel;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.christian.NavigationActivity;
+import com.christian.BottomNavigationActivity;
 import com.christian.R;
 import com.christian.base.BaseFragment;
 import com.christian.home.HomeFragment;
@@ -130,7 +127,7 @@ public class GospelFragment extends BaseFragment {
         } else {
             //新建页卡视图
             for (int i = 0; i < 27; i++) {
-                HomeFragment homeFragment = HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal());
+                HomeFragment homeFragment = HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal());
                 mViewList.add(homeFragment);
             }
         }
@@ -178,13 +175,13 @@ public class GospelFragment extends BaseFragment {
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>copy
 
 
-//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
+//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
 
         //添加页卡标题
         mTitleList.add("马太福音");
@@ -253,7 +250,7 @@ public class GospelFragment extends BaseFragment {
     }
 
     //ViewPager适配器
-    class MyPagerAdapter extends FragmentPagerAdapter {
+    class MyPagerAdapter extends FragmentStatePagerAdapter {
 
         MyPagerAdapter(FragmentManager fm) {
             super(fm);

@@ -13,10 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.christian.BottomNavigationActivity;
 import com.christian.R;
-import com.christian.NavigationActivity;
 import com.christian.adapter.ContentItemViewAdapter;
-import com.christian.adapter.DetailAdapter;
 import com.christian.base.BaseFragment;
 import com.christian.view.HomeItemDecoration;
 import com.christian.view.SearchEditTextLayout;
@@ -184,9 +183,9 @@ public class HomeFragment extends BaseFragment {
 
     private void initView() {
 
-        if (mFromPage == NavigationActivity.ChristianTab.NAVIGATION_HOME.ordinal()) {
+        if (mFromPage == BottomNavigationActivity.ChristianTab.NAVIGATION_HOME.ordinal()) {
             mHomeFragAppBarLayout.setVisibility(View.VISIBLE);
-        } else if (mFromPage == NavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()) {
+        } else if (mFromPage == BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()) {
             mHomeFragAppBarLayout.setVisibility(View.GONE);
         }
 
@@ -205,7 +204,7 @@ public class HomeFragment extends BaseFragment {
 //            added = true;
 //        }
 
-        Toolbar toolbar = ((NavigationActivity) getActivity()).getActionBarToolbar();
+        Toolbar toolbar = ((BottomNavigationActivity) getActivity()).getActionBarToolbar();
 
         mHomeFragSwipeRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(), R.color.colorAccent));
     }

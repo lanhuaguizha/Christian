@@ -1,6 +1,4 @@
-package com.christian.swipeback;
-
-import android.os.Build;
+package com.christian.swipe;
 
 public class RelateSlider implements SwipeListener {
     private SwipeBackPage curPage;

@@ -1,4 +1,4 @@
-package com.christian.swipeback;
+package com.christian.swipe;
 
 import android.app.Activity;
 import android.content.Context;

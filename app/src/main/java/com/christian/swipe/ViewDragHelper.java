@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.christian.swipeback;
+package com.christian.swipe;
 
 import android.content.Context;
 import android.support.v4.view.MotionEventCompat;

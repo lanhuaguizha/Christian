@@ -2,6 +2,7 @@
     <string name="app_name">Christian</string>
     <string name="title_home">Home</string>
     <string name="title_book">Gospel</string>
+    <string name="title_chat">Chat</string>
     <string name="title_poetry">Poetry</string>
     <string name="title_video">Video</string>
     <string name="version">Version: 0.0.1</string>

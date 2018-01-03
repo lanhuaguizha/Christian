@@ -32,7 +32,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import com.christian.NavigationActivity;
 import com.christian.R;
 import com.christian.detail.DetailActivity;
 import com.christian.util.ChristianUtil;

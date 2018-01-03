@@ -1,4 +1,4 @@
-package com.christian.swipeback;
+package com.christian.swipe;
 
 public interface SwipeListener {
         void onScroll(float percent, int px);
