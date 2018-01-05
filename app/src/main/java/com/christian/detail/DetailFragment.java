@@ -63,8 +63,7 @@ public class DetailFragment extends BaseFragment {
     private int mFromPage;
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void loadData() {
         setHasOptionsMenu(true);//添加菜单不调用该方法是没有用的
         initData();
         initView();

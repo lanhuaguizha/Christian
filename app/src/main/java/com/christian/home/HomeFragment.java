@@ -23,6 +23,7 @@ import com.christian.view.SearchEditTextLayout;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 /**
  * author：Administrator on 2017/4/2 00:19
@@ -49,7 +50,6 @@ public class HomeFragment extends BaseFragment {
     @ViewInject(R.id.home_frag_app_bar_layout)
     private AppBarLayout mHomeFragAppBarLayout;
     public static final int TOP = 0;
-
     @ViewInject(R.id.search_view_container)
     private SearchEditTextLayout mSearchEditTextLayout;
 
@@ -75,35 +75,10 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    // For clicking the navigation menu to scroll the recycler view to the top when the menu is checked
-    public void scrollToTop() {
-        // 这里明明可能为Null，每次re-点击首页返回顶部都崩溃
-        mHomeFragRecyclerView.scrollToPosition(TOP);
-        mHomeFragAppBarLayout.setExpanded(true, true);
-    }
-
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     * <p>
-     * //     * @param param1 Parameter 1.
-     * //     * @param param2 Parameter 2.
-     *
-     * @return A new instance of fragment PlusOneFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-//    public static HomeFragment newInstance(String param1, String param2) {
-//        HomeFragment fragment = new HomeFragment();
-//        Bundle args = new Bundle();
-//        args.putString(FROM_PAGE, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
     public static HomeFragment newInstance(Integer fromPage) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -113,15 +88,8 @@ public class HomeFragment extends BaseFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void loadData() {
         initDataSet();
-    }
-
-    // If Using xUtils 3 using onViewCreated to replace onCreateView
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         initData();
         initView();
         initListener();
@@ -258,4 +226,9 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
+    // For clicking the navigation menu to scroll the recycler view to the top
+    public void scrollToTop() {
+        mHomeFragRecyclerView.scrollToPosition(TOP);
+        mHomeFragAppBarLayout.setExpanded(true, true);
+    }
 }

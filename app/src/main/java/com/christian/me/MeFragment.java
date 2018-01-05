@@ -36,6 +36,11 @@ public class MeFragment extends BaseFragment {
     private AppBarLayout mAppBar;
 
     @Override
+    protected void loadData() {
+
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);

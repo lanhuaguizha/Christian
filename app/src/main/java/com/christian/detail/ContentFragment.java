@@ -33,8 +33,7 @@ public class ContentFragment extends BaseFragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected void loadData() {
         initView();
     }
 

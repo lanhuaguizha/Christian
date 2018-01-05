@@ -3,20 +3,11 @@ package com.christian.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.christian.R;
-import com.christian.home.HomeFragment;
-import com.christian.view.SearchEditTextLayout;
-
-import org.xutils.view.annotation.Event;
-import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 /**
@@ -24,7 +15,14 @@ import org.xutils.x;
  * email：lanhuaguizha@gmail.com
  */
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
+
+    // xUtils官方Copy
+    private boolean mInjected;
+    // Fragment的View加载完毕的标记
+    private boolean isViewCreated;
+    // Fragment对用户可见的标记
+    private boolean isUIVisible;
 
 //    @ViewInject(R.id.search_view_container)
 //    private SearchEditTextLayout mSearchEditTextLayout;
@@ -56,25 +54,51 @@ public class BaseFragment extends Fragment {
         LINEAR_LAYOUT_MANAGER
     }
 
-    private boolean injected;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        injected = true;
+        mInjected = true;
         return x.view().inject(this, inflater, container);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (!injected) {
+        if (!mInjected) {
             x.view().inject(this, this.getView());
         }
+
+        isViewCreated = true;
+        lazyLoad();
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            isUIVisible = true;
+            lazyLoad();
+        } else {
+            isUIVisible = false;
+        }
+    }
+
+    private void lazyLoad() {
+        if (isViewCreated && isUIVisible) {
+            loadData();
+            // 数据加载完毕,恢复标记,防止重复加载
+            isViewCreated = false;
+            isUIVisible = false;
+        }
+    }
+
+    protected abstract void loadData();
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        //页面销毁,恢复标记
+        isViewCreated = false;
+        isUIVisible = false;
     }
 }

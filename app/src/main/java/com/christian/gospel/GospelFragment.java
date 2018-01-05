@@ -38,7 +38,7 @@ public class GospelFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    public static final int OFFSCREEN_PAGE_LIMIT = 65;
+    public static final int OFFSCREEN_PAGE_LIMIT = 0;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -54,7 +54,6 @@ public class GospelFragment extends BaseFragment {
     private List<HomeFragment> mViewList = new ArrayList<>();//页卡视图集合
     @ViewInject(R.id.app_bar)
     AppBarLayout mAppBar;
-
     @ViewInject(R.id.search_view_container)
     private SearchEditTextLayout mSearchEditTextLayout;
     private HomeFragment homeFragment;
@@ -102,88 +101,11 @@ public class GospelFragment extends BaseFragment {
 //        return fragment;
 //    }
     public static GospelFragment newInstance() {
-        GospelFragment fragment = new GospelFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public void scrollToTop() {
-        homeFragment.scrollToTop();
-        mAppBar.setExpanded(true, true);
+        return new GospelFragment();
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        loadViewData(savedInstanceState);
-
-        loadView();
-    }
-
-    private void loadViewData(Bundle savedInstanceState) {
-
-        if (savedInstanceState != null && savedInstanceState.size() != 0) {
-        } else {
-            //新建页卡视图
-            for (int i = 0; i < 27; i++) {
-                HomeFragment homeFragment = HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal());
-                mViewList.add(homeFragment);
-            }
-        }
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-//    private void initListener() {
-//        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem menuItem) {
-//                switch (menuItem.getItemId()) {
-//                    case R.id.menu_search:
-//                        Log.i(TAG, "onMenuItemClick: menu_search is clicked");
-//                        startActivity(new Intent(getActivity(), SearchActivity.class));
-//                        break;
-//                    default:
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
-//    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            loadView();
-        }
-    }
-
-    private void loadView() {
-        mToolbar.setTitle(getString(R.string.title_book));
-        homeFragment = mViewList.get(0);
-        // Removing more of Book Fragment
-//            if (!isAdded) {
-//                mToolbar.inflateMenu(R.menu.menu_gospel);
-//                isAdded = true;
-//            }
-
-        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>copy
-
-
-//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-//        mViewList.add(HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal()));
-
+    protected void loadData() {
         //添加页卡标题
         mTitleList.add("马太福音");
         mTitleList.add("马可福音");
@@ -212,19 +134,53 @@ public class GospelFragment extends BaseFragment {
         mTitleList.add("约翰三书");
         mTitleList.add("犹太书");
         mTitleList.add("启示录");
+        loadView();
+    }
+
+//    private void initListener() {
+//        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem menuItem) {
+//                switch (menuItem.getItemId()) {
+//                    case R.id.menu_search:
+//                        Log.i(TAG, "onMenuItemClick: menu_search is clicked");
+//                        startActivity(new Intent(getActivity(), SearchActivity.class));
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
+//    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            loadView();
+        }
+    }
+
+    private void loadView() {
+        //新建页卡视图
+        for (int i = 0; i < mTitleList.size(); i++) {
+            HomeFragment homeFragment = HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal());
+            mViewList.add(homeFragment);
+        }
+        mToolbar.setTitle(getString(R.string.title_book));
+        homeFragment = mViewList.get(0);
+
+        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>copy
+
+
+
+
 
         mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);//设置tab模式，当前为系统默认模式
         for (int i = 0; i < 27; i++) {
             mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(i)));//添加tab选项卡
         }
-//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(1)));
-//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(2)));
-//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(3)));
-//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(4)));
-//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(5)));
-//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(6)));
-//        mTabLayout.addTab(mTabLayout.newTab().setText(mTitleList.get(7)));
-
 
         MyPagerAdapter mAdapter = new MyPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mAdapter);//给ViewPager设置适配器
@@ -248,6 +204,11 @@ public class GospelFragment extends BaseFragment {
 
             }
         });
+    }
+
+    public void scrollToTop() {
+        homeFragment.scrollToTop();
+        mAppBar.setExpanded(true, true);
     }
 
     //ViewPager适配器
