@@ -44,7 +44,7 @@ public class HomeFragment extends BaseFragment {
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar mToolbarActionbar;
     private static final int SPAN_COUNT = 2;
-    private static final int DATA_SET_COUNT = 20;
+    private static final int DATA_SET_COUNT = 7;
     @ViewInject(R.id.home_frag_recycler_view)
     private RecyclerView mHomeFragRecyclerView;
     @ViewInject(R.id.home_frag_app_bar_layout)

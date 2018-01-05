@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.christian.base.BaseActivity;
 import com.christian.gospel.GospelFragment;
@@ -182,10 +183,11 @@ public class BottomNavigationActivity extends BaseActivity {
         if ((currentTime - exitTime) < 2000) {
             super.onBackPressed();
         } else {
-            Snackbar snackbar = Snackbar.make(mCustomViewPager, R.string.double_click_exit, Snackbar.LENGTH_SHORT);
-            ((TextView) snackbar.getView().findViewById(R.id.snackbar_text)).setTextColor(getResources().getColor(R.color.white));
-            snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorAccent));
-            snackbar.setAction("确定", null).show();
+//            Snackbar snackbar = Snackbar.make(mCustomViewPager, R.string.double_click_exit, Snackbar.LENGTH_SHORT);
+//            ((TextView) snackbar.getView().findViewById(R.id.snackbar_text)).setTextColor(getResources().getColor(R.color.white));
+//            snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorAccent));
+//            snackbar.setAction("确定", null).show();
+            Toast.makeText(this, getString(R.string.double_click_exit), Toast.LENGTH_SHORT).show();
             exitTime = currentTime;
         }
     }
