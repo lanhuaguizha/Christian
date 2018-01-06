@@ -177,21 +177,6 @@ public class BottomNavigationActivity extends BaseActivity {
 //        return false;
 //    }
 
-    @Override
-    public void onBackPressed() {
-        long currentTime = System.currentTimeMillis();
-        if ((currentTime - exitTime) < 2000) {
-            super.onBackPressed();
-        } else {
-//            Snackbar snackbar = Snackbar.make(mCustomViewPager, R.string.double_click_exit, Snackbar.LENGTH_SHORT);
-//            ((TextView) snackbar.getView().findViewById(R.id.snackbar_text)).setTextColor(getResources().getColor(R.color.white));
-//            snackbar.getView().setBackgroundColor(getResources().getColor(R.color.colorAccent));
-//            snackbar.setAction("确定", null).show();
-            Toast.makeText(this, getString(R.string.double_click_exit), Toast.LENGTH_SHORT).show();
-            exitTime = currentTime;
-        }
-    }
-
     private class CustomFragmentPagerAdapter extends FragmentPagerAdapter {
 
         CustomFragmentPagerAdapter(FragmentManager fm) {
