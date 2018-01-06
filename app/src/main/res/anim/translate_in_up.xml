@@ -6,12 +6,7 @@
         android:fromXScale="1"
         android:fromYScale="0"
         android:pivotX="50%"
-        android:pivotY="100%"
+        android:pivotY="0"
         android:toXScale="1"
         android:toYScale="1" />
-    <translate
-        android:fromXDelta="0%"
-        android:fromYDelta="-100%"
-        android:toXDelta="0%"
-        android:toYDelta="0%" />
 </set>
