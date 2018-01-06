@@ -190,7 +190,7 @@ public class GospelFragment extends BaseFragment {
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。
 
         // 添加一个好玩的动画
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_to_show);
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.translate_in_up);
         mTabLayout.startAnimation(animation);
 
         // Below are views' listeners

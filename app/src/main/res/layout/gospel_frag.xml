@@ -10,7 +10,8 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent">
 
         <com.christian.view.NoFadeAwayAnimationCollapsingToolbarLayout
             android:id="@+id/gospel_detail_collapsing_toolbar_layout"
