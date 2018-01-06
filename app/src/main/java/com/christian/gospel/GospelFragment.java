@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.christian.BottomNavigationActivity;
 import com.christian.R;
@@ -186,6 +188,10 @@ public class GospelFragment extends BaseFragment {
         mViewPager.setAdapter(mAdapter);//给ViewPager设置适配器
         mViewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。
+
+        // 添加一个好玩的动画
+        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_to_show);
+        mTabLayout.startAnimation(animation);
 
         // Below are views' listeners
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
