@@ -189,11 +189,6 @@ public class GospelFragment extends BaseFragment {
         mViewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。
 
-        // 添加一个好玩的动画，动画要想写的好还需要addView操作呀。这里我认为还是JetBrain的AnKo好用
-        Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.up_from_bottom);
-        mTabLayout.startAnimation(animation);
-        mTabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-
         // Below are views' listeners
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
