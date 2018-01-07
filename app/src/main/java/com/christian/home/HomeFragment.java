@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.christian.BottomNavigationActivity;
 import com.christian.R;
@@ -52,6 +54,8 @@ public class HomeFragment extends BaseFragment {
     public static final int TOP = 0;
     @ViewInject(R.id.search_view_container)
     private SearchEditTextLayout mSearchEditTextLayout;
+    @ViewInject(R.id.login_progress)
+    private ProgressBar mProgressBar;
 
     @Event({R.id.search_view_container, R.id.search_magnifying_glass, R.id.search_box_start_search, R.id.search_back_button})
     private void onClick(View v) {
@@ -89,6 +93,8 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
+        mProgressBar.setVisibility(View.VISIBLE);
+
         initDataSet();
         initData();
         initView();
@@ -162,6 +168,7 @@ public class HomeFragment extends BaseFragment {
         mHomeFragRecyclerView.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.search_margin_horizontal)));
         currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         setRecyclerViewLayoutManager(currentLayoutManagerType);
+        mProgressBar.setVisibility(View.GONE);
 
 //        if (bottomNavigationActivity != null && bottomNavigationActivity.getSupportActionBar() != null) {
 //            bottomNavigationActivity.getSupportActionBar().setTitle(getString(R.string.title_home));
