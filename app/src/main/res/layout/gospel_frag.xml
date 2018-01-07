@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="?android:attr/actionBarSize"
                 android:theme="@style/AppTheme.AppBarOverlay"
+                android:visibility="gone"
                 app:tabIndicatorColor="@color/white" />
 
             <include layout="@layout/toolbar_searchbar" />

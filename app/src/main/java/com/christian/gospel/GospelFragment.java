@@ -189,6 +189,8 @@ public class GospelFragment extends BaseFragment {
         mViewPager.setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
         mTabLayout.setupWithViewPager(mViewPager);//将TabLayout和ViewPager关联起来。
 
+        mAppBar.setVisibility(View.VISIBLE);
+
         // Below are views' listeners
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
