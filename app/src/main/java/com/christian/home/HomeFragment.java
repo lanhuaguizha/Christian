@@ -47,8 +47,8 @@ public class HomeFragment extends BaseFragment {
     private Toolbar mToolbarActionbar;
     private static final int SPAN_COUNT = 2;
     private static final int DATA_SET_COUNT = 7;
-    @ViewInject(R.id.home_frag_recycler_view)
-    private RecyclerView mHomeFragRecyclerView;
+//    @ViewInject(R.id.home_frag_recycler_view)
+//    private RecyclerView mHomeFragRecyclerView;
     @ViewInject(R.id.home_frag_app_bar_layout)
     private AppBarLayout mHomeFragAppBarLayout;
     public static final int TOP = 0;
@@ -95,7 +95,12 @@ public class HomeFragment extends BaseFragment {
     protected void loadData() {
         mProgressBar.setVisibility(View.VISIBLE);
 
-        initDataSet();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                initDataSet();
+//            }
+//        }).run();
         initData();
         initView();
         initListener();
@@ -164,11 +169,11 @@ public class HomeFragment extends BaseFragment {
         }
 
         homeAdapter = new ContentItemViewAdapter(dataSet);
-        mHomeFragRecyclerView.setAdapter(homeAdapter);
-        mHomeFragRecyclerView.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.search_margin_horizontal)));
+//        mHomeFragRecyclerView.setAdapter(homeAdapter);
+//        mHomeFragRecyclerView.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.search_margin_horizontal)));
         currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         setRecyclerViewLayoutManager(currentLayoutManagerType);
-        mProgressBar.setVisibility(View.GONE);
+//        mProgressBar.setVisibility(View.GONE);
 
 //        if (bottomNavigationActivity != null && bottomNavigationActivity.getSupportActionBar() != null) {
 //            bottomNavigationActivity.getSupportActionBar().setTitle(getString(R.string.title_home));
@@ -199,10 +204,10 @@ public class HomeFragment extends BaseFragment {
         int scrollPosition = 0;
 
         // If a layout manager has already been set, get current scroll position.
-        if (mHomeFragRecyclerView.getLayoutManager() != null) {
-            scrollPosition = ((LinearLayoutManager) mHomeFragRecyclerView.getLayoutManager())
-                    .findFirstCompletelyVisibleItemPosition();
-        }
+//        if (mHomeFragRecyclerView.getLayoutManager() != null) {
+//            scrollPosition = ((LinearLayoutManager) mHomeFragRecyclerView.getLayoutManager())
+//                    .findFirstCompletelyVisibleItemPosition();
+//        }
 
         switch (layoutManagerType) {
             case GRID_LAYOUT_MANAGER:
@@ -218,8 +223,8 @@ public class HomeFragment extends BaseFragment {
                 currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
         }
 
-        mHomeFragRecyclerView.setLayoutManager(layoutManager);
-        mHomeFragRecyclerView.scrollToPosition(scrollPosition);
+//        mHomeFragRecyclerView.setLayoutManager(layoutManager);
+//        mHomeFragRecyclerView.scrollToPosition(scrollPosition);
     }
 
     /**
@@ -231,11 +236,17 @@ public class HomeFragment extends BaseFragment {
         for (int i = 0; i < DATA_SET_COUNT; i++) {
             dataSet[i] = getString(R.string.next_week) + i;
         }
+        // 测试滑动卡顿
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     // For clicking the navigation menu to scroll the recycler view to the top
     public void scrollToTop() {
-        mHomeFragRecyclerView.scrollToPosition(TOP);
+//        mHomeFragRecyclerView.scrollToPosition(TOP);
         mHomeFragAppBarLayout.setExpanded(true, true);
     }
 }
