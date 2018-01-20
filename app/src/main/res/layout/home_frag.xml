@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/toolbar_searchbar" />
+        <include layout="@layout/tb_nav" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

@@ -33,7 +33,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.christian.R;
-import com.christian.content.ContentActivity;
+import com.christian.content.ActCon;
 import com.christian.detail.DetailActivity;
 import com.christian.util.ChristianUtil;
 
@@ -62,7 +62,7 @@ public class ContentItemViewAdapter extends RecyclerView.Adapter<ContentItemView
         private void onClick(View v) {
             switch (v.getId()) {
                 case R.id.more_action:
-                    PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
+                    PopupMenu popupMenu = new PopupMenu(v.getContext(), v.findViewById(R.id.more_action));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         popupMenu.setGravity(Gravity.CENTER_HORIZONTAL);
                     }
@@ -77,7 +77,7 @@ public class ContentItemViewAdapter extends RecyclerView.Adapter<ContentItemView
                     break;
                 case R.id.cl_item_container:
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                    Intent intent = new Intent(v.getContext(), ContentActivity.class);
+                    Intent intent = new Intent(v.getContext(), DetailActivity.class);
                     v.getContext().startActivity(intent);
                     break;
                 default:

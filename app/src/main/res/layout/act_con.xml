@@ -2,37 +2,36 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_activity_coordinator_layout"
+    android:id="@+id/cl_con"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".content.ContentActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/content_activity_app_bar_layout"
+        android:id="@+id/apl_con"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <include layout="@layout/toolbar_actionbar" />
+        <include layout="@layout/tb_ab" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/content_activity_swipe_refresh_layout"
+        android:id="@+id/srl_con"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:id="@+id/content_activity_recycler_view"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:scrollbars="vertical"-->
-            <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_con"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.christian.view.AlwaysAnimatedFloatingActionButton
-        android:id="@+id/content_activity_floating_action_button"
+        android:id="@+id/fab_con"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

@@ -16,7 +16,7 @@ import android.view.animation.AnimationUtils;
 import com.christian.BottomNavigationActivity;
 import com.christian.R;
 import com.christian.base.BaseFragment;
-import com.christian.home.HomeFragment;
+import com.christian.home.EmptyFragment;
 import com.christian.view.SearchEditTextLayout;
 
 import org.xutils.view.annotation.ContentView;
@@ -53,12 +53,12 @@ public class GospelFragment extends BaseFragment {
     private ViewPager mViewPager;
     private List<String> mTitleList = new ArrayList<>();//页卡标题集合
     //    private List<String> mTitleList = new ArrayList<>(Arrays.asList("创世纪", "出埃及记", "利未记", "民数记", "申命记", "约书亚记"));//页卡标题集合
-    private List<HomeFragment> mViewList = new ArrayList<>();//页卡视图集合
+    private List<EmptyFragment> mViewList = new ArrayList<>();//页卡视图集合
     @ViewInject(R.id.app_bar)
     AppBarLayout mAppBar;
     @ViewInject(R.id.search_view_container)
     private SearchEditTextLayout mSearchEditTextLayout;
-    private HomeFragment homeFragment;
+    private EmptyFragment homeFragment;
     private static final String MFRAGMENTNAMELIST = "mViewList";
 
     @Event({R.id.search_view_container, R.id.search_magnifying_glass, R.id.search_box_start_search, R.id.search_back_button})
@@ -167,7 +167,8 @@ public class GospelFragment extends BaseFragment {
     private void loadView() {
         //新建页卡视图
         for (int i = 0; i < mTitleList.size(); i++) {
-            HomeFragment homeFragment = HomeFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal());
+            EmptyFragment homeFragment = EmptyFragment.newInstance(getContext());
+//            EmptyFragment homeFragment = EmptyFragment.newInstance(BottomNavigationActivity.ChristianTab.NAVIGATION_BOOK.ordinal());
             mViewList.add(homeFragment);
         }
         mToolbar.setTitle(getString(R.string.title_book));
@@ -211,7 +212,7 @@ public class GospelFragment extends BaseFragment {
     }
 
     public void scrollToTop() {
-        homeFragment.scrollToTop();
+//        homeFragment.scrollToTop();
         mAppBar.setExpanded(true, true);
     }
 

@@ -2,10 +2,8 @@ package com.christian.home;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,19 +11,15 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 
 import com.christian.BottomNavigationActivity;
 import com.christian.R;
-import com.christian.adapter.ContentItemViewAdapter;
 import com.christian.base.BaseFragment;
-import com.christian.view.HomeItemDecoration;
 import com.christian.view.SearchEditTextLayout;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
 
 /**
  * author：Administrator on 2017/4/2 00:19
@@ -37,25 +31,17 @@ public class HomeFragment extends BaseFragment {
 
     private static final String FROM_PAGE = "fromPage";
     private int mFromPage;
-    protected ContentItemViewAdapter homeAdapter;
-    protected RecyclerView.LayoutManager layoutManager;
-    protected LayoutManagerType currentLayoutManagerType;
-    private String[] dataSet;
     @ViewInject(R.id.home_frag_swipe_refresh_layout)
     private SwipeRefreshLayout mHomeFragSwipeRefreshLayout;
     @ViewInject(R.id.toolbar_actionbar)
     private Toolbar mToolbarActionbar;
-    private static final int SPAN_COUNT = 2;
-    private static final int DATA_SET_COUNT = 7;
-//    @ViewInject(R.id.home_frag_recycler_view)
+    //    @ViewInject(R.id.home_frag_recycler_view)
 //    private RecyclerView mHomeFragRecyclerView;
     @ViewInject(R.id.home_frag_app_bar_layout)
     private AppBarLayout mHomeFragAppBarLayout;
     public static final int TOP = 0;
     @ViewInject(R.id.search_view_container)
     private SearchEditTextLayout mSearchEditTextLayout;
-    @ViewInject(R.id.login_progress)
-    private ProgressBar mProgressBar;
 
     @Event({R.id.search_view_container, R.id.search_magnifying_glass, R.id.search_box_start_search, R.id.search_back_button})
     private void onClick(View v) {
@@ -93,14 +79,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
-        mProgressBar.setVisibility(View.VISIBLE);
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                initDataSet();
-//            }
-//        }).run();
         initData();
         initView();
         initListener();
@@ -168,12 +147,7 @@ public class HomeFragment extends BaseFragment {
             mHomeFragAppBarLayout.setVisibility(View.GONE);
         }
 
-        homeAdapter = new ContentItemViewAdapter(dataSet);
-//        mHomeFragRecyclerView.setAdapter(homeAdapter);
-//        mHomeFragRecyclerView.addItemDecoration(new HomeItemDecoration((int) getResources().getDimension(R.dimen.search_margin_horizontal)));
-        currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        setRecyclerViewLayoutManager(currentLayoutManagerType);
-//        mProgressBar.setVisibility(View.GONE);
+
 
 //        if (bottomNavigationActivity != null && bottomNavigationActivity.getSupportActionBar() != null) {
 //            bottomNavigationActivity.getSupportActionBar().setTitle(getString(R.string.title_home));
@@ -192,55 +166,6 @@ public class HomeFragment extends BaseFragment {
     private void initData() {
         if (getArguments() != null) {
             mFromPage = getArguments().getInt(FROM_PAGE);
-        }
-    }
-
-    /**
-     * Set RecyclerView's LayoutManager to the one given.
-     *
-     * @param layoutManagerType Type of layout manager to switch to.
-     */
-    public void setRecyclerViewLayoutManager(LayoutManagerType layoutManagerType) {
-        int scrollPosition = 0;
-
-        // If a layout manager has already been set, get current scroll position.
-//        if (mHomeFragRecyclerView.getLayoutManager() != null) {
-//            scrollPosition = ((LinearLayoutManager) mHomeFragRecyclerView.getLayoutManager())
-//                    .findFirstCompletelyVisibleItemPosition();
-//        }
-
-        switch (layoutManagerType) {
-            case GRID_LAYOUT_MANAGER:
-                layoutManager = new GridLayoutManager(getActivity(), SPAN_COUNT);
-                currentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
-                break;
-            case LINEAR_LAYOUT_MANAGER:
-                layoutManager = new LinearLayoutManager(getActivity());
-                currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-                break;
-            default:
-                layoutManager = new LinearLayoutManager(getActivity());
-                currentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-        }
-
-//        mHomeFragRecyclerView.setLayoutManager(layoutManager);
-//        mHomeFragRecyclerView.scrollToPosition(scrollPosition);
-    }
-
-    /**
-     * Generates Strings for RecyclerView's homeAdapter. This data would usually come
-     * from a local content provider or remote server.
-     */
-    private void initDataSet() {
-        dataSet = new String[DATA_SET_COUNT];
-        for (int i = 0; i < DATA_SET_COUNT; i++) {
-            dataSet[i] = getString(R.string.next_week) + i;
-        }
-        // 测试滑动卡顿
-        try {
-            Thread.sleep(30000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 

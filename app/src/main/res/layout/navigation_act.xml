@@ -21,7 +21,6 @@
 
         <com.christian.view.AlwaysAnimatedFloatingActionButton
             android:id="@+id/navigation_act_fab"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

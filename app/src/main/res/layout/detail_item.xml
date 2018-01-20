@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/card"
-    app:cardCornerRadius="@dimen/card_corner_radius"
-    >
+    app:cardCornerRadius="@dimen/card_corner_radius">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_item_container"
@@ -71,7 +70,7 @@
             android:maxLines="2"
             android:paddingEnd="@dimen/card_view_padding"
             android:paddingStart="@dimen/card_view_padding"
-            android:text="「从前引导你们，传神之道给你们的人，你们要想念他们，效法他们的信心，留心看他们的为人的结局。」（希伯来书十三章七节）本书收集一些历代"
+            android:text="「从前引导你们、传神之道给你们的人，你们要想念他们，效法他们的信心，留心看他们为人的结局。」（希伯来书十三章七节）本书收集一些历代"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/text_color_tertiary"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,14 +82,11 @@
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/more_action"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/search_margin_horizontal"
             android:background="?selectableItemBackgroundBorderless"
-            android:paddingEnd="@dimen/search_margin_horizontal"
-            android:paddingStart="@dimen/search_margin_horizontal"
-            android:tint="@color/text_color_secondary"
+            android:padding="@dimen/search_margin_horizontal"
+            android:tint="@color/text_color_tertiary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintHorizontal_weight="1"

@@ -49,11 +49,6 @@ public abstract class BaseFragment extends Fragment {
 //        }
 //    }
 
-    public enum LayoutManagerType {
-        GRID_LAYOUT_MANAGER,
-        LINEAR_LAYOUT_MANAGER
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
