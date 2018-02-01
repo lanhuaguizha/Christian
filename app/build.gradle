@@ -48,4 +48,9 @@ dependencies {
     compile 'org.xutils:xutils:3.5.0'
     // Circle Image View
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    // Room
+    compile "android.arch.persistence.room:runtime:${room_vertion}"
+    kapt "android.arch.persistence.room:compiler:${room_vertion}"
+    // guaua
+    compile "com.google.guava:guava:${guavaVersion}"
 }

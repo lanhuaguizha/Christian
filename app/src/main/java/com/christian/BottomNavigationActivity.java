@@ -29,6 +29,8 @@ import java.util.ArrayList;
 @ContentView(R.layout.navigation_act)
 public class BottomNavigationActivity extends BaseActivity {
 
+    private static final String TAG = "";
+
     @ViewInject(R.id.navigation)
     private BottomNavigationView mBottomNavigationView;
     @ViewInject(R.id.content_view_page)

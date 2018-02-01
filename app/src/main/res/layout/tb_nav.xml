@@ -11,5 +11,5 @@
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     tools:showIn="@layout/home_frag">
 
-    <include layout="@layout/search_edittext" />
+    <include layout="@layout/sb_nav" />
 </android.support.v7.widget.Toolbar>

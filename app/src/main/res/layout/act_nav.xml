@@ -37,12 +37,13 @@
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.christian.view.AlwaysAnimatedFloatingActionButton
+    <com.christian.view.AlwaysAnAnimatedFloatingActionButton
         android:id="@+id/fab_nav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
         android:tint="@color/white"
         android:visibility="gone"
         app:layout_anchor="@id/bnv_nav"
@@ -54,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@android:color/transparent"
+        android:background="?android:attr/windowBackground"
         app:layout_behavior="com.christian.BottomNavigationViewBehavior"
         app:menu="@menu/navigation" />
 </android.support.design.widget.CoordinatorLayout>
