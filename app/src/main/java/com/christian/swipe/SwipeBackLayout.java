@@ -323,7 +323,7 @@ public class SwipeBackLayout extends FrameLayout {
         }
         mActivity = activity;
         TypedArray a = activity.getTheme().obtainStyledAttributes(new int[]{
-                android.R.attr.windowBackground
+                android.R.attr.windowActionBar
         });
         int background = a.getResourceId(0, 0);
         a.recycle();
