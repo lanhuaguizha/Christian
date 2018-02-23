@@ -16,7 +16,6 @@
 package com.christian.data.source
 
 import com.christian.data.Nav
-import com.christian.data.source.remote.NavsRemoteDataSource
 import java.util.*
 
 /**
@@ -28,8 +27,8 @@ import java.util.*
  * exist or is empty.
  */
 class NavsRepository(
-        val navsRemoteDataSource: NavsDataSource,
-        val navsLocalDataSource: NavsDataSource
+        val navsRemoteDataSource: NavsDataSource
+
 ) : NavsDataSource {
 
     /**
@@ -58,29 +57,30 @@ class NavsRepository(
             return
         }
 
-        if (cacheIsDirty) {
-            // If the cache is dirty we need to fetch new data from the network.
-            getNavsFromRemoteDataSource(callback)
-        } else {
-            // Query the local storage if available. If not, query the network.
-            navsLocalDataSource.getNavs(object : NavsDataSource.LoadNavsCallback {
-                override fun onNavsLoaded(navs: List<Nav>) {
-                    refreshCache(navs)
-                    callback.onNavsLoaded(ArrayList(cachedNavs.values))
-                }
-
-                override fun onDataNotAvailable() {
-                    getNavsFromRemoteDataSource(callback)
-                }
-            })
-        }
+        getNavsFromRemoteDataSource(callback)
+//        if (cacheIsDirty) {
+//            // If the cache is dirty we need to fetch new data from the network.
+//            getNavsFromRemoteDataSource(callback)
+//        } else {
+//            // Query the local storage if available. If not, query the network.
+//            navsLocalDataSource.getNavs(object : NavsDataSource.LoadNavsCallback {
+//                override fun onNavsLoaded(navs: List<Nav>) {
+//                    refreshCache(navs)
+//                    callback.onNavsLoaded(ArrayList(cachedNavs.values))
+//                }
+//
+//                override fun onDataNotAvailable() {
+//                    getNavsFromRemoteDataSource(callback)
+//                }
+//            })
+//        }
     }
 
     override fun saveNav(nav: Nav) {
         // Do in memory cache update to keep the app UI up to date
         cacheAndPerform(nav) {
             navsRemoteDataSource.saveNav(it)
-            navsLocalDataSource.saveNav(it)
+//            navsLocalDataSource.saveNav(it)
         }
     }
 
@@ -89,7 +89,7 @@ class NavsRepository(
         cacheAndPerform(nav) {
             it.isCompleted = true
             navsRemoteDataSource.completeNav(it)
-            navsLocalDataSource.completeNav(it)
+//            navsLocalDataSource.completeNav(it)
         }
     }
 
@@ -104,7 +104,7 @@ class NavsRepository(
         cacheAndPerform(nav) {
             it.isCompleted = false
             navsRemoteDataSource.activateNav(it)
-            navsLocalDataSource.activateNav(it)
+//            navsLocalDataSource.activateNav(it)
         }
     }
 
@@ -116,7 +116,7 @@ class NavsRepository(
 
     override fun clearCompletedNavs() {
         navsRemoteDataSource.clearCompletedNavs()
-        navsLocalDataSource.clearCompletedNavs()
+//        navsLocalDataSource.clearCompletedNavs()
 
         cachedNavs = cachedNavs.filterValues {
             !it.isCompleted
@@ -143,29 +143,29 @@ class NavsRepository(
         // Load from server/persisted if needed.
 
         // Is the Nav in the local data source? If not, query the network.
-        navsLocalDataSource.getNav(navId, object : NavsDataSource.GetNavCallback {
-            override fun onNavLoaded(nav: Nav) {
-                // Do in memory cache update to keep the app UI up to date
-                cacheAndPerform(nav) {
-                    callback.onNavLoaded(it)
-                }
-            }
-
-            override fun onDataNotAvailable() {
-                navsRemoteDataSource.getNav(navId, object : NavsDataSource.GetNavCallback {
-                    override fun onNavLoaded(nav: Nav) {
-                        // Do in memory cache update to keep the app UI up to date
-                        cacheAndPerform(nav) {
-                            callback.onNavLoaded(it)
-                        }
-                    }
-
-                    override fun onDataNotAvailable() {
-                        callback.onDataNotAvailable()
-                    }
-                })
-            }
-        })
+//        navsLocalDataSource.getNav(navId, object : NavsDataSource.GetNavCallback {
+//            override fun onNavLoaded(nav: Nav) {
+//                // Do in memory cache update to keep the app UI up to date
+//                cacheAndPerform(nav) {
+//                    callback.onNavLoaded(it)
+//                }
+//            }
+//
+//            override fun onDataNotAvailable() {
+//                navsRemoteDataSource.getNav(navId, object : NavsDataSource.GetNavCallback {
+//                    override fun onNavLoaded(nav: Nav) {
+//                        // Do in memory cache update to keep the app UI up to date
+//                        cacheAndPerform(nav) {
+//                            callback.onNavLoaded(it)
+//                        }
+//                    }
+//
+//                    override fun onDataNotAvailable() {
+//                        callback.onDataNotAvailable()
+//                    }
+//                })
+//            }
+//        })
     }
 
     override fun refreshNavs() {
@@ -174,13 +174,13 @@ class NavsRepository(
 
     override fun deleteAllNavs() {
         navsRemoteDataSource.deleteAllNavs()
-        navsLocalDataSource.deleteAllNavs()
+//        navsLocalDataSource.deleteAllNavs()
         cachedNavs.clear()
     }
 
     override fun deleteNav(navId: String) {
         navsRemoteDataSource.deleteNav(navId)
-        navsLocalDataSource.deleteNav(navId)
+//        navsLocalDataSource.deleteNav(navId)
         cachedNavs.remove(navId)
     }
 
@@ -207,10 +207,10 @@ class NavsRepository(
     }
 
     private fun refreshLocalDataSource(navs: List<Nav>) {
-        navsLocalDataSource.deleteAllNavs()
-        for (Nav in navs) {
-            navsLocalDataSource.saveNav(Nav)
-        }
+//        navsLocalDataSource.deleteAllNavs()
+//        for (Nav in navs) {
+//            navsLocalDataSource.saveNav(Nav)
+//        }
     }
 
     private fun getNavWithId(id: String) = cachedNavs[id]
@@ -237,9 +237,9 @@ class NavsRepository(
          * @return the [NavsRepository] instance
          */
         @JvmStatic
-        fun getInstance(navsRemoteDataSource: NavsDataSource,
-                        NavsLocalDataSource: NavsDataSource): NavsRepository {
-            return INSTANCE ?: NavsRepository(navsRemoteDataSource, NavsLocalDataSource)
+        fun getInstance(navsRemoteDataSource: NavsDataSource
+        ): NavsRepository {
+            return INSTANCE ?: NavsRepository(navsRemoteDataSource)
                     .apply { INSTANCE = this }
         }
 

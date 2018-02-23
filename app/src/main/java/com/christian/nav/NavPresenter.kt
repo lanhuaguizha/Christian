@@ -17,7 +17,7 @@ class NavPresenter(
         private val navView: NavContract.View) : NavContract.Presenter {
 
     // dTAG represents debugging tag
-    private val dTAG = "NavPresenter"
+    private val TAG = "NavPresenter"
 
     init {
         navView.presenter = this
@@ -31,25 +31,29 @@ class NavPresenter(
     override fun getData(itemId: Int) {
         when (itemId) {
             R.id.navigation_home -> {
-                Log.i(dTAG, "request Home data")
+                Log.i(TAG, "request Home data")
+                navsRepository.getNavs(object : NavsDataSource.LoadNavsCallback {
+                    override fun onNavsLoaded(navs: List<Nav>) {
+                        Log.i(TAG, navs.toString())
+                    }
+
+                    override fun onDataNotAvailable() {
+                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                })
             }
             R.id.navigation_gospel -> {
-                Log.i(dTAG, "request Gospel data")
+                Log.i(TAG, "request Gospel data")
             }
             R.id.navigation_me -> {
-                Log.i(dTAG, "request Me data")
+                Log.i(TAG, "request Me data")
             }
         }
-        Log.i(dTAG, itemId.toString())
+        Log.i(TAG, itemId.toString())
     }
 
     override fun loadData(nav: Nav) {
-//        val dataSet: Array<String> = arrayOf("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
-//        for (i in 0 until 30) {
-//            dataSet[i] = navView.getString(R.string.next_week) + i
-//        }
-//
-//        loadView(dataSet)
         navView.showRecyclerView(nav)
     }
 }

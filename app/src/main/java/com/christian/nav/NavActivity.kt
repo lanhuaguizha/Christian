@@ -8,13 +8,8 @@ import com.christian.R
 import com.christian.adapter.ContentItemViewAdapter
 import com.christian.base.ActBase
 import com.christian.data.Nav
-import com.christian.data.source.NavsRepository
-import com.christian.data.source.local.NavsLocalDataSource
-import com.christian.data.source.local.ToDoDatabase
-import com.christian.data.source.remote.NavsRemoteDataSource
 import com.christian.helper.BottomNavigationViewHelper
 import com.christian.swipe.SwipeBackHelper
-import com.christian.util.AppExecutors
 import com.christian.view.ItemDecoration
 import kotlinx.android.synthetic.main.act_nav.*
 

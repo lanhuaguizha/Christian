@@ -17,8 +17,8 @@ package com.christian
 
 import android.content.Context
 import com.christian.data.source.NavsRepository
-import com.christian.data.source.local.NavsLocalDataSource
-import com.christian.data.source.local.ToDoDatabase
+//import com.christian.data.source.local.NavsLocalDataSource
+//import com.christian.data.source.local.ToDoDatabase
 import com.christian.data.source.remote.FakeNavsRemoteDataSource
 import com.christian.util.AppExecutors
 
@@ -29,8 +29,9 @@ import com.christian.util.AppExecutors
  */
 object Injection {
     fun provideNavsRepository(context: Context): NavsRepository {
-        val database = ToDoDatabase.getInstance(context)
-        return NavsRepository.getInstance(FakeNavsRemoteDataSource.getInstance(),
-                NavsLocalDataSource.getInstance(AppExecutors(), database.NavDao()))
+//        val database = ToDoDatabase.getInstance(context)
+//        return NavsRepository.getInstance(FakeNavsRemoteDataSource.getInstance(), NavsLocalDataSource.getInstance(AppExecutors(), database.NavDao()))
+        return NavsRepository.getInstance(FakeNavsRemoteDataSource.getInstance())
+
     }
 }
