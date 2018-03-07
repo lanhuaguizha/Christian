@@ -19,7 +19,7 @@
         android:theme="@style/Christian">
 
         <activity
-            android:name=".nav.ActNav"
+            android:name=".nav.NavActivity"
             android:theme="@style/BottomNavigationActivityTheme"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>

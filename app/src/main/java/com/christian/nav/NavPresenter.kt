@@ -8,7 +8,7 @@ import com.christian.data.source.NavsRepository
 
 /**
  * This contains all the NAV business logic, and the MVP control center. We'll write the code here first.
- * Hold references to View and Model, implementation of View is ActNav, implementation of Model
+ * Hold references to View and Model, implementation of View is NavActivity, implementation of Model
  * is Nav
  */
 class NavPresenter(

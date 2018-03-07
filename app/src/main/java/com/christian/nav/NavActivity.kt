@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.act_nav.*
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
  * implementation of NavContract.View.
  */
-class ActNav : ActBase(), NavContract.View {
+class NavActivity : ActBase(), NavContract.View {
 
     /**
      * presenter will be initialized when the NavPresenter is initialized
