@@ -5,7 +5,7 @@
     android:id="@+id/cl_nav"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BottomNavigationActivity">
+    tools:context=".util.BottomNavigationActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/abl_nav"
