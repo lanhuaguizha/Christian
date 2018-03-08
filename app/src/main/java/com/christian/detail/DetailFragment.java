@@ -2,7 +2,6 @@ package com.christian.detail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
@@ -20,7 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
-import com.christian.BottomNavigationActivity;
+import com.christian.util.BottomNavigationActivity;
 import com.christian.R;
 import com.christian.base.BaseFragment;
 

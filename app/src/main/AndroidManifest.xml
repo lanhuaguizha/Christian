@@ -31,46 +31,46 @@
         <activity
             android:name=".content.ActCon"
             android:launchMode="singleTop"
-            android:parentActivityName=".BottomNavigationActivity" />
+            android:parentActivityName=".util.BottomNavigationActivity" />
 
         <activity
             android:name=".detail.DetailActivity"
             android:label=""
             android:launchMode="singleTop"
-            android:parentActivityName=".BottomNavigationActivity">
+            android:parentActivityName=".util.BottomNavigationActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".BottomNavigationActivity" />
+                android:value=".util.BottomNavigationActivity" />
         </activity>
         <activity
             android:name=".setting.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:launchMode="singleTop"
-            android:parentActivityName=".BottomNavigationActivity"
+            android:parentActivityName=".util.BottomNavigationActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.BottomNavigationActivity" />
+                android:value="com.christian.util.BottomNavigationActivity" />
         </activity>
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login"
             android:launchMode="singleTop"
-            android:parentActivityName=".BottomNavigationActivity">
+            android:parentActivityName=".util.BottomNavigationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.BottomNavigationActivity" />
+                android:value="com.christian.util.BottomNavigationActivity" />
         </activity>
         <activity
             android:name=".login.RegisterActivity"
             android:label="@string/title_activity_register"
             android:launchMode="singleTop"
-            android:parentActivityName=".BottomNavigationActivity">
+            android:parentActivityName=".util.BottomNavigationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.BottomNavigationActivity" />
+                android:value="com.christian.util.BottomNavigationActivity" />
         </activity>
 
     </application>

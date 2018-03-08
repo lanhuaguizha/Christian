@@ -1,7 +1,6 @@
 package com.christian.gospel;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,10 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
-import com.christian.BottomNavigationActivity;
 import com.christian.R;
 import com.christian.base.BaseFragment;
 import com.christian.home.EmptyFragment;

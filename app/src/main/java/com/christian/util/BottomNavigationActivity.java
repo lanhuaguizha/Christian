@@ -1,4 +1,4 @@
-package com.christian;
+package com.christian.util;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.christian.R;
 import com.christian.base.BaseActivity;
 import com.christian.gospel.GospelFragment;
 import com.christian.helper.BottomNavigationViewHelper;

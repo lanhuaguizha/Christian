@@ -5,14 +5,11 @@ import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.christian.BottomNavigationActivity;
+import com.christian.util.BottomNavigationActivity;
 import com.christian.R;
 import com.christian.base.BaseFragment;
 import com.christian.view.SearchEditTextLayout;

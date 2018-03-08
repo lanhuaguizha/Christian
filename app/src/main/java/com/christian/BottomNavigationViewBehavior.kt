@@ -3,18 +3,14 @@ package com.christian
 import android.content.Context
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CoordinatorLayout
-import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 
 /**
- * Immersive reading, the upper and lower bars are also hidden.
+ * Immersive reading, swipe hidden
  */
-
-
 class BottomNavigationViewBehavior(context: Context?, attrs: AttributeSet?) : CoordinatorLayout.Behavior<View>(context, attrs) {
-
 
     override fun onLayoutChild(parent: CoordinatorLayout?, child: View?, layoutDirection: Int): Boolean {
 
@@ -32,9 +28,10 @@ class BottomNavigationViewBehavior(context: Context?, attrs: AttributeSet?) : Co
 
         //得到依赖View的滑动距离
         val top = ((dependency?.layoutParams as CoordinatorLayout.LayoutParams).behavior as AppBarLayout.Behavior).topAndBottomOffset
-                Log.i("dd", top.toString())
+        Log.i("dd", top.toString())
         //因为BottomNavigation的滑动与ToolBar是反向的，所以取-top值
         child?.translationY = (-top).toFloat()
         return false
     }
+
 }

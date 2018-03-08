@@ -19,6 +19,9 @@ import android.os.Handler
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
 import com.google.common.collect.Lists
+import retrofit2.Retrofit
+
+
 
 /**
  * Implementation of the data source that adds a latency simulating network.
@@ -50,6 +53,11 @@ object NavsRemoteDataSource : NavsDataSource {
         Handler().postDelayed({
             callback.onNavsLoaded(Navs)
         }, SERVICE_LATENCY_IN_MILLIS)
+
+        val retrofit = Retrofit.Builder()
+                .baseUrl("http://localhost:8080/")
+                .build()
+        retrofit.
     }
 
     /**

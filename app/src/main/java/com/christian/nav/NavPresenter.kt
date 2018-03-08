@@ -16,9 +16,6 @@ class NavPresenter(
         private val navsRepository: NavsRepository,
         private val navView: NavContract.View) : NavContract.Presenter {
 
-    // dTAG represents debugging tag
-    private val TAG = "NavPresenter"
-
     init {
         navView.presenter = this
     }
@@ -31,10 +28,8 @@ class NavPresenter(
     override fun getData(itemId: Int) {
         when (itemId) {
             R.id.navigation_home -> {
-                Log.i(TAG, "request Home data")
                 navsRepository.getNavs(object : NavsDataSource.LoadNavsCallback {
                     override fun onNavsLoaded(navs: List<Nav>) {
-                        Log.i(TAG, navs.toString())
                     }
 
                     override fun onDataNotAvailable() {
@@ -44,13 +39,10 @@ class NavPresenter(
                 })
             }
             R.id.navigation_gospel -> {
-                Log.i(TAG, "request Gospel data")
             }
             R.id.navigation_me -> {
-                Log.i(TAG, "request Me data")
             }
         }
-        Log.i(TAG, itemId.toString())
     }
 
     override fun loadData(nav: Nav) {
