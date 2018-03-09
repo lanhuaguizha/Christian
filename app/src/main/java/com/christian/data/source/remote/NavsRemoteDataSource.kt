@@ -61,7 +61,7 @@ object NavsRemoteDataSource : NavsDataSource {
         }, SERVICE_LATENCY_IN_MILLIS)
 
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://localhost:8080/")
+                .baseUrl("http://10.200.69.48:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         val navService = retrofit.create(NavService::class.java)
@@ -73,7 +73,7 @@ object NavsRemoteDataSource : NavsDataSource {
             }
 
             override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>?) {
-                Log.i("", response.toString())
+                Log.i("ddddd", response.toString())
             }
 
 //            override fun onResponse(call: Call<List<Nav>>, response: Response<Nav>) {
