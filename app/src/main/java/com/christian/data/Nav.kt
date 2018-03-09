@@ -11,10 +11,10 @@ import java.util.*
  */
 @Entity(tableName = "navs")
 data class Nav @JvmOverloads constructor(
-        @ColumnInfo(name = "image") var image: String = "",
         @ColumnInfo(name = "subtitle") var subtitle: String = "subtitle",
         @ColumnInfo(name = "title") var title: String = "title",
-        @ColumnInfo(name = "content") var content: String = "content",
+        @ColumnInfo(name = "author") var author: String = "",
+//        @ColumnInfo(name = "detail") var detail: List<Detail>,
         @ColumnInfo(name = "description") var description: String = "",
         @PrimaryKey @ColumnInfo(name = "id") var id: String = UUID.randomUUID().toString()
 ) {

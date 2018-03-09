@@ -16,11 +16,17 @@
 package com.christian.data.source.remote
 
 import android.os.Handler
+import android.util.Log
+import android.util.SparseArray
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
 import com.google.common.collect.Lists
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
-
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.HashMap
 
 
 /**
@@ -56,8 +62,30 @@ object NavsRemoteDataSource : NavsDataSource {
 
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://localhost:8080/")
+                .addConverterFactory(GsonConverterFactory.create())
                 .build()
-        retrofit.
+        val navService = retrofit.create(NavService::class.java)
+        val call = navService.getNavs()
+
+        call.enqueue(object : Callback<List<Nav>> {
+            override fun onFailure(call: Call<List<Nav>>?, t: Throwable?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>?) {
+                Log.i("", response.toString())
+            }
+
+//            override fun onResponse(call: Call<List<Nav>>, response: Response<Nav>) {
+//                if (response.body() == null) {
+//                    return
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<Nav>>, t: Throwable) {
+//            }
+        })
+
     }
 
     /**
