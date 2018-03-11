@@ -55,11 +55,11 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
     private int mLastAnimatedPosition = 0;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @ViewInject(R.id.content_subtitle)
+        @ViewInject(R.id.tv_title_nav)
         private TextView mTvHomeTitle;
-        @ViewInject(R.id.content_title)
+        @ViewInject(R.id.tv_subtitle_nav)
         private TextView mTvContentTitle;
-        @ViewInject(R.id.content)
+        @ViewInject(R.id.tv_detail_nav)
         private TextView mTvContent;
         @ViewInject(R.id.more_action)
         private AppCompatImageButton btnHomeMore;
@@ -114,7 +114,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.detail_item, viewGroup, false);
+                .inflate(R.layout.item_nav, viewGroup, false);
         return new ViewHolder(v);
     }
 

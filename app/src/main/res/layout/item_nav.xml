@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.christian.view.CustomCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/custom_card_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/card"
-    app:cardCornerRadius="@dimen/card_corner_radius">
+                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                   xmlns:tool="http://schemas.android.com/tools"
+                                   android:id="@+id/custom_card_view"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   app:cardBackgroundColor="@color/white"
+                                   app:cardCornerRadius="@dimen/card_corner_radius">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/cl_item_container"
@@ -15,18 +16,17 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/content_image"
+            android:id="@+id/iv_nav"
             android:layout_width="0dp"
             android:layout_height="@dimen/app_bar_height"
             android:background="@color/gray_background"
             android:scaleType="centerCrop"
-            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/content_title"
+            android:id="@+id/tv_subtitle_nav"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/search_margin_horizontal"
@@ -34,33 +34,34 @@
             android:maxLines="1"
             android:paddingEnd="@dimen/card_view_padding"
             android:paddingStart="@dimen/card_view_padding"
-            android:text="属灵人小传选集"
+            tool:text="属灵人小传选集"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/text_color_secondary"
             app:layout_constraintLeft_toLeftOf="parent"
-
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content_image" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_title_nav"
+            app:layout_constraintTop_toBottomOf="@id/iv_nav" />
 
         <TextView
-            android:id="@+id/content_subtitle"
+            android:id="@+id/tv_title_nav"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/search_margin_horizontal"
             android:maxLines="1"
             android:paddingEnd="@dimen/card_view_padding"
             android:paddingStart="@dimen/card_view_padding"
-            android:text="简介"
+            tool:text="简介"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="?android:attr/textColorPrimaryNoDisable"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content_title" />
+            app:layout_constraintBottom_toTopOf="@+id/tv_detail_nav"
+            app:layout_constraintTop_toBottomOf="@+id/tv_subtitle_nav" />
 
         <TextView
-            android:id="@+id/content"
+            android:id="@+id/tv_detail_nav"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/card_view_padding"
@@ -70,19 +71,18 @@
             android:maxLines="3"
             android:paddingEnd="@dimen/card_view_padding"
             android:paddingStart="@dimen/card_view_padding"
-            android:text="「从前引导你们、传神之道给你们的人，你们要想念他们，效法他们的信心，留心看他们为人的结局。」（希伯来书十三章七节）本书收集一些历代"
+            tool:text="「从前引导你们、传神之道给你们的人，你们要想念他们，效法他们的信心，留心看他们为人的结局。」（希伯来书十三章七节）本书收集一些历代"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/text_color_tertiary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content_subtitle"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_nav"
             app:layout_constraintVertical_bias="0.0" />
 
         <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/more_action"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?selectableItemBackgroundBorderless"
@@ -91,11 +91,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toLeftOf="@+id/content_subtitle"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_title_nav"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content_image"
+            app:layout_constraintTop_toBottomOf="@+id/iv_nav"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_more_vert_black_24dp" />
-
     </android.support.constraint.ConstraintLayout>
 </com.christian.view.CustomCardView>
