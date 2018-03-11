@@ -54,14 +54,10 @@ object NavsRemoteDataSource : NavsDataSource {
      * returns an error.
      */
     override fun getNavs(callback: NavsDataSource.LoadNavsCallback) {
-        // Simulate network by delaying the execution.
-        val Navs = Lists.newArrayList(NAVS_SERVICE_DATA.values)
-        Handler().postDelayed({
-            callback.onNavsLoaded(Navs)
-        }, SERVICE_LATENCY_IN_MILLIS)
 
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://10.200.69.48:8080/")
+                .baseUrl("http://192.168.51.137:8080/")
+//                .baseUrl("http://10.200.69.48:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         val navService = retrofit.create(NavService::class.java)
@@ -69,11 +65,16 @@ object NavsRemoteDataSource : NavsDataSource {
 
         call.enqueue(object : Callback<List<Nav>> {
             override fun onFailure(call: Call<List<Nav>>?, t: Throwable?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                Log.i("ddddd", call.toString())
             }
 
             override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>?) {
                 Log.i("ddddd", response.toString())
+                if (response != null) {
+                    response.body()?.let { callback.onNavsLoaded(it) }
+                } else {
+                    // Todo this is no data
+                }
             }
 
 //            override fun onResponse(call: Call<List<Nav>>, response: Response<Nav>) {

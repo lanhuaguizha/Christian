@@ -2,24 +2,16 @@ package com.christian.home;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-
 import com.christian.R;
-import com.christian.adapter.ContentItemViewAdapter;
 import com.christian.base.BaseFragment;
 import com.christian.view.ItemDecoration;
-
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 
@@ -114,9 +106,9 @@ public class EmptyFragment extends BaseFragment {
 
         visible(false);
 
-        ContentItemViewAdapter adapter;
-        adapter = new ContentItemViewAdapter(dataSet);
-        mRvGospel.setAdapter(adapter);
+//        ContentItemViewAdapter adapter;
+//        adapter = new ContentItemViewAdapter(dataSet);
+//        mRvGospel.setAdapter(adapter);
         setScrollPosition();
     }
 

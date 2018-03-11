@@ -53,7 +53,10 @@ class NavContract {
 
         fun hideProgressBar()
 
-        fun showRecyclerView(nav: Nav)
+        /**
+         * passing a list to a recycler view and let it show
+         */
+        fun showRecyclerView(navs: List<Nav>)
 
         fun hideRecyclerView()
 
@@ -73,9 +76,19 @@ class NavContract {
      */
     interface Presenter : BasePresenter {
 
-        fun getData(itemId: Int)
+        /**
+         *(1)insert
+         *
+         *(2)delete
+         *
+         *(3)update
+         *
+         *(4)select
+         */
 
-        fun loadData(nav: Nav)
+        fun insertData(itemId: Int)
+
+        fun updateData(navs: List<Nav>)
 
     }
 

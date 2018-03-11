@@ -3,9 +3,10 @@ package com.christian.nav
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.christian.Injection
 import com.christian.R
-import com.christian.adapter.ContentItemViewAdapter
+import com.christian.adapter.DetailAdapter
 import com.christian.base.ActBase
 import com.christian.data.Nav
 import com.christian.helper.BottomNavigationViewHelper
@@ -18,7 +19,6 @@ import kotlinx.android.synthetic.main.act_nav.*
  * implementation of NavContract.View.
  */
 class NavActivity : ActBase(), NavContract.View {
-
     /**
      * presenter will be initialized when the NavPresenter is initialized
      */
@@ -39,6 +39,7 @@ class NavActivity : ActBase(), NavContract.View {
         initRv()
 
         initBnv()
+
     }
 
     override fun setupToolbar(title: String) {
@@ -54,15 +55,17 @@ class NavActivity : ActBase(), NavContract.View {
     }
 
     override fun showProgressBar() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        pb_nav.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        pb_nav.visibility = View.GONE
     }
 
-    override fun showRecyclerView(nav: Nav) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showRecyclerView(navs: List<Nav>) {
+        var adapter = DetailAdapter(navs)
+        rv_nav.adapter = adapter
+        hideProgressBar()
     }
 
     override fun hideRecyclerView() {
@@ -110,22 +113,22 @@ class NavActivity : ActBase(), NavContract.View {
             when (item.itemId) {
                 R.id.navigation_home -> {
                     showFab(false)
-                    presenter.getData(item.itemId) // ToDo? So wordy
+                    presenter.insertData(item.itemId) // ToDo? So wordy
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_gospel -> {
                     showFab(false)
-                    presenter.getData(item.itemId)
+                    presenter.insertData(item.itemId)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_chat -> {
                     showFab(false)
-                    presenter.getData(item.itemId)
+                    presenter.insertData(item.itemId)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_me -> {
                     showFab(true)
-                    presenter.getData(item.itemId)
+                    presenter.insertData(item.itemId)
                     return@OnNavigationItemSelectedListener true
                 }
             }
@@ -136,7 +139,6 @@ class NavActivity : ActBase(), NavContract.View {
     }
 
     private fun showFab(b: Boolean) {
-
         if (b) fab_nav.show() else fab_nav.hide()
     }
 
@@ -144,11 +146,5 @@ class NavActivity : ActBase(), NavContract.View {
 
         rv_nav.smoothScrollToPosition(-100) // 为了滚到顶
         abl_nav.setExpanded(true, true)
-    }
-
-    private fun loadView(dataSet: Array<String>) {
-
-        val adapter = ContentItemViewAdapter(dataSet)
-        rv_nav.adapter = adapter
     }
 }

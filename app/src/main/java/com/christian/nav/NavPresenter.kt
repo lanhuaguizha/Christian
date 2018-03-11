@@ -23,29 +23,26 @@ class NavPresenter(
     override fun start() {
 
         navView.initView()
+
+        insertData(0)
+
     }
 
-    override fun getData(itemId: Int) {
-        when (itemId) {
-            R.id.navigation_home -> {
-                navsRepository.getNavs(object : NavsDataSource.LoadNavsCallback {
-                    override fun onNavsLoaded(navs: List<Nav>) {
-                    }
+    override fun insertData(itemId: Int) {
+        navsRepository.getNavs(object : NavsDataSource.LoadNavsCallback {
+            override fun onNavsLoaded(navs: List<Nav>) {
+                Log.i("home clicked", navs.toString())
+                navView.showRecyclerView(navs)
+            }
 
-                    override fun onDataNotAvailable() {
-                        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                    }
+            override fun onDataNotAvailable() {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
 
-                })
-            }
-            R.id.navigation_gospel -> {
-            }
-            R.id.navigation_me -> {
-            }
-        }
+        })
     }
 
-    override fun loadData(nav: Nav) {
-        navView.showRecyclerView(nav)
+    override fun updateData(navs: List<Nav>) {
+        navView.showRecyclerView(navs)
     }
 }

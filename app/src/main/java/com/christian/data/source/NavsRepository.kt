@@ -52,10 +52,10 @@ class NavsRepository(
      */
     override fun getNavs(callback: NavsDataSource.LoadNavsCallback) {
         // Respond immediately with cache if available and not dirty
-        if (cachedNavs.isNotEmpty() && !cacheIsDirty) {
-            callback.onNavsLoaded(ArrayList(cachedNavs.values))
-            return
-        }
+//        if (cachedNavs.isNotEmpty() && !cacheIsDirty) {
+//            callback.onNavsLoaded(ArrayList(cachedNavs.values))
+//            return
+//        }
 
         getNavsFromRemoteDataSource(callback)
 //        if (cacheIsDirty) {

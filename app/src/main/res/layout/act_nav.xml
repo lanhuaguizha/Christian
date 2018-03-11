@@ -1,63 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_nav"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".util.BottomNavigationActivity">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:id="@+id/cl_nav"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 tools:context=".util.BottomNavigationActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/abl_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:id="@+id/abl_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <include layout="@layout/tb_nav" />
+        <include layout="@layout/tb_nav"/>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_nav"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:id="@+id/srl_nav"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <FrameLayout
-            android:background="@color/nav_bg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                android:background="@color/nav_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <ProgressBar
-                android:layout_marginTop="@dimen/activity_margin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
+                    android:id="@+id/pb_nav"
+                    android:layout_marginTop="@dimen/activity_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"/>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_nav"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                    android:id="@+id/rv_nav"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.christian.view.AlwaysAnAnimatedFloatingActionButton
-        android:id="@+id/fab_nav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:tint="@color/white"
-        android:visibility="gone"
-        app:layout_anchor="@id/bnv_nav"
-        app:layout_anchorGravity="end"
-        app:srcCompat="@drawable/ic_edit_black_24dp" />
+            android:id="@+id/fab_nav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:tint="@color/white"
+            android:visibility="gone"
+            app:layout_anchor="@id/bnv_nav"
+            app:layout_anchorGravity="end"
+            app:srcCompat="@drawable/ic_edit_black_24dp"/>
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bnv_nav"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        android:background="@color/white"
-        app:layout_behavior="com.christian.BottomNavigationViewBehavior"
-        app:menu="@menu/navigation" />
+            android:id="@+id/bnv_nav"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            app:layout_behavior="com.christian.BottomNavigationViewBehavior"
+            app:menu="@menu/navigation"/>
 </android.support.design.widget.CoordinatorLayout>
