@@ -22,7 +22,8 @@ import org.xutils.view.annotation.Event
 import org.xutils.view.annotation.ViewInject
 import org.xutils.x
 
-class DetailAdapter(val navs: List<Nav>) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
+class DetailAdapter(private val navs: List<Nav>) : RecyclerView.Adapter<DetailAdapter.ViewHolder>() {
+
     private var mLastPosition: Int = 0
     private val mAnimateItems = false
     private var mLastAnimatedPosition = 0

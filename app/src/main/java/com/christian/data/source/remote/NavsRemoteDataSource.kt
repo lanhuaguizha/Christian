@@ -17,16 +17,13 @@ package com.christian.data.source.remote
 
 import android.os.Handler
 import android.util.Log
-import android.util.SparseArray
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
-import com.google.common.collect.Lists
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.HashMap
 
 
 /**
@@ -112,7 +109,7 @@ object NavsRemoteDataSource : NavsDataSource {
     }
 
     override fun completeNav(nav: Nav) {
-        val completedNav = Nav(nav.title, nav.description, nav.id).apply {
+        val completedNav = Nav(nav.title, nav.relation, nav.id).apply {
             isCompleted = true
         }
         NAVS_SERVICE_DATA.put(nav.id, completedNav)
@@ -124,7 +121,7 @@ object NavsRemoteDataSource : NavsDataSource {
     }
 
     override fun activateNav(nav: Nav) {
-        val activeNav = Nav(nav.title, nav.description, nav.id)
+        val activeNav = Nav(nav.title, nav.relation, nav.id)
         NAVS_SERVICE_DATA.put(nav.id, activeNav)
     }
 

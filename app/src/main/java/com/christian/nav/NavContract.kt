@@ -54,7 +54,7 @@ class NavContract {
         fun hideProgressBar()
 
         /**
-         * passing a list to a recycler view and let it show
+         * passing a list to a recycler view, let it show and hide process bar
          */
         fun showRecyclerView(navs: List<Nav>)
 
@@ -79,16 +79,18 @@ class NavContract {
         /**
          *(1)insert
          *
-         *(2)delete
+         *(2)update
          *
-         *(3)update
+         *(3)delete
          *
-         *(4)select
+         *(4)query
          */
 
-        fun insertData(itemId: Int)
+        fun insertNav(itemId: Int)
 
-        fun updateData(navs: List<Nav>)
+        fun updateNav(navs: List<Nav>)
+
+        fun queryNav()
 
     }
 

@@ -13,9 +13,9 @@ import java.util.*
 data class Nav @JvmOverloads constructor(
         @ColumnInfo(name = "subtitle") var subtitle: String = "subtitle",
         @ColumnInfo(name = "title") var title: String = "title",
+        @ColumnInfo(name = "detail") var detail: String = "",
+        @ColumnInfo(name = "relation") var relation: String = "",
         @ColumnInfo(name = "author") var author: String = "",
-//        @ColumnInfo(name = "detail") var detail: List<Detail>,
-        @ColumnInfo(name = "description") var description: String = "",
         @PrimaryKey @ColumnInfo(name = "id") var id: String = UUID.randomUUID().toString()
 ) {
 
@@ -26,11 +26,11 @@ data class Nav @JvmOverloads constructor(
     var isCompleted = false
 
     val titleForList: String
-        get() = if (title.isNotEmpty()) title else description
+        get() = if (title.isNotEmpty()) title else relation
 
     val isActive
         get() = !isCompleted
 
     val isEmpty
-        get() = title.isEmpty() && description.isEmpty()
+        get() = title.isEmpty() && relation.isEmpty()
 }

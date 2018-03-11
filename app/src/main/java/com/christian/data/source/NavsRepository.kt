@@ -15,6 +15,7 @@
  */
 package com.christian.data.source
 
+import com.christian.data.Detail
 import com.christian.data.Nav
 import java.util.*
 
@@ -216,7 +217,7 @@ class NavsRepository(
     private fun getNavWithId(id: String) = cachedNavs[id]
 
     private inline fun cacheAndPerform(nav: Nav, perform: (Nav) -> Unit) {
-        val cachedNav = Nav(nav.title, nav.description, nav.id).apply {
+        val cachedNav = Nav(nav.title, nav.relation, nav.id).apply {
             isCompleted = nav.isCompleted
         }
         cachedNavs.put(cachedNav.id, cachedNav)

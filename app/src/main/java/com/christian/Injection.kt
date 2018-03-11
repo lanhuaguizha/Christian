@@ -19,9 +19,7 @@ import android.content.Context
 import com.christian.data.source.NavsRepository
 //import com.christian.data.source.local.NavsLocalDataSource
 //import com.christian.data.source.local.ToDoDatabase
-import com.christian.data.source.remote.FakeNavsRemoteDataSource
 import com.christian.data.source.remote.NavsRemoteDataSource
-import com.christian.util.AppExecutors
 
 /**
  * Enables injection of mock implementations for

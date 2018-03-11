@@ -19,17 +19,21 @@ import kotlinx.android.synthetic.main.act_nav.*
  * implementation of NavContract.View.
  */
 class NavActivity : ActBase(), NavContract.View {
+
     /**
      * presenter will be initialized when the NavPresenter is initialized
      */
     override lateinit var presenter: NavContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.act_nav)
 
         NavPresenter("", Injection.provideNavsRepository(applicationContext), this)
         presenter.start()
+
     }
 
     override fun initView() {
@@ -40,64 +44,69 @@ class NavActivity : ActBase(), NavContract.View {
 
         initBnv()
 
+        startNav(false, 0)
+
     }
 
     override fun setupToolbar(title: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun setupSearchbar(searchHint: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun startSwipeRefreshLayout() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showProgressBar() {
+
         pb_nav.visibility = View.VISIBLE
+
     }
 
     override fun hideProgressBar() {
+
         pb_nav.visibility = View.GONE
+
     }
 
     override fun showRecyclerView(navs: List<Nav>) {
-        var adapter = DetailAdapter(navs)
+
+        rv_nav.visibility = View.VISIBLE
+        val adapter = DetailAdapter(navs)
         rv_nav.adapter = adapter
+
         hideProgressBar()
+
     }
 
     override fun hideRecyclerView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        rv_nav.visibility = View.GONE
     }
 
     override fun showFloatingActionButton() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun hideFloatingActionButton() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun activeFloatingActionButton() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun scrollToPosition() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun initSwipe() {
 
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false)
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true)
+
     }
 
     private fun initRv() {
 
         rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         rv_nav.layoutManager = LinearLayoutManager(this)
+
     }
 
     private fun initBnv() {
@@ -112,23 +121,19 @@ class NavActivity : ActBase(), NavContract.View {
         bnv_nav.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
-                    showFab(false)
-                    presenter.insertData(item.itemId) // ToDo? So wordy
+                    startNav(false, 0)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_gospel -> {
-                    showFab(false)
-                    presenter.insertData(item.itemId)
+                    startNav(false, 1)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_chat -> {
-                    showFab(false)
-                    presenter.insertData(item.itemId)
+                    startNav(false, 2)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_me -> {
-                    showFab(true)
-                    presenter.insertData(item.itemId)
+                    startNav(true, 3)
                     return@OnNavigationItemSelectedListener true
                 }
             }
@@ -136,15 +141,28 @@ class NavActivity : ActBase(), NavContract.View {
         })
 
         bnv_nav.setOnNavigationItemReselectedListener { scrollRvToTop() }
+
     }
 
-    private fun showFab(b: Boolean) {
-        if (b) fab_nav.show() else fab_nav.hide()
+    /**
+     * @param fabVisibility true presents showing floating action button, false otherwise.
+     * @param navId quest parameter of nav page to get navs lists
+     */
+    private fun startNav(fabVisibility: Boolean, navId: Int) {
+
+        if (fabVisibility) fab_nav.show() else fab_nav.hide()
+
+        if (navId == 0) {
+            presenter.insertNav(navId)
+        }
+
     }
 
     private fun scrollRvToTop() {
 
         rv_nav.smoothScrollToPosition(-100) // 为了滚到顶
         abl_nav.setExpanded(true, true)
+
     }
+
 }

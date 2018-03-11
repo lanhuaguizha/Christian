@@ -89,6 +89,26 @@ public class BottomNavigationActivity extends BaseActivity {
     }
 
     private void initListener() {
+
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+
+                    case R.id.navigation_me:
+                        mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_ME.ordinal());
+                        return true;
+
+                    default:
+                        mCustomViewPager.setCurrentItem(ChristianTab.NAVIGATION_HOME.ordinal());
+
+                }
+                return false;
+            }
+
+        });
+
+
         mBottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem item) {
