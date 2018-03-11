@@ -63,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:lineSpacingMultiplier="1.4"
+            android:lineSpacingMultiplier="1.6"
             android:maxLines="3"
             android:paddingEnd="@dimen/card_view_padding"
             android:paddingStart="@dimen/card_view_padding"
