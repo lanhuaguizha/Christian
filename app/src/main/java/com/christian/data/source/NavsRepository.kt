@@ -190,7 +190,8 @@ class NavsRepository(
             override fun onNavsLoaded(navs: List<Nav>) {
                 refreshCache(navs)
                 refreshLocalDataSource(navs)
-                callback.onNavsLoaded(ArrayList(cachedNavs.values))
+//                callback.onNavsLoaded(ArrayList(cachedNavs.values))
+                callback.onNavsLoaded(navs)
             }
 
             override fun onDataNotAvailable() {

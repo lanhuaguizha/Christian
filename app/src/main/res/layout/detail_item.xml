@@ -67,7 +67,7 @@
             android:layout_marginTop="@dimen/search_margin_horizontal"
             android:ellipsize="end"
             android:lineSpacingMultiplier="1.4"
-            android:maxLines="2"
+            android:maxLines="3"
             android:paddingEnd="@dimen/card_view_padding"
             android:paddingStart="@dimen/card_view_padding"
             android:text="「从前引导你们、传神之道给你们的人，你们要想念他们，效法他们的信心，留心看他们为人的结局。」（希伯来书十三章七节）本书收集一些历代"
