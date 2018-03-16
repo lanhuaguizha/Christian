@@ -49,6 +49,11 @@ import java.util.List;
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder> {
     private int mLastPosition;
     private static final String TAG = "DetailAdapter";
+
+    public void setmDataSet(List<Nav> mDataSet) {
+        this.mDataSet = mDataSet;
+    }
+
     private List<Nav> mDataSet;
     private boolean mAnimateItems = false;
     private static final int ANIMATED_ITEMS_COUNT = 4;

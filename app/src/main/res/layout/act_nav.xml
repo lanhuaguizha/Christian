@@ -26,17 +26,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_nav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
             <ProgressBar
                 android:id="@+id/pb_nav"
                 android:layout_marginTop="@dimen/activity_margin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_nav"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 

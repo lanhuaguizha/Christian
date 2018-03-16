@@ -38,11 +38,8 @@ class NavContract {
          *
          * initBnv()
          */
-        fun initView()
+        fun initView(navs: List<Nav>)
 
-        /**
-         *
-         */
         fun setupToolbar(title: String)
 
         fun setupSearchbar(searchHint: String)
@@ -54,19 +51,20 @@ class NavContract {
         fun hideProgressBar()
 
         /**
-         * passing a list to a recycler view, let it show and hide process bar
+         * You have to show the view in the initView and invalidate the view in the callback.
          */
-        fun showRecyclerView(navs: List<Nav>)
+        fun invalidateRv(navs: List<Nav>)
 
-        fun hideRecyclerView()
+        /**
+         * Restore the last position, the user can continue to read.
+         */
+        fun restoreRvPos()
 
         fun showFloatingActionButton()
 
         fun hideFloatingActionButton()
 
         fun activeFloatingActionButton()
-
-        fun scrollToPosition()
 
     }
 
@@ -77,6 +75,8 @@ class NavContract {
     interface Presenter : BasePresenter {
 
         /**
+         * Summary of business logic,
+         *
          *(1)insert
          *
          *(2)update

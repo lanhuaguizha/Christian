@@ -28,7 +28,7 @@ import java.util.*
  * exist or is empty.
  */
 class NavsRepository(
-        val navsRemoteDataSource: NavsDataSource
+        private val navsRemoteDataSource: NavsDataSource
 
 ) : NavsDataSource {
 

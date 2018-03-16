@@ -20,10 +20,13 @@ import kotlinx.android.synthetic.main.act_nav.*
  */
 class NavActivity : ActBase(), NavContract.View {
 
+
     /**
      * presenter will be initialized when the NavPresenter is initialized
      */
     override lateinit var presenter: NavContract.Presenter
+
+    private lateinit var adapter: DetailAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -36,11 +39,45 @@ class NavActivity : ActBase(), NavContract.View {
 
     }
 
-    override fun initView() {
+    private fun initSwipe() {
+
+        SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false)
+        SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true)
+
+    }
+
+    private fun initPb() {
+
+        showProgressBar()
+
+    }
+
+    private fun initRv(navs: List<Nav>) {
+
+        rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
+
+        rv_nav.layoutManager = LinearLayoutManager(this)
+
+
+        adapter = DetailAdapter(navs)
+        rv_nav.adapter = adapter
+
+    }
+
+    private fun initBnv() {
+
+        BottomNavigationViewHelper.disableShiftMode(bnv_nav)
+
+        setBnvListener()
+    }
+
+    override fun initView(navs: List<Nav>) {
 
         initSwipe()
 
-        initRv()
+        initPb()
+
+        initRv(navs)
 
         initBnv()
 
@@ -69,18 +106,15 @@ class NavActivity : ActBase(), NavContract.View {
 
     }
 
-    override fun showRecyclerView(navs: List<Nav>) {
+    override fun invalidateRv(navs: List<Nav>) {
 
-        rv_nav.visibility = View.VISIBLE
-        val adapter = DetailAdapter(navs)
-        rv_nav.adapter = adapter
+        adapter.setmDataSet(navs)
 
-        hideProgressBar()
+        adapter.notifyDataSetChanged()
 
     }
 
-    override fun hideRecyclerView() {
-        rv_nav.visibility = View.GONE
+    override fun restoreRvPos() {
     }
 
     override fun showFloatingActionButton() {
@@ -92,52 +126,47 @@ class NavActivity : ActBase(), NavContract.View {
     override fun activeFloatingActionButton() {
     }
 
-    override fun scrollToPosition() {
-    }
-
-    private fun initSwipe() {
-
-        SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false)
-        SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true)
-
-    }
-
-    private fun initRv() {
-
-        rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
-        rv_nav.layoutManager = LinearLayoutManager(this)
-
-    }
-
-    private fun initBnv() {
-
-        BottomNavigationViewHelper.disableShiftMode(bnv_nav)
-
-        setBnvListener()
-    }
-
     private fun setBnvListener() {
 
         bnv_nav.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
+
             when (item.itemId) {
+
                 R.id.navigation_home -> {
+
                     startNav(false, 0)
+
                     return@OnNavigationItemSelectedListener true
+
                 }
+
                 R.id.navigation_gospel -> {
+
                     startNav(false, 1)
+
                     return@OnNavigationItemSelectedListener true
+
                 }
+
                 R.id.navigation_chat -> {
+
                     startNav(false, 2)
+
                     return@OnNavigationItemSelectedListener true
+
                 }
+
                 R.id.navigation_me -> {
+
                     startNav(true, 3)
+
                     return@OnNavigationItemSelectedListener true
+
                 }
             }
+
             false
+
         })
 
         bnv_nav.setOnNavigationItemReselectedListener { scrollRvToTop() }
@@ -161,6 +190,7 @@ class NavActivity : ActBase(), NavContract.View {
     private fun scrollRvToTop() {
 
         rv_nav.smoothScrollToPosition(-100) // 为了滚到顶
+
         abl_nav.setExpanded(true, true)
 
     }

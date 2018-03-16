@@ -11,11 +11,11 @@ import java.util.*
  */
 @Entity(tableName = "navs")
 data class Nav @JvmOverloads constructor(
-        @ColumnInfo(name = "subtitle") var subtitle: String = "subtitle",
-        @ColumnInfo(name = "title") var title: String = "title",
-        @ColumnInfo(name = "detail") var detail: String = "",
+        @ColumnInfo(name = "subtitle") var subtitle: String = "John",
+        @ColumnInfo(name = "title") var title: String = "3:16",
+        @ColumnInfo(name = "detail") var detail: String = "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.",
         @ColumnInfo(name = "relation") var relation: String = "",
-        @ColumnInfo(name = "author") var author: String = "",
+        @ColumnInfo(name = "author") var author: String = "Holy Spirit",
         @PrimaryKey @ColumnInfo(name = "id") var id: String = UUID.randomUUID().toString()
 ) {
 

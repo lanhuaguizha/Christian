@@ -1,6 +1,5 @@
 package com.christian.nav
 
-import android.util.Log
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
 import com.christian.data.source.NavsRepository
@@ -21,21 +20,28 @@ class NavPresenter(
 
     override fun start() {
 
-        navView.initView()
+        navView.initView(navs = listOf(Nav()))
 
     }
 
     override fun insertNav(itemId: Int) {
 
+        navView.showProgressBar()
+
         navsRepository.getNavs(object : NavsDataSource.LoadNavsCallback {
 
             override fun onNavsLoaded(navs: List<Nav>) {
-                Log.i("home clicked", navs.toString())
-                navView.showRecyclerView(navs)
+
+                navView.invalidateRv(navs)
+
+                navView.hideProgressBar()
+
             }
 
             override fun onDataNotAvailable() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+                navView.hideProgressBar()
+
             }
 
         })
@@ -43,12 +49,9 @@ class NavPresenter(
     }
 
     override fun updateNav(navs: List<Nav>) {
-
-        navView.showRecyclerView(navs)
-
     }
 
     override fun queryNav() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
 }
