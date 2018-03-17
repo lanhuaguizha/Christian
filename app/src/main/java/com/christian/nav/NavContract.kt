@@ -46,9 +46,15 @@ class NavContract {
 
         fun startSwipeRefreshLayout()
 
-        fun showProgressBar()
+        /**
+         * Start the loading animation before inserting the data.
+         */
+        fun startPb()
 
-        fun hideProgressBar()
+        /**
+         * Stop the loading animation after inserting the data.
+         */
+        fun stopPb()
 
         /**
          * You have to show the view in the initView and invalidate the view in the callback.

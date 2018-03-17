@@ -26,7 +26,7 @@ class NavPresenter(
 
     override fun insertNav(itemId: Int) {
 
-        navView.showProgressBar()
+        navView.startPb()
 
         navsRepository.getNavs(object : NavsDataSource.LoadNavsCallback {
 
@@ -34,13 +34,13 @@ class NavPresenter(
 
                 navView.invalidateRv(navs)
 
-                navView.hideProgressBar()
+                navView.stopPb()
 
             }
 
             override fun onDataNotAvailable() {
 
-                navView.hideProgressBar()
+                navView.stopPb()
 
             }
 

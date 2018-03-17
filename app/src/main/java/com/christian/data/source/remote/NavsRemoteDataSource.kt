@@ -61,27 +61,25 @@ object NavsRemoteDataSource : NavsDataSource {
         val call = navService.getNavs()
 
         call.enqueue(object : Callback<List<Nav>> {
+
             override fun onFailure(call: Call<List<Nav>>?, t: Throwable?) {
-                Log.i("ddddd", call.toString())
+                callback.onDataNotAvailable()
             }
 
             override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>?) {
-                Log.i("ddddd", response.toString())
+
                 if (response != null) {
+
                     response.body()?.let { callback.onNavsLoaded(it) }
+
                 } else {
+
                     // Todo this is no data
+
                 }
+
             }
 
-//            override fun onResponse(call: Call<List<Nav>>, response: Response<Nav>) {
-//                if (response.body() == null) {
-//                    return
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<Nav>>, t: Throwable) {
-//            }
         })
 
     }

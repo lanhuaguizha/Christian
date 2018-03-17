@@ -47,12 +47,6 @@ class NavActivity : ActBase(), NavContract.View {
 
     }
 
-    private fun initPb() {
-
-        showProgressBar()
-
-    }
-
     private fun initRv(navs: List<Nav>) {
 
         rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
@@ -76,8 +70,6 @@ class NavActivity : ActBase(), NavContract.View {
 
         initSwipe()
 
-        initPb()
-
         initRv(navs)
 
         initBnv()
@@ -95,13 +87,13 @@ class NavActivity : ActBase(), NavContract.View {
     override fun startSwipeRefreshLayout() {
     }
 
-    override fun showProgressBar() {
+    override fun startPb() {
 
         pb_nav.visibility = View.VISIBLE
 
     }
 
-    override fun hideProgressBar() {
+    override fun stopPb() {
 
         pb_nav.visibility = View.GONE
 
