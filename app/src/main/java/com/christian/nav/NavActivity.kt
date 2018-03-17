@@ -41,6 +41,8 @@ open class NavActivity : ActBase(), NavContract.View {
 
     override fun initView(navs: List<Nav>) {
 
+        setupToolbar("")
+
         initSbl()
 
         initRv(navs)
@@ -79,6 +81,7 @@ open class NavActivity : ActBase(), NavContract.View {
     }
 
     override fun setupToolbar(title: String) {
+
     }
 
     override fun setupSearchbar(searchHint: String) {
