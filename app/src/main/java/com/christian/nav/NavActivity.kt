@@ -18,8 +18,7 @@ import kotlinx.android.synthetic.main.act_nav.*
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
  * implementation of NavContract.View.
  */
-class NavActivity : ActBase(), NavContract.View {
-
+open class NavActivity : ActBase(), NavContract.View {
 
     /**
      * presenter will be initialized when the NavPresenter is initialized
@@ -40,9 +39,22 @@ class NavActivity : ActBase(), NavContract.View {
 
     }
 
-    private fun initSwipe() {
+    override fun initView(navs: List<Nav>) {
+
+        initSbl()
+
+        initRv(navs)
+
+        initBnv()
+
+        startNav(false, 0)
+
+    }
+
+    open fun initSbl() {
 
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false)
+
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true)
 
     }
@@ -59,23 +71,11 @@ class NavActivity : ActBase(), NavContract.View {
 
     }
 
-    private fun initBnv() {
+    open fun initBnv() {
 
         BottomNavigationViewHelper.disableShiftMode(bnv_nav)
 
         setBnvListener()
-    }
-
-    override fun initView(navs: List<Nav>) {
-
-        initSwipe()
-
-        initRv(navs)
-
-        initBnv()
-
-        startNav(false, 0)
-
     }
 
     override fun setupToolbar(title: String) {

@@ -35,6 +35,7 @@ import android.widget.TextView;
 import com.christian.R;
 import com.christian.data.Nav;
 import com.christian.detail.DetailActivity;
+import com.christian.navdetail.NavDetailActivity;
 import com.christian.util.ChristianUtil;
 
 import org.xutils.view.annotation.Event;
@@ -88,7 +89,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
                     break;
                 case R.id.cl_item_container:
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
-                    Intent intent = new Intent(v.getContext(), DetailActivity.class);
+                    Intent intent = new Intent(v.getContext(), NavDetailActivity.class);
                     v.getContext().startActivity(intent);
                     break;
                 default:
