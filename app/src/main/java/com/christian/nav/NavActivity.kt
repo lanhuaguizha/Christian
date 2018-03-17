@@ -35,6 +35,7 @@ class NavActivity : ActBase(), NavContract.View {
         setContentView(R.layout.act_nav)
 
         NavPresenter("", Injection.provideNavsRepository(applicationContext), this)
+
         presenter.start()
 
     }
