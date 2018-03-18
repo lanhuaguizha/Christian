@@ -18,7 +18,7 @@ class NavContract {
     interface View : BaseView<Presenter> {
 
         /**
-         * Set the Nav page View initialization parameters, including
+         * Summary of init view,
          *
          * initCl()
          *
@@ -47,6 +47,11 @@ class NavContract {
         fun startSwipeRefreshLayout()
 
         /**
+         * Stop the scale down animation after inserting the data.
+         */
+        fun stopSrl()
+
+        /**
          * Start the loading animation before inserting the data.
          */
         fun startPb()
@@ -57,13 +62,10 @@ class NavContract {
         fun stopPb()
 
         /**
-         * You have to show the view in the initView and invalidate the view in the callback.
+         * You have to show the view in init view and invalidate view in the callback.
          */
         fun invalidateRv(navs: List<Nav>)
 
-        /**
-         * Restore the last position, the user can continue to read.
-         */
         fun restoreRvPos()
 
         fun showFloatingActionButton()
@@ -83,13 +85,13 @@ class NavContract {
         /**
          * Summary of business logic,
          *
-         *(1)insert
+         * insert()
          *
-         *(2)update
+         * update()
          *
-         *(3)delete
+         * delete()
          *
-         *(4)query
+         * query()
          */
 
         fun insertNav(itemId: Int)

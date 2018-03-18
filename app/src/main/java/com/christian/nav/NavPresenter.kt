@@ -41,12 +41,14 @@ class NavPresenter(
                 navView.invalidateRv(navs)
 
                 navView.stopPb()
+                navView.stopSrl()
 
             }
 
             override fun onDataNotAvailable() {
 
                 navView.stopPb()
+                navView.stopSrl()
 
             }
 

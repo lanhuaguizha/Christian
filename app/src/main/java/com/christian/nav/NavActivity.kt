@@ -101,6 +101,12 @@ open class NavActivity : ActBase(), NavContract.View {
     override fun startSwipeRefreshLayout() {
     }
 
+    override fun stopSrl() {
+
+        srl_nav.isRefreshing = false
+
+    }
+
     override fun startPb() {
 
         pb_nav.visibility = View.VISIBLE
@@ -110,8 +116,6 @@ open class NavActivity : ActBase(), NavContract.View {
     override fun stopPb() {
 
         pb_nav.visibility = View.GONE
-
-        srl_nav.isRefreshing = false
 
     }
 
