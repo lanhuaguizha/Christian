@@ -44,7 +44,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
         initSbl()
 
-        setupToolbar("")
+        setTb("")
 
         initSrl()
 
@@ -91,7 +91,7 @@ open class NavActivity : ActBase(), NavContract.View {
         setBnvListener()
     }
 
-    override fun setupToolbar(title: String) {
+    override fun setTb(title: String) {
 
     }
 

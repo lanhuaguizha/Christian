@@ -40,7 +40,10 @@ class NavContract {
          */
         fun initView(navs: List<Nav>)
 
-        fun setupToolbar(title: String)
+        /**
+         * Set toolbar like up button, more actions, title etc.
+         */
+        fun setTb(title: String)
 
         fun setupSearchbar(searchHint: String)
 
