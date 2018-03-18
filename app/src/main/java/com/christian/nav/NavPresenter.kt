@@ -26,7 +26,13 @@ class NavPresenter(
 
     override fun insertNav(itemId: Int) {
 
-        navView.startPb()
+        insertNav(itemId, false)
+
+    }
+
+    override fun insertNav(itemId: Int, isSrl: Boolean) {
+
+        if (isSrl) navView.stopPb() else navView.startPb()
 
         navsRepository.getNavs(object : NavsDataSource.LoadNavsCallback {
 

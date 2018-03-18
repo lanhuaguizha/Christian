@@ -2,6 +2,7 @@ package com.christian.nav
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.christian.Injection
@@ -41,9 +42,11 @@ open class NavActivity : ActBase(), NavContract.View {
 
     override fun initView(navs: List<Nav>) {
 
+        initSbl()
+
         setupToolbar("")
 
-        initSbl()
+        initSrl()
 
         initRv(navs)
 
@@ -58,6 +61,14 @@ open class NavActivity : ActBase(), NavContract.View {
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false)
 
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true)
+
+    }
+
+    private fun initSrl() {
+
+        srl_nav.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorAccent))
+
+        srl_nav.setOnRefreshListener { presenter.insertNav(0, true) }
 
     }
 
@@ -99,6 +110,8 @@ open class NavActivity : ActBase(), NavContract.View {
     override fun stopPb() {
 
         pb_nav.visibility = View.GONE
+
+        srl_nav.isRefreshing = false
 
     }
 

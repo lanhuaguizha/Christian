@@ -94,6 +94,8 @@ class NavContract {
 
         fun insertNav(itemId: Int)
 
+        fun insertNav(itemId: Int, isSrl: Boolean)
+
         fun updateNav(navs: List<Nav>)
 
         fun queryNav()
