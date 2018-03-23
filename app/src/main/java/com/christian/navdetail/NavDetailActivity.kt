@@ -35,7 +35,6 @@ class NavDetailActivity : NavActivity() {
         setSupportActionBar(toolbar_actionbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "虚心的人有福了"
-        supportActionBar?.subtitle = "马太福音"
         toolbar_actionbar.setNavigationOnClickListener { finish() }
 
     }
