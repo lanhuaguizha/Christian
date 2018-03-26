@@ -17,27 +17,19 @@
 package com.christian.adapter;
 
 import android.content.Intent;
-import android.os.Build;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-
 import com.christian.R;
 import com.christian.data.Nav;
-import com.christian.detail.DetailActivity;
 import com.christian.navdetail.NavDetailActivity;
 import com.christian.util.ChristianUtil;
-
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
@@ -75,9 +67,8 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
             switch (v.getId()) {
                 case R.id.more_action:
                     PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        popupMenu.setGravity(Gravity.CENTER_HORIZONTAL);
-                    }
+                    popupMenu.setGravity(Gravity.END);
+
                     popupMenu.getMenuInflater().inflate(R.menu.menu_home, popupMenu.getMenu());
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
@@ -155,7 +146,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
         Animation animation = null;
         // 3 conditions no animation: 1. last position < adapter position 2. screen items in front 3. destroy view
         if (adapterPosition >= mLastPosition && adapterPosition >= screenItems) {
-            Log.i(TAG, "onBindViewHolder: " +mLastPosition + adapterPosition);
+            Log.i(TAG, "onBindViewHolder: " + mLastPosition + adapterPosition);
 //            if (adapterPosition >= screenItems) {
 //                if (adapterPosition >= mLastPosition) {
             // Load animation form xml
