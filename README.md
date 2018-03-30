@@ -1,4 +1,4 @@
-List of open source software
+Reference of open source software
 
 1 Android(https://developer.android.com/)
  
@@ -22,18 +22,15 @@ We are not going to show and perform, just to seek like-minded people, and we ar
 
 Finally, peace and peace will come from God, peace be upon you.
 
-Official website: https://www.christian.org
+Official website: https://www.christian.com
 
 Open source address for our server and client(https://github.com/lanhuaguizha)
 
-
-#Software introduction
+# Software introduction
 ![screenshot](https://github.com/lanhuaguizha/Christian/blob/master/device-2018-03-30-225123.png)
 
 ## Christian
     First of all, this is christian software's client
+
 ### Naming Rules
     Activity > Nav/NavDetail > Toolbar/RecyclerView/FloatingActionButton/BottomNavigationView    ->    NavActivity...
-
-## ChristianServer
-    This is christian software's server
