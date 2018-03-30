@@ -27,12 +27,13 @@ Official website: https://www.christian.org
 Open source address for our server and client(https://github.com/lanhuaguizha)
 
 
-Software introduction
+#Software introduction
+![](https://github.com/lanhuaguizha/Christian/device-2018-03-30-222824.png)
 
-# Christian
+## Christian
     First of all, this is christian software's client
-## Naming Hierarchy
+### Naming Rules
     Activity > Nav/NavDetail > Toolbar/RecyclerView/FloatingActionButton/BottomNavigationView    ->    NavActivity...
 
-# ChristianServer
+## ChristianServer
     This is christian software's server
