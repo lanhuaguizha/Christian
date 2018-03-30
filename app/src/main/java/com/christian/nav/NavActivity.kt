@@ -13,7 +13,7 @@ import com.christian.data.Nav
 import com.christian.helper.BottomNavigationViewHelper
 import com.christian.swipe.SwipeBackHelper
 import com.christian.view.ItemDecoration
-import kotlinx.android.synthetic.main.act_nav.*
+import kotlinx.android.synthetic.main.nav_activity.*
 
 /**
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
@@ -32,7 +32,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.act_nav)
+        setContentView(R.layout.nav_activity)
 
         NavPresenter("", Injection.provideNavsRepository(applicationContext), this)
 

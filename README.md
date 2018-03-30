@@ -28,3 +28,11 @@ Open source address for our server and client(https://github.com/lanhuaguizha)
 
 
 Software introduction
+
+# Christian
+    First of all, this is christian software's client
+## Naming Hierarchy
+    Activity > Nav/NavDetail > Toolbar/RecyclerView/FloatingActionButton/BottomNavigationView    ->    NavActivity...
+
+# ChristianServer
+    This is christian software's server

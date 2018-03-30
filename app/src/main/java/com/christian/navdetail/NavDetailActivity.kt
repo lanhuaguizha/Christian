@@ -5,7 +5,7 @@ import android.view.MenuItem
 import android.view.View
 import com.christian.R
 import com.christian.nav.NavActivity
-import kotlinx.android.synthetic.main.act_nav.*
+import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.tb_nav.*
 
