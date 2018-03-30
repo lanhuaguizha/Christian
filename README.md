@@ -28,7 +28,7 @@ Open source address for our server and client(https://github.com/lanhuaguizha)
 
 
 #Software introduction
-![](https://github.com/lanhuaguizha/Christian/device-2018-03-30-222824.png)
+![screenshot](https://github.com/lanhuaguizha/Christian/blob/master/device-2018-03-30-222824.png)
 
 ## Christian
     First of all, this is christian software's client
