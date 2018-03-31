@@ -22,9 +22,9 @@
 
 > This app is for Christians to share personal feelings and seek satisfaction from the Word of God
 
-We are not going to show and perform, just to seek like-minded people, and we are able to seek joy and contentment from the Bible together. We also think it's the only way
+> We are not going to show and perform, just to seek like-minded people, and we are able to seek joy and contentment from the Bible together. We also think it's the only way
 
-Finally, peace and peace will come from God, peace be upon you.
+> Finally, peace and peace will come from God, peace be upon you.
 
 Official website: https://www.christian.com
 
