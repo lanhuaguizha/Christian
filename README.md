@@ -1,4 +1,4 @@
-# Me a Christian and The Christian Logo
+# Me a christian and the Christian logo
 ![me](https://github.com/lanhuaguizha/Christian/blob/master/20180331_085803.png)
 ![logo](https://github.com/lanhuaguizha/Christian/blob/master/app/src/main/ic_launcher-web.png)
 
@@ -34,7 +34,10 @@ Open source address for our server and client(https://github.com/lanhuaguizha)
 ![screenshot](https://github.com/lanhuaguizha/Christian/blob/master/device-2018-03-30-225123.png)
 
 ## Christian
-    >>>>First of all, this is christian software's client
+    First of all, this is christian software's client
 
 ### Naming Rules
-    >>>>Activity > Nav/NavDetail > Toolbar/RecyclerView/FloatingActionButton/BottomNavigationView    ->    NavActivity...
+    Activity > Nav/NavDetail > Toolbar/RecyclerView/FloatingActionButton/BottomNavigationView    ->    NavActivity etc.
+
+# Contact us
+17321024637(Shanghai China) 上海市浦东新区张江镇顺和路126弄
