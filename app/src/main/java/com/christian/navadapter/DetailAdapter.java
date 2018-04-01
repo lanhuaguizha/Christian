@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.christian.adapter;
+package com.christian.navadapter;
 
 import android.content.Intent;
 import android.support.v7.widget.AppCompatImageButton;
@@ -37,7 +37,7 @@ import org.xutils.x;
 import java.util.List;
 
 /**
- * Provide views to RecyclerView with data from mDataSet.
+ * View logic.
  */
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder> {
     private int mLastPosition;

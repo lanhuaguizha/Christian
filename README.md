@@ -40,4 +40,4 @@ Open source address for our server and client(https://github.com/lanhuaguizha)
     Activity > Nav/NavDetail > Toolbar/RecyclerView    ->    NavActivity etc.
 
 # Contact us
-17321024637(Shanghai China) 上海市浦东新区张江镇顺和路126弄
+17321024637(Shanghai China)

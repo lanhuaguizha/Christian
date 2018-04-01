@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.christian.Injection
 import com.christian.R
-import com.christian.adapter.DetailAdapter
+import com.christian.navadapter.DetailAdapter
 import com.christian.base.ActBase
 import com.christian.data.Nav
 import com.christian.helper.BottomNavigationViewHelper
