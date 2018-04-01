@@ -12,13 +12,13 @@ import com.christian.R
 /**
  * Created by Christian on 2017/12/9
  */
-@CoordinatorLayout.DefaultBehavior(AlwaysAnAnimatedFloatingActionButton.Behavior::class)
-class AlwaysAnAnimatedFloatingActionButton(context: Context?, attrs: AttributeSet?) : FloatingActionButton(context, attrs) {
+@CoordinatorLayout.DefaultBehavior(AnimatedFloatingActionButton.Behavior::class)
+class AnimatedFloatingActionButton(context: Context?, attrs: AttributeSet?) : FloatingActionButton(context, attrs) {
 
     // true will always has animation
-    override fun isLaidOut(): Boolean {
-        return true
-    }
+//    override fun isLaidOut(): Boolean {
+//        return true
+//    }
 
     /**
      * In order to achieve the FloatingActionButton distance from the BottomNavigationView.

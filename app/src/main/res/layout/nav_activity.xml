@@ -42,7 +42,7 @@
         </FrameLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <com.christian.view.AlwaysAnAnimatedFloatingActionButton
+    <com.christian.view.AnimatedFloatingActionButton
         android:id="@+id/fab_nav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
