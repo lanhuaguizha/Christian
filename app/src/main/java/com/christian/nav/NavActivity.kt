@@ -7,10 +7,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.christian.Injection
 import com.christian.R
-import com.christian.navadapter.DetailAdapter
 import com.christian.base.ActBase
 import com.christian.data.Nav
 import com.christian.helper.BottomNavigationViewHelper
+import com.christian.navadapter.NavItemPresenter
 import com.christian.swipe.SwipeBackHelper
 import com.christian.view.ItemDecoration
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -26,7 +26,7 @@ open class NavActivity : ActBase(), NavContract.View {
      */
     override lateinit var presenter: NavContract.Presenter
 
-    private lateinit var adapter: DetailAdapter
+    private lateinit var adapter: NavItemPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -80,7 +80,7 @@ open class NavActivity : ActBase(), NavContract.View {
         rv_nav.layoutManager = LinearLayoutManager(this)
 
 
-        adapter = DetailAdapter(navs)
+        adapter = NavItemPresenter(navs)
         rv_nav.adapter = adapter
 
     }
@@ -122,7 +122,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
     override fun invalidateRv(navs: List<Nav>) {
 
-        adapter.setmDataSet(navs)
+        adapter.navs = navs
 
         adapter.notifyDataSetChanged()
 

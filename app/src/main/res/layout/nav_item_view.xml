@@ -2,21 +2,21 @@
 <com.christian.view.CustomCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
-    android:id="@+id/custom_card_view"
+    android:id="@+id/cv_nav_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/card_corner_radius">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/cl_item_container"
+        android:id="@+id/cl_nav_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?selectableItemBackgroundBorderless"
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/iv_nav"
+            android:id="@+id/iv_nav_item"
             android:layout_width="0dp"
             android:layout_height="@dimen/app_bar_height"
             android:background="@color/gray_background"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_subtitle_nav"
+            android:id="@+id/tv_subtitle_nav_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/search_margin_horizontal"
@@ -39,10 +39,10 @@
             android:textColor="@color/text_color_secondary"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_nav" />
+            app:layout_constraintTop_toBottomOf="@id/iv_nav_item" />
 
         <TextView
-            android:id="@+id/tv_title_nav"
+            android:id="@+id/tv_title_nav_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/search_margin_horizontal"
@@ -56,10 +56,10 @@
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_subtitle_nav" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_subtitle_nav_item" />
 
         <TextView
-            android:id="@+id/tv_detail_nav"
+            android:id="@+id/tv_detail_nav_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -76,11 +76,11 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_nav"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_nav_item"
             app:layout_constraintVertical_bias="0.0" />
 
         <android.support.v7.widget.AppCompatImageButton
-            android:id="@+id/more_action"
+            android:id="@+id/ib_nav_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?selectableItemBackgroundBorderless"
@@ -89,9 +89,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_title_nav"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_title_nav_item"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_nav"
+            app:layout_constraintTop_toBottomOf="@+id/iv_nav_item"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_more_vert_black_24dp" />
     </android.support.constraint.ConstraintLayout>

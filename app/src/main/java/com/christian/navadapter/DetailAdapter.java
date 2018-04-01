@@ -53,19 +53,19 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
     private int mLastAnimatedPosition = 0;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @ViewInject(R.id.tv_title_nav)
+        @ViewInject(R.id.tv_title_nav_item)
         private TextView mTvHomeTitle;
-        @ViewInject(R.id.tv_subtitle_nav)
+        @ViewInject(R.id.tv_subtitle_nav_item)
         private TextView mTvContentTitle;
-        @ViewInject(R.id.tv_detail_nav)
+        @ViewInject(R.id.tv_detail_nav_item)
         private TextView mTvContent;
-        @ViewInject(R.id.more_action)
+        @ViewInject(R.id.ib_nav_item)
         private AppCompatImageButton btnHomeMore;
 
-        @Event(value = {R.id.more_action, R.id.cl_item_container})
+        @Event(value = {R.id.ib_nav_item, R.id.cl_nav_item})
         private void onClick(View v) {
             switch (v.getId()) {
-                case R.id.more_action:
+                case R.id.ib_nav_item:
                     PopupMenu popupMenu = new PopupMenu(v.getContext(), v);
                     popupMenu.setGravity(Gravity.END);
 
@@ -78,7 +78,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
                     });
                     popupMenu.show();
                     break;
-                case R.id.cl_item_container:
+                case R.id.cl_nav_item:
                     Log.d(TAG, "Element " + getAdapterPosition() + " clicked.");
                     Intent intent = new Intent(v.getContext(), NavDetailActivity.class);
                     v.getContext().startActivity(intent);
@@ -111,7 +111,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_nav, viewGroup, false);
+                .inflate(R.layout.nav_item_view, viewGroup, false);
         return new ViewHolder(v);
     }
 
