@@ -46,17 +46,17 @@ dependencies {
     implementation "com.android.support:support-vector-drawable:${android_support_lib_version}"
     implementation "com.android.support:cardview-v7:${android_support_lib_version}"
 
-    compile "android.arch.persistence.room:runtime:${room_vertion}"
+    implementation "android.arch.persistence.room:runtime:${room_vertion}"
     kapt "android.arch.persistence.room:compiler:${room_vertion}"
 
-    compile "com.google.guava:guava:${guava_version}"
+    implementation "com.google.guava:guava:${guava_version}"
 
-    compile 'org.xutils:xutils:3.5.0'
+    implementation 'org.xutils:xutils:3.5.0'
 
-    compile 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
 
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     testImplementation 'junit:junit:4.12'
 }

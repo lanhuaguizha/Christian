@@ -76,6 +76,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
         rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
 
+//        rv_nav.layoutManager = GridLayoutManager(this, 2)
         rv_nav.layoutManager = LinearLayoutManager(this)
 
 

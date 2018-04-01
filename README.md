@@ -37,7 +37,7 @@ Open source address for our server and client(https://github.com/lanhuaguizha)
     First of all, this is christian software's client
 
 ### Naming rules
-    Activity > Nav/NavDetail > Toolbar/RecyclerView/FloatingActionButton/BottomNavigationView    ->    NavActivity etc.
+    Activity > Nav/NavDetail > Toolbar/RecyclerView    ->    NavActivity etc.
 
 # Contact us
 17321024637(Shanghai China) 上海市浦东新区张江镇顺和路126弄
