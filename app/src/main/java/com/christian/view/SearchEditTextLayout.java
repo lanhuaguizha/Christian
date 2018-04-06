@@ -210,7 +210,8 @@ public class SearchEditTextLayout extends FrameLayout {
     }
 
     public void expand(boolean animate, boolean requestFocus) {
-        updateVisibility(true /* isExpand */);
+      /*
+        updateVisibility(true isExpand );
 
         if (animate) {
             AnimUtils.crossFadeViews(mExpanded, mCollapsed, ANIMATION_DURATION);
@@ -239,6 +240,7 @@ public class SearchEditTextLayout extends FrameLayout {
             mSearchView.requestFocus();
         }
         mIsExpanded = true;
+        */
     }
 
     public void collapse(boolean animate) {

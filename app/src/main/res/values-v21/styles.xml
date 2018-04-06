@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Christian" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+
+        <item name="android:textColor">@color/text_color_primary</item>
+        <item name="android:itemBackground">@color/white</item>
+
+        <!--if you don't set this the background will be black when you slide.-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--set the right in/out animation of Activity,you can change this to yours-->
+        <item name="android:windowAnimationStyle">@style/Christian.Activity</item>
+    </style>
+
+</resources>

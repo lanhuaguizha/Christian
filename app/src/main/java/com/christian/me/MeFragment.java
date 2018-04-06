@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import com.christian.R;
 import com.christian.base.BaseFragment;
-import com.christian.login.LoginActivity;
-import com.christian.login.RegisterActivity;
 import com.christian.setting.SettingsActivity;
 
 import org.xutils.view.annotation.ContentView;
@@ -111,10 +109,8 @@ public class MeFragment extends BaseFragment {
         Intent intent = null;
         switch (v.getId()) {
             case R.id.sign_in:
-                intent = new Intent(getActivity(), LoginActivity.class);
                 break;
             case R.id.register:
-                intent = new Intent(getActivity(), RegisterActivity.class);
                 break;
             default:
                 break;

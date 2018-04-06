@@ -217,7 +217,4 @@ public class BottomNavigationActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-    }
 }
