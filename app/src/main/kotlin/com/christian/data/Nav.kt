@@ -13,7 +13,7 @@ import java.util.*
 data class Nav @JvmOverloads constructor(
         @ColumnInfo(name = "subtitle") var subtitle: String = "约翰福音",
         @ColumnInfo(name = "title") var title: String = "叫一切信他的，不至灭亡，反得永生。",
-        @ColumnInfo(name = "detail") var detail: String = "神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。",
+        @ColumnInfo(name = "detail") var detail: String = "神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生",
         @ColumnInfo(name = "relation") var relation: String = "",
         @ColumnInfo(name = "author") var author: String = "神",
         @PrimaryKey @ColumnInfo(name = "id") var id: String = UUID.randomUUID().toString()
