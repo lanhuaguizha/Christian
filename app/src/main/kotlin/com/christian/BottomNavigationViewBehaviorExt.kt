@@ -27,7 +27,7 @@ class BottomNavigationViewBehaviorExt(context: Context?, attrs: AttributeSet?) :
 
     override fun onDependentViewChanged(parent: CoordinatorLayout?, child: View?, dependency: View?): Boolean {
 
-        child?.translationY = 0f
+        child?.translationY = 2000f
         return false
 
     }

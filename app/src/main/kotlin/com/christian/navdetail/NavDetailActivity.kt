@@ -1,10 +1,10 @@
 package com.christian.navdetail
 
 import android.support.design.widget.CoordinatorLayout
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import com.christian.BottomNavigationViewBehaviorExt
 import com.christian.R
 import com.christian.nav.NavActivity
@@ -26,9 +26,8 @@ class NavDetailActivity : NavActivity() {
     // 不需要底部导航栏
     override fun initBnv() {
 
-        bnv_nav.translationY = 0f
-
-        val params = CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        val params = CoordinatorLayout.LayoutParams(bnv_nav.layoutParams)
+        params.gravity = Gravity.BOTTOM
         params.behavior = BottomNavigationViewBehaviorExt(this, null)
         bnv_nav.layoutParams = params
 
