@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import com.christian.util.ChristianUtil;
 
 /**
  * Created by Christian on 2017/11/4.
@@ -35,7 +36,7 @@ public class CustomCardView extends CardView {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                ObjectAnimator upAnim = ObjectAnimator.ofFloat(this, "translationZ", 16);
+                ObjectAnimator upAnim = ObjectAnimator.ofFloat(this, "translationZ", ChristianUtil.dpToPx(4));
                 upAnim.setDuration(150);
                 upAnim.setInterpolator(new DecelerateInterpolator());
                 upAnim.start();
