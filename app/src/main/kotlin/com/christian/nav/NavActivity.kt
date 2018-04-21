@@ -42,6 +42,8 @@ open class NavActivity : ActBase(), NavContract.View {
 
     override fun initView(navs: List<Nav>) {
 
+        startNav(false, 0)
+
         initSbl()
 
         setTb("")
@@ -52,7 +54,8 @@ open class NavActivity : ActBase(), NavContract.View {
 
         initBnv()
 
-        startNav(false, 0)
+        // set FAB visibility.
+        initFAB()
 
     }
 
@@ -90,6 +93,10 @@ open class NavActivity : ActBase(), NavContract.View {
         BottomNavigationViewHelper.disableShiftMode(bnv_nav)
 
         setBnvListener()
+    }
+
+    open fun initFAB() {
+
     }
 
     override fun setTb(title: String) {
@@ -201,7 +208,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
     }
 
-    private fun scrollRvToTop() {
+    fun scrollRvToTop() {
 
         rv_nav.smoothScrollToPosition(-100) // 为了滚到顶
 

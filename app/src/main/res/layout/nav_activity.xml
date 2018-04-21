@@ -50,7 +50,6 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
         android:tint="@color/white"
-        android:visibility="gone"
         app:layout_anchor="@id/bnv_nav"
         app:layout_anchorGravity="end"
         app:srcCompat="@drawable/ic_edit_black_24dp" />

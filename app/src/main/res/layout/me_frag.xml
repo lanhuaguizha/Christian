@@ -27,7 +27,6 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop"
-                android:src="@drawable/me"
                 android:visibility="gone"
                 app:civ_border_color="#FFFFFFFF"
                 app:civ_border_width="3dp"

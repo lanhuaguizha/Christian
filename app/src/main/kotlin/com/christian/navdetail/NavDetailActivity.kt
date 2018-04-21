@@ -1,8 +1,11 @@
 package com.christian.navdetail
 
+import android.support.design.widget.CoordinatorLayout
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
+import com.christian.BottomNavigationViewBehaviorExt
 import com.christian.R
 import com.christian.nav.NavActivity
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -22,7 +25,27 @@ class NavDetailActivity : NavActivity() {
 
     // 不需要底部导航栏
     override fun initBnv() {
-        bnv_nav.visibility = View.GONE
+
+        bnv_nav.translationY = 0f
+
+        val params = CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        params.behavior = BottomNavigationViewBehaviorExt(this, null)
+        bnv_nav.layoutParams = params
+
+    }
+
+    override fun initFAB() {
+
+        fab_nav.visibility = View.VISIBLE
+
+        // set FAB image
+        fab_nav.setImageDrawable(resources.getDrawable(R.drawable.ic_keyboard_arrow_up_black_24dp))
+
+        // set FAB animate to hide's behavior
+
+        // set listener
+        fab_nav.setOnClickListener { scrollRvToTop() }
+
     }
 
     override fun setTb(title: String) {
