@@ -155,7 +155,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_home -> {
 
-                    startNav(false, 0)
+//                    startNav(false, 0)
 
                     return@OnNavigationItemSelectedListener true
 
@@ -163,7 +163,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_gospel -> {
 
-                    startNav(false, 1)
+//                    startNav(false, 1)
 
                     return@OnNavigationItemSelectedListener true
 
@@ -171,7 +171,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_chat -> {
 
-                    startNav(false, 2)
+//                    startNav(false, 2)
 
                     return@OnNavigationItemSelectedListener true
 
@@ -179,7 +179,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_me -> {
 
-                    startNav(true, 3)
+//                    startNav(true, 3)
 
                     return@OnNavigationItemSelectedListener true
 
