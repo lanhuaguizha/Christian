@@ -17,6 +17,7 @@ import com.christian.navadapter.NavItemPresenter
 import com.christian.swipe.SwipeBackHelper
 import com.christian.view.ItemDecoration
 import kotlinx.android.synthetic.main.nav_activity.*
+import org.jetbrains.anko.dip
 
 /**
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
@@ -220,7 +221,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
     fun scrollRvToTop() {
 
-        rv_nav.smoothScrollToPosition(-100) // 为了滚到顶
+        rv_nav.smoothScrollToPosition(dip(-1)) // 为了滚到顶
 
         abl_nav.setExpanded(true, true)
 
