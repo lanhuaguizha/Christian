@@ -2,9 +2,12 @@ package com.christian.nav
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.CoordinatorLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Gravity
 import android.view.View
+import com.christian.BottomNavigationViewBehavior
 import com.christian.Injection
 import com.christian.R
 import com.christian.base.ActBase
@@ -92,7 +95,14 @@ open class NavActivity : ActBase(), NavContract.View {
 
         BottomNavigationViewHelper.disableShiftMode(bnv_nav)
 
+        // set behavior
+        val params = CoordinatorLayout.LayoutParams(bnv_nav.layoutParams)
+        params.gravity = Gravity.BOTTOM
+        params.behavior = BottomNavigationViewBehavior(this, null)
+        bnv_nav.layoutParams = params
+
         setBnvListener()
+
     }
 
     open fun initFAB() {
@@ -155,7 +165,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_home -> {
 
-//                    startNav(false, 0)
+                    startNav(false, 0)
 
                     return@OnNavigationItemSelectedListener true
 
@@ -163,7 +173,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_gospel -> {
 
-//                    startNav(false, 1)
+                    startNav(false, 1)
 
                     return@OnNavigationItemSelectedListener true
 
@@ -171,7 +181,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_chat -> {
 
-//                    startNav(false, 2)
+                    startNav(false, 2)
 
                     return@OnNavigationItemSelectedListener true
 
@@ -179,7 +189,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_me -> {
 
-//                    startNav(true, 3)
+                    startNav(true, 3)
 
                     return@OnNavigationItemSelectedListener true
 
