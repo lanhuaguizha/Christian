@@ -5,6 +5,7 @@ import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
 import com.christian.BottomNavigationViewBehavior
@@ -19,6 +20,7 @@ import com.christian.view.ItemDecoration
 import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.dip
 
+
 /**
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
  * implementation of NavContract.View.
@@ -31,6 +33,12 @@ open class NavActivity : ActBase(), NavContract.View {
     override lateinit var presenter: NavContract.Presenter
 
     private lateinit var adapter: NavItemPresenter
+
+    companion object {
+
+        private const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -89,6 +97,23 @@ open class NavActivity : ActBase(), NavContract.View {
 
         adapter = NavItemPresenter(navs)
         rv_nav.adapter = adapter
+
+        // Set listeners
+        rv_nav.addOnScrollListener(object : HidingScrollListener() {
+
+            override fun onHide() {
+
+                fab_nav.hide()
+
+            }
+
+            override fun onShow() {
+
+                fab_nav.show()
+
+            }
+
+        })
 
     }
 
@@ -224,6 +249,50 @@ open class NavActivity : ActBase(), NavContract.View {
         rv_nav.smoothScrollToPosition(dip(-1)) // 为了滚到顶
 
         abl_nav.setExpanded(true, true)
+
+    }
+
+    abstract inner class HidingScrollListener : RecyclerView.OnScrollListener() {
+
+        private var scrolledDistance = 0 //移动的中距离
+
+        private var controlsVisible = true //显示或隐藏
+
+
+        override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+
+            super.onScrolled(recyclerView, dx, dy)
+
+            if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {//移动总距离大于规定距离 并且是显示状态就隐藏
+
+                onHide()
+
+                controlsVisible = false
+
+                scrolledDistance = 0//归零
+
+            } else if (scrolledDistance < -HIDE_THRESHOLD && !controlsVisible) {
+
+                onShow()
+
+                controlsVisible = true
+
+                scrolledDistance = 0
+
+            }
+
+            if (controlsVisible && dy > 0 || !controlsVisible && dy < 0) { //显示状态向上滑动 或 隐藏状态向下滑动 总距离增加
+
+                scrolledDistance += dy
+
+            }
+
+        }
+
+
+        abstract fun onHide()
+
+        abstract fun onShow()
 
     }
 
