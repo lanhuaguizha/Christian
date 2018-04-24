@@ -38,7 +38,7 @@ class NavDetailActivity : NavActivity() {
         fab_nav.visibility = View.VISIBLE
 
         // set FAB image
-        fab_nav.setImageDrawable(resources.getDrawable(R.drawable.ic_vertical_align_top_black_24dp))
+        fab_nav.setImageDrawable(resources.getDrawable(R.drawable.ic_keyboard_arrow_up_black_24dp))
 
         // set FAB animate to hide's behavior
 
