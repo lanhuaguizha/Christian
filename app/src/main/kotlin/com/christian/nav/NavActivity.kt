@@ -133,6 +133,16 @@ open class NavActivity : ActBase(), NavContract.View {
 
     open fun initFAB() {
 
+        fab_nav.visibility = View.VISIBLE
+
+        // set FAB image
+        fab_nav.setImageDrawable(resources.getDrawable(R.drawable.ic_keyboard_arrow_up_black_24dp))
+
+        // set FAB animate to hide's behavior
+
+        // set listener
+        fab_nav.setOnClickListener { scrollRvToTop() }
+
     }
 
     override fun setTb(title: String) {
