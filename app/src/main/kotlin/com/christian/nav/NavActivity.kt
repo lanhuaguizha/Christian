@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
-import com.christian.BottomNavigationViewBehavior
 import com.christian.BottomNavigationViewBehaviorExt
 import com.christian.Injection
 import com.christian.R
@@ -137,12 +136,11 @@ open class NavActivity : ActBase(), NavContract.View {
         fab_nav.visibility = View.VISIBLE
 
         // set FAB image
-        fab_nav.setImageDrawable(resources.getDrawable(R.drawable.ic_keyboard_arrow_up_black_24dp))
+        fab_nav.setImageDrawable(resources.getDrawable(R.drawable.ic_edit_black_24dp))
 
         // set FAB animate to hide's behavior
 
         // set listener
-        fab_nav.setOnClickListener { scrollRvToTop() }
 
     }
 
