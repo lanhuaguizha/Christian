@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
 import com.christian.BottomNavigationViewBehavior
+import com.christian.BottomNavigationViewBehaviorExt
 import com.christian.Injection
 import com.christian.R
 import com.christian.base.ActBase
@@ -124,7 +125,7 @@ open class NavActivity : ActBase(), NavContract.View {
         // set behavior
         val params = CoordinatorLayout.LayoutParams(bnv_nav.layoutParams)
         params.gravity = Gravity.BOTTOM
-        params.behavior = BottomNavigationViewBehavior(this, null)
+        params.behavior = BottomNavigationViewBehaviorExt(this, null)
         bnv_nav.layoutParams = params
 
         setBnvListener()
@@ -201,7 +202,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_home -> {
 
-                    startNav(false, 0)
+                    startNav(navId = 0)
 
                     return@OnNavigationItemSelectedListener true
 
@@ -209,7 +210,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_gospel -> {
 
-                    startNav(false, 1)
+                    startNav(navId = 1)
 
                     return@OnNavigationItemSelectedListener true
 
@@ -217,7 +218,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_chat -> {
 
-                    startNav(false, 2)
+                    startNav(navId = 2)
 
                     return@OnNavigationItemSelectedListener true
 
@@ -225,7 +226,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 R.id.navigation_me -> {
 
-                    startNav(true, 3)
+                    startNav(navId = 3)
 
                     return@OnNavigationItemSelectedListener true
 
@@ -244,7 +245,7 @@ open class NavActivity : ActBase(), NavContract.View {
      * @param fabVisibility true presents showing floating action button, false otherwise.
      * @param navId quest parameter of nav page to get navs lists
      */
-    private fun startNav(fabVisibility: Boolean, navId: Int) {
+    private fun startNav(fabVisibility: Boolean = true, navId: Int) {
 
         if (fabVisibility) fab_nav.show() else fab_nav.hide()
 
