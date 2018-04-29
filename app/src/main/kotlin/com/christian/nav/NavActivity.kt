@@ -75,6 +75,8 @@ open class NavActivity : ActBase(), NavContract.View {
 
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false)
 
+        SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true)
+
     }
 
     private fun initSrl() {
