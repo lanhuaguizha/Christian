@@ -9,14 +9,20 @@ import com.christian.data.Nav
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
  */
-class NavItemPresenter(var navs: List<Nav>) : NavItemContract.Presenter() {
+class NavItemPresenter(var navs: List<Nav>, val hasElevation: Boolean = true) : NavItemContract.Presenter() {
 
     init {
-//        navItemView.presenter = this
+
         Log.i("NavItemPresenter", "init")
     }
 
     override fun start() {
+
+    }
+
+    override fun getTitle(pos: Int): String {
+
+        return navs[pos].title
 
     }
 
@@ -25,7 +31,9 @@ class NavItemPresenter(var navs: List<Nav>) : NavItemContract.Presenter() {
         /**
          * First "present = this" init Presenter in constructor, then "navItemView = this" init View in init method
          */
-        return NavItemView(LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false), this)
+        navItemView = NavItemView(LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false), this, hasElevation)
+
+        return navItemView
 
     }
 

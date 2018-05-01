@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.content.ContextCompat
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
@@ -32,7 +33,7 @@ open class NavActivity : ActBase(), NavContract.View {
      */
     override lateinit var presenter: NavContract.Presenter
 
-    private lateinit var adapter: NavItemPresenter
+    lateinit var adapter: NavItemPresenter
 
     companion object {
 
@@ -58,16 +59,17 @@ open class NavActivity : ActBase(), NavContract.View {
 
         initSbl()
 
-        setTb("")
+        initTb("")
 
         initSrl()
 
+        initFl()
+
         initRv(navs)
 
-        initBnv()
-
-        // set FAB visibility.
         initFAB()
+
+        initBnv()
 
     }
 
@@ -87,18 +89,22 @@ open class NavActivity : ActBase(), NavContract.View {
 
     }
 
-    private fun initRv(navs: List<Nav>) {
+    open fun initFl() {
+
+        fl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, theme)
+
+    }
+
+    open fun initRv(navs: List<Nav>) {
 
         rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
 
-//        rv_nav.layoutManager = GridLayoutManager(this, 2)
         rv_nav.layoutManager = LinearLayoutManager(this)
 
 
         adapter = NavItemPresenter(navs)
         rv_nav.adapter = adapter
 
-        // Set listeners
         rv_nav.addOnScrollListener(object : HidingScrollListener() {
 
             override fun onHide() {
@@ -135,16 +141,11 @@ open class NavActivity : ActBase(), NavContract.View {
 
         fab_nav.visibility = View.VISIBLE
 
-        // set FAB image
         fab_nav.setImageDrawable(resources.getDrawable(R.drawable.ic_edit_black_24dp))
-
-        // set FAB animate to hide's behavior
-
-        // set listener
 
     }
 
-    override fun setTb(title: String) {
+    override fun initTb(title: String) {
 
     }
 

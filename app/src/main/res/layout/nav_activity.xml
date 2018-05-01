@@ -23,7 +23,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <FrameLayout
-            android:background="@color/default_background_nav"
+            android:id="@+id/fl_nav"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

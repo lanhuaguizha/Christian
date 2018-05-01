@@ -14,6 +14,9 @@ import com.christian.util.ChristianUtil;
  */
 
 public class CustomCardView extends CardView {
+
+    public boolean hasElevation = true;
+
     public CustomCardView(Context context) {
         super(context);
     }
@@ -34,6 +37,11 @@ public class CustomCardView extends CardView {
     // For shadow of card view like google search box. At First writing in  onTouchEvent but not triggered
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+
+        if (!hasElevation) {
+            return super.dispatchTouchEvent(ev);
+        }
+
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 ObjectAnimator upAnim = ObjectAnimator.ofFloat(this, "translationZ", ChristianUtil.dpToPx(4));

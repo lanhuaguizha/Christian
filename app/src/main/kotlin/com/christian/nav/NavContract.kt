@@ -43,7 +43,7 @@ class NavContract {
         /**
          * Set toolbar like up button, more actions, title etc.
          */
-        fun setTb(title: String)
+        fun initTb(title: String)
 
         fun setupSearchbar(searchHint: String)
 

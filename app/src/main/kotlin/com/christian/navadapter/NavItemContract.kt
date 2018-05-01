@@ -2,19 +2,19 @@ package com.christian.navadapter
 
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.AppCompatImageButton
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
 import android.widget.TextView
 import com.christian.BasePresenter
 import com.christian.BaseView
 import com.christian.R
+import com.christian.view.CustomCardView
 
 class NavItemContract {
 
     abstract class View(itemView: android.view.View) : BaseView<Presenter>, RecyclerView.ViewHolder(itemView) {
 
-        val cv_nav_item = itemView.findViewById<CardView>(R.id.cv_nav_item)
+        val cv_nav_item = itemView.findViewById<CustomCardView>(R.id.cv_nav_item)
 
         val cl_nav_item = itemView.findViewById<ConstraintLayout>(R.id.cl_nav_item)
 
@@ -40,6 +40,8 @@ class NavItemContract {
          * 03-31 15:27:55.939 2605-2605/com.christian I/NavItemView: init
          */
         lateinit var navItemView: NavItemView
+
+        abstract fun getTitle(pos: Int): String
 
     }
 
