@@ -7,8 +7,10 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.Gravity
 import android.view.View
+import androidx.core.view.isVisible
 import com.christian.BottomNavigationViewBehaviorExt
 import com.christian.Injection
 import com.christian.R
@@ -27,6 +29,10 @@ import org.jetbrains.anko.dip
  * implementation of NavContract.View.
  */
 open class NavActivity : ActBase(), NavContract.View {
+
+    val SHOTRER_DURATION = 225L
+
+    val LONGER_DURATION = 375L
 
     /**
      * presenter will be initialized when the NavPresenter is initialized
@@ -55,7 +61,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
     override fun initView(navs: List<Nav>) {
 
-        startNav(false, 0)
+        startNav(0)
 
         initSbl()
 
@@ -115,7 +121,13 @@ open class NavActivity : ActBase(), NavContract.View {
 
             override fun onShow() {
 
-                fab_nav.show()
+                showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
+
+            }
+
+            override fun onTop() {
+
+                showFab(R.drawable.ic_edit_black_24dp)
 
             }
 
@@ -141,7 +153,9 @@ open class NavActivity : ActBase(), NavContract.View {
 
         fab_nav.visibility = View.VISIBLE
 
-        fab_nav.setImageDrawable(resources.getDrawable(R.drawable.ic_edit_black_24dp))
+        showFab(R.drawable.ic_edit_black_24dp)
+
+        fab_nav.setOnClickListener(null)
 
     }
 
@@ -184,7 +198,35 @@ open class NavActivity : ActBase(), NavContract.View {
     override fun restoreRvPos() {
     }
 
-    override fun showFloatingActionButton() {
+    override fun showFab(drawableId: Int) {
+
+        if (fab_nav.isVisible) {
+            Log.i("fab", "hide")
+            fab_nav.hide()
+        }
+
+        fab_nav.postDelayed({
+            fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, theme))
+            fab_nav.show()
+            Log.i("fab", "show")
+        }, SHOTRER_DURATION)
+
+        when (drawableId) {
+
+            R.drawable.ic_edit_black_24dp -> {
+
+                fab_nav.setOnClickListener(null)
+
+            }
+
+            R.drawable.ic_keyboard_arrow_up_black_24dp -> {
+
+                fab_nav.setOnClickListener { scrollRvToTop() }
+
+            }
+
+        }
+
     }
 
     override fun hideFloatingActionButton() {
@@ -244,9 +286,7 @@ open class NavActivity : ActBase(), NavContract.View {
      * @param fabVisibility true presents showing floating action button, false otherwise.
      * @param navId quest parameter of nav page to get navs lists
      */
-    private fun startNav(fabVisibility: Boolean = true, navId: Int) {
-
-        if (fabVisibility) fab_nav.show() else fab_nav.hide()
+    private fun startNav(navId: Int) {
 
         if (navId == 0) {
             presenter.insertNav(navId)
@@ -272,6 +312,8 @@ open class NavActivity : ActBase(), NavContract.View {
         override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
 
             super.onScrolled(recyclerView, dx, dy)
+            Log.i("rv", "-1 " + rv_nav.canScrollVertically(-1))
+//            Log.i("rv", "1 " + rv_nav.canScrollVertically(1))
 
             if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {//移动总距离大于规定距离 并且是显示状态就隐藏
 
@@ -297,12 +339,20 @@ open class NavActivity : ActBase(), NavContract.View {
 
             }
 
+            if (!rv_nav.canScrollVertically(-1) && dy < 0) { // 并且是向下滑动
+
+                onTop()
+
+            }
+
         }
 
 
         abstract fun onHide()
 
         abstract fun onShow()
+
+        abstract fun onTop()
 
     }
 

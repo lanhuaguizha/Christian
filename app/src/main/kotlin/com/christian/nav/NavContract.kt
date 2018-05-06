@@ -1,5 +1,6 @@
 package com.christian.nav
 
+import android.graphics.drawable.Drawable
 import com.christian.BasePresenter
 import com.christian.BaseView
 import com.christian.data.Nav
@@ -71,7 +72,10 @@ class NavContract {
 
         fun restoreRvPos()
 
-        fun showFloatingActionButton()
+        /**
+         * Hide before each display to meet the material design specification.
+         */
+        fun showFab(drawableId: Int)
 
         fun hideFloatingActionButton()
 

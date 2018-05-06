@@ -14,7 +14,6 @@ import com.christian.nav.NavActivity
 import com.christian.navadapter.NavItemPresenter
 import com.christian.view.ItemDecoration
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_item_view.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.tb_nav.*
 
@@ -59,8 +58,11 @@ class NavDetailActivity : NavActivity() {
 
             override fun onShow() {
 
-                fab_nav.show()
+                showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
 
+            }
+
+            override fun onTop() {
             }
 
         })
@@ -72,7 +74,7 @@ class NavDetailActivity : NavActivity() {
         fab_nav.visibility = View.VISIBLE
 
         // set FAB image
-        fab_nav.setImageDrawable(resources.getDrawable(R.drawable.ic_keyboard_arrow_up_black_24dp))
+        showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
 
         // set FAB animate to hide's behavior
 

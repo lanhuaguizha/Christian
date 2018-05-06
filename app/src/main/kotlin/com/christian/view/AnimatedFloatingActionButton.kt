@@ -16,9 +16,9 @@ import com.christian.R
 class AnimatedFloatingActionButton(context: Context?, attrs: AttributeSet?) : FloatingActionButton(context, attrs) {
 
     // true will always has animation
-//    override fun isLaidOut(): Boolean {
-//        return true
-//    }
+    override fun isLaidOut(): Boolean {
+        return true
+    }
 
     /**
      * In order to achieve the FloatingActionButton distance from the BottomNavigationView.
