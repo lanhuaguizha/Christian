@@ -3,12 +3,6 @@
     package="com.christian">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    &lt;!&ndash; To auto-complete the email text field in the login form with the user's emails &ndash;&gt;
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />-->
 
     <application
         android:name=".ChristianApplication"
@@ -38,34 +32,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".util.BottomNavigationActivity" />
-        </activity>
-        <activity
-            android:name=".setting.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:launchMode="singleTop"
-            android:parentActivityName=".util.BottomNavigationActivity"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.util.BottomNavigationActivity" />
-        </activity>
-        <activity
-            android:name=".login.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:launchMode="singleTop"
-            android:parentActivityName=".util.BottomNavigationActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.util.BottomNavigationActivity" />
-        </activity>
-        <activity
-            android:name=".login.RegisterActivity"
-            android:label="@string/title_activity_register"
-            android:launchMode="singleTop"
-            android:parentActivityName=".util.BottomNavigationActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.christian.util.BottomNavigationActivity" />
         </activity>
 
     </application>
