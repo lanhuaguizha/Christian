@@ -1,7 +1,9 @@
 package com.christian.navdetail
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.Menu
@@ -12,6 +14,7 @@ import com.christian.R
 import com.christian.data.Nav
 import com.christian.nav.NavActivity
 import com.christian.navadapter.NavItemPresenter
+import com.christian.view.GridItemDecoration
 import com.christian.view.ItemDecoration
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.sb_nav.*
@@ -40,10 +43,13 @@ class NavDetailActivity : NavActivity() {
 
     override fun initRv(navs: List<Nav>) {
 
-        rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.activity_horizontal_margin_0).toInt()))
-
-        rv_nav.layoutManager = LinearLayoutManager(this)
-
+        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.activity_horizontal_margin_0).toInt()))
+            rv_nav.layoutManager = LinearLayoutManager(this)
+        } else {
+            rv_nav.addItemDecoration(GridItemDecoration(resources.getDimension(R.dimen.activity_horizontal_margin_0).toInt()))
+            rv_nav.layoutManager = GridLayoutManager(this, 2) // todo: should use the long side of the screen over the short side to decide span count
+        }
 
         adapter = NavItemPresenter(navs, false)
         rv_nav.adapter = adapter
