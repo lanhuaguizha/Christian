@@ -20,6 +20,7 @@
 
         <activity
             android:name=".nav.NavActivity"
+            android:theme="@style/BottomNavigationActivityTheme"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -47,6 +47,10 @@
         <item name="android:taskToBackExitAnimation">@anim/translate_out_right</item>
     </style>
 
+    <style name="BottomNavigationActivityTheme" parent="Christian">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
     <style name="ChristianToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Light">
         <item name="colorControlHighlight">@color/white</item>
     </style>
