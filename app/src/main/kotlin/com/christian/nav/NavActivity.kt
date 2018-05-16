@@ -12,7 +12,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import androidx.core.view.isVisible
+import androidx.core.view.isGone
 import com.christian.BottomNavigationViewBehaviorExt
 import com.christian.Injection
 import com.christian.R
@@ -158,7 +158,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
     open fun initFAB() {
 
-        fab_nav.visibility = View.VISIBLE
+        fab_nav.visibility = View.INVISIBLE
 
         showFab(R.drawable.ic_edit_black_24dp)
 
@@ -207,7 +207,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
     override fun showFab(drawableId: Int) {
 
-        if (fab_nav.isVisible) {
+        if (!fab_nav.isGone) {
             Log.i("fab", "hide")
             fab_nav.hide()
         }
