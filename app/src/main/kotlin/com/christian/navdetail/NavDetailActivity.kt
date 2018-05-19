@@ -77,7 +77,7 @@ class NavDetailActivity : NavActivity() {
 
     override fun initFAB() {
 
-        fab_nav.visibility = View.VISIBLE
+        fab_nav.visibility = View.INVISIBLE
 
         // set FAB image
         showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
