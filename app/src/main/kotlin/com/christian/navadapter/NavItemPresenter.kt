@@ -48,6 +48,8 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
 
     override fun onBindViewHolder(holder: NavItemView, position: Int) {
 
+        navItemView.animate(holder.itemView)
+
         holder.tv_subtitle_nav_item.text = navs[position].subtitle
 
         holder.tv_title_nav_item.text = navs[position].title

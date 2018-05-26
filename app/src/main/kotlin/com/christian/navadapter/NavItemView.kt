@@ -6,6 +6,7 @@ import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
+import android.view.animation.AnimationUtils
 import com.christian.R
 import com.christian.navdetail.NavDetailActivity
 import kotlinx.android.extensions.LayoutContainer
@@ -49,6 +50,14 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.Presen
         popupMenu.menuInflater.inflate(R.menu.menu_home, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener { false }
         popupMenu.show()
+
+    }
+
+    override fun animate(itemView: View) {
+
+        val animation = AnimationUtils.loadAnimation(itemView.context, R.anim.translate_in_right)
+
+        itemView.startAnimation(animation)
 
     }
 

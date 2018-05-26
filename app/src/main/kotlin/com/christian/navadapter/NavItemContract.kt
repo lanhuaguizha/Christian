@@ -9,6 +9,8 @@ class NavItemContract {
 
         fun setCvRadius(radius: Float)
 
+        fun animate(itemView: android.view.View)
+
     }
 
     interface Presenter : BasePresenter {
