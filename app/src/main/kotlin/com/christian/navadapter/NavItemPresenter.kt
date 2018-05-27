@@ -36,7 +36,9 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
          * First "present = this" init Presenter in constructor, then "navItemView = this" init View in init method
          */
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false)
-        navItemView = NavItemView(itemView, this, hasElevation, itemView)
+        navItemView = NavItemView(itemView, this, itemView)
+
+        navItemView.initView(hasElevation)
 
         return navItemView
 
@@ -48,7 +50,9 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
 
     override fun onBindViewHolder(holder: NavItemView, position: Int) {
 
-        navItemView.animate(holder.itemView)
+        if (hasElevation) {
+            navItemView.animate(holder.itemView)
+        }
 
         holder.tv_subtitle_nav_item.text = navs[position].subtitle
 

@@ -1,6 +1,7 @@
 package com.christian.navadapter
 
 import android.content.Intent
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.AppCompatImageButton
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
@@ -11,16 +12,17 @@ import com.christian.R
 import com.christian.navdetail.NavDetailActivity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_view.*
+import org.jetbrains.anko.dip
+import org.jetbrains.anko.sp
+import org.jetbrains.anko.textColor
 
 /**
  * NavItemView/NavItemHolder is view logic of nav items.
  */
 
-class NavItemView(itemView: View, override var presenter: NavItemContract.Presenter, hasElevation: Boolean, override val containerView: View) : NavItemContract.View, RecyclerView.ViewHolder(itemView), LayoutContainer {
+class NavItemView(itemView: View, override var presenter: NavItemContract.Presenter, override val containerView: View) : NavItemContract.View, RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     init {
-
-        cv_nav_item.hasElevation = hasElevation
 
         itemView.setOnClickListener {
 
@@ -36,10 +38,19 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.Presen
 
     }
 
-    override fun setCvRadius(radius: Float) {
+    override fun initView(hasElevation: Boolean) {
+        cv_nav_item.hasElevation = hasElevation
+        cv_nav_item.radius = 0f
 
-        cv_nav_item.radius = radius
-
+        if (hasElevation) {
+        } else {
+            cl_nav_item.foreground = null
+            tv_subtitle_nav_item.visibility = View.GONE
+            tv_title_nav_item.visibility = View.GONE
+            tv_detail_nav_item.textColor = ResourcesCompat.getColor(itemView.resources, R.color.text_color_primary, itemView.context.theme)
+            tv_detail_nav_item.textSize = 18f
+//            tv_detail_nav_item.textSize = itemView.context.sp(8).toFloat()
+        }
     }
 
     private fun showPopupMenu(v: View) {

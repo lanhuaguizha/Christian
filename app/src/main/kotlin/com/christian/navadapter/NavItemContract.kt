@@ -7,7 +7,7 @@ class NavItemContract {
 
     interface View : BaseView<Presenter> {
 
-        fun setCvRadius(radius: Float)
+        fun initView(hasElevation: Boolean)
 
         fun animate(itemView: android.view.View)
 
