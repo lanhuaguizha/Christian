@@ -49,7 +49,7 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.Presen
             tv_title_nav_item.visibility = View.GONE
             tv_detail_nav_item.textColor = ResourcesCompat.getColor(itemView.resources, R.color.text_color_primary, itemView.context.theme)
             tv_detail_nav_item.textSize = 18f
-//            tv_detail_nav_item.textSize = itemView.context.sp(8).toFloat()
+            tv_detail_nav_item.maxLines = Integer.MAX_VALUE
         }
     }
 
