@@ -303,9 +303,9 @@ open class NavActivity : ActBase(), NavContract.View {
 
     fun scrollRvToTop() {
 
-        rv_nav.scrollToPosition(dip(-1)) // 为了滚到顶
+        rv_nav.smoothScrollToPosition(dip(-1)) // 为了滚到顶
 
-        abl_nav.setExpanded(true, false)
+        abl_nav.setExpanded(true, true)
 
     }
 
