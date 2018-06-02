@@ -39,11 +39,11 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.Presen
     }
 
     override fun initView(hasElevation: Boolean) {
-        cv_nav_item.hasElevation = hasElevation
-        cv_nav_item.radius = 0f
 
         if (hasElevation) {
         } else {
+            cv_nav_item.hasElevation = hasElevation
+            cv_nav_item.radius = 0f
             cl_nav_item.foreground = null
             tv_subtitle_nav_item.visibility = View.GONE
             tv_title_nav_item.visibility = View.GONE
