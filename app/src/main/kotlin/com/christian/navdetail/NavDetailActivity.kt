@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -75,7 +76,7 @@ class NavDetailActivity : NavActivity() {
 
     }
 
-    override fun initFAB() {
+    override fun initFAB(drawableId: Int) {
 
         fab_nav.visibility = View.INVISIBLE
 
@@ -132,6 +133,10 @@ class NavDetailActivity : NavActivity() {
             R.id.menu_collection -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun runLayoutAnimation(recyclerView: RecyclerView) {
+        recyclerView.adapter.notifyDataSetChanged()
     }
 
 }

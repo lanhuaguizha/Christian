@@ -1,6 +1,7 @@
 package com.christian.nav
 
 import android.content.res.Configuration
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
@@ -12,6 +13,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.core.view.isGone
 import com.christian.BottomNavigationViewBehaviorExt
 import com.christian.Injection
@@ -75,8 +77,6 @@ open class NavActivity : ActBase(), NavContract.View {
         initFl()
 
         initRv(navs)
-
-        initFAB()
 
         initBnv()
 
@@ -156,11 +156,11 @@ open class NavActivity : ActBase(), NavContract.View {
 
     }
 
-    open fun initFAB() {
+    open fun initFAB(drawableId: Int) {
 
         fab_nav.visibility = View.INVISIBLE
 
-        showFab(R.drawable.ic_edit_black_24dp)
+        showFab(drawableId)
 
         fab_nav.setOnClickListener(null)
 
@@ -198,7 +198,11 @@ open class NavActivity : ActBase(), NavContract.View {
 
         adapter.navs = navs
 
-        adapter.notifyDataSetChanged()
+        runLayoutAnimation(rv_nav)
+
+        fab_nav.postDelayed({
+            initFAB(R.drawable.ic_edit_black_24dp)
+        }, SHOTRER_DURATION)
 
     }
 
@@ -361,6 +365,13 @@ open class NavActivity : ActBase(), NavContract.View {
 
         abstract fun onTop()
 
+    }
+
+    open fun runLayoutAnimation(recyclerView: RecyclerView) {
+        val animation = AnimationUtils.loadLayoutAnimation(recyclerView.context, R.anim.layout_animation_from_right)
+        recyclerView.layoutAnimation = animation
+        recyclerView.adapter.notifyDataSetChanged()
+        recyclerView.scheduleLayoutAnimation()
     }
 
 }

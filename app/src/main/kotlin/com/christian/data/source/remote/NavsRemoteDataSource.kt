@@ -53,7 +53,7 @@ object NavsRemoteDataSource : NavsDataSource {
     override fun getNavs(callback: NavsDataSource.LoadNavsCallback) {
 
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.193:8080/")
+                .baseUrl("http://192.168.51.137:8080/")
 //                .baseUrl("http://10.200.69.48:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
