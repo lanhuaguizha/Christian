@@ -12,7 +12,7 @@
         android:id="@+id/cl_nav_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="?selectableItemBackgroundBorderless"
+        android:foreground="@drawable/fluent_ripple"
         android:orientation="vertical">
 
         <ImageView
