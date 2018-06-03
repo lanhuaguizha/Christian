@@ -70,6 +70,9 @@ class NavDetailActivity : NavActivity() {
             }
 
             override fun onTop() {
+
+                fab_nav.hide()
+
             }
 
         })
@@ -81,7 +84,7 @@ class NavDetailActivity : NavActivity() {
         fab_nav.visibility = View.INVISIBLE
 
         // set FAB image
-        showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
+//        showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
 
         // set FAB animate to hide's behavior
 
