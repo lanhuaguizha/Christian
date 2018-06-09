@@ -150,13 +150,15 @@ open class NavActivity : ActBase(), NavContract.View {
 
             override fun onShow() {
 
-                showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
+                fab_nav.hide()
+//                showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
 
             }
 
             override fun onTop() {
 
-                showFab(R.drawable.ic_edit_black_24dp)
+                fab_nav.hide()
+//                showFab(R.drawable.ic_edit_black_24dp)
 
             }
 
@@ -235,9 +237,9 @@ open class NavActivity : ActBase(), NavContract.View {
 
         runLayoutAnimation(rv_nav)
 
-        fab_nav.postDelayed({
-            initFAB(R.drawable.ic_edit_black_24dp)
-        }, SHOTRER_DURATION)
+//        fab_nav.postDelayed({
+//            initFAB(R.drawable.ic_edit_black_24dp)
+//        }, SHOTRER_DURATION)
 
     }
 
