@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fl_nav"
@@ -41,16 +41,26 @@
             android:layout_gravity="end"
             android:layout_marginEnd="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
-            app:layout_anchor="@id/bnv_nav"
+            app:layout_anchor="@id/bv_nav"
             app:layout_anchorGravity="end" />
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bnv_nav"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+        <eightbitlab.com.blurview.BlurView
+            android:id="@+id/bv_nav"
             android:layout_gravity="bottom"
-            android:background="@color/white"
-            app:menu="@menu/navigation" />
+            android:elevation="4dp"
+            tools:targetApi="lollipop"
+            android:outlineProvider="bounds"
+            app:blurOverlayColor="@color/colorOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bnv_nav"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:menu="@menu/navigation" />
+        </eightbitlab.com.blurview.BlurView>
     </android.support.design.widget.CoordinatorLayout>
 
     <ProgressBar
@@ -58,4 +68,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

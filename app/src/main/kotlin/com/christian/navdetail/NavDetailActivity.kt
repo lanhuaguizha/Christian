@@ -93,16 +93,15 @@ class NavDetailActivity : NavActivity() {
 
     }
 
-    // 不需要底部导航栏
-    override fun initBnv() {
+    override fun initBv() {
 
-        val params = CoordinatorLayout.LayoutParams(bnv_nav.layoutParams)
+        val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
 
         params.gravity = Gravity.BOTTOM
 
         params.behavior = BottomNavigationViewBehaviorExt(this, null)
 
-        bnv_nav.layoutParams = params
+        bv_nav.layoutParams = params
 
     }
 

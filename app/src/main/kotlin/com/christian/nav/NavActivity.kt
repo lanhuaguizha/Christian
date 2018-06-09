@@ -14,7 +14,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.core.view.isGone
-import com.christian.BottomNavigationViewBehaviorExt
+import com.christian.BottomNavigationViewBehavior
 import com.christian.Injection
 import com.christian.R
 import com.christian.base.ActBase
@@ -24,6 +24,7 @@ import com.christian.navadapter.NavItemPresenter
 import com.christian.swipe.SwipeBackHelper
 import com.christian.view.GridItemDecoration
 import com.christian.view.ItemDecoration
+import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.px2dip
@@ -79,6 +80,8 @@ open class NavActivity : ActBase(), NavContract.View {
         initFl()
 
         initRv(navs)
+
+        initBv()
 
         initBnv()
 
@@ -161,15 +164,28 @@ open class NavActivity : ActBase(), NavContract.View {
 
     }
 
+    open fun initBv() {
+
+        //set background, if your root layout doesn't have one
+        val windowBackground = window.decorView.background
+        val radius = 10f
+        bv_nav.setupWith(cl_nav)
+                .windowBackground(windowBackground)
+                .blurAlgorithm(SupportRenderScriptBlur(this))
+                .blurRadius(radius)
+                .setHasFixedTransformationMatrix(true)
+
+        // set behavior
+        val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
+        params.gravity = Gravity.BOTTOM
+        params.behavior = BottomNavigationViewBehavior(this, null)
+        bv_nav.layoutParams = params
+
+    }
+
     open fun initBnv() {
 
         BottomNavigationViewHelper.disableShiftMode(bnv_nav)
-
-        // set behavior
-        val params = CoordinatorLayout.LayoutParams(bnv_nav.layoutParams)
-        params.gravity = Gravity.BOTTOM
-        params.behavior = BottomNavigationViewBehaviorExt(this, null)
-        bnv_nav.layoutParams = params
 
         setBnvListener()
 

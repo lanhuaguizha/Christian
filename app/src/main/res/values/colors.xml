@@ -3,6 +3,8 @@
 
     <color name="default_background_nav">#FAFAFA</color>
 
+    <color name="colorOverlay">#78ffffff</color>
+
     <!--app text color-->
     <color name="text_color_primary">#000000</color>
     <color name="text_color_secondary">#737373</color>

@@ -10,6 +10,8 @@ android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
+        renderscriptTargetApi 27
+        renderscriptSupportModeEnabled true
         applicationId "com.christian"
         minSdkVersion 16
         targetSdkVersion 27
@@ -92,6 +94,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     testImplementation 'junit:junit:4.12'
+
+    implementation 'com.eightbitlab:blurview:1.4.0'
+    implementation 'com.eightbitlab:supportrenderscriptblur:1.0.1'
 }
 
 androidExtensions {
