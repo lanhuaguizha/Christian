@@ -48,7 +48,7 @@
     </style>
 
     <style name="BottomNavigationActivityTheme" parent="Christian">
-        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="ChristianToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Light">
