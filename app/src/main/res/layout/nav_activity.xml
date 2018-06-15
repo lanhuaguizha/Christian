@@ -58,7 +58,7 @@
                 app:itemBackground="@drawable/fluent_ripple"
                 android:id="@+id/bnv_nav"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="match_parent"
                 android:background="@android:color/transparent"
                 app:menu="@menu/navigation" />
         </eightbitlab.com.blurview.BlurView>

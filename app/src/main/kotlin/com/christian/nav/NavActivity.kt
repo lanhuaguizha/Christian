@@ -1,12 +1,10 @@
 package com.christian.nav
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -22,7 +20,6 @@ import com.christian.data.Nav
 import com.christian.helper.BottomNavigationViewHelper
 import com.christian.navadapter.NavItemPresenter
 import com.christian.swipe.SwipeBackHelper
-import com.christian.view.GridItemDecoration
 import com.christian.view.ItemDecoration
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -128,13 +125,9 @@ open class NavActivity : ActBase(), NavContract.View {
 
     open fun initRv(navs: List<Nav>) {
 
-        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
-            rv_nav.layoutManager = LinearLayoutManager(this)
-        } else {
-            rv_nav.addItemDecoration(GridItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
-            rv_nav.layoutManager = GridLayoutManager(this, 2) // todo: should use the long side of the screen over the short side to decide span count
-        }
+        rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
+
+        rv_nav.layoutManager = LinearLayoutManager(this)
 
 
         adapter = NavItemPresenter(navs)
