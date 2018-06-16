@@ -68,6 +68,8 @@ class NavDetailActivity : NavActivity() {
 
             }
 
+            override fun onBottom() {
+            }
         })
 
     }
@@ -100,7 +102,8 @@ class NavDetailActivity : NavActivity() {
 
     override fun initTb(title: String) {
 
-        search_view_container.visibility = View.GONE
+
+        sl_nav.visibility = View.GONE
 
         /**
          * set up button

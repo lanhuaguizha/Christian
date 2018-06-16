@@ -52,32 +52,8 @@ public class GospelFragment extends BaseFragment {
     private List<EmptyFragment> mViewList = new ArrayList<>();//页卡视图集合
     @ViewInject(R.id.app_bar)
     AppBarLayout mAppBar;
-    @ViewInject(R.id.search_view_container)
-    private SearchEditTextLayout mSearchEditTextLayout;
     private EmptyFragment homeFragment;
     private static final String MFRAGMENTNAMELIST = "mViewList";
-
-    @Event({R.id.search_view_container, R.id.search_magnifying_glass, R.id.search_box_start_search, R.id.search_back_button})
-    private void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.search_view_container:
-            case R.id.search_magnifying_glass:
-            case R.id.search_box_start_search:
-                if (!mSearchEditTextLayout.isExpanded()) {
-                    mSearchEditTextLayout.expand(true, true);
-                }
-                break;
-            case R.id.search_back_button:
-                if (mSearchEditTextLayout.isExpanded()) {
-                    mSearchEditTextLayout.collapse(true);
-                }
-                if (mSearchEditTextLayout.isFadedOut()) {
-                    mSearchEditTextLayout.fadeIn();
-                }
-            default:
-                break;
-        }
-    }
 
     public GospelFragment() {
         // Required empty public constructor

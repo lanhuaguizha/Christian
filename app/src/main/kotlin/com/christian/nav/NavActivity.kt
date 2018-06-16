@@ -1,5 +1,8 @@
 package com.christian.nav
 
+import android.app.UiModeManager
+import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
@@ -9,8 +12,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Gravity
+import android.view.KeyEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.view.get
 import androidx.core.view.isGone
 import com.christian.BottomNavigationViewBehavior
 import com.christian.Injection
@@ -23,6 +29,8 @@ import com.christian.swipe.SwipeBackHelper
 import com.christian.view.ItemDecoration
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.sb_nav.*
+import kotlinx.android.synthetic.main.search_bar_expanded.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.px2dip
 
@@ -69,6 +77,7 @@ open class NavActivity : ActBase(), NavContract.View {
         initSbl()
 
         initAbl()
+        initSl()
 
         initTb("")
 
@@ -107,6 +116,13 @@ open class NavActivity : ActBase(), NavContract.View {
         }
 
 
+    }
+
+    private fun initSl() {
+        sl_nav.setOnClickListener { slExpand() }
+        search_magnifying_glass.setOnClickListener { slExpand() }
+        search_box_start_search.setOnClickListener { slExpand() }
+        search_back_button.setOnClickListener { slCollapse() }
     }
 
     private fun initSrl() {
@@ -152,7 +168,13 @@ open class NavActivity : ActBase(), NavContract.View {
 
                 fab_nav.hide()
 //                showFab(R.drawable.ic_edit_black_24dp)
+                Log.i("bottom", "onTop")
 
+            }
+
+            override fun onBottom() {
+                bv_nav.requestFocus()
+                Log.i("bottom", "onBottom")
             }
 
         })
@@ -380,9 +402,17 @@ open class NavActivity : ActBase(), NavContract.View {
 
             }
 
-            if (!rv_nav.canScrollVertically(-1) && dy < 0) { // 并且是向下滑动
+            if (!rv_nav.canScrollVertically(-1) && dy < 0) { // 并且是向上滑动
 
                 onTop()
+
+            }
+
+            Log.i("bottom", (!rv_nav.canScrollVertically(1)).toString())
+            Log.i("bottom dy > 0", (dy > 0).toString())
+            if (!rv_nav.canScrollVertically(1)) { // 并且是向下滑动
+
+                onBottom()
 
             }
 
@@ -395,6 +425,8 @@ open class NavActivity : ActBase(), NavContract.View {
 
         abstract fun onTop()
 
+        abstract fun onBottom()
+
     }
 
     open fun runLayoutAnimation(recyclerView: RecyclerView) {
@@ -404,4 +436,42 @@ open class NavActivity : ActBase(), NavContract.View {
         recyclerView.scheduleLayoutAnimation()
     }
 
+    // -- Start android tv
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        Log.i("keyCode", "keyCode$keyCode")
+        val view = (bnv_nav[0] as ViewGroup).getChildAt(0)
+        Log.i("keyCode", "view.isFocused${view.isFocused}")
+        val uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+        if (uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION) {
+            when (keyCode) {
+                KeyEvent.KEYCODE_BACK -> {
+                    return if (!view.isFocused) {
+                        view.requestFocus()
+                        Log.i("keyCode", "view.hasFocus${view.hasFocus()}")
+                        true
+                    } else {
+                        super.onKeyDown(keyCode, event)
+                    }
+                }
+            }
+        }
+
+        return super.onKeyDown(keyCode, event)
+    }
+    // -- End
+
+    private fun slExpand() {
+        if (!sl_nav.isExpanded) {
+            sl_nav.expand(true, true)
+        }
+    }
+
+    private fun slCollapse() {
+        if (sl_nav.isExpanded) {
+            sl_nav.collapse(true)
+        }
+        if (sl_nav.isFadedOut) {
+            sl_nav.fadeIn()
+        }
+    }
 }

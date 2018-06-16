@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.christian.view.SearchEditTextLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/search_view_container"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sl_nav"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/search_bottom_margin"
@@ -10,6 +11,9 @@
     android:layout_marginTop="@dimen/search_top_margin"
     android:background="@drawable/rounded_corner"
     android:elevation="@dimen/search_box_elevation"
+    tools:targetApi="lollipop"
+    android:focusable="true"
+    android:foreground="@drawable/fluent_ripple"
     android:orientation="horizontal">
 
     <LinearLayout

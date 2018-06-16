@@ -5,6 +5,8 @@
     android:id="@+id/cv_nav_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:focusable="true"
+    android:foreground="@drawable/fluent_ripple"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/card_corner_radius">
 
@@ -12,7 +14,6 @@
         android:id="@+id/cl_nav_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="@drawable/fluent_ripple"
         android:orientation="vertical">
 
         <ImageView
