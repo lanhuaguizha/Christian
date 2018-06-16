@@ -3,6 +3,7 @@ package com.christian.nav
 import android.app.UiModeManager
 import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
@@ -103,18 +104,19 @@ open class NavActivity : ActBase(), NavContract.View {
 
     private fun initAbl() {
 
-        abl_nav.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            Log.i("systemui", "dd" + verticalOffset + "cc" + appBarLayout.height + "ee" + px2dip(abl_nav.elevation.toInt()) + "ff" + abl_nav.elevation)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            abl_nav.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+                Log.i("systemui", "dd" + verticalOffset + "cc" + appBarLayout.height + "ee" + px2dip(abl_nav.elevation.toInt()) + "ff" + abl_nav.elevation)
 
-            if (-verticalOffset == appBarLayout.height) {
-                abl_nav.elevation = 0f
-            } else {
-                abl_nav.elevation = dip(4).toFloat()
-                Log.i("systemui", "ee" + px2dip(abl_nav.elevation.toInt()) + "ff" + abl_nav.elevation)
+                if (-verticalOffset == appBarLayout.height) {
+                    abl_nav.elevation = 0f
+                } else {
+                    abl_nav.elevation = dip(4).toFloat()
+                    Log.i("systemui", "ee" + px2dip(abl_nav.elevation.toInt()) + "ff" + abl_nav.elevation)
+                }
+
             }
-
         }
-
 
     }
 
