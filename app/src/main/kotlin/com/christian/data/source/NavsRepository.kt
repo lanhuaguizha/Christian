@@ -15,6 +15,7 @@
  */
 package com.christian.data.source
 
+import android.content.Context
 import com.christian.data.Detail
 import com.christian.data.Nav
 import java.util.*
@@ -51,14 +52,14 @@ class NavsRepository(
      * Note: [NavsDataSource.LoadNavsCallback.onDataNotAvailable] is fired if all data sources fail to
      * get the data.
      */
-    override fun getNavs(callback: NavsDataSource.LoadNavsCallback) {
+    override fun getNavs(ctx: Context, callback: NavsDataSource.LoadNavsCallback) {
         // Respond immediately with cache if available and not dirty
 //        if (cachedNavs.isNotEmpty() && !cacheIsDirty) {
 //            callback.onNavsLoaded(ArrayList(cachedNavs.values))
 //            return
 //        }
 
-        getNavsFromRemoteDataSource(callback)
+        getNavsFromRemoteDataSource(ctx, callback)
 //        if (cacheIsDirty) {
 //            // If the cache is dirty we need to fetch new data from the network.
 //            getNavsFromRemoteDataSource(callback)
@@ -185,8 +186,8 @@ class NavsRepository(
         cachedNavs.remove(navId)
     }
 
-    private fun getNavsFromRemoteDataSource(callback: NavsDataSource.LoadNavsCallback) {
-        navsRemoteDataSource.getNavs(object : NavsDataSource.LoadNavsCallback {
+    private fun getNavsFromRemoteDataSource(ctx: Context, callback: NavsDataSource.LoadNavsCallback) {
+        navsRemoteDataSource.getNavs(ctx, object : NavsDataSource.LoadNavsCallback {
             override fun onNavsLoaded(navs: List<Nav>) {
                 refreshCache(navs)
                 refreshLocalDataSource(navs)

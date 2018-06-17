@@ -34,7 +34,7 @@ class NavPresenter(
 
         if (isSrl) navView.stopPb() else navView.startPb()
 
-        navsRepository.getNavs(object : NavsDataSource.LoadNavsCallback {
+        navsRepository.getNavs(navView as NavActivity, object : NavsDataSource.LoadNavsCallback {
 
             override fun onNavsLoaded(navs: List<Nav>) {
 

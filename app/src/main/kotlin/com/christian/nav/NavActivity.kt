@@ -137,7 +137,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
     open fun initFl() {
 
-        fl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, theme)
+        srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, theme)
 
     }
 

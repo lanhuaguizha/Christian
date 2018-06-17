@@ -1,5 +1,6 @@
 package com.christian.data.source
 
+import android.content.Context
 import com.christian.data.Nav
 
 /**
@@ -22,7 +23,7 @@ interface NavsDataSource {
         fun onDataNotAvailable()
     }
 
-    fun getNavs(callback: LoadNavsCallback)
+    fun getNavs(ctx: Context, callback: LoadNavsCallback)
 
     fun getNav(navId: String, callback: GetNavCallback)
 
