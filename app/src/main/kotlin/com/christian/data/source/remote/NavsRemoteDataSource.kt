@@ -60,6 +60,8 @@ object NavsRemoteDataSource : NavsDataSource {
         NAVS_SERVICE_DATA.put(newNav.id, newNav)
     }
 
+    private var isFailure: Boolean = true //true，等同于没有网络，onFailed的时候直接加载缓存数据；false，就会走正常有网络逻辑，服务器cache-control有就设置成服务器时间，没有，就默认过期时间1分钟
+
     /**
      * Note: [NavsDataSource.LoadNavsCallback.onDataNotAvailable] is never fired. In a real remote data
      * source implementation, this would be fired if the server can't be contacted or the server
@@ -85,6 +87,7 @@ object NavsRemoteDataSource : NavsDataSource {
 
             override fun onFailure(call: Call<List<Nav>>?, t: Throwable?) {
                 callback.onDataNotAvailable()
+                isFailure = true
             }
 
             override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>?) {
@@ -99,6 +102,7 @@ object NavsRemoteDataSource : NavsDataSource {
 
                 }
 
+                isFailure = false
             }
 
         })
@@ -183,7 +187,7 @@ object NavsRemoteDataSource : NavsDataSource {
          */
         val baseInterceptor = Interceptor {
             var request = it.request()
-            if (!NetworkUtils.isNetworkAvailable(context)) {
+            if (isFailure || !NetworkUtils.isNetworkAvailable(context)) {
                 /**
                  * 离线缓存控制  总的缓存时间=在线缓存时间+设置离线缓存时间
                  */
