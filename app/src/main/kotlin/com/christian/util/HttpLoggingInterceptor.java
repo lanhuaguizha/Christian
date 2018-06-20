@@ -94,7 +94,7 @@ public class HttpLoggingInterceptor implements Interceptor {
                 String cacheControl = request.cacheControl().toString();
                 if (TextUtils.isEmpty(cacheControl)) {
                     // 如果请求接口中未设置cacheControl，则统一设置为一分钟
-                    int maxAge = 1 * 60; // 在线缓存在1分钟内可读取 单位:秒
+                    int maxAge = 0; // 在线缓存在1分钟内可读取 单位:秒
                     return response.newBuilder()
                             .removeHeader("Pragma")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
                             .removeHeader("Cache-Control")

@@ -60,6 +60,8 @@ object NavsRemoteDataSource : NavsDataSource {
         NAVS_SERVICE_DATA.put(newNav.id, newNav)
     }
 
+    private var isFailure: Boolean = false
+
     /**
      * Note: [NavsDataSource.LoadNavsCallback.onDataNotAvailable] is never fired. In a real remote data
      * source implementation, this would be fired if the server can't be contacted or the server
@@ -85,13 +87,39 @@ object NavsRemoteDataSource : NavsDataSource {
 
             override fun onFailure(call: Call<List<Nav>>?, t: Throwable?) {
                 callback.onDataNotAvailable()
+                isFailure = true
+                val newCall = call?.clone()
+                newCall?.enqueue(object : Callback<List<Nav>> {
+
+                    override fun onFailure(call: Call<List<Nav>>?, t: Throwable?) {
+                        callback.onDataNotAvailable()
+                    }
+
+                    override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>?) {
+
+                        if (response != null) {
+
+                            response.body()?.let { callback.onNavsLoaded(it) }
+
+                        } else {
+
+                            // Todo this is no data
+
+                        }
+
+                    }
+
+                })
             }
 
             override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>?) {
 
                 if (response != null) {
 
-                    response.body()?.let { callback.onNavsLoaded(it) }
+                    response.body()?.let {
+                        callback.onNavsLoaded(it)
+                        isFailure = false
+                    }
 
                 } else {
 
@@ -183,7 +211,7 @@ object NavsRemoteDataSource : NavsDataSource {
          */
         val baseInterceptor = Interceptor {
             var request = it.request()
-            if (!NetworkUtils.isNetworkAvailable(context)) {
+            if (isFailure || !NetworkUtils.isNetworkAvailable(context)) {
                 /**
                  * 离线缓存控制  总的缓存时间=在线缓存时间+设置离线缓存时间
                  */
