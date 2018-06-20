@@ -99,7 +99,10 @@ object NavsRemoteDataSource : NavsDataSource {
 
                         if (response != null) {
 
-                            response.body()?.let { callback.onNavsLoaded(it) }
+                            response.body()?.let {
+                                callback.onNavsLoaded(it)
+                                isFailure = false
+                            }
 
                         } else {
 
