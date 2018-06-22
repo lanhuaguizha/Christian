@@ -3,6 +3,7 @@ package com.christian.navadapter
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.christian.R
 import com.christian.data.Nav
@@ -50,15 +51,26 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
 
     override fun onBindViewHolder(holder: NavItemView, position: Int) {
 
-        if (hasElevation) {
-            navItemView.animate(holder.itemView)
+        if (navs[position].subtitle == "") {
+
+            holder.itemView.visibility = View.GONE
+
+        } else {
+
+            holder.itemView.visibility = View.VISIBLE
+
+            if (hasElevation) {
+                navItemView.animate(holder.itemView)
+            }
+
+            holder.tv_subtitle_nav_item.text = navs[position].subtitle
+
+            holder.tv_title_nav_item.text = navs[position].title
+
+            holder.tv_detail_nav_item.text = navs[position].detail
+
         }
 
-        holder.tv_subtitle_nav_item.text = navs[position].subtitle
-
-        holder.tv_title_nav_item.text = navs[position].title
-
-        holder.tv_detail_nav_item.text = navs[position].detail
-
     }
+
 }
