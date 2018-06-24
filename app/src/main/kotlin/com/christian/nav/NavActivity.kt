@@ -353,9 +353,9 @@ open class NavActivity : ActBase(), NavContract.View {
      */
     private fun startNav(navId: Int) {
 
-        if (navId == 0) {
+//        if (navId == 0) {
             presenter.insertNav(navId)
-        }
+//        }
 
     }
 

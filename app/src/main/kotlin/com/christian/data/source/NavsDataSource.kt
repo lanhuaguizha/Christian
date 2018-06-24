@@ -1,7 +1,7 @@
 package com.christian.data.source
 
-import android.content.Context
 import com.christian.data.Nav
+import retrofit2.Call
 
 /**
  * Write Nav model, first of all you think there are ways to
@@ -23,7 +23,7 @@ interface NavsDataSource {
         fun onDataNotAvailable()
     }
 
-    fun getNavs(ctx: Context, callback: LoadNavsCallback)
+    fun getNavs(call: Call<List<Nav>>, callback: LoadNavsCallback)
 
     fun getNav(navId: String, callback: GetNavCallback)
 

@@ -27,7 +27,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     //文件路径
     private static final String PATH = Environment.getExternalStorageDirectory().getPath() + File.separator + "crash";
     private static final String FILE_NAME = "crash";
-    private static final String FILE_NAME_SUFEIX = ".trace";
+    private static final String FILE_NAME_SUFEIX = ".txt";
     private static Thread.UncaughtExceptionHandler mDefaultCrashHandler;
     private static WeakReference<CrashHandler> mCrashHandler = new WeakReference<>(new CrashHandler());
     private Context mContext;
