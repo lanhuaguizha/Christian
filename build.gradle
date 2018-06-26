@@ -8,7 +8,7 @@ buildscript {
 
     ext.android_support_lib_version = '27.1.1'
 
-    ext.room_vertion = '1.0.0'
+    ext.room_vertion = '1.1.1'
 
     ext.guava_version = '22.0-android'
 
