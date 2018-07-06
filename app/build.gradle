@@ -15,7 +15,7 @@ android {
         applicationId "com.christian"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode = Integer.valueOf("" + appVersionCode).intValue()
+        versionCode = Integer.valueOf("" + appVersionCode).floatValue()
         versionName "${appVersionName}"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -58,6 +58,10 @@ android {
             // set in the src/main/ directory.
             manifest.srcFile 'src/main/AndroidManifest.xml'
         }
+    }
+
+    kapt {
+        generateStubs = true
     }
 }
 

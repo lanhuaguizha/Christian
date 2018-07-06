@@ -2,9 +2,9 @@
 
 buildscript {
 
-    ext.kotlin_version = '1.2.30'
+    ext.kotlin_version = '1.2.51'
 
-    ext.anko_version='0.10.4'
+    ext.anko_version = '0.10.4'
 
     ext.android_support_lib_version = '27.1.1'
 
@@ -12,8 +12,8 @@ buildscript {
 
     ext.guava_version = '22.0-android'
 
-    ext.appVersionCode = 0
-    ext.appVersionName = 0.0
+    ext.appVersionCode = 1
+    ext.appVersionName = 1.0
 
     repositories {
 

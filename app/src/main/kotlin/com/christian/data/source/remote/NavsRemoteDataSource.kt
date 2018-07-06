@@ -18,6 +18,8 @@ package com.christian.data.source.remote
 import android.os.Handler
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.debug
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +28,7 @@ import retrofit2.Response
 /**
  * Implementation of the data source that adds a latency simulating network.
  */
-object NavsRemoteDataSource : NavsDataSource {
+object NavsRemoteDataSource : NavsDataSource, AnkoLogger {
 
     private const val SERVICE_LATENCY_IN_MILLIS = 5000L
 
@@ -42,8 +44,6 @@ object NavsRemoteDataSource : NavsDataSource {
         NAVS_SERVICE_DATA.put(newNav.id, newNav)
     }
 
-    var isFailure: Boolean = false
-
     /**
      * Note: [NavsDataSource.LoadNavsCallback.onDataNotAvailable] is never fired. In a real remote data
      * source implementation, this would be fired if the server can't be contacted or the server
@@ -55,49 +55,20 @@ object NavsRemoteDataSource : NavsDataSource {
         newCall.enqueue(object : Callback<List<Nav>> {
 
             override fun onFailure(call: Call<List<Nav>>?, t: Throwable?) {
+                debug { "onFailure${t.toString()}" }
                 callback.onDataNotAvailable()
-                isFailure = true
-                val newCall = call?.clone()
-                newCall?.enqueue(object : Callback<List<Nav>> {
-
-                    override fun onFailure(call: Call<List<Nav>>?, t: Throwable?) {
-                        callback.onDataNotAvailable()
-                    }
-
-                    override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>?) {
-
-                        if (response != null) {
-
-                            response.body()?.let {
-                                callback.onNavsLoaded(it)
-                                isFailure = false
-                            }
-
-                        } else {
-
-                            // Todo this is no data
-
-                        }
-
-                    }
-
-                })
             }
 
-            override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>?) {
-
-                if (response != null) {
-
-                    response.body()?.let {
-                        callback.onNavsLoaded(it)
-                        isFailure = false
-                    }
-
-                } else {
-
-                    // Todo this is no data
-
+            override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>) {
+                when (response.code()) {
+                    504 -> "No Cache And No Net"
                 }
+                debug { "onResponse${response.toString()}" }
+
+                response.body()?.let {
+                    callback.onNavsLoaded(it)
+                }
+
 
             }
 

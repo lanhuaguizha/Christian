@@ -3,12 +3,14 @@ package com.christian.data.source.remote
 import com.christian.data.Nav
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.Headers
 
 
 interface NavService {
 
+//    @Headers("Cache-Control", "public, max-age=0")
+
+//    @Headers("Cache-Control: public, max-age=0")
     @GET("nav")
     fun getNavs(): Call<List<Nav>>
 }

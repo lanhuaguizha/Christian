@@ -7,6 +7,8 @@ import com.christian.data.source.NavsDataSource
 import com.christian.data.source.NavsRepository
 import com.christian.data.source.remote.NavService
 import com.christian.data.source.remote.NavsRemoteDataSource
+import com.christian.http.CacheInterceptor
+import com.christian.http.SdHelper
 import com.christian.util.HttpLoggingInterceptor
 import com.christian.util.NetworkUtils
 import okhttp3.Cache
@@ -46,8 +48,8 @@ class NavPresenter(
         navView.presenter = this
 
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.193:8080/")
-//                .baseUrl("http://10.200.69.48:8080/")
+//                .baseUrl("http://192.168.0.193:8080/")
+                .baseUrl("http://10.200.69.38:8080/")
                 .client(getOkHttpClient(navView as NavActivity, true, true))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -109,45 +111,19 @@ class NavPresenter(
      * @return
      */
     private fun getOkHttpClient(context: Context, isAllowCache: Boolean, cacheMethod: Boolean): OkHttpClient {
-
-        /**
-         * 获取缓存
-         */
-        val baseInterceptor = Interceptor {
-            var request = it.request()
-            if (NavsRemoteDataSource.isFailure || !NetworkUtils.isNetworkAvailable(context)) {
-                /**
-                 * 离线缓存控制  总的缓存时间=在线缓存时间+设置离线缓存时间
-                 */
-                val maxStale = 60 * 60 * 24 * 28 // 离线时缓存保存4周,单位:秒
-                val tempCacheControl = CacheControl.Builder()
-                        .onlyIfCached()
-                        .maxStale(maxStale, TimeUnit.SECONDS)
-                        .build()
-                request = request.newBuilder()
-                        .cacheControl(tempCacheControl)
-                        .build()
-                Log.i(TAG, "intercept:no network ")
-            }
-            it.proceed(request)
-        }
-        //只有 网络拦截器环节 才会写入缓存写入缓存,在有网络的时候 设置缓存时间
-        val rewriteCacheControlInterceptor = HttpLoggingInterceptor(isAllowCache)
-        //设置缓存路径 内置存储
-        //File httpCacheDirectory = new File(context.getCacheDir(), "responses");
-        //外部存储
-        val httpCacheDirectory = File(context.externalCacheDir, "responses")
-        //设置缓存 10M
-        val cacheSize = DEFAULT_HTTP_CACHE_SIZE
-        val cache = Cache(httpCacheDirectory, cacheSize)
         val builder = OkHttpClient.Builder()
-        builder.cache(cache)
-        if (isAllowCache && cacheMethod) {
-            builder.addInterceptor(baseInterceptor)
-        }
-        builder.addNetworkInterceptor(rewriteCacheControlInterceptor)
+        builder.cache(getCache())
+//        if (isAllowCache && cacheMethod) {
+//            builder.addInterceptor(baseInterceptor)
+//        }
+        builder.addInterceptor(CacheInterceptor())
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
         return builder.build()
     }
 
+    private fun getCache(): Cache {
+        val httpCacheDirectory = File(SdHelper.getDiskCacheDir(), "responses")
+        val cacheSize = 10 * 1024 * 1024//确定10M大小的缓存
+        return Cache(httpCacheDirectory, cacheSize.toLong())
+    }
 }
