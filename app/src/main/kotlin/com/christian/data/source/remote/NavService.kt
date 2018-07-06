@@ -10,7 +10,7 @@ interface NavService {
 
 //    @Headers("Cache-Control", "public, max-age=0")
 
-//    @Headers("Cache-Control: public, max-age=0")
+    @Headers("Cache-Control: max-age=60")
     @GET("nav")
     fun getNavs(): Call<List<Nav>>
 }
