@@ -16,6 +16,7 @@
 package com.christian.data.source.remote
 
 import android.os.Handler
+import android.util.Log
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
 import org.jetbrains.anko.AnkoLogger
@@ -56,12 +57,14 @@ object NavsRemoteDataSource : NavsDataSource, AnkoLogger {
 
             override fun onFailure(call: Call<List<Nav>>?, t: Throwable?) {
                 debug { "onFailure${t.toString()}" }
+                Log.d("cache_log", "onFailure")
                 callback.onDataNotAvailable()
             }
 
             override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>) {
+                Log.d("cache_log", response.code().toString())
                 when (response.code()) {
-                    504 -> "No Cache And No Net"
+                    504 -> callback.onDataNotAvailable()
                 }
                 debug { "onResponse${response.toString()}" }
 

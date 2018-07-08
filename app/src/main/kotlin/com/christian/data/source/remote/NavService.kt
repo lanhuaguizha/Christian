@@ -8,9 +8,7 @@ import retrofit2.http.Headers
 
 interface NavService {
 
-//    @Headers("Cache-Control", "public, max-age=0")
-
-    @Headers("Cache-Control: max-age=60")
+//    @Headers("Cache-Control: max-age=60")
     @GET("nav")
     fun getNavs(): Call<List<Nav>>
 }

@@ -1,20 +1,15 @@
 package com.christian.nav
 
-import android.content.Context
-import android.util.Log
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
 import com.christian.data.source.NavsRepository
 import com.christian.data.source.remote.NavService
-import com.christian.data.source.remote.NavsRemoteDataSource
 import com.christian.http.CacheInterceptor
 import com.christian.http.SdHelper
-import com.christian.util.HttpLoggingInterceptor
-import com.christian.util.NetworkUtils
+import com.christian.http.cache.CacheStrategy
 import okhttp3.Cache
-import okhttp3.CacheControl
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -48,9 +43,9 @@ class NavPresenter(
         navView.presenter = this
 
         val retrofit = Retrofit.Builder()
-//                .baseUrl("http://192.168.0.193:8080/")
-                .baseUrl("http://10.200.69.38:8080/")
-                .client(getOkHttpClient(navView as NavActivity, true, true))
+                .baseUrl("http://192.168.0.193:8080/")
+//                .baseUrl("http://10.200.69.38:8080/")
+                .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         val navService = retrofit.create(NavService::class.java)
@@ -103,20 +98,17 @@ class NavPresenter(
     }
 
     /**
-     * 缓存策略
-     *
-     * @param context
-     * @param isAllowCache 是否允许使用缓存策略
-     * @param cacheMethod  false:有网和没有网都是先读缓存 true:离线可以缓存，在线就获取最新数据 default=false
-     * @return
+     * Cache strategy
      */
-    private fun getOkHttpClient(context: Context, isAllowCache: Boolean, cacheMethod: Boolean): OkHttpClient {
+    private fun getOkHttpClient(): OkHttpClient {
+
+        val logInterceptor = HttpLoggingInterceptor(CacheStrategy())
+        logInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
         val builder = OkHttpClient.Builder()
         builder.cache(getCache())
-//        if (isAllowCache && cacheMethod) {
-//            builder.addInterceptor(baseInterceptor)
-//        }
         builder.addInterceptor(CacheInterceptor())
+        builder.addNetworkInterceptor(CacheInterceptor())
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
         return builder.build()
     }
@@ -126,4 +118,5 @@ class NavPresenter(
         val cacheSize = 10 * 1024 * 1024//确定10M大小的缓存
         return Cache(httpCacheDirectory, cacheSize.toLong())
     }
+
 }

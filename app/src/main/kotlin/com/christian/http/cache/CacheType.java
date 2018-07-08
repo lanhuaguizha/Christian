@@ -11,11 +11,11 @@ public class CacheType {
     /**
      * 只读取缓存
      */
-    public static final int ONLY_CACHE = 0;
+//    public static final int ONLY_CACHE = 0;
     /**
      * 只读取网络
      */
-    public static final int ONLY_NETWORK = 1;
+//    public static final int ONLY_NETWORK = 1;
     /**
      * 读取缓存，如果缓存不存在则读取网络
      */

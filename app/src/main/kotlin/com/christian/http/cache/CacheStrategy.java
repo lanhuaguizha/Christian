@@ -1,19 +1,27 @@
 package com.christian.http.cache;
 
+import android.text.TextUtils;
+import android.util.Log;
+import com.christian.ChristianApplication;
+import com.christian.util.NetworkUtils;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
 
 /**
  * 仅仅请求缓存策略
  */
-public class CacheStrategy implements BaseRequestStrategy {
+public class CacheStrategy implements BaseRequestStrategy, HttpLoggingInterceptor.Logger {
+
+    private static final String TAG = CacheStrategy.class.getSimpleName();
 
     private static final float MAX_STALE = 60 * 60 * 24 * 30;//过期时间为30天
     private float mMaxStale;//缓存过期时间
+    boolean mForceReadCache;
 
     public CacheStrategy() {
         mMaxStale = MAX_STALE;
@@ -32,12 +40,44 @@ public class CacheStrategy implements BaseRequestStrategy {
     @Override
     public Response request(Interceptor.Chain chain) throws IOException {
         Request request = chain.request();
-        request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();//没有网络，直接读取缓存
+        if (!NetworkUtils.isNetworkAvailable(ChristianApplication.context) || mForceReadCache) {
+            request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();//没有网络，直接读取缓存
+            Log.d(TAG, "cache_log " + "!isNetworkAvailable " + !NetworkUtils.isNetworkAvailable(ChristianApplication.context) + " mForceReadCache " + mForceReadCache);
+        }
         Response response = chain.proceed(request);
-        response = response.newBuilder()// only-if-cached完全使用缓存，如果命中失败，则返回503错误
-                .header("Cache-Control", "public, only-if-cached, max-stale=" + mMaxStale)
-                .removeHeader("Pragma")
-                .build();
+
+        String serverCache = response.header("Cache-Control");
+
+        if (TextUtils.isEmpty(serverCache)) { // 如果服务器没有设置缓存策略，则设置为立即请求网络
+            String cacheControl = request.cacheControl().toString();
+            if (TextUtils.isEmpty(cacheControl)) {
+                // 如果请求接口中未设置cacheControl，则统一设置为0分钟
+                int maxAge = 0;
+                Log.d(TAG, "cache_log " + "public, only-if-cached, max-stale=" + maxAge);
+                return response.newBuilder()
+                        .removeHeader("Pragma")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
+                        .removeHeader("Cache-Control")
+                        .header("Cache-Control", "public, only-if-cached, max-stale=" + mMaxStale)
+                        .build();
+            } else {  // 如果服务端设置相应的缓存策略那么遵从服务端的不做修改
+                Log.d(TAG, "cache_log " + "Cache-Control " + cacheControl);
+                return response.newBuilder()
+                        .addHeader("Cache-Control", cacheControl)
+                        .removeHeader("Pragma")
+                        .build();
+            }
+        }
+
         return response;
+    }
+
+    @Override
+    public void log(String message) {
+        Log.d("http_log", message);
+    }
+
+    void setForceReadCache(boolean readCache) {
+        Log.d(TAG, "cache_log " + "setForceReadCache " + readCache);
+        mForceReadCache = readCache;
     }
 }
