@@ -16,16 +16,6 @@ import java.io.IOException;
 public class NetworkStrategy implements BaseRequestStrategy, HttpLoggingInterceptor.Logger {
 
     private static final String TAG = NetworkStrategy.class.getSimpleName();
-    private static final float MAX_AGE = 0;
-    private float mMaxAge; //表示当访问此网页后的max-age秒内再次访问不会去服务器请求
-
-    public NetworkStrategy() {
-        mMaxAge = MAX_AGE;
-    }
-
-    public NetworkStrategy(float maxAge) {
-        this.mMaxAge = MAX_AGE;
-    }
 
     @Override
     public Response request(Interceptor.Chain chain) throws IOException {

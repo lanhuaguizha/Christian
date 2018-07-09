@@ -20,16 +20,7 @@ public class CacheStrategy implements BaseRequestStrategy, HttpLoggingIntercepto
     private static final String TAG = CacheStrategy.class.getSimpleName();
 
     private static final float MAX_STALE = 60 * 60 * 24 * 30;//过期时间为30天
-    private float mMaxStale;//缓存过期时间
     boolean mForceReadCache;
-
-    public CacheStrategy() {
-        mMaxStale = MAX_STALE;
-    }
-
-    public CacheStrategy(float maxStale) {
-        this.mMaxStale = maxStale;
-    }
 
     /**
      * 请求策略
@@ -52,12 +43,11 @@ public class CacheStrategy implements BaseRequestStrategy, HttpLoggingIntercepto
             String cacheControl = request.cacheControl().toString();
             if (TextUtils.isEmpty(cacheControl)) {
                 // 如果请求接口中未设置cacheControl，则统一设置为0分钟
-                int maxAge = 0;
-                Log.d(TAG, "cache_log " + "public, only-if-cached, max-stale=" + maxAge);
+                Log.d(TAG, "cache_log " + "public, only-if-cached, max-stale=" + MAX_STALE);
                 return response.newBuilder()
                         .removeHeader("Pragma")// 清除头信息，因为服务器如果不支持，会返回一些干扰信息，不清除下面无法生效
                         .removeHeader("Cache-Control")
-                        .header("Cache-Control", "public, only-if-cached, max-stale=" + mMaxStale)
+                        .header("Cache-Control", "public, only-if-cached, max-stale=" + MAX_STALE)
                         .build();
             } else {  // 如果服务端设置相应的缓存策略那么遵从服务端的不做修改
                 Log.d(TAG, "cache_log " + "Cache-Control " + cacheControl);
