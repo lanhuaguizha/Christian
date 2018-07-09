@@ -11,7 +11,7 @@ public class CacheType {
     /**
      * 只读取缓存
      */
-//    public static final int ONLY_CACHE = 0;
+    public static final int ONLY_CACHE = 0;
     /**
      * 只读取网络
      */

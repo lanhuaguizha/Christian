@@ -23,9 +23,9 @@ public class CacheInterceptor implements Interceptor {
         if (cacheTypeHeader != null) {
             int cacheType = Integer.parseInt(cacheTypeHeader);
             switch (cacheType) {
-//                case CacheType.ONLY_CACHE:
-//                    requestStrategy.setBaseRequestStrategy(new CacheStrategy());
-//                    break;
+                case CacheType.ONLY_CACHE:
+                    requestStrategy.setBaseRequestStrategy(new CacheStrategy());
+                    break;
                 case CacheType.ONLY_NETWORK:
                     requestStrategy.setBaseRequestStrategy(new NetworkStrategy());
                     break;
