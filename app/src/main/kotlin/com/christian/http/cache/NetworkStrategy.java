@@ -20,6 +20,12 @@ public class NetworkStrategy implements BaseRequestStrategy, HttpLoggingIntercep
     @Override
     public Response request(Interceptor.Chain chain) throws IOException {
         Request request = chain.request();
+
+        // bug: unexpected end of stream on Connection{192.168.0.193:8080, proxy=DIRECT hostAddress=/192.168.0.193:8080 cipherSuite=none protocol=http/1.1
+        request = request.newBuilder()
+                .addHeader("Connection", "close")
+                .build();
+
         Response response = chain.proceed(request);
 
         String serverCache = response.header("Cache-Control");
@@ -38,8 +44,8 @@ public class NetworkStrategy implements BaseRequestStrategy, HttpLoggingIntercep
             } else {
                 Log.d(TAG, "cache_log" + "Cache-Control: max-age= " + cacheControl);
                 return response.newBuilder()
-                        .addHeader("Cache-Control", cacheControl)
                         .removeHeader("Pragma")
+                        .addHeader("Cache-Control", cacheControl)
                         .build();
             }
         }

@@ -35,7 +35,7 @@ public class NetworkCacheStrategy implements BaseRequestStrategy, HttpLoggingInt
             Log.d(TAG, "cache_log " + e.toString());
             try {
                 Log.d(TAG, "cache_log " + "request cache");
-                cacheStrategy.setForceReadCache(true);
+//                cacheStrategy.setForceReadCache(true);
                 response = cacheStrategy.request(chain);
             } catch (IOException e1) {
                 //忽略不处理

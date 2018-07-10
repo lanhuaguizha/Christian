@@ -29,10 +29,10 @@ public class CacheNetworkStrategy implements BaseRequestStrategy, HttpLoggingInt
         try {
             Log.d(TAG, "cache_log " + "request cache");
             response = cacheStrategy.request(chain);
-            Log.d(TAG, "cache_log " + "mForceReadCache " + cacheStrategy.mForceReadCache);
-            if (response.code() == 504 && !cacheStrategy.mForceReadCache) {
+            Log.d(TAG, "cache_log " + "mForceReadCache ");
+            if (response.code() == 504) {
                 Log.d(TAG, "cache_log " + "response.code() " + 504);
-                return networkStrategy.request(chain);
+                return networkCacheStrategy.request(chain);
             }
         } catch (Exception e) {
             Log.d(TAG, "cache_log " + e.toString());

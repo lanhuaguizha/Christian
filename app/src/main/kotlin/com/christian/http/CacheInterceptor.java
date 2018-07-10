@@ -14,8 +14,8 @@ public class CacheInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         RequestStrategy requestStrategy = new RequestStrategy();
-        String cacheTypeHeader = String.valueOf(CacheType.CACHE_ELSE_NETWORK_ELSE_CACHE);
-//        String cacheTypeHeader = String.valueOf(CacheType.NETWORK_ELSE_CACHE);
+//        String cacheTypeHeader = String.valueOf(CacheType.CACHE_ELSE_NETWORK_ELSE_CACHE);
+        String cacheTypeHeader = String.valueOf(CacheType.NETWORK_ELSE_CACHE);
 //        String cacheTypeHeader = String.valueOf(CacheType.ONLY_CACHE);
 //        String cacheTypeHeader = String.valueOf(CacheType.ONLY_NETWORK);
 

@@ -20,7 +20,6 @@ public class CacheStrategy implements BaseRequestStrategy, HttpLoggingIntercepto
     private static final String TAG = CacheStrategy.class.getSimpleName();
 
     private static final float MAX_STALE = 60 * 60 * 24 * 30;//过期时间为30天
-    boolean mForceReadCache;
 
     /**
      * 请求策略
@@ -31,10 +30,10 @@ public class CacheStrategy implements BaseRequestStrategy, HttpLoggingIntercepto
     @Override
     public Response request(Interceptor.Chain chain) throws IOException {
         Request request = chain.request();
-        if (!NetworkUtils.isNetworkAvailable(ChristianApplication.context) || mForceReadCache) {
+//        if (!NetworkUtils.isNetworkAvailable(ChristianApplication.context)) {
             request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();//没有网络，直接读取缓存
-            Log.d(TAG, "cache_log " + "!isNetworkAvailable " + !NetworkUtils.isNetworkAvailable(ChristianApplication.context) + " mForceReadCache " + mForceReadCache);
-        }
+            Log.d(TAG, "cache_log " + "!isNetworkAvailable " + !NetworkUtils.isNetworkAvailable(ChristianApplication.context));
+//        }
         Response response = chain.proceed(request);
 
         String serverCache = response.header("Cache-Control");
@@ -66,8 +65,8 @@ public class CacheStrategy implements BaseRequestStrategy, HttpLoggingIntercepto
         Log.d("http_log", message);
     }
 
-    void setForceReadCache(boolean readCache) {
-        Log.d(TAG, "cache_log " + "setForceReadCache " + readCache);
-        mForceReadCache = readCache;
-    }
+//    void setForceReadCache(boolean readCache) {
+//        Log.d(TAG, "cache_log " + "setForceReadCache " + readCache);
+//        mForceReadCache = readCache;
+//    }
 }

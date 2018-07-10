@@ -107,7 +107,7 @@ class NavPresenter(
 
         val builder = OkHttpClient.Builder()
         builder.cache(getCache())
-        builder.addInterceptor(CacheInterceptor())
+        builder.addInterceptor(CacheInterceptor()) //为了在没有网络的情况下也能设置request和response
         builder.addNetworkInterceptor(CacheInterceptor())
         builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
         return builder.build()
