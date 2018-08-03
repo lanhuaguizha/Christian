@@ -21,16 +21,16 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
-        debug {
-            // Very important to reduce the apk size
-            setMinifyEnabled(false)
-            shrinkResources false
-        }
-        release {
-            setMinifyEnabled(true)
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+//        debug {
+//            // Very important to reduce the apk size
+//            setMinifyEnabled(false)
+//            shrinkResources false
+//        }
+//        release {
+//            setMinifyEnabled(true)
+//            shrinkResources true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
     }
 
     sourceSets {

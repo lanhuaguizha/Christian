@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Christian APP</string>
+    <string name="app_name">Christian</string>
     <string name="title_home">Home</string>
     <string name="title_book">Gospel</string>
     <string name="title_chat">Chat</string>

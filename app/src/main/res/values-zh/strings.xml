@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">基督门徒APP</string>
+    <string name="app_name">基督门徒</string>
     <string name="title_home">主页</string>
     <string name="title_book">福音</string>
     <string name="title_chat">交通</string>
