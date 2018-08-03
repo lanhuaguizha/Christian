@@ -2,8 +2,6 @@ package com.christian.http.cache;
 
 import android.text.TextUtils;
 import android.util.Log;
-import com.christian.ChristianApplication;
-import com.christian.util.NetworkUtils;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -30,10 +28,7 @@ public class CacheStrategy implements BaseRequestStrategy, HttpLoggingIntercepto
     @Override
     public Response request(Interceptor.Chain chain) throws IOException {
         Request request = chain.request();
-//        if (!NetworkUtils.isNetworkAvailable(ChristianApplication.context)) {
-            request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();//没有网络，直接读取缓存
-            Log.d(TAG, "cache_log " + "!isNetworkAvailable " + !NetworkUtils.isNetworkAvailable(ChristianApplication.context));
-//        }
+        request = request.newBuilder().cacheControl(CacheControl.FORCE_CACHE).build();//没有网络，直接读取缓存
         Response response = chain.proceed(request);
 
         String serverCache = response.header("Cache-Control");
@@ -64,9 +59,4 @@ public class CacheStrategy implements BaseRequestStrategy, HttpLoggingIntercepto
     public void log(String message) {
         Log.d("http_log", message);
     }
-
-//    void setForceReadCache(boolean readCache) {
-//        Log.d(TAG, "cache_log " + "setForceReadCache " + readCache);
-//        mForceReadCache = readCache;
-//    }
 }

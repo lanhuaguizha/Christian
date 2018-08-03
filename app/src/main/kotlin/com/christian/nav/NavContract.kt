@@ -101,9 +101,7 @@ class NavContract {
          * query()
          */
 
-        fun insertNav(itemId: Int)
-
-        fun insertNav(itemId: Int, isSrl: Boolean)
+        fun insertNav(itemId: Int, isSrl: Boolean = false)
 
         fun updateNav(navs: List<Nav>)
 

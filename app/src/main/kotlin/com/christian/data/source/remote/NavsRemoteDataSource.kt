@@ -21,6 +21,7 @@ import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
+import org.jetbrains.anko.info
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,7 +57,7 @@ object NavsRemoteDataSource : NavsDataSource, AnkoLogger {
         newCall.enqueue(object : Callback<List<Nav>> {
 
             override fun onFailure(call: Call<List<Nav>>?, t: Throwable?) {
-                debug { "onFailure${t.toString()}" }
+                info { "onFailure${t.toString()}" }
                 Log.d("cache_log", "onFailure")
                 callback.onDataNotAvailable()
             }
@@ -66,7 +67,7 @@ object NavsRemoteDataSource : NavsDataSource, AnkoLogger {
                 when (response.code()) {
                     504 -> callback.onDataNotAvailable()
                 }
-                debug { "onResponse${response.toString()}" }
+                info { "onResponse:${response.toString()}" }
 
                 response.body()?.let {
                     callback.onNavsLoaded(it)

@@ -10,6 +10,8 @@ import com.christian.http.cache.CacheStrategy
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -25,7 +27,7 @@ import java.util.concurrent.TimeUnit
 class NavPresenter(
         private val navId: String,
         private val navsRepository: NavsRepository,
-        private val navView: NavContract.View) : NavContract.Presenter {
+        private val navView: NavContract.View) : NavContract.Presenter, AnkoLogger {
 
     private var call: Call<List<Nav>>
 
@@ -59,16 +61,19 @@ class NavPresenter(
 
     }
 
-    override fun insertNav(itemId: Int) {
-
-        insertNav(itemId, false)
-
-    }
-
     override fun insertNav(itemId: Int, isSrl: Boolean) {
 
-        if (isSrl) navView.stopPb() else navView.startPb()
+        if (isSrl) {
+            navView.stopPb()
+        } else {
+            navView.startPb()
+            navView.stopSrl()
+        }
 
+        info { call.toString() }
+        if (call.isExecuted) {
+            call.cancel()
+        }
         navsRepository.getNavs(call, object : NavsDataSource.LoadNavsCallback {
 
             override fun onNavsLoaded(navs: List<Nav>) {
