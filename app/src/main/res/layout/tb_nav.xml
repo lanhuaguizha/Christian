@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar_actionbar"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/actionBarSize"
+    android:layout_height="@dimen/action_bar_height"
     android:theme="@style/AppTheme.AppBarOverlay"
     app:contentInsetStart="0dp"
     app:layout_scrollFlags="scroll|enterAlways"
