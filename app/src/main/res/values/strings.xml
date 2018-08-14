@@ -1,8 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Christian</string>
+
     <string name="title_home">Home</string>
     <string name="title_book">Gospel</string>
-    <string name="title_chat">Chat</string>
+    <string name="title_chat">Fellowship</string>
+    <string name="title_me">Me</string>
+
     <string name="title_poetry">Poetry</string>
     <string name="title_video">Video</string>
     <string name="version">Version: 0.0.1</string>
@@ -11,7 +16,6 @@
     <string name="description_share">Share</string>
     <string name="title_home_detail">Home Details</string>
     <string name="go_back">Go Back</string>
-    <string name="title_me">Me</string>
     <string name="content_empty">The content is empty</string>
     <string name="search_font_family">sans-serif</string>
     <string name="description_search">Search Gospel</string>

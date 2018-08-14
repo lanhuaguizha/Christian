@@ -187,7 +187,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
         //set background, if your root layout doesn't have one
         val windowBackground = window.decorView.background
-        val radius = 10f
+        val radius = 25f
         bv_nav.setupWith(fl_nav)
                 .windowBackground(windowBackground)
                 .blurAlgorithm(SupportRenderScriptBlur(this))

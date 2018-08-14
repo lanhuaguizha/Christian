@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">基督门徒</string>
-    <string name="title_home">主页</string>
+
+    <!--app name-->
+    <string name="app_name">基督徒</string>
+    <!--tabs-->
+    <string name="title_home">首页</string>
     <string name="title_book">福音</string>
     <string name="title_chat">交通</string>
+    <string name="title_me">我的</string>
+
     <string name="title_poetry">诗歌</string>
     <string name="title_video">影视</string>
     <string name="version">版本：0.0.1</string>
@@ -12,7 +17,6 @@
     <string name="description_share">分享</string>
     <string name="title_home_detail">主页内容</string>
     <string name="go_back">返回</string>
-    <string name="title_me">我的</string>
     <string name="content_empty">内容为空</string>
     <string name="description_search" msgid="3574350254520035364">"搜索福音"</string>
     <string name="description_start_voice_search" msgid="520539488194946012">"开始语音搜索"</string>
