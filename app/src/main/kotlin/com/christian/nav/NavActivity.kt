@@ -202,7 +202,7 @@ open class NavActivity : ActBase(), NavContract.View {
 
     open fun initFAB(drawableId: Int) {
 
-        fab_nav.visibility = View.VISIBLE
+        fab_nav.visibility = View.GONE
 
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.show()
