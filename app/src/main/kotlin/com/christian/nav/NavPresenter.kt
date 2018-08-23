@@ -45,8 +45,8 @@ class NavPresenter(
         navView.presenter = this
 
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.193:8080/")
-//                .baseUrl("http://10.200.69.38:8080/")
+//                .baseUrl("http://192.168.0.193:8080/")
+                .baseUrl("http://10.200.11.209:8080/")
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

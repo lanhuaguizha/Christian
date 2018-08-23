@@ -154,24 +154,14 @@ open class NavActivity : ActBase(), NavContract.View {
         rv_nav.addOnScrollListener(object : HidingScrollListener() {
 
             override fun onHide() {
-
                 fab_nav.hide()
-
             }
 
             override fun onShow() {
-
-                fab_nav.hide()
-//                showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
-
+                fab_nav.show()
             }
 
             override fun onTop() {
-
-                fab_nav.hide()
-//                showFab(R.drawable.ic_edit_black_24dp)
-                Log.i("bottom", "onTop")
-
             }
 
             override fun onBottom() {
@@ -212,9 +202,10 @@ open class NavActivity : ActBase(), NavContract.View {
 
     open fun initFAB(drawableId: Int) {
 
-        fab_nav.visibility = View.INVISIBLE
+        fab_nav.visibility = View.VISIBLE
 
-        showFab(drawableId)
+        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
+        fab_nav.show()
 
         fab_nav.setOnClickListener(null)
 
@@ -254,9 +245,9 @@ open class NavActivity : ActBase(), NavContract.View {
 
         runLayoutAnimation(rv_nav)
 
-//        fab_nav.postDelayed({
-//            initFAB(R.drawable.ic_edit_black_24dp)
-//        }, SHOTRER_DURATION)
+        fab_nav.postDelayed({
+            initFAB(R.drawable.ic_edit_black_24dp)
+        }, SHOTRER_DURATION)
 
     }
 
@@ -265,32 +256,32 @@ open class NavActivity : ActBase(), NavContract.View {
 
     override fun showFab(drawableId: Int) {
 
-        if (!fab_nav.isGone) {
-            Log.i("fab", "hide")
-            fab_nav.hide()
-        }
+//        if (!fab_nav.isGone) {
+//            Log.i("fab", "hide")
+//            fab_nav.hide()
+//        }
 
-        fab_nav.postDelayed({
-            fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, theme))
-            fab_nav.show()
-            Log.i("fab", "show")
-        }, SHOTRER_DURATION)
+//        fab_nav.postDelayed({
+//            fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, theme))
+//            fab_nav.show()
+//            Log.i("fab", "show")
+//        }, SHOTRER_DURATION)
 
-        when (drawableId) {
-
-            R.drawable.ic_edit_black_24dp -> {
-
-                fab_nav.setOnClickListener(null)
-
-            }
-
-            R.drawable.ic_keyboard_arrow_up_black_24dp -> {
-
-                fab_nav.setOnClickListener { scrollRvToTop() }
-
-            }
-
-        }
+//        when (drawableId) {
+//
+//            R.drawable.ic_edit_black_24dp -> {
+//
+//                fab_nav.setOnClickListener(null)
+//
+//            }
+//
+//            R.drawable.ic_keyboard_arrow_up_black_24dp -> {
+//
+//                fab_nav.setOnClickListener { scrollRvToTop() }
+//
+//            }
+//
+//        }
 
     }
 

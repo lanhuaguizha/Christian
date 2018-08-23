@@ -34,7 +34,7 @@
 
         <com.christian.view.AnimatedFloatingActionButton
             android:id="@+id/fab_nav"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

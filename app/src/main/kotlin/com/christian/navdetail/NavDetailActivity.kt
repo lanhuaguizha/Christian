@@ -2,6 +2,7 @@ package com.christian.navdetail
 
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
@@ -58,14 +59,11 @@ class NavDetailActivity : NavActivity() {
 
             override fun onShow() {
 
-                showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
+                fab_nav.show()
 
             }
 
             override fun onTop() {
-
-                fab_nav.hide()
-
             }
 
             override fun onBottom() {
@@ -79,7 +77,8 @@ class NavDetailActivity : NavActivity() {
         fab_nav.visibility = View.INVISIBLE
 
         // set FAB image
-//        showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
+        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_keyboard_arrow_up_black_24dp, theme))
+        fab_nav.show()
 
         // set FAB animate to hide's behavior
 
