@@ -94,11 +94,11 @@ class NavContract {
          *
          * insert()
          *
-         * update()
-         *
          * delete()
          *
-         * query()
+         * update()
+         *
+         * select()
          */
 
         fun insertNav(itemId: Int, isSrl: Boolean = false)
