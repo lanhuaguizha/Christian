@@ -13,7 +13,7 @@ import com.christian.BottomNavigationViewBehaviorExt
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.nav.NavActivity
-import com.christian.navadapter.NavItemPresenter
+import com.christian.navitem.NavItemPresenter
 import com.christian.view.ItemDecoration
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.sb_nav.*

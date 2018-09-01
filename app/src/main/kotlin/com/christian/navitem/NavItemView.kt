@@ -1,4 +1,4 @@
-package com.christian.navadapter
+package com.christian.navitem
 
 import android.content.Intent
 import android.support.v4.content.res.ResourcesCompat
@@ -12,8 +12,6 @@ import com.christian.R
 import com.christian.navdetail.NavDetailActivity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_view.*
-import org.jetbrains.anko.dip
-import org.jetbrains.anko.sp
 import org.jetbrains.anko.textColor
 
 /**

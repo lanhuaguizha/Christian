@@ -1,4 +1,4 @@
-package com.christian.navadapter
+package com.christian.navitem
 
 import com.christian.BasePresenter
 import com.christian.BaseView

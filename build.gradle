@@ -2,7 +2,7 @@
 
 buildscript {
 
-    ext.kotlin_version = '1.2.51'
+    ext.kotlin_version = '1.2.61'
 
     ext.anko_version = '0.10.4'
 
@@ -17,6 +17,8 @@ buildscript {
 
     repositories {
 
+        maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+
         jcenter()
 
         google()
@@ -25,7 +27,7 @@ buildscript {
 
     dependencies {
 
-        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.android.tools.build:gradle:3.1.4'
 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
@@ -40,18 +42,12 @@ allprojects {
 
     repositories {
 
+        maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+
         jcenter()
 
         google()
 
     }
-
-}
-
-
-
-task clean(type: Delete) {
-
-    delete rootProject.buildDir
 
 }

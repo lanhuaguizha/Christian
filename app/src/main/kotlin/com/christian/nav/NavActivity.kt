@@ -18,14 +18,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.view.get
-import androidx.core.view.isGone
 import com.christian.BottomNavigationViewBehavior
 import com.christian.Injection
 import com.christian.R
 import com.christian.base.ActBase
 import com.christian.data.Nav
 import com.christian.helper.BottomNavigationViewHelper
-import com.christian.navadapter.NavItemPresenter
+import com.christian.navitem.NavItemPresenter
 import com.christian.swipe.SwipeBackHelper
 import com.christian.view.ItemDecoration
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
