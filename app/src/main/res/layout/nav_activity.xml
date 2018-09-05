@@ -46,7 +46,7 @@
         <eightbitlab.com.blurview.BlurView
             android:id="@+id/bv_nav"
             android:layout_gravity="bottom"
-            android:elevation="4dp"
+            android:elevation="16dp"
             tools:targetApi="lollipop"
             android:outlineProvider="bounds"
             app:blurOverlayColor="@color/colorOverlay"

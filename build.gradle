@@ -17,8 +17,6 @@ buildscript {
 
     repositories {
 
-        maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
-
         jcenter()
 
         google()
@@ -42,8 +40,6 @@ allprojects {
 
     repositories {
 
-        maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
-
         jcenter()
 
         google()
@@ -51,3 +47,12 @@ allprojects {
     }
 
 }
+
+
+
+task clean(type: Delete) {
+
+    delete rootProject.buildDir
+
+}
+
