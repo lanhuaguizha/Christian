@@ -44,7 +44,7 @@ public class CustomCardView extends CardView {
 
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                ObjectAnimator upAnim = ObjectAnimator.ofFloat(this, "translationZ", ChristianUtil.dpToPx(4));
+                ObjectAnimator upAnim = ObjectAnimator.ofFloat(this, "translationZ", ChristianUtil.dpToPx(8));
                 upAnim.setDuration(150);
                 upAnim.setInterpolator(new DecelerateInterpolator());
                 upAnim.start();
