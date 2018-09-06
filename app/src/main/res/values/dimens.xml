@@ -65,4 +65,8 @@
     <dimen name="divider_height">1dp</dimen>
     <dimen name="spacing_normal">8dp</dimen>
     <dimen name="keyline_2">72dp</dimen>
+
+    <!--Material Design-->
+    <dimen name="bottom_navigation_view_elevation">6dp</dimen>
+    <dimen name="app_bar_elevation">4dp</dimen>
 </resources>
