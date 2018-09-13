@@ -7,7 +7,7 @@ import com.christian.swipe.SwipeBackHelper
 /**
  * The activity base class, swipe back logic here.
  */
-abstract class ActBase : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

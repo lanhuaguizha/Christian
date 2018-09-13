@@ -213,6 +213,7 @@ class NavsRepository(
 //        for (Nav in navs) {
 //            navsLocalDataSource.saveNav(Nav)
 //        }
+        System.out.print(navs)
     }
 
     private fun getNavWithId(id: String) = cachedNavs[id]

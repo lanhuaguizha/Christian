@@ -28,6 +28,7 @@ import com.christian.data.source.remote.NavsRemoteDataSource
  */
 object Injection {
     fun provideNavsRepository(context: Context): NavsRepository {
+        System.out.print(context)
 //        val database = ToDoDatabase.getInstance(context)
 //        return NavsRepository.getInstance(FakeNavsRemoteDataSource.getInstance(), NavsLocalDataSource.getInstance(AppExecutors(), database.NavDao()))
         return NavsRepository.getInstance(NavsRemoteDataSource)

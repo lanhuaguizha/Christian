@@ -17,7 +17,6 @@
         android:orientation="vertical">
 
         <ImageView
-            android:src="@drawable/beautiful_feet"
             android:id="@+id/iv_nav_item"
             android:layout_width="0dp"
             android:visibility="visible"

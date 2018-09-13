@@ -21,7 +21,7 @@ import androidx.core.view.get
 import com.christian.BottomNavigationViewBehavior
 import com.christian.Injection
 import com.christian.R
-import com.christian.base.ActBase
+import com.christian.base.BaseActivity
 import com.christian.data.Nav
 import com.christian.helper.BottomNavigationViewHelper
 import com.christian.navitem.NavItemPresenter
@@ -39,7 +39,7 @@ import org.jetbrains.anko.px2dip
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
  * implementation of NavContract.View.
  */
-open class NavActivity : ActBase(), NavContract.View {
+open class NavActivity : BaseActivity(), NavContract.View {
 
     val SHOTRER_DURATION = 225L
 
