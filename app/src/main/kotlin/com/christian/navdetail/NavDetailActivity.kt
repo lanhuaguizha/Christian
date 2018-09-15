@@ -94,6 +94,7 @@ class NavDetailActivity : NavActivity(), NavDetailContract.View, AnkoLogger {
 
     override fun initView(navs: List<Nav>) {
         info { "navs$navs" }
+        initAbl() // todo yongqiangtao why adding this can perfect toolbar elevation
         initTbE(intent.extras.getString("title"))
         initSrlForbidden()
 //        initFlE()

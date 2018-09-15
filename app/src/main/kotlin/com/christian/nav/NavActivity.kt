@@ -107,7 +107,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true)
     }
 
-    private fun initAbl() {
+    protected fun initAbl() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             abl_nav.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
                 Log.i("systemui", "dd" + verticalOffset + "cc" + appBarLayout.height + "ee" + px2dip(abl_nav.elevation.toInt()) + "ff" + abl_nav.elevation)
