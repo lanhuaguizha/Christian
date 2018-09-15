@@ -56,9 +56,7 @@ class NavPresenter(
     }
 
     override fun start() {
-
         navView.initView(navs = listOf(Nav()))
-
     }
 
     override fun insertNav(itemId: Int, isSrl: Boolean) {

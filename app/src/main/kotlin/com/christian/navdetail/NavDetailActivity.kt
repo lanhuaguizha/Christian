@@ -9,7 +9,6 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.christian.BottomNavigationViewBehaviorExt
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.nav.NavActivity
@@ -25,11 +24,8 @@ import kotlinx.android.synthetic.main.tb_nav.*
 class NavDetailActivity : NavActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-
         initTb(intent.extras.getString("title"))
-
     }
 
     // 不需要禁用滑动
@@ -99,7 +95,7 @@ class NavDetailActivity : NavActivity() {
 
     }
 
-    override fun initTb(title: String) {
+    private fun initTb(title: String) {
 
 
         sl_nav.visibility = View.GONE
@@ -137,3 +133,15 @@ class NavDetailActivity : NavActivity() {
     }
 
 }
+
+//private fun NavActivity.initTb(title: String) {
+//    sl_nav.visibility = View.GONE
+//
+//    /**
+//     * set up button
+//     */
+//    setSupportActionBar(toolbar_actionbar)
+//    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//    supportActionBar?.title = title
+//    toolbar_actionbar.setNavigationOnClickListener { finish() }
+//}

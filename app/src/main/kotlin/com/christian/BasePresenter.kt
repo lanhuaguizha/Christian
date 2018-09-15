@@ -5,7 +5,5 @@ package com.christian
  * Responsible for handling business logic.
  */
 interface BasePresenter {
-
     fun start()
-
 }

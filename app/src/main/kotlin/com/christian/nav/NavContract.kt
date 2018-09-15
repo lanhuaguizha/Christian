@@ -1,6 +1,7 @@
 package com.christian.nav
 
 import android.graphics.drawable.Drawable
+import com.christian.BaseActivityContract
 import com.christian.BasePresenter
 import com.christian.BaseView
 import com.christian.data.Nav
@@ -16,37 +17,9 @@ class NavContract {
      * Write Nav view and presenter separately, first of all you think there are ways to
      * play the Nav view
      */
-    interface View : BaseView<Presenter> {
+    interface View : BaseActivityContract.View {
 
-        /**
-         * Summary of init view,
-         *
-         * initCl()
-         *
-         * initAbl()
-         *
-         * initTb()
-         *
-         * initSb()
-         *
-         * initSrl()
-         *
-         * initRv()
-         *
-         * initPb()
-         *
-         * initFab()
-         *
-         * initBnv()
-         */
-        fun initView(navs: List<Nav>)
-
-        /**
-         * Set toolbar like up button, more actions, title etc.
-         */
-        fun initTb(title: String)
-
-        fun setupSearchbar(searchHint: String)
+        fun setupSb(searchHint: String)
 
         fun startSwipeRefreshLayout()
 
@@ -80,15 +53,13 @@ class NavContract {
         fun hideFloatingActionButton()
 
         fun activeFloatingActionButton()
-
     }
 
     /**
      * Write Nav view and presenter separately, first of all you think there are ways to
      * play the Nav business logic
      */
-    interface Presenter : BasePresenter {
-
+    interface Presenter : BaseActivityContract.Presenter {
         /**
          * Summary of business logic,
          *
@@ -106,7 +77,5 @@ class NavContract {
         fun updateNav(navs: List<Nav>)
 
         fun queryNav()
-
     }
-
 }

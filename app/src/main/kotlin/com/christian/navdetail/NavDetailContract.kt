@@ -1,7 +1,9 @@
 package com.christian.navdetail
 
+import com.christian.BaseActivityContract
 import com.christian.BasePresenter
 import com.christian.BaseView
+import com.christian.data.Nav
 
 /**
  * Including View logic, Business logic and write respectively,
@@ -13,14 +15,10 @@ class NavDetailContract {
     /**
      * All view logic about NavDetail
      */
-    interface View : BaseView<Presenter> {
-
-    }
+    interface View : BaseActivityContract.View
 
     /**
      * All business logic about NavDetail
      */
-    interface Presenter : BasePresenter {
-
-    }
+    interface Presenter : BaseActivityContract.Presenter
 }

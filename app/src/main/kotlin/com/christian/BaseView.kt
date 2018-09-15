@@ -5,7 +5,5 @@ package com.christian
  * Responsible for handling view logic.
  */
 interface BaseView<T> {
-
     var presenter: T
-
 }
