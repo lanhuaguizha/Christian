@@ -13,5 +13,16 @@ class NavDetailContract {
     /**
      * All view logic about NavDetail
      */
-    interface View : BaseViewContract.View<NavContract.Presenter>
+    interface View : BaseViewContract.View<NavContract.Presenter> {
+
+        /**
+         * Show comment view
+         */
+        fun showCv()
+
+        /**
+         * Hide comment view
+         */
+        fun hideCv()
+    }
 }

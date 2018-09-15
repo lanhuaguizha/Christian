@@ -11,7 +11,6 @@ import android.view.View
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.nav.NavActivity
-import com.christian.nav.NavContract
 import com.christian.navitem.NavItemPresenter
 import com.christian.view.ItemDecoration
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
@@ -83,13 +82,21 @@ private fun runLayoutAnimationE(recyclerView: RecyclerView) {
 /**
  * The nav details page contains all the logic of the nav page.
  */
-class NavDetailActivity : NavActivity(), NavContract.View, AnkoLogger {
+class NavDetailActivity : NavActivity(), NavDetailContract.View, AnkoLogger {
+
+    override fun showCv() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hideCv() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun initView(navs: List<Nav>) {
         info { "navs$navs" }
         initTbE(intent.extras.getString("title"))
         initSrlForbidden()
-        initFlE()
+//        initFlE()
         initRv(navs)
         initBvE()
         startNavE(0)

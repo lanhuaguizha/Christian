@@ -61,6 +61,8 @@ class NavPresenter(
 
     override fun insertNav(itemId: Int, isSrl: Boolean) {
 
+        end()
+
         if (isSrl) {
             navView.stopPb()
         } else {
@@ -92,6 +94,10 @@ class NavPresenter(
 
         })
 
+    }
+
+     override fun end() {
+        navView.deinitView()
     }
 
     override fun updateNav(navs: List<Nav>) {

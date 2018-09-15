@@ -63,6 +63,9 @@ fun disableShiftMode(view: BottomNavigationView) {
  */
 open class NavActivity : SwipeBackActivity(), NavContract.View {
 
+    override fun deinitView() {
+    }
+
     companion object {
         const val SHORTER_DURATION = 225L
         const val HIDE_THRESHOLD = 400 //移动多少距离后显示隐藏
@@ -81,7 +84,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         createPresenter()
     }
 
-    override fun createPresenter() {
+    private fun createPresenter() {
         NavPresenter("", Injection.provideNavsRepository(applicationContext), this)
         presenter.start()
     }
