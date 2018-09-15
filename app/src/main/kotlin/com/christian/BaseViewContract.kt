@@ -1,11 +1,29 @@
 package com.christian
 
 import com.christian.data.Nav
-import com.christian.nav.NavContract
 
-class BaseActivityContract {
+/**
+ * View of MVP architecture.
+ * Responsible for handling view logic.
+ */
+interface BaseView<T> {
+    var presenter: T
+}
 
-    interface View : BaseView<NavContract.Presenter> {
+/**
+ * Presenter of MVP architecture.
+ * Responsible for handling business logic.
+ */
+interface BasePresenter {
+    fun start()
+}
+
+/**
+ * Contains presenter properties. View initializes first
+ */
+class BaseViewContract {
+
+    interface View<T> : BaseView<T> {
         fun createPresenter()
 
         /**

@@ -99,7 +99,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         startNav(0)
     }
 
-    open fun initSbl() {
+    private fun initSbl() {
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false)
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true)
     }
@@ -134,7 +134,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         srl_nav.setOnRefreshListener { presenter.insertNav(0, true) }
     }
 
-    open fun initFl() {
+    private fun initFl() {
         srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, theme)
     }
 
@@ -162,7 +162,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         })
     }
 
-    open fun initBv() {
+    private fun initBv() {
+        comment_nav.visibility = View.GONE
+        bnv_nav.visibility = View.VISIBLE
         //set background, if your root layout doesn't have one
         val windowBackground = window.decorView.background
         val radius = 25f
@@ -178,14 +180,14 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         bv_nav.layoutParams = params
     }
 
-    open fun initFAB(drawableId: Int) {
+    private fun initFAB() {
         fab_nav.visibility = View.GONE
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.show()
         fab_nav.setOnClickListener(null)
     }
 
-    open fun initBnv() {
+    private fun initBnv() {
         disableShiftMode(bnv_nav)
         bnv_nav.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -233,7 +235,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         adapter.navs = navs
         runLayoutAnimation(rv_nav)
         fab_nav.postDelayed({
-            initFAB(R.drawable.ic_edit_black_24dp)
+            initFAB()
         }, SHORTER_DURATION)
     }
 
@@ -291,7 +293,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         abl_nav.setExpanded(true, true)
     }
 
-    open fun runLayoutAnimation(recyclerView: RecyclerView) {
+    private fun runLayoutAnimation(recyclerView: RecyclerView) {
         val animation = AnimationUtils.loadLayoutAnimation(recyclerView.context, R.anim.layout_animation_from_right)
         recyclerView.layoutAnimation = animation
         recyclerView.adapter.notifyDataSetChanged()
@@ -340,7 +342,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
     /**
      * Immersive reading, swipe hidden.
      */
-    inner class BottomNavigationViewBehavior(context: Context?, attrs: AttributeSet?) : CoordinatorLayout.Behavior<View>(context, attrs) {
+    class BottomNavigationViewBehavior(context: Context?, attrs: AttributeSet?) : CoordinatorLayout.Behavior<View>(context, attrs) {
         override fun onLayoutChild(parent: CoordinatorLayout?, child: View?, layoutDirection: Int): Boolean {
             (child?.layoutParams as CoordinatorLayout.LayoutParams).topMargin = parent?.measuredHeight?.minus(child.measuredHeight) ?: 0
             return super.onLayoutChild(parent, child, layoutDirection)

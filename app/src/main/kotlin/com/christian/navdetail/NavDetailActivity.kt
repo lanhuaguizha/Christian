@@ -1,6 +1,5 @@
 package com.christian.navdetail
 
-import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -12,51 +11,102 @@ import android.view.View
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.nav.NavActivity
+import com.christian.nav.NavContract
 import com.christian.navitem.NavItemPresenter
 import com.christian.view.ItemDecoration
+import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.tb_nav.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+
+private fun NavActivity.initTbE(title: String) {
+    sl_nav.visibility = View.GONE
+
+    /**
+     * set up button
+     */
+    setSupportActionBar(toolbar_actionbar)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    supportActionBar?.title = title
+    toolbar_actionbar.setNavigationOnClickListener { finish() }
+}
+
+private fun NavActivity.initSrlForbidden() {
+    srl_nav.isEnabled = false
+}
+
+// 不需要添加背景色的同时不需要有elevation
+private fun NavActivity.initFlE() {
+    srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, theme)
+}
+
+private fun NavActivity.initBvE() {
+    comment_nav.visibility = View.VISIBLE
+    bnv_nav.visibility = View.GONE
+    //set background, if your root layout doesn't have one
+    val windowBackground = window.decorView.background
+    val radius = 25f
+    bv_nav.setupWith(cl_nav)
+            .windowBackground(windowBackground)
+            .blurAlgorithm(SupportRenderScriptBlur(this))
+            .blurRadius(radius)
+            .setHasFixedTransformationMatrix(true)
+    // set behavior
+    val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
+    params.gravity = Gravity.BOTTOM
+    params.behavior = NavActivity.BottomNavigationViewBehaviorExt(this, null)
+    bv_nav.layoutParams = params
+}
+
+private fun NavActivity.initFABE() {
+    fab_nav.visibility = View.INVISIBLE
+
+    // set FAB image
+    fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_upward_black_24dp, theme))
+    fab_nav.show()
+
+    // set FAB animate to hide's behavior
+    // set listener
+    fab_nav.setOnClickListener { scrollRvToTop() }
+}
+
+private fun NavActivity.startNavE(navId: Int) {
+    presenter.insertNav(navId)
+}
+
+private fun runLayoutAnimationE(recyclerView: RecyclerView) {
+    recyclerView.adapter.notifyDataSetChanged()
+}
 
 /**
  * The nav details page contains all the logic of the nav page.
  */
-class NavDetailActivity : NavActivity() {
+class NavDetailActivity : NavActivity(), NavContract.View, AnkoLogger {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initTb(intent.extras.getString("title"))
-    }
-
-    // 不需要禁用滑动
-    override fun initSbl() {
-    }
-
-    // 不需要添加背景色的同时不需要有elevation
-    override fun initFl() {
+    override fun initView(navs: List<Nav>) {
+        info { "navs$navs" }
+        initTbE(intent.extras.getString("title"))
+        initSrlForbidden()
+        initFlE()
+        initRv(navs)
+        initBvE()
+        startNavE(0)
     }
 
     override fun initRv(navs: List<Nav>) {
-
-        rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.activity_horizontal_margin_0).toInt()))
-
-        rv_nav.layoutManager = LinearLayoutManager(this)
-
         adapter = NavItemPresenter(navs, false)
+        rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.activity_horizontal_margin_0).toInt()))
+        rv_nav.layoutManager = LinearLayoutManager(this)
         rv_nav.adapter = adapter
-
-        rv_nav.addOnScrollListener(object : HidingScrollListener() {
-
+        rv_nav.addOnScrollListener(object : NavActivity.HidingScrollListener() {
             override fun onHide() {
-
                 fab_nav.hide()
-
             }
 
             override fun onShow() {
-
                 fab_nav.show()
-
             }
 
             override fun onTop() {
@@ -65,49 +115,14 @@ class NavDetailActivity : NavActivity() {
             override fun onBottom() {
             }
         })
-
     }
 
-    override fun initFAB(drawableId: Int) {
-
-        fab_nav.visibility = View.INVISIBLE
-
-        // set FAB image
-        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_keyboard_arrow_up_black_24dp, theme))
-        fab_nav.show()
-
-        // set FAB animate to hide's behavior
-
-        // set listener
-        fab_nav.setOnClickListener { scrollRvToTop() }
-
-    }
-
-    override fun initBv() {
-
-        val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
-
-        params.gravity = Gravity.BOTTOM
-
-        params.behavior = BottomNavigationViewBehaviorExt(this, null)
-
-        bv_nav.layoutParams = params
-
-    }
-
-    private fun initTb(title: String) {
-
-
-        sl_nav.visibility = View.GONE
-
-        /**
-         * set up button
-         */
-        setSupportActionBar(toolbar_actionbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = title
-        toolbar_actionbar.setNavigationOnClickListener { finish() }
-
+    override fun invalidateRv(navs: List<Nav>) {
+        adapter.navs = navs
+        runLayoutAnimationE(rv_nav)
+        fab_nav.postDelayed({
+            initFABE()
+        }, SHORTER_DURATION)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -127,21 +142,4 @@ class NavDetailActivity : NavActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-    override fun runLayoutAnimation(recyclerView: RecyclerView) {
-        recyclerView.adapter.notifyDataSetChanged()
-    }
-
 }
-
-//private fun NavActivity.initTb(title: String) {
-//    sl_nav.visibility = View.GONE
-//
-//    /**
-//     * set up button
-//     */
-//    setSupportActionBar(toolbar_actionbar)
-//    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//    supportActionBar?.title = title
-//    toolbar_actionbar.setNavigationOnClickListener { finish() }
-//}

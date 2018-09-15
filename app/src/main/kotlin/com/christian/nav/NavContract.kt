@@ -1,9 +1,6 @@
 package com.christian.nav
 
-import android.graphics.drawable.Drawable
-import com.christian.BaseActivityContract
-import com.christian.BasePresenter
-import com.christian.BaseView
+import com.christian.BaseViewContract
 import com.christian.data.Nav
 
 /**
@@ -17,7 +14,7 @@ class NavContract {
      * Write Nav view and presenter separately, first of all you think there are ways to
      * play the Nav view
      */
-    interface View : BaseActivityContract.View {
+    interface View : BaseViewContract.View<NavContract.Presenter> {
 
         fun setupSb(searchHint: String)
 
@@ -59,7 +56,7 @@ class NavContract {
      * Write Nav view and presenter separately, first of all you think there are ways to
      * play the Nav business logic
      */
-    interface Presenter : BaseActivityContract.Presenter {
+    interface Presenter : BaseViewContract.Presenter {
         /**
          * Summary of business logic,
          *
