@@ -18,8 +18,16 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
     private val mContentGravityCenter = "<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"CENTER\"><FONT FACE=\"Microsoft Yahei,微软雅黑\" SIZE=\"24\" COLOR=\"#333333\" LETTERSPACING=\"0\" KERNING=\"0\">我先来个居中对齐!</FONT></P></TEXTFORMAT>"
     private val mContentGravityRight = "<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"RIGHT\"><FONT FACE=\"Microsoft Yahei,微软雅黑\" SIZE=\"24\" COLOR=\"#333333\" LETTERSPACING=\"0\" KERNING=\"0\">我是来右对齐的!</FONT></P></TEXTFORMAT>"
     private val mContentStyle = "<TEXTFORMAT LEADING=\"2\">" +
-            "<P ALIGN=\"LEFT\"><FONT FACE=\"Microsoft Yahei,微软雅黑\" SIZE=\"48\" COLOR=\"#333333\" LETTERSPACING=\"0\" KERNING=\"0\">我可以设置很多不同的字体风格,比如:<B>加粗</B>、<I>斜体</I>、<U>下划线</U>。</FONT></P>" +
-            "<P ALIGN=\"LEFT\"><FONT FACE=\"Microsoft Yahei,微软雅黑\" SIZE=\"24\" COLOR=\"#2196f3\" LETTERSPACING=\"0\" KERNING=\"0\"><FONT SIZE=\"48\">我是很大的字</FONT>我居然比旁边的字小<FONT SIZE=\"40\">我最小...啊啊啊</FONT><FONT SIZE=\"30\">......居然可以设置不同的字体字号</FONT></FONT></P>" +
+            "<P ALIGN=\"LEFT\">" +
+            "<FONT FACE=\"Microsoft Yahei,微软雅黑\" SIZE=\"24\" COLOR=\"#333333\" LETTERSPACING=\"2\" KERNING=\"0\">" +
+            "我可以设置很多不同的字体风格,比如:<B>加粗</B>、<I>斜体</I>、<U>下划线</U>。" +
+            "</FONT>" +
+            "<FONT FACE=\"Microsoft Yahei,微软雅黑\" SIZE=\"22\" COLOR=\"#2196f3\" LETTERSPACING=\"0\" KERNING=\"0\">" +
+            "<FONT SIZE=\"30\">我是很大的字</FONT>" +
+            "我居然比旁边的字小" +
+            "<FONT SIZE=\"12\">我最小...啊啊啊</FONT>" +
+            "</FONT>" +
+            "</P>" +
             "</TEXTFORMAT>"
     private val mContentUrl = "<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"LEFT\"><FONT FACE=\"Microsoft Yahei,微软雅黑\" SIZE=\"24\" COLOR=\"#333333\" LETTERSPACING=\"0\" KERNING=\"0\">我可以设置一个超链接,牛逼吗 <FONT COLOR=\"#0000ff\"><A HREF=\"我是超链接\" TARGET=\"_blank\"><FONT COLOR=\"#6698ff\"><U>快戳我看看</U></FONT></A></FONT></FONT></P></TEXTFORMAT>"
 
