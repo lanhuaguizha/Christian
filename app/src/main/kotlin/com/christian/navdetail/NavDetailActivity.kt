@@ -94,10 +94,10 @@ class NavDetailActivity : NavActivity(), NavDetailContract.View, AnkoLogger {
 
     override fun initView(navs: List<Nav>) {
         info { "navs$navs" }
-        initAbl() // todo yongqiangtao why adding this can perfect toolbar elevation
+        initAbl()
         initTbE(intent.extras.getString("title"))
         initSrlForbidden()
-//        initFlE()
+        initFlE()
         initRv(navs)
         initBvE()
         startNavE(0)
@@ -138,8 +138,8 @@ class NavDetailActivity : NavActivity(), NavDetailContract.View, AnkoLogger {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.menu_share -> {
                 true
             }

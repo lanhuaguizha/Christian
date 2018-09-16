@@ -93,12 +93,6 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:${room_vertion}"
     kapt "android.arch.persistence.room:compiler:${room_vertion}"
 
-//    implementation "com.google.guava:guava:${guava_version}"
-
-//    implementation 'org.xutils:xutils:3.5.0'
-
-//    implementation 'de.hdodenhof:circleimageview:2.1.0'
-
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
