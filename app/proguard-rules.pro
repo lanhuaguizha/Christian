@@ -272,5 +272,12 @@
 -keep public class org.codehaus.* { *; }
 -keep public class java.nio.* { *; }
 
+# aar --start
+-keep class com.xys.lib_tv_fullhtml.** { *; }
+-keep interface com.xys.lib_tv_fullhtml.** { *; }
+-keep class org.htmlparser.** { *; }
+-keep interface org.htmlparser.** { *; }
+-dontwarn org.htmlparser.**
+
 #Beans --start
 -keep class com.christian.data.** { *; }
