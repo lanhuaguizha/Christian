@@ -38,6 +38,22 @@ android {
         }
     }
 
+ signingConfigs {
+        release {
+//            storeFile file("D:\\keystore\\temp.jks")
+//            storePassword '123456'
+//            keyAlias 'temp'
+//            keyPassword '123456'
+        }
+
+        debug {
+//            storeFile file("D:\\keystore\\temp.jks")
+//            storePassword '123456'
+//            keyAlias 'temp'
+//            keyPassword '123456'
+        }
+    }
+
     sourceSets {
         // Encapsulates configurations for the main source set.
         main {
