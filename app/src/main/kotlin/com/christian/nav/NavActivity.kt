@@ -68,7 +68,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
 
     companion object {
         const val SHORTER_DURATION = 225L
-        const val HIDE_THRESHOLD = 400 //移动多少距离后显示隐藏
+        const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
     }
 
     /**
@@ -95,6 +95,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         initTb()
         initSl()
         initSrl()
+        initFs()
         initFl()
         initRv(navs)
         initBv()
@@ -135,6 +136,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
     private fun initSrl() {
         srl_nav.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorAccent))
         srl_nav.setOnRefreshListener { presenter.insertNav(0, true) }
+    }
+
+    private fun initFs() {
+        fs_nav.setRecyclerView(rv_nav)
     }
 
     private fun initFl() {

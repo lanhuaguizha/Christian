@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.christian.R
 import com.christian.data.Nav
+import com.christian.view.TextGetter
 import kotlinx.android.synthetic.main.nav_item_view.*
 
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
  */
-class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = true) : NavItemContract.Presenter, RecyclerView.Adapter<NavItemView>() {
+class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = true) : NavItemContract.Presenter, RecyclerView.Adapter<NavItemView>(), TextGetter {
 
     private lateinit var navItemView: NavItemView
     private val mContentGravityCenter = "<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"CENTER\"><FONT FACE=\"Microsoft Yahei,微软雅黑\" SIZE=\"24\" COLOR=\"#333333\" LETTERSPACING=\"0\" KERNING=\"0\">我先来个居中对齐!</FONT></P></TEXTFORMAT>"
@@ -89,4 +90,7 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
 
     }
 
+    override fun getTextFromAdapter(pos: Int): String {
+        return navs[pos].subtitle[0].toUpperCase().toString()
+    }
 }
