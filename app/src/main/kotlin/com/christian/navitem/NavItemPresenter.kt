@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.christian.R
 import com.christian.data.Nav
-import com.christian.view.TextGetter
+import com.christian.index.TextGetter
 import kotlinx.android.synthetic.main.nav_item_view.*
 
 /**

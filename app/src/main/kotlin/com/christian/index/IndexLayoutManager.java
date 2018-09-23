@@ -1,11 +1,11 @@
-package com.christian.view;
+package com.christian.index;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.christian.R;
+import com.christian.index.Subscriber;
 
 /**
  * Created by edgar on 5/31/15.

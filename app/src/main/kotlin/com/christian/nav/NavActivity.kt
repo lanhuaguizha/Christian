@@ -26,6 +26,8 @@ import androidx.core.view.get
 import com.christian.Injection
 import com.christian.R
 import com.christian.data.Nav
+import com.christian.index.IndexLayoutManager
+import com.christian.index.IndexScrollListener
 import com.christian.navitem.NavItemPresenter
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
@@ -152,6 +154,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         rv_nav.layoutManager = LinearLayoutManager(this)
         rv_nav.adapter = adapter
         rv_nav.addOnScrollListener(object : HidingScrollListener() {
+
             override fun onHide() {
                 fab_nav.hide()
             }
@@ -168,6 +171,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
                 Log.i("bottom", "onBottom")
             }
         })
+
+        val indexScrollListener = IndexScrollListener()
+        indexScrollListener.register(fs_nav)
+        rv_nav.addOnScrollListener(indexScrollListener)
     }
 
     private fun initBv() {
@@ -413,11 +420,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
                 onTop()
             }
 
-            Log.i("bottom", (!rv_nav.canScrollVertically(1)).toString())
-            Log.i("bottom dy > 0", (dy > 0).toString())
-            if (!rv_nav.canScrollVertically(1)) { // 并且是向下滑动
-                onBottom()
-            }
+//            Log.i("bottom", (!rv_nav.canScrollVertically(1)).toString())
+//            Log.i("bottom dy > 0", (dy > 0).toString())
+//            if (!rv_nav.canScrollVertically(1)) { // 并且是向下滑动
+//                onBottom()
+//            }
         }
 
         abstract fun onHide()

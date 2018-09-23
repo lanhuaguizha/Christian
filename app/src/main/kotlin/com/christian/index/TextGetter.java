@@ -1,4 +1,4 @@
-package com.christian.view;
+package com.christian.index;
 
 /**
  * Created by edgar on 6/2/15.

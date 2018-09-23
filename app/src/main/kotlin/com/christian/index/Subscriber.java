@@ -1,4 +1,4 @@
-package com.christian.view;
+package com.christian.index;
 
 import android.support.v7.widget.RecyclerView;
 
