@@ -176,7 +176,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         //set background, if your root layout doesn't have one
         val windowBackground = window.decorView.background
         val radius = 25f
-        bv_nav.setupWith(fl_nav)
+        bv_nav.setupWith(cl_nav)
                 .windowBackground(windowBackground)
                 .blurAlgorithm(SupportRenderScriptBlur(this))
                 .blurRadius(radius)

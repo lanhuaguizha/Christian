@@ -91,6 +91,10 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
     }
 
     override fun getTextFromAdapter(pos: Int): String {
-        return navs[pos].subtitle[0].toUpperCase().toString()
+        return if (navs[0].subtitle.isNotEmpty()) {
+            navs[pos].subtitle[0].toUpperCase().toString()
+        } else {
+            ""
+        }
     }
 }
