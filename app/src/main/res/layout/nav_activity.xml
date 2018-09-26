@@ -1,98 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_nav"
-    android:layout_width="match_parent"
+    android:id="@+id/fl_nav"
     android:layout_height="match_parent"
-    tools:context=".nav.NavActivity">
+    android:layout_width="match_parent">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/abl_nav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/tb_nav" />
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.constraint.ConstraintLayout
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/cl_nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        tools:context=".nav.NavActivity">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/srl_nav"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/abl_nav"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_nav"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </android.support.v4.widget.SwipeRefreshLayout>
-
-        <com.christian.index.FastScroller
-            android:id="@+id/fs_nav"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <ProgressBar
-            android:id="@+id/pb_nav"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </android.support.constraint.ConstraintLayout>
-
-    <com.christian.view.AnimatedFloatingActionButton
-        android:id="@+id/fab_nav"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginEnd="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
-        app:layout_anchor="@id/bv_nav"
-        app:layout_anchorGravity="end" />
-
-    <eightbitlab.com.blurview.BlurView
-        android:id="@+id/bv_nav"
-        android:layout_gravity="bottom"
-        android:elevation="@dimen/bottom_navigation_view_elevation"
-        tools:targetApi="lollipop"
-        android:outlineProvider="bounds"
-        app:blurOverlayColor="@color/colorOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/action_bar_height">
+            <include layout="@layout/tb_nav" />
+        </android.support.design.widget.AppBarLayout>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/comment_nav"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <EditText
-                android:background="@color/white"
-                android:id="@+id/et_nav"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.design.widget.BottomNavigationView
-            app:itemBackground="@drawable/fluent_ripple"
-            android:id="@+id/bnv_nav"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            app:menu="@menu/navigation" />
-    </eightbitlab.com.blurview.BlurView>
-</android.support.design.widget.CoordinatorLayout>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/srl_nav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_nav"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <com.christian.index.FastScroller
+                android:id="@+id/fs_nav"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <com.christian.view.AnimatedFloatingActionButton
+            android:id="@+id/fab_nav"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            app:layout_anchor="@id/bv_nav"
+            app:layout_anchorGravity="end" />
+
+        <eightbitlab.com.blurview.BlurView
+            android:id="@+id/bv_nav"
+            android:layout_gravity="bottom"
+            android:elevation="@dimen/bottom_navigation_view_elevation"
+            tools:targetApi="lollipop"
+            android:outlineProvider="bounds"
+            app:blurOverlayColor="@color/colorOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_height">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/comment_nav"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:background="@color/white"
+                    android:id="@+id/et_nav"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.design.widget.BottomNavigationView
+                app:itemBackground="@drawable/fluent_ripple"
+                android:id="@+id/bnv_nav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                app:menu="@menu/navigation" />
+        </eightbitlab.com.blurview.BlurView>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_nav"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</android.support.constraint.ConstraintLayout>
