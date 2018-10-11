@@ -1,5 +1,6 @@
 package com.christian.navitem
 
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import com.christian.R
 import com.christian.data.Nav
 import com.christian.index.TextGetter
 import kotlinx.android.synthetic.main.nav_item_view.*
+import org.jetbrains.anko.image
 
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
@@ -85,6 +87,10 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
 
 //            holder.tv_detail_nav_item.loadContent(mContentStyle)
             holder.tv_detail_nav_item.text = navs[position].detail
+
+            if (position == 1) {
+                holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
+            }
 
         }
 
