@@ -187,7 +187,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         bnv_nav.visibility = View.VISIBLE
         //set background, if your root layout doesn't have one
         val windowBackground = window.decorView.background
-        val radius = 25f
+        val radius = 10f
         bv_nav.setupWith(cl_nav)
                 .windowBackground(windowBackground)
                 .blurAlgorithm(SupportRenderScriptBlur(this))
@@ -254,9 +254,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
     override fun invalidateRv(navs: List<Nav>) {
         adapter.navs = navs
         runLayoutAnimation(rv_nav)
-        fab_nav.postDelayed({
+        fab_nav.post {
             initFAB()
-        }, SHORTER_DURATION)
+        }
     }
 
     override fun restoreRvPos() {

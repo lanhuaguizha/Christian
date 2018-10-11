@@ -128,9 +128,9 @@ class NavDetailActivity : NavActivity(), NavDetailContract.View, AnkoLogger {
     override fun invalidateRv(navs: List<Nav>) {
         adapter.navs = navs
         runLayoutAnimationE(rv_nav)
-        fab_nav.postDelayed({
+        fab_nav.post {
             initFABE()
-        }, SHORTER_DURATION)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
