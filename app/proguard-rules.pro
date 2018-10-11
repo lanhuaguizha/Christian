@@ -281,3 +281,8 @@
 
 #Beans --start
 -keep class com.christian.data.** { *; }
+
+# coroutines --start
+-keepclassmembernames class kotlinx.** {
+    volatile <fields>;
+}

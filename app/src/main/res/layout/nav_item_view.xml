@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/iv_nav_item"
             android:layout_width="0dp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_height="@dimen/app_bar_height"
             android:background="@color/gray_background"
             android:scaleType="centerCrop"

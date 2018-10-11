@@ -83,8 +83,8 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
 
             holder.tv_title_nav_item.text = navs[position].title
 
-            holder.tv_detail_nav_item.loadContent(mContentStyle)
-//            holder.tv_detail_nav_item.text = navs[position].detail
+//            holder.tv_detail_nav_item.loadContent(mContentStyle)
+            holder.tv_detail_nav_item.text = navs[position].detail
 
         }
 

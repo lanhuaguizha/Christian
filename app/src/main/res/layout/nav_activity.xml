@@ -40,6 +40,8 @@
                 android:id="@+id/fs_nav"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_marginTop="@dimen/search_margin_horizontal"
+                android:layout_marginBottom="@dimen/search_margin_horizontal"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
