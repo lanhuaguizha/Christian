@@ -70,7 +70,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
 
     companion object {
         const val SHORTER_DURATION = 225L
-        var HIDE_THRESHOLD = 400 //移动多少距离后显示隐藏
+        var HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
     }
 
     /**
@@ -100,7 +100,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         initSrl()
         initFs()
         initRv(navs)
-        initFab()
         initBv()
         initBnv()
         startNav(0)
@@ -176,10 +175,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         val indexScrollListener = IndexScrollListener()
         indexScrollListener.register(fs_nav)
         rv_nav.addOnScrollListener(indexScrollListener)
-    }
-
-    private fun initFab() {
-        HIDE_THRESHOLD = dip(100)
     }
 
     private fun initBv() {
