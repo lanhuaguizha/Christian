@@ -74,8 +74,6 @@ public class SwipeBackLayout extends FrameLayout {
      */
     private List<SwipeListener> mListeners;
 
-    Drawable mShadowLeft;
-
     private float mScrimOpacity;
 
     private int mScrimColor = DEFAULT_SCRIM_COLOR;
@@ -101,7 +99,7 @@ public class SwipeBackLayout extends FrameLayout {
         super(context, attrs);
         mDragHelper = ViewDragHelper.create(this, new ViewDragCallback());
 
-        setShadow(R.drawable.shadow_left);
+//        setShadow(R.drawable.shadow_left);
 
         final float density = getResources().getDisplayMetrics().density;
         final float minVel = MIN_FLING_VELOCITY * density;
@@ -216,16 +214,9 @@ public class SwipeBackLayout extends FrameLayout {
 
 
     public void setShadow(Drawable shadow) {
-        mShadowLeft = shadow;
         invalidate();
     }
 
-
-    public void setShadow(int resId) {
-        // For this to support vector drawable
-        setShadow(AppCompatResources.getDrawable(getContext(), resId));
-//        setShadow(getResources().getDrawable(resId));
-    }
 
     /**
      * Scroll out contentView and finish the activity
@@ -233,7 +224,7 @@ public class SwipeBackLayout extends FrameLayout {
     public void scrollToFinishActivity() {
         final int childWidth = mContentView.getWidth();
         int left = 0, top = 0;
-        left = childWidth + mShadowLeft.getIntrinsicWidth() + OVERSCROLL_DISTANCE;
+        left = childWidth + OVERSCROLL_DISTANCE;
         mDragHelper.smoothSlideViewTo(mContentView, left, top);
         invalidate();
     }
@@ -310,11 +301,6 @@ public class SwipeBackLayout extends FrameLayout {
     private void drawShadow(Canvas canvas, View child) {
         final Rect childRect = mTmpRect;
         child.getHitRect(childRect);
-
-        mShadowLeft.setBounds(childRect.left - mShadowLeft.getIntrinsicWidth(), childRect.top,
-                childRect.left, childRect.bottom);
-        mShadowLeft.setAlpha((int) (mScrimOpacity * FULL_ALPHA));
-        mShadowLeft.draw(canvas);
     }
 
     public void attachToActivity(Activity activity) {
@@ -422,7 +408,7 @@ public class SwipeBackLayout extends FrameLayout {
             int left = 0, top = 0;
             //判断释放以后是应该滑到最右边(关闭)，还是最左边（还原）
             left = xvel > 0 || xvel == 0 && mScrollPercent > mScrollThreshold ? childWidth
-                    + mShadowLeft.getIntrinsicWidth() + OVERSCROLL_DISTANCE : 0;
+                    + OVERSCROLL_DISTANCE : 0;
 
 
             mDragHelper.settleCapturedViewAt(left, top);
