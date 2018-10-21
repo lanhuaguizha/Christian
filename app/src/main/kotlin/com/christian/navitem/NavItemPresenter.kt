@@ -10,12 +10,14 @@ import com.christian.R
 import com.christian.data.Nav
 import com.christian.index.TextGetter
 import kotlinx.android.synthetic.main.nav_item_view.*
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.image
+import org.jetbrains.anko.info
 
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
  */
-class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = true) : NavItemContract.Presenter, RecyclerView.Adapter<NavItemView>(), TextGetter {
+class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = true) : NavItemContract.Presenter, RecyclerView.Adapter<NavItemView>(), TextGetter, AnkoLogger {
 
     private lateinit var navItemView: NavItemView
     private val mContentGravityCenter = "<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"CENTER\"><FONT FACE=\"Microsoft Yahei,微软雅黑\" SIZE=\"24\" COLOR=\"#333333\" LETTERSPACING=\"0\" KERNING=\"0\">我先来个居中对齐!</FONT></P></TEXTFORMAT>"
@@ -67,6 +69,8 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
         return navs.size
     }
 
+    private var mPosition: Int = -1
+
     override fun onBindViewHolder(holder: NavItemView, position: Int) {
 
         if (navs[position].subtitle == "") {
@@ -77,9 +81,11 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
 
             holder.itemView.visibility = View.VISIBLE
 
-            if (hasElevation) {
+            info { "mPosition$mPosition" }
+            if (hasElevation && holder.adapterPosition > mPosition) {
                 navItemView.animate(holder.itemView)
             }
+            mPosition = holder.adapterPosition
 
             holder.tv_subtitle_nav_item.text = navs[position].subtitle
 
@@ -88,7 +94,7 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
 //            holder.tv_detail_nav_item.loadContent(mContentStyle)
             holder.tv_detail_nav_item.text = navs[position].detail
 
-            if (position == 3) {
+            if (position == 25) {
                 holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
                 holder.iv_nav_item.visibility = View.VISIBLE
             } else{
