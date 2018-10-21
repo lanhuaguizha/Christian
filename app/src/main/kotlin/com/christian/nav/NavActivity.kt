@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.view.get
+import androidx.core.view.isVisible
 import com.christian.Injection
 import com.christian.R
 import com.christian.data.Nav
@@ -36,7 +37,9 @@ import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.search_bar_expanded.*
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.dip
+import org.jetbrains.anko.info
 import org.jetbrains.anko.px2dip
 
 @SuppressLint("RestrictedApi")
@@ -63,7 +66,7 @@ fun disableShiftMode(view: BottomNavigationView) {
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
  * implementation of NavContract.View.
  */
-open class NavActivity : SwipeBackActivity(), NavContract.View {
+open class NavActivity : SwipeBackActivity(), NavContract.View, AnkoLogger {
 
     override fun deinitView() {
     }
@@ -200,6 +203,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.View {
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.show()
         fab_nav.setOnClickListener(null)
+        if (!fab_nav.isVisible) {
+            info { "initFAB View.VISIBLE" }
+            fab_nav.visibility = View.VISIBLE
+        }
     }
 
     private fun initBnv() {
