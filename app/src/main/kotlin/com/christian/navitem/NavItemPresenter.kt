@@ -84,6 +84,8 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
             info { "mPosition$mPosition" }
             if (hasElevation && holder.adapterPosition > mPosition) {
                 navItemView.animate(holder.itemView)
+            } else {
+                navItemView.clearAnimate(holder.itemView)
             }
             mPosition = holder.adapterPosition
 

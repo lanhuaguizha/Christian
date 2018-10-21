@@ -63,12 +63,15 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.Presen
     }
 
     override fun animate(itemView: View) {
-        itemView.clearAnimation()
 
         val animation = AnimationUtils.loadAnimation(itemView.context, R.anim.up_from_bottom)
 
         itemView.startAnimation(animation)
 
+    }
+
+    fun clearAnimate(itemView: View) {
+        itemView.clearAnimation()
     }
 
 }
