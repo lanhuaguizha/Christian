@@ -17,7 +17,7 @@
 
         <activity
             android:name=".nav.NavActivity"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/BottomNavigationActivityTheme"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
