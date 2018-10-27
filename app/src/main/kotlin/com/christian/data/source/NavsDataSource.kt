@@ -1,13 +1,14 @@
 package com.christian.data.source
 
 import com.christian.data.Nav
+import org.jetbrains.anko.AnkoLogger
 import retrofit2.Call
 
 /**
  * Write Nav model, first of all you think there are ways to
  * play the Nav model
  */
-interface NavsDataSource {
+interface NavsDataSource : AnkoLogger {
 
     interface LoadNavsCallback {
 

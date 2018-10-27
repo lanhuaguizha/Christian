@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.christian.view.CustomCardView
+            <com.christian.view.FloatingCardView
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_marginEnd="@dimen/search_margin_horizontal"
@@ -106,9 +106,9 @@
                         android:id="@+id/read"
                         layout="@layout/me_setting_head" />
                 </LinearLayout>
-            </com.christian.view.CustomCardView>
+            </com.christian.view.FloatingCardView>
 
-            <com.christian.view.CustomCardView
+            <com.christian.view.FloatingCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_margin"
@@ -128,7 +128,7 @@
                     <!--<include layout="@layme_setting_itemitem" />-->
 
                 </LinearLayout>
-            </com.christian.view.CustomCardView>
+            </com.christian.view.FloatingCardView>
 
             <TextView
                 android:id="@+id/about_us"

@@ -2,6 +2,7 @@ package com.christian.http;
 
 import android.os.Environment;
 import com.christian.ChristianApplication;
+import com.christian.nav.NavPresenter;
 
 /**
  * Created by Administrator on 2016/10/17.

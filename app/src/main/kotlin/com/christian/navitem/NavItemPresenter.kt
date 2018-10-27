@@ -17,7 +17,7 @@ import org.jetbrains.anko.info
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
  */
-class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = true) : NavItemContract.Presenter, RecyclerView.Adapter<NavItemView>(), TextGetter, AnkoLogger {
+class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = true) : NavItemContract.Presenter, RecyclerView.Adapter<NavItemView>(), TextGetter {
 
     private lateinit var navItemView: NavItemView
     private val mContentGravityCenter = "<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"CENTER\"><FONT FACE=\"Microsoft Yahei,微软雅黑\" SIZE=\"24\" COLOR=\"#333333\" LETTERSPACING=\"0\" KERNING=\"0\">我先来个居中对齐!</FONT></P></TEXTFORMAT>"
@@ -99,7 +99,7 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
             if (position == 25) {
                 holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
                 holder.iv_nav_item.visibility = View.VISIBLE
-            } else{
+            } else {
                 holder.iv_nav_item.visibility = View.GONE
             }
 

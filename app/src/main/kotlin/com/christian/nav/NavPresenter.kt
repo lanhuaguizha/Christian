@@ -1,5 +1,6 @@
 package com.christian.nav
 
+import com.christian.R
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
 import com.christian.data.source.NavsRepository
@@ -10,7 +11,6 @@ import com.christian.http.cache.CacheStrategy
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -25,25 +25,22 @@ import java.util.concurrent.TimeUnit
  * is Nav
  */
 class NavPresenter(
-        private val navId: String,
+        private var navId: String,
         private val navsRepository: NavsRepository,
-        private val navView: NavContract.View) : NavContract.Presenter, AnkoLogger {
-
-    private var call: Call<List<Nav>>
+        private val navView: NavContract.View) : NavContract.Presenter {
 
     companion object {
-
         const val DEFAULT_HTTP_CACHE_SIZE = 10 * 1024 * 1024L
-
         const val DEFAULT_TIMEOUT = 5L
-
         const val TAG = "NavPresenter"
     }
 
+    private var call: Call<List<Nav>>
+    var lastNavId: String = navId
+
+
     init {
-
         navView.presenter = this
-
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://192.168.0.193:8080/")
 //                .baseUrl("http://10.200.11.209:8080/")
@@ -52,16 +49,23 @@ class NavPresenter(
                 .build()
         val navService = retrofit.create(NavService::class.java)
         call = navService.getNavs()
-
     }
 
-    override fun start() {
+    override fun init() {
         navView.initView(navs = listOf(Nav()))
     }
 
-    override fun insertNav(itemId: Int, isSrl: Boolean) {
+    override fun deleteNav(navId: String) {
+        navView.deinitView()
+        info { "delete nav id $navId" }
+    }
 
-        end()
+    override fun insertNav(navId: String, isSrl: Boolean): Boolean {
+        if (lastNavId != navId) {
+            deleteNav(lastNavId)
+        }
+        info { "last nav id is $lastNavId and nav id is $navId" }
+        lastNavId = navId
 
         if (isSrl) {
             navView.stopPb()
@@ -93,11 +97,26 @@ class NavPresenter(
             }
 
         })
-
+        info { "insert nav id $navId" }
+        return true
     }
 
-     override fun end() {
-        navView.deinitView()
+    override fun generateNavId(itemId: Int): String {
+        when (itemId) {
+            R.id.navigation_home -> {
+                navId = "0"
+            }
+            R.id.navigation_gospel -> {
+                navId = "1"
+            }
+            R.id.navigation_chat -> {
+                navId = "2"
+            }
+            R.id.navigation_me -> {
+                navId = "3"
+            }
+        }
+        return navId
     }
 
     override fun updateNav(navs: List<Nav>) {

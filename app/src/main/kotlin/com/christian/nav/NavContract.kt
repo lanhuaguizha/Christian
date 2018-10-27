@@ -16,6 +16,10 @@ class NavContract {
      */
     interface View : BaseViewContract.View<NavContract.Presenter> {
 
+        /**
+         * switch tab
+         */
+
         fun setupSb(searchHint: String)
 
         fun startSwipeRefreshLayout()
@@ -69,7 +73,7 @@ class NavContract {
          * select()
          */
 
-        fun insertNav(itemId: Int, isSrl: Boolean = false)
+        fun insertNav(navId: String = "0", isSrl: Boolean = false): Boolean
 
         fun updateNav(navs: List<Nav>)
 

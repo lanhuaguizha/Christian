@@ -27,7 +27,6 @@ import androidx.core.view.isVisible
 import com.christian.Injection
 import com.christian.R
 import com.christian.data.Nav
-import com.christian.index.IndexLayoutManager
 import com.christian.index.IndexScrollListener
 import com.christian.navitem.NavItemPresenter
 import com.christian.swipe.SwipeBackActivity
@@ -37,7 +36,6 @@ import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.search_bar_expanded.*
-import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
 import org.jetbrains.anko.px2dip
@@ -66,10 +64,7 @@ fun disableShiftMode(view: BottomNavigationView) {
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
  * implementation of NavContract.View.
  */
-open class NavActivity : SwipeBackActivity(), NavContract.View, AnkoLogger {
-
-    override fun deinitView() {
-    }
+open class NavActivity : SwipeBackActivity(), NavContract.View {
 
     companion object {
         const val SHORTER_DURATION = 225L
@@ -80,8 +75,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.View, AnkoLogger {
      * presenter will be initialized when the NavPresenter is initialized
      */
     override lateinit var presenter: NavContract.Presenter
-
     lateinit var adapter: NavItemPresenter
+    var lastItemId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,8 +85,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.View, AnkoLogger {
     }
 
     private fun createPresenter() {
-        NavPresenter("", Injection.provideNavsRepository(applicationContext), this)
-        presenter.start()
+        NavPresenter("0", Injection.provideNavsRepository(applicationContext), this)
+        presenter.init()
     }
 
     override fun initView(navs: List<Nav>) {
@@ -105,7 +100,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.View, AnkoLogger {
         initRv(navs)
         initBv()
         initBnv()
-        startNav(0)
+        presenter.insertNav()
+    }
+
+    override fun deinitView() {
     }
 
     private fun initSbl() {
@@ -140,7 +138,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.View, AnkoLogger {
 
     private fun initSrl() {
         srl_nav.setColorSchemeColors(ContextCompat.getColor(this, R.color.colorAccent))
-        srl_nav.setOnRefreshListener { presenter.insertNav(0, true) }
+        srl_nav.setOnRefreshListener { presenter.insertNav("0", true) }
     }
 
     private fun initFs() {
@@ -181,8 +179,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.View, AnkoLogger {
     }
 
     private fun initBv() {
-        comment_nav.visibility = View.GONE
-        bnv_nav.visibility = View.VISIBLE
         //set background, if your root layout doesn't have one
         val windowBackground = window.decorView.background
         val radius = 25f
@@ -211,27 +207,32 @@ open class NavActivity : SwipeBackActivity(), NavContract.View, AnkoLogger {
 
     private fun initBnv() {
         disableShiftMode(bnv_nav)
-        bnv_nav.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_home -> {
-                    startNav(navId = 0)
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.navigation_gospel -> {
-                    startNav(navId = 1)
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.navigation_chat -> {
-                    startNav(navId = 2)
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.navigation_me -> {
-                    startNav(navId = 3)
-                    return@OnNavigationItemSelectedListener true
-                }
-            }
-            false
-        })
+        bnv_nav.setOnNavigationItemSelectedListener {
+//            presenter.deleteNav(presenter.lastNavId)
+            presenter.insertNav(presenter.generateNavId(it.itemId))
+        }
+//        bnv_nav.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.navigation_home -> {
+//                    startNav(navId = 0)
+//                    return@OnNavigationItemSelectedListener true
+//                }
+//                R.id.navigation_gospel -> {
+//                    startNav(navId = 1)
+//                    return@OnNavigationItemSelectedListener true
+//                }
+//                R.id.navigation_chat -> {
+//                    startNav(navId = 2)
+//                    return@OnNavigationItemSelectedListener true
+//                }
+//                R.id.navigation_me -> {
+//                    startNav(navId = 3)
+//                    return@OnNavigationItemSelectedListener true
+//                }
+//            }
+//            lastItemId = item.itemId
+//            false
+//        })
         bnv_nav.setOnNavigationItemReselectedListener { scrollRvToTop() }
     }
 
@@ -299,15 +300,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.View, AnkoLogger {
     }
 
     override fun activeFloatingActionButton() {
-    }
-
-    /**
-     * @param navId quest parameter of nav page to get navs lists
-     */
-    private fun startNav(navId: Int) {
-//        if (navId == 0) {
-        presenter.insertNav(navId)
-//        }
     }
 
     fun scrollRvToTop() {

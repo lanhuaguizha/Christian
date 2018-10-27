@@ -389,7 +389,7 @@ public class ViewDragHelper {
      *
      * @param forParent   Parent view to monitor
      * @param sensitivity Multiplier for how sensitive the helper should be
-     *                    about detecting the start of a drag. Larger values are more
+     *                    about detecting the init of a drag. Larger values are more
      *                    sensitive. 1.0f is normal.
      * @param cb          Callback to provide information and receive events
      * @return a new ViewDragHelper instance
@@ -590,7 +590,7 @@ public class ViewDragHelper {
 
     /**
      * {@link #cancel()}, but also abort all motion in progress and snap to the
-     * end of any animation.
+     * deinit of any animation.
      */
     public void abort() {
         cancel();

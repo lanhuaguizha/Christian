@@ -19,8 +19,6 @@ import android.os.Handler
 import android.util.Log
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
 import org.jetbrains.anko.info
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,7 +28,7 @@ import retrofit2.Response
 /**
  * Implementation of the data source that adds a latency simulating network.
  */
-object NavsRemoteDataSource : NavsDataSource, AnkoLogger {
+object NavsRemoteDataSource : NavsDataSource {
 
     private const val SERVICE_LATENCY_IN_MILLIS = 5000L
 

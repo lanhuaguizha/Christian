@@ -4,7 +4,6 @@ import android.content.Context
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
-import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
 import com.christian.R
@@ -13,8 +12,8 @@ import com.christian.R
  * Created by Christian on 2017/12/9
  */
 @Suppress("DEPRECATION")
-@CoordinatorLayout.DefaultBehavior(AnimatedFloatingActionButton.Behavior::class)
-class AnimatedFloatingActionButton(context: Context?, attrs: AttributeSet?) : FloatingActionButton(context, attrs) {
+@CoordinatorLayout.DefaultBehavior(AnimationFloatingActionButton.Behavior::class)
+class AnimationFloatingActionButton(context: Context?, attrs: AttributeSet?) : FloatingActionButton(context, attrs) {
 
     // true will always has animation
     override fun isLaidOut(): Boolean {

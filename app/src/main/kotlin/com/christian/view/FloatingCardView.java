@@ -13,19 +13,19 @@ import com.christian.util.ChristianUtil;
  * Created by Christian on 2017/11/4.
  */
 
-public class CustomCardView extends CardView {
+public class FloatingCardView extends CardView {
 
     public boolean hasElevation = true;
 
-    public CustomCardView(Context context) {
+    public FloatingCardView(Context context) {
         super(context);
     }
 
-    public CustomCardView(Context context, AttributeSet attrs) {
+    public FloatingCardView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CustomCardView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FloatingCardView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.christian.view.CustomCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.christian.view.FloatingCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     android:id="@+id/cv_nav_item"
@@ -98,4 +98,4 @@
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_more_vert_black_24dp" />
     </android.support.constraint.ConstraintLayout>
-</com.christian.view.CustomCardView>
+</com.christian.view.FloatingCardView>

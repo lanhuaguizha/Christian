@@ -1,11 +1,10 @@
 package com.christian.navitem
 
-import com.christian.BasePresenter
-import com.christian.BaseView
+import com.christian.BasePresenterContract
 
 class NavItemContract {
 
-    interface View : BaseView<Presenter> {
+    interface View : BasePresenterContract.View<Presenter> {
 
         fun initView(hasElevation: Boolean)
 
@@ -13,7 +12,7 @@ class NavItemContract {
 
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenterContract.Presenter {
 
         fun getTitle(pos: Int): String
 

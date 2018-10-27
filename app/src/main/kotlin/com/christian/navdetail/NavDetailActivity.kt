@@ -17,7 +17,6 @@ import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.tb_nav.*
-import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
 private fun NavActivity.initTbE(title: String) {
@@ -42,8 +41,6 @@ private fun NavActivity.initFlE() {
 }
 
 private fun NavActivity.initBvE() {
-    comment_nav.visibility = View.VISIBLE
-    bnv_nav.visibility = View.GONE
     //set background, if your root layout doesn't have one
     val windowBackground = window.decorView.background
     val radius = 25f
@@ -71,7 +68,7 @@ private fun NavActivity.initFABE() {
     fab_nav.setOnClickListener { scrollRvToTop() }
 }
 
-private fun NavActivity.startNavE(navId: Int) {
+private fun NavActivity.startNavE(navId: String) {
     presenter.insertNav(navId)
 }
 
@@ -82,7 +79,7 @@ private fun runLayoutAnimationE(recyclerView: RecyclerView) {
 /**
  * The nav details page contains all the logic of the nav page.
  */
-class NavDetailActivity : NavActivity(), NavDetailContract.View, AnkoLogger {
+class NavDetailActivity : NavActivity(), NavDetailContract.View {
 
     override fun showCv() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -100,7 +97,7 @@ class NavDetailActivity : NavActivity(), NavDetailContract.View, AnkoLogger {
         initFlE()
         initRv(navs)
         initBvE()
-        startNavE(0)
+        startNavE("0")
     }
 
     override fun initRv(navs: List<Nav>) {
