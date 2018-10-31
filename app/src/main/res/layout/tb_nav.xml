@@ -1,15 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/toolbar_actionbar"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/action_bar_height"
-    android:theme="@style/AppTheme.AppBarOverlay"
-    app:contentInsetStart="0dp"
-    app:layout_scrollFlags="scroll|enterAlways"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    tools:showIn="@layout/home_frag">
 
-    <include layout="@layout/sb_nav" />
-</android.support.v7.widget.Toolbar>
+
+<include layout="@layout/sb_nav" />

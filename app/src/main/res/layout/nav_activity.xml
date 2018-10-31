@@ -17,36 +17,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <include layout="@layout/tb_nav" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/tb_nav"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/action_bar_height"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                app:contentInsetStart="0dp"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                tools:showIn="@layout/home_frag">
+
+                <include layout="@layout/sb_nav" />
+            </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.constraint.ConstraintLayout
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_nav"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/srl_nav"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_nav"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </android.support.v4.widget.SwipeRefreshLayout>
-
-            <com.christian.index.FastScroller
-                android:id="@+id/fs_nav"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/search_margin_horizontal"
-                android:layout_marginBottom="@dimen/search_margin_horizontal"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
-
-        </android.support.constraint.ConstraintLayout>
+            android:layout_height="match_parent" />
 
         <com.christian.view.AnimationFloatingActionButton
             android:id="@+id/fab_nav"

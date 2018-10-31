@@ -13,7 +13,7 @@ class NavDetailContract {
     /**
      * All view logic about NavDetail
      */
-    interface View : BaseViewContract.View<NavContract.Presenter> {
+    interface View : BaseViewContract.IView<NavContract.IPresenter> {
 
         /**
          * Show comment view

@@ -14,20 +14,9 @@ class NavContract {
      * Write Nav view and presenter separately, first of all you think there are ways to
      * play the Nav view
      */
-    interface View : BaseViewContract.View<NavContract.Presenter> {
+    interface INavActivity : BaseViewContract.IView<NavContract.IPresenter> {
 
-        /**
-         * switch tab
-         */
-
-        fun setupSb(searchHint: String)
-
-        fun startSwipeRefreshLayout()
-
-        /**
-         * Stop the scale down animation after inserting the data.
-         */
-        fun stopSrl()
+        fun initSb(searchHint: String)
 
         /**
          * Start the loading animation before inserting the data.
@@ -40,13 +29,6 @@ class NavContract {
         fun stopPb()
 
         /**
-         * You have to show the view in init view and invalidate view in the callback.
-         */
-        fun invalidateRv(navs: List<Nav>)
-
-        fun restoreRvPos()
-
-        /**
          * Hide before each display to meet the material design specification.
          */
         fun showFab(drawableId: Int)
@@ -56,11 +38,32 @@ class NavContract {
         fun activeFloatingActionButton()
     }
 
+    interface INavFragment : BaseViewContract.IView<NavContract.IPresenter> {
+
+        fun initSrl()
+
+        fun initFs()
+
+        fun initRv(navs: List<Nav>)
+
+        fun startSrl()
+
+        fun stopSrl()
+
+        /**
+         * You have to show the view in init view and invalidate view in the callback.
+         */
+        fun invalidateRv(navs: List<Nav>)
+
+        fun restoreRvPos()
+    }
+
     /**
      * Write Nav view and presenter separately, first of all you think there are ways to
      * play the Nav business logic
      */
-    interface Presenter : BaseViewContract.Presenter {
+    interface IPresenter : BaseViewContract.IPresenter {
+
         /**
          * Summary of business logic,
          *
@@ -73,10 +76,16 @@ class NavContract {
          * select()
          */
 
-        fun insertNav(navId: String = "0", isSrl: Boolean = false): Boolean
+        fun insertNav(navId: String = "0", isSrl: Boolean = false, navFragment: NavFragment): Boolean
 
         fun updateNav(navs: List<Nav>)
 
         fun queryNav()
+        /**
+         * The next view has been pressed
+         */
+        fun deleteNav(navId: String)
+
+        fun generateNavId(itemId: Int) : String
     }
 }

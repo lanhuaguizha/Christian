@@ -16,6 +16,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -27,12 +28,11 @@ import java.util.concurrent.TimeUnit
 class NavPresenter(
         private var navId: String,
         private val navsRepository: NavsRepository,
-        private val navView: NavContract.View) : NavContract.Presenter {
+        private val navActivity: NavContract.INavActivity) : NavContract.IPresenter {
 
     companion object {
         const val DEFAULT_HTTP_CACHE_SIZE = 10 * 1024 * 1024L
         const val DEFAULT_TIMEOUT = 5L
-        const val TAG = "NavPresenter"
     }
 
     private var call: Call<List<Nav>>
@@ -40,7 +40,7 @@ class NavPresenter(
 
 
     init {
-        navView.presenter = this
+        navActivity.presenter = this
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://192.168.0.193:8080/")
 //                .baseUrl("http://10.200.11.209:8080/")
@@ -51,16 +51,26 @@ class NavPresenter(
         call = navService.getNavs()
     }
 
-    override fun init() {
-        navView.initView(navs = listOf(Nav()))
+    override fun init(isActivityInit: Boolean, position: Int) {
+        val navList = listOf(Nav())
+        val navFragmentList = listOf(NavFragment(), NavFragment(), NavFragment(), NavFragment())
+
+        when (isActivityInit) {
+            true -> navActivity.initView(navFragmentList, navList)
+            false -> {
+                navFragmentList[position].presenter = this
+                info { "initView Fragment" }
+//                navFragmentList[position].initView(navFragmentList, navList)
+            }
+        }
     }
 
     override fun deleteNav(navId: String) {
-        navView.deinitView()
+        navActivity.deinitView()
         info { "delete nav id $navId" }
     }
 
-    override fun insertNav(navId: String, isSrl: Boolean): Boolean {
+    override fun insertNav(navId: String, isSrl: Boolean, navFragment: NavFragment): Boolean {
         if (lastNavId != navId) {
             deleteNav(lastNavId)
         }
@@ -68,10 +78,10 @@ class NavPresenter(
         lastNavId = navId
 
         if (isSrl) {
-            navView.stopPb()
+            navActivity.stopPb()
         } else {
-            navView.startPb()
-            navView.stopSrl()
+            navActivity.startPb()
+//            navFragment.stopSrl()
         }
 
         info { call.toString() }
@@ -82,17 +92,17 @@ class NavPresenter(
 
             override fun onNavsLoaded(navs: List<Nav>) {
 
-                navView.invalidateRv(navs)
+                navFragment.invalidateRv(navs)
 
-                navView.stopPb()
-                navView.stopSrl()
+                navActivity.stopPb()
+//                navFragment.stopSrl()
 
             }
 
             override fun onDataNotAvailable() {
 
-                navView.stopPb()
-                navView.stopSrl()
+                navActivity.stopPb()
+//                navFragment.stopSrl()
 
             }
 

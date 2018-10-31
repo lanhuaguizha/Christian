@@ -1,6 +1,7 @@
 package com.christian
 
 import com.christian.data.Nav
+import com.christian.nav.NavFragment
 import org.jetbrains.anko.AnkoLogger
 
 /**
@@ -12,7 +13,7 @@ class BaseViewContract {
      * View of MVP architecture.
      * Responsible for handling view logic.
      */
-    interface View<T> : AnkoLogger {
+    interface IView<T> : AnkoLogger {
 
         var presenter: T
 
@@ -41,7 +42,7 @@ class BaseViewContract {
          *
          * initPb()
          */
-        fun initView(navs: List<Nav>)
+        fun initView(navFragments: List<NavFragment>, navs: List<Nav>)
 
         /**
          * Activity has these views,
@@ -56,18 +57,11 @@ class BaseViewContract {
      * Presenter of MVP architecture.
      * Responsible for handling business logic.
      */
-    interface Presenter : AnkoLogger {
+    interface IPresenter : AnkoLogger {
 
         /**
          * the view has been pressed
          */
-        fun init()
-
-        /**
-         * The next view has been pressed
-         */
-        fun deleteNav(navId: String)
-
-        fun generateNavId(itemId: Int) : String
+        fun init(isActivityInit: Boolean = true, position: Int)
     }
 }
