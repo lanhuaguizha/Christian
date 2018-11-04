@@ -16,7 +16,6 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -36,14 +35,12 @@ class NavPresenter(
     }
 
     private var call: Call<List<Nav>>
-    var lastNavId: String = navId
-
 
     init {
         navActivity.presenter = this
+
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://192.168.0.193:8080/")
-//                .baseUrl("http://10.200.11.209:8080/")
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -51,59 +48,47 @@ class NavPresenter(
         call = navService.getNavs()
     }
 
-    override fun init(isActivityInit: Boolean, position: Int) {
+    override fun init(navFragment: NavFragment?) {
         val navList = listOf(Nav())
-        val navFragmentList = listOf(NavFragment(), NavFragment(), NavFragment(), NavFragment())
+        val navFragmentList = listOf(NavFragment(this), NavFragment(this))
 
-        when (isActivityInit) {
+        when (navFragment == null) {
             true -> navActivity.initView(navFragmentList, navList)
             false -> {
-                navFragmentList[position].presenter = this
                 info { "initView Fragment" }
-//                navFragmentList[position].initView(navFragmentList, navList)
+                navFragment?.initView(navFragmentList, navList)
             }
         }
     }
 
-    override fun deleteNav(navId: String) {
-        navActivity.deinitView()
-        info { "delete nav id $navId" }
+    override fun deinit() {
     }
 
-    override fun insertNav(navId: String, isSrl: Boolean, navFragment: NavFragment): Boolean {
-        if (lastNavId != navId) {
-            deleteNav(lastNavId)
-        }
-        info { "last nav id is $lastNavId and nav id is $navId" }
-        lastNavId = navId
+    override fun deleteNav(navId: String) {
+    }
 
+    override fun createNav(navId: String, isSrl: Boolean, navFragment: NavFragment): Boolean {
         if (isSrl) {
-            navActivity.stopPb()
+            navActivity.hidePb()
         } else {
-            navActivity.startPb()
-//            navFragment.stopSrl()
+            navActivity.showPb()
+            navFragment.hideSrl()
         }
 
-        info { call.toString() }
-        if (call.isExecuted) {
-            call.cancel()
-        }
         navsRepository.getNavs(call, object : NavsDataSource.LoadNavsCallback {
 
             override fun onNavsLoaded(navs: List<Nav>) {
 
                 navFragment.invalidateRv(navs)
 
-                navActivity.stopPb()
-//                navFragment.stopSrl()
+                navActivity.hidePb()
+                navFragment.hideSrl()
 
             }
 
             override fun onDataNotAvailable() {
-
-                navActivity.stopPb()
-//                navFragment.stopSrl()
-
+                navActivity.hidePb()
+                navFragment.hideSrl()
             }
 
         })
@@ -111,28 +96,10 @@ class NavPresenter(
         return true
     }
 
-    override fun generateNavId(itemId: Int): String {
-        when (itemId) {
-            R.id.navigation_home -> {
-                navId = "0"
-            }
-            R.id.navigation_gospel -> {
-                navId = "1"
-            }
-            R.id.navigation_chat -> {
-                navId = "2"
-            }
-            R.id.navigation_me -> {
-                navId = "3"
-            }
-        }
-        return navId
-    }
-
     override fun updateNav(navs: List<Nav>) {
     }
 
-    override fun queryNav() {
+    override fun readNav() {
     }
 
     /**
@@ -157,4 +124,31 @@ class NavPresenter(
         return Cache(httpCacheDirectory, cacheSize.toLong())
     }
 
+    fun generateNavId(itemId: Int): String {
+        when (itemId) {
+            R.id.navigation_home -> {
+                navId = "0"
+            }
+            R.id.navigation_gospel -> {
+                navId = "1"
+            }
+            R.id.navigation_chat -> {
+                navId = "2"
+            }
+            R.id.navigation_me -> {
+                navId = "3"
+            }
+        }
+        return navId
+    }
+
+    fun showAblAndScrollRv() {
+    }
+
+    fun hideAblAndScrollRv() {
+    }
+
 }
+
+const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
+const val initFragmentIndex = 0

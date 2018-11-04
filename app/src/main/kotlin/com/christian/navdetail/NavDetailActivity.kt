@@ -68,7 +68,7 @@
 //}
 //
 //private fun NavActivity.startNavE(navId: String) {
-//    presenter.insertNav(navId)
+//    presenter.createNav(navId)
 //}
 //
 //private fun runLayoutAnimationE(recyclerView: RecyclerView) {

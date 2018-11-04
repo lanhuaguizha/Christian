@@ -28,11 +28,12 @@ import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.search_bar_expanded.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
-import org.jetbrains.anko.px2dip
+import kotlin.math.abs
 
 /**
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
@@ -40,20 +41,17 @@ import org.jetbrains.anko.px2dip
  */
 open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
-    companion object {
-        var HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
-    }
-
     /**
      * presenter will be initialized when the NavPresenter is initialized
      */
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navFragment: NavFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nav_activity)
         NavPresenter("0", Injection.provideNavsRepository(applicationContext), this)
-        presenter.init(position = 0)
+        presenter.init()
     }
 
     override fun initView(navFragments: List<NavFragment>, navs: List<Nav>) {
@@ -75,15 +73,21 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     private fun initAbl() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            abl_nav.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-                Log.i("systemui", "dd" + verticalOffset + "cc" + appBarLayout.height + "ee" + px2dip(abl_nav.elevation.toInt()) + "ff" + abl_nav.elevation)
-                if (-verticalOffset == appBarLayout.height) {
+        abl_nav.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            info { "verticalOffset$verticalOffset" }
+            if (-verticalOffset == appBarLayout.height) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     abl_nav.elevation = 0f
-                } else {
-                    abl_nav.elevation = dip(4).toFloat()
-                    Log.i("systemui", "ee" + px2dip(abl_nav.elevation.toInt()) + "ff" + abl_nav.elevation)
                 }
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    abl_nav.elevation = dip(4).toFloat()
+                }
+            }
+
+            when (abs(verticalOffset) - appBarLayout.height / 2 > 0) {
+                true -> (presenter as NavPresenter).showAblAndScrollRv()
+                false -> (presenter as NavPresenter).hideAblAndScrollRv()
             }
         }
     }
@@ -107,22 +111,20 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
             }
 
             override fun onPageSelected(position: Int) {
                 navFragment = navFragments[position]
-//                presenter.init(false, position)
+                navFragment.navId = position
                 info { "onPageSelected" }
                 if (bnv_nav.menu.getItem(position).isCheckable) {
                     info { "bnv_nav.menu.getItem(position).isCheckable${bnv_nav.menu.getItem(position).isCheckable}" }
                     bnv_nav.menu.getItem(position).isChecked = true
                 }
-                presenter.insertNav(position.toString(), navFragment = navFragment)
+                presenter.createNav(position.toString(), navFragment = navFragment)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
-
             }
         })
     }
@@ -143,7 +145,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         bv_nav.layoutParams = params
     }
 
-    private fun initFAB() {
+    fun initFAB() {
         fab_nav.visibility = View.GONE
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.show()
@@ -156,50 +158,31 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     private fun initBnv(navFragments: List<NavFragment>) {
         disableShiftMode(bnv_nav)
-
-//        bnv_nav.menu.getItem(0).isChecked = true //no effect, why?
-        presenter.insertNav("0", navFragment = navFragments[0])
+//        vp_nav.currentItem = 1
+        vp_nav.currentItem = 0
 
         bnv_nav.setOnNavigationItemSelectedListener {
-//            vp_nav.currentItem = presenter.generateNavId(it.itemId).toInt()
-            val position = presenter.generateNavId(it.itemId).toInt()
+            //            vp_nav.currentItem = presenter.generateNavId(it.itemId).toInt()
+            val position = (presenter as NavPresenter).generateNavId(it.itemId).toInt()
             vp_nav.currentItem = position
             true
         }
-//        bnv_nav.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
-//            when (item.itemId) {
-//                R.id.navigation_home -> {
-//                    vp_nav.currentItem = 0
-//                    return@OnNavigationItemSelectedListener true
-//                }
-//                R.id.navigation_gospel -> {
-//                    vp_nav.currentItem = 1
-//                    return@OnNavigationItemSelectedListener true
-//                }
-//                R.id.navigation_chat -> {
-//                    vp_nav.currentItem = 2
-//                    return@OnNavigationItemSelectedListener true
-//                }
-//                R.id.navigation_me -> {
-//                    vp_nav.currentItem = 3
-//                    return@OnNavigationItemSelectedListener true
-//                }
-//            }
-//            presenter.insertNav(presenter.generateNavId(item.itemId))
-//            false
-//        })
-        bnv_nav.setOnNavigationItemReselectedListener { scrollRvToTop() }
+
+        bnv_nav.setOnNavigationItemReselectedListener {
+            navFragment.rv_nav.smoothScrollToPosition(dip(0)) // 为了滚到顶
+            abl_nav.setExpanded(true, true)
+        }
     }
 
     override fun initSb(searchHint: String) {
     }
 
 
-    override fun startPb() {
+    override fun showPb() {
         pb_nav.visibility = View.VISIBLE
     }
 
-    override fun stopPb() {
+    override fun hidePb() {
         pb_nav.visibility = View.GONE
     }
 
@@ -235,15 +218,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     }
 
-    override fun hideFloatingActionButton() {
-    }
-
-    override fun activeFloatingActionButton() {
-    }
-
-    fun scrollRvToTop() {
-//        rv_nav.smoothScrollToPosition(dip(-1)) // 为了滚到顶
-        abl_nav.setExpanded(true, true)
+    override fun hideFab() {
     }
 
     // --Start android tv

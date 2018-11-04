@@ -3,7 +3,6 @@ package com.christian.nav
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -15,14 +14,16 @@ import com.christian.data.Nav
 import com.christian.index.IndexScrollListener
 import com.christian.navitem.NavItemPresenter
 import com.christian.view.ItemDecoration
+import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
 
-class NavFragment : Fragment(), NavContract.INavFragment {
+class NavFragment(navPresenter: NavPresenter) : Fragment(), NavContract.INavFragment {
 
-    override lateinit var presenter: NavContract.IPresenter
+    override var presenter: NavContract.IPresenter = navPresenter
     private lateinit var adapter: NavItemPresenter
-    private lateinit var v: View
+    lateinit var v: View
+    var navId: Int = 0
 
     init {
         info { "init" }
@@ -36,15 +37,18 @@ class NavFragment : Fragment(), NavContract.INavFragment {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         info { "onCreateView" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
-        initSrl()
-        initFs()
-        initRv(listOf(Nav()))
         return v
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        presenter.init(navFragment = this)
     }
 
     override fun initView(navFragments: List<NavFragment>, navs: List<Nav>) {
         info { "initView" }
-        // why? why i can't init view in presenter but have to in onCreateView
+        initSrl()
+        initFs()
+        initRv(listOf(Nav()))
     }
 
     override fun deinitView() {
@@ -52,7 +56,7 @@ class NavFragment : Fragment(), NavContract.INavFragment {
 
     override fun initSrl() {
         v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(context!!.resources, R.color.colorAccent, context?.theme))
-//        v.srl_nav.setOnRefreshListener { presenter.insertNav("0", true, ) }
+        v.srl_nav.setOnRefreshListener { presenter.createNav(navId.toString(), true, this) }
         v.srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, context?.theme)
     }
 
@@ -68,11 +72,11 @@ class NavFragment : Fragment(), NavContract.INavFragment {
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
 
             override fun onHide() {
-//                activity?.fab_nav?.hide()
+                activity?.fab_nav?.hide()
             }
 
             override fun onShow() {
-//                activity?.fab_nav?.show()
+                activity?.fab_nav?.show()
             }
 
             override fun onTop() {
@@ -89,22 +93,17 @@ class NavFragment : Fragment(), NavContract.INavFragment {
         v.rv_nav.addOnScrollListener(indexScrollListener)
     }
 
-    override fun startSrl() {
+    override fun showSrl() {
     }
 
-    override fun stopSrl() {
+    override fun hideSrl() {
         v.srl_nav.isRefreshing = false
     }
 
     override fun invalidateRv(navs: List<Nav>) {
         adapter.navs = navs
         runLayoutAnimation(v.rv_nav)
-//        fab_nav.post {
-//            initFAB()
-//        }
-    }
-
-    override fun restoreRvPos() {
+        (activity as NavActivity).initFAB()
     }
 
     private fun runLayoutAnimation(recyclerView: RecyclerView) {

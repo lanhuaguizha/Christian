@@ -62,6 +62,8 @@ class BaseViewContract {
         /**
          * the view has been pressed
          */
-        fun init(isActivityInit: Boolean = true, position: Int)
+        fun init(navFragment: NavFragment? = null)
+
+        fun deinit()
     }
 }

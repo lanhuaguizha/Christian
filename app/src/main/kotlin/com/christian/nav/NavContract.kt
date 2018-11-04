@@ -21,21 +21,19 @@ class NavContract {
         /**
          * Start the loading animation before inserting the data.
          */
-        fun startPb()
+        fun showPb()
 
         /**
          * Stop the loading animation after inserting the data.
          */
-        fun stopPb()
+        fun hidePb()
 
         /**
          * Hide before each display to meet the material design specification.
          */
         fun showFab(drawableId: Int)
 
-        fun hideFloatingActionButton()
-
-        fun activeFloatingActionButton()
+        fun hideFab()
     }
 
     interface INavFragment : BaseViewContract.IView<NavContract.IPresenter> {
@@ -46,16 +44,14 @@ class NavContract {
 
         fun initRv(navs: List<Nav>)
 
-        fun startSrl()
+        fun showSrl()
 
-        fun stopSrl()
+        fun hideSrl()
 
         /**
          * You have to show the view in init view and invalidate view in the callback.
          */
         fun invalidateRv(navs: List<Nav>)
-
-        fun restoreRvPos()
     }
 
     /**
@@ -65,27 +61,26 @@ class NavContract {
     interface IPresenter : BaseViewContract.IPresenter {
 
         /**
-         * Summary of business logic,
+         * Summary of business logic is db's CRUD
          *
-         * insert()
+         * Create()
          *
-         * delete()
+         * Delete()
          *
-         * update()
+         * Update()
          *
-         * select()
+         * Read()
          */
 
-        fun insertNav(navId: String = "0", isSrl: Boolean = false, navFragment: NavFragment): Boolean
+        fun createNav(navId: String = "0", isSrl: Boolean = false, navFragment: NavFragment): Boolean
 
-        fun updateNav(navs: List<Nav>)
-
-        fun queryNav()
         /**
          * The next view has been pressed
          */
         fun deleteNav(navId: String)
 
-        fun generateNavId(itemId: Int) : String
+        fun updateNav(navs: List<Nav>)
+
+        fun readNav()
     }
 }
