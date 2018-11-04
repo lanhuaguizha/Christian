@@ -26,7 +26,7 @@ class NavFragment(navPresenter: NavPresenter) : Fragment(), NavContract.INavFrag
     var navId: Int = 0
 
     init {
-        info { "init" }
+        info { "look at init times" }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

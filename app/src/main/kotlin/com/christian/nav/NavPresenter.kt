@@ -50,7 +50,7 @@ class NavPresenter(
 
     override fun init(navFragment: NavFragment?) {
         val navList = listOf(Nav())
-        val navFragmentList = listOf(NavFragment(this), NavFragment(this))
+        val navFragmentList = listOf(NavFragment(this), NavFragment(this), NavFragment(this), NavFragment(this))
 
         when (navFragment == null) {
             true -> navActivity.initView(navFragmentList, navList)

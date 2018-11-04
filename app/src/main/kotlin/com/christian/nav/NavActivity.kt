@@ -28,6 +28,7 @@ import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.search_bar_expanded.*
@@ -52,6 +53,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         setContentView(R.layout.nav_activity)
         NavPresenter("0", Injection.provideNavsRepository(applicationContext), this)
         presenter.init()
+        info { "look at init times" }
     }
 
     override fun initView(navFragments: List<NavFragment>, navs: List<Nav>) {
@@ -107,26 +109,31 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         val navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragments, supportFragmentManager)
 
         vp_nav.adapter = navFragmentPagerAdapter
-        vp_nav.offscreenPageLimit = 1
 
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
 
             override fun onPageSelected(position: Int) {
-                navFragment = navFragments[position]
-                navFragment.navId = position
-                info { "onPageSelected" }
-                if (bnv_nav.menu.getItem(position).isCheckable) {
-                    info { "bnv_nav.menu.getItem(position).isCheckable${bnv_nav.menu.getItem(position).isCheckable}" }
-                    bnv_nav.menu.getItem(position).isChecked = true
-                }
-                presenter.createNav(position.toString(), navFragment = navFragment)
+                selectNavFragment(navFragments, position)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
             }
+
         })
+    }
+
+    // ToDo 不应该每次滑动都请求数据去创建数据库
+    private fun selectNavFragment(navFragments: List<NavFragment>, position: Int) {
+        navFragment = navFragments[position]
+        navFragment.navId = position
+        info { "onPageSelected" }
+        if (bnv_nav.menu[position].isCheckable) {
+            info { "bnv_nav.menu.getItem(position).isCheckable${bnv_nav.menu.getItem(position).isCheckable}" }
+            bnv_nav.menu[position].isChecked = true
+        }
+        presenter.createNav(position.toString(), navFragment = navFragment)
     }
 
     private fun initBv() {
@@ -158,13 +165,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     private fun initBnv(navFragments: List<NavFragment>) {
         disableShiftMode(bnv_nav)
-//        vp_nav.currentItem = 1
-        vp_nav.currentItem = 0
 
-        bnv_nav.setOnNavigationItemSelectedListener {
-            //            vp_nav.currentItem = presenter.generateNavId(it.itemId).toInt()
-            val position = (presenter as NavPresenter).generateNavId(it.itemId).toInt()
-            vp_nav.currentItem = position
+        bnv_nav.postDelayed({selectNavFragment(navFragments, initFragmentIndex)}, 2000)
+
+        bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
+            vp_nav.currentItem = (presenter as NavPresenter).generateNavId(it.itemId).toInt()
             true
         }
 
