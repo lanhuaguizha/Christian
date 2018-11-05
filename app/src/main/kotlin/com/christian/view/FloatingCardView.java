@@ -60,7 +60,7 @@ public class FloatingCardView extends CardView {
                 downAnim.setInterpolator(new AccelerateInterpolator());
                 downAnim.start();
 
-                setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.card, null));
+                setForeground(null);
                 break;
 
         }
