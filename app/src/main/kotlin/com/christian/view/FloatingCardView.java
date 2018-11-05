@@ -2,11 +2,14 @@ package com.christian.view;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+
+import com.christian.R;
 import com.christian.util.ChristianUtil;
 
 /**
@@ -56,6 +59,8 @@ public class FloatingCardView extends CardView {
                 downAnim.setDuration(150);
                 downAnim.setInterpolator(new AccelerateInterpolator());
                 downAnim.start();
+
+                setBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.card, null));
                 break;
 
         }
