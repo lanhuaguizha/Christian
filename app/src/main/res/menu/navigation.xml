@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/navigation_chat"
-        android:icon="@drawable/ic_supervisor_account_black_24dp"
+        android:icon="@drawable/ic_group_black_24dp"
         android:title="@string/title_chat" />
 
     <item
