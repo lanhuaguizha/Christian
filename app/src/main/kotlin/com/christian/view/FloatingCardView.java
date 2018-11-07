@@ -2,15 +2,11 @@ package com.christian.view;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-
-import com.christian.R;
 import com.christian.util.ChristianUtil;
 
 /**
@@ -48,8 +44,6 @@ public class FloatingCardView extends CardView {
 
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                setForeground(AppCompatResources.getDrawable(getContext(), R.drawable.fluent_ripple));
-
                 ObjectAnimator upAnim = ObjectAnimator.ofFloat(this, "translationZ", ChristianUtil.dpToPx(8));
                 upAnim.setDuration(150);
                 upAnim.setInterpolator(new DecelerateInterpolator());
@@ -62,8 +56,6 @@ public class FloatingCardView extends CardView {
                 downAnim.setDuration(150);
                 downAnim.setInterpolator(new AccelerateInterpolator());
                 downAnim.start();
-
-                setForeground(null);
                 break;
 
         }

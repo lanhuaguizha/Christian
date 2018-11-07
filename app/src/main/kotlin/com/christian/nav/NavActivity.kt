@@ -1,9 +1,7 @@
 package com.christian.nav
 
 import android.annotation.SuppressLint
-import android.app.UiModeManager
 import android.content.Context
-import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
@@ -16,11 +14,7 @@ import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
-import android.view.KeyEvent
 import android.view.View
-import android.view.ViewGroup
-import androidx.core.view.get
-import androidx.core.view.isVisible
 import com.christian.Injection
 import com.christian.R
 import com.christian.data.Nav
@@ -129,9 +123,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         navFragment = navFragments[position]
         navFragment.navId = position
         info { "onPageSelected" }
-        if (bnv_nav.menu[position].isCheckable) {
+        if (bnv_nav.menu.getItem(position).isCheckable) {
             info { "bnv_nav.menu.getItem(position).isCheckable${bnv_nav.menu.getItem(position).isCheckable}" }
-            bnv_nav.menu[position].isChecked = true
+            bnv_nav.menu.getItem(position).isChecked = true
         }
         presenter.createNav(position.toString(), navFragment = navFragment)
     }
@@ -157,7 +151,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.show()
         fab_nav.setOnClickListener(null)
-        if (!fab_nav.isVisible) {
+        if (fab_nav.visibility != View.VISIBLE) {
             info { "initFAB View.VISIBLE" }
             fab_nav.visibility = View.VISIBLE
         }
@@ -166,7 +160,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     private fun initBnv(navFragments: List<NavFragment>) {
         disableShiftMode(bnv_nav)
 
-        bnv_nav.postDelayed({selectNavFragment(navFragments, initFragmentIndex)}, 2000)
+        bnv_nav.postDelayed({ selectNavFragment(navFragments, initFragmentIndex) }, 2000)
 
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
             vp_nav.currentItem = (presenter as NavPresenter).generateNavId(it.itemId).toInt()
@@ -225,30 +219,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     override fun hideFab() {
     }
-
-    // --Start android tv
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        Log.i("keyCode", "keyCode$keyCode")
-        val view = (bnv_nav[0] as ViewGroup).getChildAt(0)
-        Log.i("keyCode", "view.isFocused${view.isFocused}")
-        val uiModeManager = getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
-        if (uiModeManager.currentModeType == Configuration.UI_MODE_TYPE_TELEVISION) {
-            when (keyCode) {
-                KeyEvent.KEYCODE_BACK -> {
-                    return if (!view.isFocused) {
-                        view.requestFocus()
-                        Log.i("keyCode", "view.hasFocus${view.hasFocus()}")
-                        true
-                    } else {
-                        super.onKeyDown(keyCode, event)
-                    }
-                }
-            }
-        }
-
-        return super.onKeyDown(keyCode, event)
-    }
-    // --End
 
     private fun slExpand() {
         if (!sl_nav.isExpanded) {
