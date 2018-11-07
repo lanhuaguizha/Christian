@@ -117,7 +117,7 @@ dependencies {
     implementation 'com.eightbitlab:blurview:1.4.0'
     implementation 'com.eightbitlab:supportrenderscriptblur:1.0.1'
 
-    implementation(name: 'lib_tv_fullhtml-debug', ext: 'aar')
+//    implementation(name: 'lib_tv_fullhtml-debug', ext: 'aar')
     // https://github.com/xuyisheng/TextViewForFullHtml
     // Avoid manual configuration on proguard-rules.pro files
 //    implementation 'com.blankj:free-proguard:0.0.8'

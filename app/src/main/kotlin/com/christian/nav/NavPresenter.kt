@@ -56,7 +56,7 @@ class NavPresenter(
             true -> navActivity.initView(navFragmentList, navList)
             false -> {
                 info { "initView Fragment" }
-                navFragment?.initView(navFragmentList, navList)
+                navFragment.initView(navFragmentList, navList)
             }
         }
     }
