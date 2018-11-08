@@ -149,7 +149,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     @SuppressLint("RestrictedApi")
     fun initFAB() {
         fab_nav.visibility = View.GONE
-        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_mic_black_24dp, theme))
+        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.show()
         fab_nav.setOnClickListener(null)
         if (fab_nav.visibility != View.VISIBLE) {
