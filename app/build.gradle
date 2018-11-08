@@ -1,35 +1,28 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 android {
-    lintOptions {
-        abortOnError false
-    }
-
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     defaultConfig {
         renderscriptTargetApi 27
         renderscriptSupportModeEnabled true
         applicationId "com.christian"
         minSdkVersion 16
-        targetSdkVersion 27
-        versionCode = Integer.valueOf("" + appVersionCode).floatValue()
-        versionName "${appVersionName}"
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         debug {
             // Very important to reduce the apk size
-//            minifyEnabled true
-//            shrinkResources true
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled true
@@ -37,23 +30,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
-    signingConfigs {
-        release {
-//            storeFile file("D:\\keystore\\temp.jks")
-//            storePassword '123456'
-//            keyAlias 'temp'
-//            keyPassword '123456'
-        }
-
-        debug {
-//            storeFile file("D:\\keystore\\temp.jks")
-//            storePassword '123456'
-//            keyAlias 'temp'
-//            keyPassword '123456'
-        }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-
     sourceSets {
         // Encapsulates configurations for the main source set.
         main {
@@ -80,7 +60,9 @@ android {
             manifest.srcFile 'src/main/AndroidManifest.xml'
         }
     }
-
+    lintOptions {
+        abortOnError false
+    }
 }
 
 kapt {
@@ -88,35 +70,25 @@ kapt {
 }
 
 dependencies {
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
-
     implementation "org.jetbrains.anko:anko-sdk25:$anko_version"
     // sdk15, sdk19, sdk21, sdk23 are also available
     implementation "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
-
     implementation "com.android.support:appcompat-v7:${android_support_lib_version}"
     implementation "com.android.support:design:${android_support_lib_version}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation "com.android.support:support-vector-drawable:${android_support_lib_version}"
     implementation "com.android.support:cardview-v7:${android_support_lib_version}"
-
     implementation "android.arch.persistence.room:runtime:${room_vertion}"
     kapt "android.arch.persistence.room:compiler:${room_vertion}"
-
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
-
     testImplementation 'junit:junit:4.12'
-
     implementation 'com.eightbitlab:blurview:1.4.0'
     implementation 'com.eightbitlab:supportrenderscriptblur:1.0.1'
-
 //    implementation(name: 'lib_tv_fullhtml-debug', ext: 'aar')
     // https://github.com/xuyisheng/TextViewForFullHtml
     // Avoid manual configuration on proguard-rules.pro files

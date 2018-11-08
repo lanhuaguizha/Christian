@@ -8,7 +8,7 @@ abstract class HidingScrollListener(private val navFragment: NavFragment) : Recy
     private var scrolledDistance = 0 //移动的中距离
     private var controlsVisible = true //显示或隐藏
 
-    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         Log.i("rv", "-1 " + navFragment.rv_nav.canScrollVertically(-1))
         if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {//移动总距离大于规定距离 并且是显示状态就隐藏

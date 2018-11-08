@@ -48,6 +48,7 @@ class NavFragment(navPresenter: NavPresenter) : Fragment(), NavContract.INavFrag
         info { "initView" }
         initSrl()
         initFs()
+        (activity as NavActivity).initFAB()
         initRv(listOf(Nav()))
     }
 
@@ -103,13 +104,12 @@ class NavFragment(navPresenter: NavPresenter) : Fragment(), NavContract.INavFrag
     override fun invalidateRv(navs: List<Nav>) {
         adapter.navs = navs
         runLayoutAnimation(v.rv_nav)
-        (activity as NavActivity).initFAB()
     }
 
     private fun runLayoutAnimation(recyclerView: RecyclerView) {
         val animation = AnimationUtils.loadLayoutAnimation(recyclerView.context, R.anim.layout_animation_from_right)
         recyclerView.layoutAnimation = animation
-        recyclerView.adapter.notifyDataSetChanged()
+        recyclerView.adapter?.notifyDataSetChanged()
         recyclerView.scheduleLayoutAnimation()
     }
 

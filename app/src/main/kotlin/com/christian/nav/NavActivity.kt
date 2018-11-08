@@ -69,7 +69,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     private fun initAbl() {
-        abl_nav.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+        abl_nav.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
             info { "verticalOffset$verticalOffset" }
             if (-verticalOffset == appBarLayout.height) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -85,7 +85,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 true -> (presenter as NavPresenter).showAblAndScrollRv()
                 false -> (presenter as NavPresenter).hideAblAndScrollRv()
             }
-        }
+        })
     }
 
     private fun initTb() {
@@ -146,9 +146,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         bv_nav.layoutParams = params
     }
 
+    @SuppressLint("RestrictedApi")
     fun initFAB() {
         fab_nav.visibility = View.GONE
-        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
+        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_mic_black_24dp, theme))
         fab_nav.show()
         fab_nav.setOnClickListener(null)
         if (fab_nav.visibility != View.VISIBLE) {
@@ -158,7 +159,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     private fun initBnv(navFragments: List<NavFragment>) {
-        disableShiftMode(bnv_nav)
+//        disableShiftMode(bnv_nav)
 
         bnv_nav.postDelayed({ selectNavFragment(navFragments, initFragmentIndex) }, 2000)
 
@@ -239,20 +240,20 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
      * Immersive reading, swipe hidden.
      */
     class BottomNavigationViewBehavior(context: Context?, attrs: AttributeSet?) : CoordinatorLayout.Behavior<View>(context, attrs) {
-        override fun onLayoutChild(parent: CoordinatorLayout?, child: View?, layoutDirection: Int): Boolean {
-            (child?.layoutParams as CoordinatorLayout.LayoutParams).topMargin = parent?.measuredHeight?.minus(child.measuredHeight) ?: 0
+        override fun onLayoutChild(parent: CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
+            (child.layoutParams as CoordinatorLayout.LayoutParams).topMargin = parent.measuredHeight.minus(child.measuredHeight)
             return super.onLayoutChild(parent, child, layoutDirection)
         }
 
-        override fun layoutDependsOn(parent: CoordinatorLayout?, child: View?, dependency: View?): Boolean {
+        override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
             return dependency is AppBarLayout
         }
 
-        override fun onDependentViewChanged(parent: CoordinatorLayout?, child: View?, dependency: View?): Boolean {
-            val top = ((dependency?.layoutParams as CoordinatorLayout.LayoutParams).behavior as AppBarLayout.Behavior).topAndBottomOffset
+        override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+            val top = ((dependency.layoutParams as CoordinatorLayout.LayoutParams).behavior as AppBarLayout.Behavior).topAndBottomOffset
             Log.i("dd", top.toString())
             //因为BottomNavigation的滑动与ToolBar是反向的，所以取-top值
-            child?.translationY = (-top).toFloat()
+            child.translationY = (-top).toFloat()
             return false
         }
     }
@@ -261,17 +262,17 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
      * Locate nav detail FAB
      */
     class BottomNavigationViewBehaviorExt(context: Context?, attrs: AttributeSet?) : CoordinatorLayout.Behavior<View>(context, attrs) {
-        override fun onLayoutChild(parent: CoordinatorLayout?, child: View?, layoutDirection: Int): Boolean {
-            (child?.layoutParams as CoordinatorLayout.LayoutParams).topMargin = parent?.measuredHeight?.minus(child.measuredHeight) ?: 0
+        override fun onLayoutChild(parent: CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
+            (child.layoutParams as CoordinatorLayout.LayoutParams).topMargin = parent.measuredHeight.minus(child.measuredHeight)
             return super.onLayoutChild(parent, child, layoutDirection)
         }
 
-        override fun layoutDependsOn(parent: CoordinatorLayout?, child: View?, dependency: View?): Boolean {
+        override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
             return dependency is AppBarLayout
         }
 
-        override fun onDependentViewChanged(parent: CoordinatorLayout?, child: View?, dependency: View?): Boolean {
-            child?.translationY = 2000f
+        override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+            child.translationY = 2000f
             return false
         }
     }
@@ -288,7 +289,7 @@ fun disableShiftMode(view: BottomNavigationView) {
         shiftingMode.isAccessible = false
         for (i in 0 until menuView.childCount) {
             val item = menuView.getChildAt(i) as BottomNavigationItemView
-            item.setShiftingMode(false)
+            item.setShifting(false)
             item.setChecked(item.itemData.isChecked)
         }
     } catch (e: NoSuchFieldException) {

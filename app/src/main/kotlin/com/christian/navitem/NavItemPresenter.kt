@@ -96,7 +96,7 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
 //            holder.tv_detail_nav_item.loadContent(mContentStyle)
             holder.tv_detail_nav_item.text = navs[position].detail
 
-            if (position == 25) {
+            if (position == 4) {
                 holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
                 holder.iv_nav_item.visibility = View.VISIBLE
             } else {

@@ -25,13 +25,13 @@ class AnimationFloatingActionButton(context: Context?, attrs: AttributeSet?) : F
      */
     class Behavior : CoordinatorLayout.Behavior<View>() {
 
-        override fun layoutDependsOn(parent: CoordinatorLayout?, child: View?, dependency: View?): Boolean {
+        override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
             return dependency is BottomNavigationView
         }
 
-        override fun onDependentViewChanged(parent: CoordinatorLayout?, child: View, dependency: View?): Boolean {
-            val marginBottom = parent?.context?.resources?.getDimension(R.dimen.fab_margin_bottom)
-            marginBottom?.let { child.translationY = it }
+        override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+            val marginBottom = parent.context.resources.getDimension(R.dimen.fab_margin_bottom)
+            marginBottom.let { child.translationY = it }
             return false
         }
     }

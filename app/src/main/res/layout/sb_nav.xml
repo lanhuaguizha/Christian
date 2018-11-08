@@ -46,7 +46,6 @@
             android:layout_weight="1"
             android:fontFamily="@string/search_font_family"
             android:gravity="center_vertical"
-            android:hint="@string/search_hint"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textColorHint="@color/text_color_secondary" />
 
@@ -58,6 +57,7 @@
             android:clickable="true"
             android:contentDescription="@string/description_start_voice_search"
             android:scaleType="center"
+            android:visibility="gone"
             android:tint="@color/text_color_tertiary"
             app:srcCompat="@drawable/ic_mic_black_24dp" />
 
@@ -73,7 +73,6 @@
             android:paddingStart="@dimen/activity_horizontal_margin_0"
             android:scaleType="center"
             android:tint="@color/text_color_tertiary"
-            android:visibility="gone"
             app:srcCompat="@drawable/ic_more_vert_black_24dp" />
 
     </LinearLayout>
