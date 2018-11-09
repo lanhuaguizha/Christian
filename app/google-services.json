@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "477395274935",
+    "firebase_url": "https://christian-1234.firebaseio.com",
+    "project_id": "christian-1234",
+    "storage_bucket": "christian-1234.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477395274935:android:0a745caffcb9b172",
+        "android_client_info": {
+          "package_name": "com.christian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477395274935-il3038urgg4h376r911b1piuraho1mj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXOnOH2BwgcsZ6MSvzMjjq21yM_Q0zEio"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

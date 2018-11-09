@@ -1,5 +1,6 @@
 package com.christian.nav
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
@@ -18,15 +19,29 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
 
-class NavFragment(navPresenter: NavPresenter) : Fragment(), NavContract.INavFragment {
+open class NavFragment : Fragment(), NavContract.INavFragment {
 
-    override var presenter: NavContract.IPresenter = navPresenter
+    override lateinit var presenter: NavContract.IPresenter
+    private lateinit var navActivity: NavActivity
+    private lateinit var mContext: Context
+
     private lateinit var adapter: NavItemPresenter
     lateinit var v: View
     var navId: Int = 0
 
     init {
         info { "look at init times" }
+    }
+
+    /**
+     * It is the first place application code can run where the fragment is ready to be used
+     */
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        navActivity = context as NavActivity
+        presenter = navActivity.presenter
+        mContext = context
+        info { "onAttach" }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,7 +118,7 @@ class NavFragment(navPresenter: NavPresenter) : Fragment(), NavContract.INavFrag
     override fun invalidateRv(navs: List<Nav>) {
         adapter.navs = navs
         runLayoutAnimation(v.rv_nav)
-        (activity as NavActivity).initFAB()
+        navActivity.initFAB()
     }
 
     private fun runLayoutAnimation(recyclerView: RecyclerView) {
@@ -112,5 +127,4 @@ class NavFragment(navPresenter: NavPresenter) : Fragment(), NavContract.INavFrag
         recyclerView.adapter?.notifyDataSetChanged()
         recyclerView.scheduleLayoutAnimation()
     }
-
 }

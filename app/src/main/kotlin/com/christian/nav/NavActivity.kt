@@ -18,9 +18,11 @@ import android.view.View
 import com.christian.Injection
 import com.christian.R
 import com.christian.data.Nav
+import com.christian.login.LoginActivity
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
+import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
@@ -28,7 +30,11 @@ import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.search_bar_expanded.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
+import java.util.*
 import kotlin.math.abs
+import java.util.Arrays.asList
+
+
 
 /**
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
@@ -151,7 +157,24 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         fab_nav.visibility = View.GONE
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.show()
-        fab_nav.setOnClickListener(null)
+        fab_nav.setOnClickListener {
+            // Choose authentication providers
+            val providers = Arrays.asList(
+                    AuthUI.IdpConfig.EmailBuilder().build(),
+                    AuthUI.IdpConfig.PhoneBuilder().build(),
+                    AuthUI.IdpConfig.GoogleBuilder().build(),
+                    AuthUI.IdpConfig.FacebookBuilder().build(),
+                    AuthUI.IdpConfig.TwitterBuilder().build())
+
+// Create and launch sign-in intent
+            val RC_SIGN_IN = 0
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(providers)
+                            .build(),
+                    RC_SIGN_IN)
+        }
         if (fab_nav.visibility != View.VISIBLE) {
             info { "initFAB View.VISIBLE" }
             fab_nav.visibility = View.VISIBLE
@@ -164,6 +187,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         bnv_nav.postDelayed({ selectNavFragment(navFragments, initFragmentIndex) }, 2000)
 
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
+            info { "generateNavId${(presenter as NavPresenter).generateNavId(it.itemId)}" }
             vp_nav.currentItem = (presenter as NavPresenter).generateNavId(it.itemId).toInt()
             true
         }

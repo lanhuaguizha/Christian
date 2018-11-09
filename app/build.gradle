@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 28
@@ -93,6 +94,9 @@ dependencies {
     // https://github.com/xuyisheng/TextViewForFullHtml
     // Avoid manual configuration on proguard-rules.pro files
 //    implementation 'com.blankj:free-proguard:0.0.8'
+    implementation 'com.google.firebase:firebase-core:16.0.5'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.firebaseui:firebase-ui-auth:4.1.0'
 }
 
 androidExtensions {

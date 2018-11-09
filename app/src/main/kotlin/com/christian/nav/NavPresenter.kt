@@ -1,5 +1,6 @@
 package com.christian.nav
 
+import android.content.Intent
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
@@ -8,6 +9,7 @@ import com.christian.data.source.remote.NavService
 import com.christian.http.CacheInterceptor
 import com.christian.http.SdHelper
 import com.christian.http.cache.CacheStrategy
+import com.christian.login.LoginActivity
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -40,7 +42,7 @@ class NavPresenter(
         navActivity.presenter = this
 
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.193:8080/")
+                .baseUrl("http://10.200.11.209:8080/")
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -50,7 +52,7 @@ class NavPresenter(
 
     override fun init(navFragment: NavFragment?) {
         val navList = listOf(Nav())
-        val navFragmentList = listOf(NavFragment(this), NavFragment(this), NavFragment(this), NavFragment(this))
+        val navFragmentList = listOf(NavFragment(), NavFragment(), NavFragment(), NavFragment())
 
         when (navFragment == null) {
             true -> navActivity.initView(navFragmentList, navList)
@@ -146,6 +148,10 @@ class NavPresenter(
     }
 
     fun hideAblAndScrollRv() {
+    }
+
+    fun startActivity(loginActivity: Class<LoginActivity>) {
+        (navActivity as NavActivity).startActivity(Intent(navActivity, loginActivity))
     }
 
 }

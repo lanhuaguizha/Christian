@@ -16,7 +16,7 @@ import org.jetbrains.anko.textColor
  * NavItemView/NavItemHolder is view logic of nav items.
  */
 
-class NavItemView(itemView: View, override var presenter: NavItemContract.Presenter, override val containerView: View) : NavItemContract.View, RecyclerView.ViewHolder(itemView), LayoutContainer {
+class NavItemView(itemView: View, val presenter: NavItemContract.Presenter, override val containerView: View) : NavItemContract.View, RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     init {
 

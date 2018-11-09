@@ -11,15 +11,13 @@ interface BasePresenterContract {
      * View of MVP architecture.
      * Responsible for handling view logic.
      */
-    interface View<T> : AnkoLogger {
-        var presenter: T
+    interface View : AnkoLogger {
     }
 
     /**
      * Presenter of MVP architecture.
      * Responsible for handling business logic.
      */
-    interface Presenter : AnkoLogger {
-        fun start()
+    interface Presenter<T> : AnkoLogger {
     }
 }

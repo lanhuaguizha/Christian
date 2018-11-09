@@ -4,7 +4,7 @@ import com.christian.BasePresenterContract
 
 class NavItemContract {
 
-    interface View : BasePresenterContract.View<Presenter> {
+    interface View : BasePresenterContract.View {
 
         fun initView(hasElevation: Boolean)
 
@@ -12,7 +12,7 @@ class NavItemContract {
 
     }
 
-    interface Presenter : BasePresenterContract.Presenter {
+    interface Presenter : BasePresenterContract.Presenter<View> {
 
         fun getTitle(pos: Int): String
 

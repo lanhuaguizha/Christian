@@ -41,10 +41,6 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
         Log.i("NavItemPresenter", "init")
     }
 
-    override fun start() {
-
-    }
-
     override fun getTitle(pos: Int): String {
 
         return navs[pos].title
