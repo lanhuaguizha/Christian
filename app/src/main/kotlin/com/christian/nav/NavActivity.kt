@@ -18,7 +18,6 @@ import android.view.View
 import com.christian.Injection
 import com.christian.R
 import com.christian.data.Nav
-import com.christian.login.LoginActivity
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
@@ -32,8 +31,6 @@ import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
 import java.util.*
 import kotlin.math.abs
-import java.util.Arrays.asList
-
 
 
 /**
@@ -42,11 +39,22 @@ import java.util.Arrays.asList
  */
 open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
+    companion object {
+        const val RC_SIGN_IN = 0
+    }
     /**
      * presenter will be initialized when the NavPresenter is initialized
      */
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navFragment: NavFragment
+    // Choose authentication providers
+    val providers = Arrays.asList(
+//                    AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.PhoneBuilder().build()
+//                    AuthUI.IdpConfig.GoogleBuilder().build(),
+//                    AuthUI.IdpConfig.FacebookBuilder().build(),
+//                    AuthUI.IdpConfig.TwitterBuilder().build())
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -158,16 +166,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.show()
         fab_nav.setOnClickListener {
-            // Choose authentication providers
-            val providers = Arrays.asList(
-                    AuthUI.IdpConfig.EmailBuilder().build(),
-                    AuthUI.IdpConfig.PhoneBuilder().build(),
-                    AuthUI.IdpConfig.GoogleBuilder().build(),
-                    AuthUI.IdpConfig.FacebookBuilder().build(),
-                    AuthUI.IdpConfig.TwitterBuilder().build())
 
-// Create and launch sign-in intent
-            val RC_SIGN_IN = 0
+            // Create and launch sign-in intent
             startActivityForResult(
                     AuthUI.getInstance()
                             .createSignInIntentBuilder()

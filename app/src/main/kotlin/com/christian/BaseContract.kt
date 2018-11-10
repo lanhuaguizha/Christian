@@ -3,21 +3,23 @@ package com.christian
 import org.jetbrains.anko.AnkoLogger
 
 /**
- * Contains view properties. Presenter initializes first
+ * The contract top-level abstraction
  */
-interface BasePresenterContract {
+class BaseContract {
 
     /**
      * View of MVP architecture.
      * Responsible for handling view logic.
      */
-    interface View : AnkoLogger {
+    interface IView<Presenter> : AnkoLogger {
+        var presenter: Presenter
     }
 
     /**
      * Presenter of MVP architecture.
      * Responsible for handling business logic.
      */
-    interface Presenter<T> : AnkoLogger {
+    interface IPresenter<View> : AnkoLogger {
+        var view: View
     }
 }

@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit
 class NavPresenter(
         private var navId: String,
         private val navsRepository: NavsRepository,
-        private val navActivity: NavContract.INavActivity) : NavContract.IPresenter {
+        override var view: NavContract.INavActivity) : NavContract.IPresenter {
 
     companion object {
         const val DEFAULT_HTTP_CACHE_SIZE = 10 * 1024 * 1024L
@@ -39,7 +39,7 @@ class NavPresenter(
     private var call: Call<List<Nav>>
 
     init {
-        navActivity.presenter = this
+        view.presenter = this
 
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://10.200.11.209:8080/")
@@ -55,7 +55,7 @@ class NavPresenter(
         val navFragmentList = listOf(NavFragment(), NavFragment(), NavFragment(), NavFragment())
 
         when (navFragment == null) {
-            true -> navActivity.initView(navFragmentList, navList)
+            true -> view.initView(navFragmentList, navList)
             false -> {
                 info { "initView Fragment" }
                 navFragment.initView(navFragmentList, navList)
@@ -63,17 +63,14 @@ class NavPresenter(
         }
     }
 
-    override fun deinit() {
-    }
-
     override fun deleteNav(navId: String) {
     }
 
     override fun createNav(navId: String, isSrl: Boolean, navFragment: NavFragment): Boolean {
         if (isSrl) {
-            navActivity.hidePb()
+            view.hidePb()
         } else {
-            navActivity.showPb()
+            view.showPb()
             navFragment.hideSrl()
         }
 
@@ -83,13 +80,13 @@ class NavPresenter(
 
                 navFragment.invalidateRv(navs)
 
-                navActivity.hidePb()
+                view.hidePb()
                 navFragment.hideSrl()
 
             }
 
             override fun onDataNotAvailable() {
-                navActivity.hidePb()
+                view.hidePb()
                 navFragment.hideSrl()
             }
 
@@ -148,10 +145,6 @@ class NavPresenter(
     }
 
     fun hideAblAndScrollRv() {
-    }
-
-    fun startActivity(loginActivity: Class<LoginActivity>) {
-        (navActivity as NavActivity).startActivity(Intent(navActivity, loginActivity))
     }
 
 }

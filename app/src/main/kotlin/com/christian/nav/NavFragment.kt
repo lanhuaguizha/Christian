@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import com.christian.BaseContract
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.index.IndexScrollListener
@@ -64,9 +65,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         initSrl()
         initFs()
         initRv(listOf(Nav()))
-    }
-
-    override fun deinitView() {
     }
 
     override fun initSrl() {

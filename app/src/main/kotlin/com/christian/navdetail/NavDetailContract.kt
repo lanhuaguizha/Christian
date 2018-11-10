@@ -1,6 +1,6 @@
 package com.christian.navdetail
 
-import com.christian.BaseViewContract
+import com.christian.BaseContract
 import com.christian.nav.NavContract
 
 /**
@@ -13,7 +13,7 @@ class NavDetailContract {
     /**
      * All view logic about NavDetail
      */
-    interface View : BaseViewContract.IView<NavContract.IPresenter> {
+    interface IView : BaseContract.IView<IPresenter> {
 
         /**
          * Show comment view
@@ -25,4 +25,6 @@ class NavDetailContract {
          */
         fun hideCv()
     }
+
+    interface IPresenter: BaseContract.IPresenter<IView>
 }

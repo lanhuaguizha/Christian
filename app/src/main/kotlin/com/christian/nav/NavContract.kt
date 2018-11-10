@@ -1,6 +1,6 @@
 package com.christian.nav
 
-import com.christian.BaseViewContract
+import com.christian.BaseContract
 import com.christian.data.Nav
 
 /**
@@ -14,7 +14,21 @@ class NavContract {
      * Write Nav view and presenter separately, first of all you think there are ways to
      * play the Nav view
      */
-    interface INavActivity : BaseViewContract.IView<NavContract.IPresenter> {
+    interface INavActivity : BaseContract.IView<IPresenter> {
+
+        /**
+         * Summary of init view, initCl(), initAbl(), initTb(), initSb(), initSrl(), initRv(), initFs()
+         * initFab(), initBv(), initBnv(), initPb()
+         */
+        fun initView(navFragments: List<NavFragment>, navs: List<Nav>)
+
+        /**
+         * Activity has these views,
+         * ConstraintLayout, CoordinatorLayout, AppBarLayout, Toolbar, SearchEditTextLayout,
+         * ConstraintLayout, SwipeRefreshLayout, RecyclerView, FastScroller,
+         * AnimationFloatingActionButton, BlurView, BottomNavigationView, ProgressBar
+         */
+        fun deinitView()
 
         fun initSb(searchHint: String)
 
@@ -36,7 +50,9 @@ class NavContract {
         fun hideFab()
     }
 
-    interface INavFragment : BaseViewContract.IView<NavContract.IPresenter> {
+    interface INavFragment : BaseContract.IView<IPresenter> {
+
+        fun initView(navFragments: List<NavFragment>, navs: List<Nav>)
 
         fun initSrl()
 
@@ -58,7 +74,10 @@ class NavContract {
      * Write Nav view and presenter separately, first of all you think there are ways to
      * play the Nav business logic
      */
-    interface IPresenter : BaseViewContract.IPresenter {
+    interface IPresenter : BaseContract.IPresenter<INavActivity> {
+
+
+        fun init(navFragment: NavFragment? = null)
 
         /**
          * Summary of business logic is db's CRUD

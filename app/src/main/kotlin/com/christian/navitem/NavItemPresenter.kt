@@ -6,18 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.christian.BaseContract
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.index.TextGetter
 import kotlinx.android.synthetic.main.nav_item_view.*
-import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.image
 import org.jetbrains.anko.info
 
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
  */
-class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = true) : NavItemContract.Presenter, RecyclerView.Adapter<NavItemView>(), TextGetter {
+class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = true) : NavItemContract.IPresenter, RecyclerView.Adapter<NavItemView>(), TextGetter {
+
+    override lateinit var view: NavItemContract.IView
 
     private lateinit var navItemView: NavItemView
     private val mContentGravityCenter = "<TEXTFORMAT LEADING=\"2\"><P ALIGN=\"CENTER\"><FONT FACE=\"Microsoft Yahei,微软雅黑\" SIZE=\"24\" COLOR=\"#333333\" LETTERSPACING=\"0\" KERNING=\"0\">我先来个居中对齐!</FONT></P></TEXTFORMAT>"
