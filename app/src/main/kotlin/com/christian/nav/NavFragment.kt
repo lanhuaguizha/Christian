@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import com.christian.Injection
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.index.IndexScrollListener
@@ -20,7 +19,7 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
 
-open class NavFragment : Fragment(), NavContract.INavFragment {
+open class NavFragment(val navId: Int) : Fragment(), NavContract.INavFragment {
 
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
@@ -28,7 +27,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
 
     private lateinit var adapter: NavItemPresenter
     lateinit var v: View
-    var navId = 0
 
     init {
         info { "look at init times" }
@@ -41,37 +39,34 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         super.onAttach(context)
         navActivity = context as NavActivity
         mContext = context
+        presenter = navActivity.presenter
+        presenter.init(navFragment = this)
         info { "onAttach" }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        NavPresenter(navId, Injection.provideNavsRepository(navActivity.applicationContext), navActivity)
-        presenter = navActivity.presenter
         info { "onCreate" }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         info { "onCreateView" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
+        initView((presenter as NavPresenter).navList)
         return v
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        presenter.init(navFragment = this)
-    }
-
     override fun initView(navs: List<Nav>) {
-        info { "initView" }
+        info { "initView$navId" }
         initSrl()
         initFs()
         initRv(navs)
-        navActivity.selectNavFragment(navId, this)
+        presenter.createNav(navId)
     }
 
     private fun initSrl() {
         v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(context!!.resources, R.color.colorAccent, context?.theme))
-        v.srl_nav.setOnRefreshListener { presenter.createNav(navId, true, this) }
+        v.srl_nav.setOnRefreshListener { presenter.createNav(navId, true) }
         v.srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, context?.theme)
     }
 

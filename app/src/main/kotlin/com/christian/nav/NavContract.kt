@@ -85,7 +85,7 @@ class NavContract {
          * Read()
          */
 
-        fun createNav(navId: Int = 0, isSrl: Boolean = false, navFragment: NavFragment): Boolean
+        fun createNav(navId: Int = 0, isSrl: Boolean = false): Boolean
 
         /**
          * The next view has been pressed

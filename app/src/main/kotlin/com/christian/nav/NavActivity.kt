@@ -17,6 +17,7 @@ import android.view.Gravity
 import android.view.View
 import com.christian.Injection
 import com.christian.R
+import com.christian.data.Nav
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
@@ -121,26 +122,18 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             }
 
             override fun onPageSelected(position: Int) {
-                navFragment = navFragments[position]
-                navFragment.navId = position
-                selectNavFragment(position, navFragment)
+                info { "onPageSelected$position" }
+//                (presenter as NavPresenter).navFragmentList[position].presenter.createNav(position)
+                if (bnv_nav.menu.getItem(position).isCheckable) {
+                    info { "bnv_nav.menu.getItem(position).isCheckable${bnv_nav.menu.getItem(position).isCheckable}" }
+                    bnv_nav.menu.getItem(position).isChecked = true
+                }
             }
 
             override fun onPageScrollStateChanged(state: Int) {
             }
 
         })
-    }
-
-    // ToDo 不应该每次滑动都请求数据去创建数据库
-    fun selectNavFragment(position: Int, navFragment: NavFragment) {
-
-        info { "onPageSelected" }
-        if (bnv_nav.menu.getItem(position).isCheckable) {
-            info { "bnv_nav.menu.getItem(position).isCheckable${bnv_nav.menu.getItem(position).isCheckable}" }
-            bnv_nav.menu.getItem(position).isChecked = true
-        }
-        presenter.createNav(position, navFragment = navFragment)
     }
 
     private fun initBv() {

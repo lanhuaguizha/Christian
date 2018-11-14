@@ -34,8 +34,8 @@ class NavPresenter(
         const val DEFAULT_TIMEOUT = 5L
     }
 
-    private val navFragmentList = listOf(NavFragment(), NavFragment(), NavFragment(), NavFragment())
-    private val navList = listOf(Nav())
+    val navFragmentList = listOf(NavFragment(0), NavFragment(1), NavFragment(2), NavFragment(3))
+    val navList = listOf(Nav())
     private val call: Call<List<Nav>>
 
     init {
@@ -53,35 +53,37 @@ class NavPresenter(
     override fun init(navFragment: NavFragment?) {
         when (navFragment == null) {
             true -> view.initView(navFragmentList)
-            false -> navFragment.initView(navList)
+            false -> {
+            }
         }
     }
 
     override fun deleteNav(navId: String) {
     }
 
-    override fun createNav(navId: Int, isSrl: Boolean, navFragment: NavFragment): Boolean {
+    override fun createNav(navId: Int, isSrl: Boolean): Boolean {
         if (isSrl) {
             view.hidePb()
         } else {
             view.showPb()
-            navFragment.hideSrl()
+            info { "create nav Fragment is ${navFragmentList[navId]}" }
+            navFragmentList[navId].hideSrl()
         }
 
         navsRepository.getNavs(call, object : NavsDataSource.LoadNavsCallback {
 
             override fun onNavsLoaded(navs: List<Nav>) {
 
-                navFragment.invalidateRv(navs)
+                navFragmentList[navId].invalidateRv(navs)
 
                 view.hidePb()
-                navFragment.hideSrl()
+                navFragmentList[navId].hideSrl()
 
             }
 
             override fun onDataNotAvailable() {
                 view.hidePb()
-                navFragment.hideSrl()
+                navFragmentList[navId].hideSrl()
             }
 
         })
