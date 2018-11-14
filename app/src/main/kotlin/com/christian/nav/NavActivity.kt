@@ -112,6 +112,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         search_back_button.setOnClickListener { slCollapse() }
     }
 
+    private var mPosition: Int = 0
+
     private fun initVp(navFragments: List<NavFragment>) {
         val navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragments, supportFragmentManager)
 
@@ -123,7 +125,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
             override fun onPageSelected(position: Int) {
                 info { "onPageSelected$position" }
-//                (presenter as NavPresenter).navFragmentList[position].presenter.createNav(position)
+                mPosition = position
                 if (bnv_nav.menu.getItem(position).isCheckable) {
                     info { "bnv_nav.menu.getItem(position).isCheckable${bnv_nav.menu.getItem(position).isCheckable}" }
                     bnv_nav.menu.getItem(position).isChecked = true
@@ -185,7 +187,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
 
         bnv_nav.setOnNavigationItemReselectedListener {
-            navFragment.rv_nav.smoothScrollToPosition(dip(0)) // 为了滚到顶
+            (presenter as NavPresenter).navFragmentList[mPosition].rv_nav.smoothScrollToPosition(dip(0)) // 为了滚到顶
             abl_nav.setExpanded(true, true)
         }
     }
