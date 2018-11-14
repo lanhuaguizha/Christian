@@ -20,15 +20,7 @@ class NavContract {
          * Summary of init view, initCl(), initAbl(), initTb(), initSb(), initSrl(), initRv(), initFs()
          * initFab(), initBv(), initBnv(), initPb()
          */
-        fun initView(navFragments: List<NavFragment>, navs: List<Nav>)
-
-        /**
-         * Activity has these views,
-         * ConstraintLayout, CoordinatorLayout, AppBarLayout, Toolbar, SearchEditTextLayout,
-         * ConstraintLayout, SwipeRefreshLayout, RecyclerView, FastScroller,
-         * AnimationFloatingActionButton, BlurView, BottomNavigationView, ProgressBar
-         */
-        fun deinitView()
+        fun initView(navFragments: List<NavFragment>)
 
         fun initSb(searchHint: String)
 
@@ -48,17 +40,19 @@ class NavContract {
         fun showFab(drawableId: Int)
 
         fun hideFab()
+
+        /**
+         * Activity has these views,
+         * ConstraintLayout, CoordinatorLayout, AppBarLayout, Toolbar, SearchEditTextLayout,
+         * ConstraintLayout, SwipeRefreshLayout, RecyclerView, FastScroller,
+         * AnimationFloatingActionButton, BlurView, BottomNavigationView, ProgressBar
+         */
+        fun deinitView()
     }
 
     interface INavFragment : BaseContract.IView<IPresenter> {
 
-        fun initView(navFragments: List<NavFragment>, navs: List<Nav>)
-
-        fun initSrl()
-
-        fun initFs()
-
-        fun initRv(navs: List<Nav>)
+        fun initView(navs: List<Nav>)
 
         fun showSrl()
 
@@ -91,7 +85,7 @@ class NavContract {
          * Read()
          */
 
-        fun createNav(navId: String = "0", isSrl: Boolean = false, navFragment: NavFragment): Boolean
+        fun createNav(navId: Int = 0, isSrl: Boolean = false, navFragment: NavFragment): Boolean
 
         /**
          * The next view has been pressed

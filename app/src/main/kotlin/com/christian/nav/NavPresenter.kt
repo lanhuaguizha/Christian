@@ -1,6 +1,5 @@
 package com.christian.nav
 
-import android.content.Intent
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
@@ -9,7 +8,6 @@ import com.christian.data.source.remote.NavService
 import com.christian.http.CacheInterceptor
 import com.christian.http.SdHelper
 import com.christian.http.cache.CacheStrategy
-import com.christian.login.LoginActivity
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,7 +25,7 @@ import java.util.concurrent.TimeUnit
  * is Nav
  */
 class NavPresenter(
-        private var navId: String,
+        private var navId: Int,
         private val navsRepository: NavsRepository,
         override var view: NavContract.INavActivity) : NavContract.IPresenter {
 
@@ -36,13 +34,15 @@ class NavPresenter(
         const val DEFAULT_TIMEOUT = 5L
     }
 
-    private var call: Call<List<Nav>>
+    private val navFragmentList = listOf(NavFragment(), NavFragment(), NavFragment(), NavFragment())
+    private val navList = listOf(Nav())
+    private val call: Call<List<Nav>>
 
     init {
         view.presenter = this
 
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://10.200.11.209:8080/")
+                .baseUrl("http://192.168.0.193:8080/")
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -51,22 +51,16 @@ class NavPresenter(
     }
 
     override fun init(navFragment: NavFragment?) {
-        val navList = listOf(Nav())
-        val navFragmentList = listOf(NavFragment(), NavFragment(), NavFragment(), NavFragment())
-
         when (navFragment == null) {
-            true -> view.initView(navFragmentList, navList)
-            false -> {
-                info { "initView Fragment" }
-                navFragment.initView(navFragmentList, navList)
-            }
+            true -> view.initView(navFragmentList)
+            false -> navFragment.initView(navList)
         }
     }
 
     override fun deleteNav(navId: String) {
     }
 
-    override fun createNav(navId: String, isSrl: Boolean, navFragment: NavFragment): Boolean {
+    override fun createNav(navId: Int, isSrl: Boolean, navFragment: NavFragment): Boolean {
         if (isSrl) {
             view.hidePb()
         } else {
@@ -123,19 +117,19 @@ class NavPresenter(
         return Cache(httpCacheDirectory, cacheSize.toLong())
     }
 
-    fun generateNavId(itemId: Int): String {
+    fun generateNavId(itemId: Int): Int {
         when (itemId) {
             R.id.navigation_home -> {
-                navId = "0"
+                navId = 0
             }
             R.id.navigation_gospel -> {
-                navId = "1"
+                navId = 1
             }
             R.id.navigation_chat -> {
-                navId = "2"
+                navId = 2
             }
             R.id.navigation_me -> {
-                navId = "3"
+                navId = 3
             }
         }
         return navId

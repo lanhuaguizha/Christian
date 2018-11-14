@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import com.christian.BaseContract
+import com.christian.Injection
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.index.IndexScrollListener
@@ -28,7 +28,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
 
     private lateinit var adapter: NavItemPresenter
     lateinit var v: View
-    var navId: Int = 0
+    var navId = 0
 
     init {
         info { "look at init times" }
@@ -40,13 +40,14 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         navActivity = context as NavActivity
-        presenter = navActivity.presenter
         mContext = context
         info { "onAttach" }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        NavPresenter(navId, Injection.provideNavsRepository(navActivity.applicationContext), navActivity)
+        presenter = navActivity.presenter
         info { "onCreate" }
     }
 
@@ -60,24 +61,25 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         presenter.init(navFragment = this)
     }
 
-    override fun initView(navFragments: List<NavFragment>, navs: List<Nav>) {
+    override fun initView(navs: List<Nav>) {
         info { "initView" }
         initSrl()
         initFs()
-        initRv(listOf(Nav()))
+        initRv(navs)
+        navActivity.selectNavFragment(navId, this)
     }
 
-    override fun initSrl() {
+    private fun initSrl() {
         v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(context!!.resources, R.color.colorAccent, context?.theme))
-        v.srl_nav.setOnRefreshListener { presenter.createNav(navId.toString(), true, this) }
+        v.srl_nav.setOnRefreshListener { presenter.createNav(navId, true, this) }
         v.srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, context?.theme)
     }
 
-    override fun initFs() {
+    private fun initFs() {
         v.fs_nav.setRecyclerView(v.rv_nav)
     }
 
-    override fun initRv(navs: List<Nav>) {
+    private fun initRv(navs: List<Nav>) {
         adapter = NavItemPresenter(navs)
         v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v.rv_nav.layoutManager = LinearLayoutManager(context)

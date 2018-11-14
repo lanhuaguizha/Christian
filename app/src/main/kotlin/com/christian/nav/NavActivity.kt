@@ -17,7 +17,6 @@ import android.view.Gravity
 import android.view.View
 import com.christian.Injection
 import com.christian.R
-import com.christian.data.Nav
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
@@ -47,8 +46,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
      */
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navFragment: NavFragment
-    // Choose authentication providers
-    val providers = Arrays.asList(
+    private val providers = Arrays.asList(
 //                    AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.PhoneBuilder().build()
 //                    AuthUI.IdpConfig.GoogleBuilder().build(),
@@ -59,12 +57,12 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nav_activity)
-        NavPresenter("0", Injection.provideNavsRepository(applicationContext), this)
+        NavPresenter(initFragmentIndex, Injection.provideNavsRepository(applicationContext), this)
         presenter.init()
         info { "look at init times" }
     }
 
-    override fun initView(navFragments: List<NavFragment>, navs: List<Nav>) {
+    override fun initView(navFragments: List<NavFragment>) {
         initSbl()
         initAbl()
         initTb()
@@ -123,7 +121,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             }
 
             override fun onPageSelected(position: Int) {
-                selectNavFragment(navFragments, position)
+                navFragment = navFragments[position]
+                navFragment.navId = position
+                selectNavFragment(position, navFragment)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -133,15 +133,14 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     // ToDo 不应该每次滑动都请求数据去创建数据库
-    private fun selectNavFragment(navFragments: List<NavFragment>, position: Int) {
-        navFragment = navFragments[position]
-        navFragment.navId = position
+    fun selectNavFragment(position: Int, navFragment: NavFragment) {
+
         info { "onPageSelected" }
         if (bnv_nav.menu.getItem(position).isCheckable) {
             info { "bnv_nav.menu.getItem(position).isCheckable${bnv_nav.menu.getItem(position).isCheckable}" }
             bnv_nav.menu.getItem(position).isChecked = true
         }
-        presenter.createNav(position.toString(), navFragment = navFragment)
+        presenter.createNav(position, navFragment = navFragment)
     }
 
     private fun initBv() {
@@ -184,11 +183,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     private fun initBnv(navFragments: List<NavFragment>) {
         disableShiftMode(bnv_nav)
 
-        bnv_nav.postDelayed({ selectNavFragment(navFragments, initFragmentIndex) }, 2000)
+//        vp_nav.currentItem = initFragmentIndex
 
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
             info { "generateNavId${(presenter as NavPresenter).generateNavId(it.itemId)}" }
-            vp_nav.currentItem = (presenter as NavPresenter).generateNavId(it.itemId).toInt()
+            vp_nav.currentItem = (presenter as NavPresenter).generateNavId(it.itemId)
             true
         }
 
