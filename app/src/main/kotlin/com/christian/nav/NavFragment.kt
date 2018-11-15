@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import com.christian.Injection
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.index.IndexScrollListener
@@ -20,14 +19,14 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
 
-open class NavFragment(val navId: Int) : Fragment(), NavContract.INavFragment {
+open class NavFragment : Fragment(), NavContract.INavFragment {
 
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
     private lateinit var mContext: Context
-
     private lateinit var adapter: NavItemPresenter
     lateinit var v: View
+    var navId = 0
 
     init {
         info { "look at init times" }

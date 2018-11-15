@@ -103,8 +103,6 @@ androidExtensions {
     experimental = true
 }
 
-kotlin { experimental { coroutines 'enable' } }
-
 repositories {
     flatDir {
         dirs 'libs'

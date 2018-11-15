@@ -16,6 +16,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.util.ArrayList
 import java.util.concurrent.TimeUnit
 
 
@@ -34,12 +35,18 @@ class NavPresenter(
         const val DEFAULT_TIMEOUT = 5L
     }
 
-    val navFragmentList = listOf(NavFragment(0), NavFragment(1), NavFragment(2), NavFragment(3))
+    val navFragmentList = ArrayList<NavFragment>()
     val navList = listOf(Nav())
     private val call: Call<List<Nav>>
 
     init {
         view.presenter = this
+
+        for (i in 0..3) {
+            val navFragment = NavFragment()
+            navFragment.navId = i
+            navFragmentList.add(navFragment)
+        }
 
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://192.168.0.193:8080/")

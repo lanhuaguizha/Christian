@@ -17,7 +17,6 @@ import android.view.Gravity
 import android.view.View
 import com.christian.Injection
 import com.christian.R
-import com.christian.data.Nav
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
@@ -42,6 +41,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     companion object {
         const val RC_SIGN_IN = 0
     }
+
     /**
      * presenter will be initialized when the NavPresenter is initialized
      */
@@ -117,6 +117,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     private fun initVp(navFragments: List<NavFragment>) {
         val navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragments, supportFragmentManager)
 
+        vp_nav.offscreenPageLimit = 3
         vp_nav.adapter = navFragmentPagerAdapter
 
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -126,10 +127,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             override fun onPageSelected(position: Int) {
                 info { "onPageSelected$position" }
                 mPosition = position
-                if (bnv_nav.menu.getItem(position).isCheckable) {
-                    info { "bnv_nav.menu.getItem(position).isCheckable${bnv_nav.menu.getItem(position).isCheckable}" }
-                    bnv_nav.menu.getItem(position).isChecked = true
-                }
+                info { "position$position" }
+                bnv_nav.menu.getItem(position).isChecked = true
             }
 
             override fun onPageScrollStateChanged(state: Int) {
