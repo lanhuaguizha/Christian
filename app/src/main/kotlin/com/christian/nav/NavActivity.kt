@@ -145,7 +145,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 .windowBackground(windowBackground)
                 .blurAlgorithm(SupportRenderScriptBlur(this))
                 .blurRadius(radius)
-                .setHasFixedTransformationMatrix(true)
+                .setHasFixedTransformationMatrix(false)
         // set behavior
         val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
         params.gravity = Gravity.BOTTOM
