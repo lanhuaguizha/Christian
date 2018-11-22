@@ -15,15 +15,6 @@ class NavDetailContract {
      */
     interface IView : BaseContract.IView<IPresenter> {
 
-        /**
-         * Show comment view
-         */
-        fun showCv()
-
-        /**
-         * Hide comment view
-         */
-        fun hideCv()
     }
 
     interface IPresenter: BaseContract.IPresenter<IView>

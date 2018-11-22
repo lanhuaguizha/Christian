@@ -67,7 +67,7 @@
     <dimen name="keyline_2">72dp</dimen>
 
     <!--Material Design-->
-    <dimen name="bottom_navigation_view_elevation">6dp</dimen>
+    <dimen name="bottom_navigation_view_elevation">4dp</dimen>
     <dimen name="app_bar_elevation">4dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>

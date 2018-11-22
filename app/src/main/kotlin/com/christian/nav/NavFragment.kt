@@ -98,9 +98,9 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
             }
         })
 
-        val indexScrollListener = IndexScrollListener()
-        indexScrollListener.register(v.fs_nav)
-        v.rv_nav.addOnScrollListener(indexScrollListener)
+//        val indexScrollListener = IndexScrollListener()
+//        indexScrollListener.register(v.fs_nav)
+//        v.rv_nav.addOnScrollListener(indexScrollListener)
     }
 
     override fun showSrl() {

@@ -1,5 +1,6 @@
 package com.christian.navitem
 
+import android.content.Intent
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.AppCompatImageButton
 import android.support.v7.widget.PopupMenu
@@ -8,6 +9,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.christian.R
+import com.christian.navdetail.NavDetailActivity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_view.*
 import org.jetbrains.anko.textColor
@@ -22,11 +24,11 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.IPrese
 
         itemView.setOnClickListener {
 
-//            val i = Intent(itemView.context, NavDetailActivity::class.java)
-//
-//            i.putExtra("title", presenter.getTitle(adapterPosition))
-//
-//            itemView.context.startActivity(i)
+            val i = Intent(itemView.context, NavDetailActivity::class.java)
+
+            i.putExtra("title", presenter.getTitle(adapterPosition))
+
+            itemView.context.startActivity(i)
 
         }
 

@@ -13,7 +13,6 @@
     android:elevation="@dimen/search_box_elevation"
     tools:targetApi="lollipop"
     android:focusable="true"
-    android:foreground="@drawable/fluent_ripple"
     android:orientation="horizontal">
 
     <LinearLayout

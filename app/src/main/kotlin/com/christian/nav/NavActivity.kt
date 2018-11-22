@@ -81,7 +81,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true)
     }
 
-    private fun initAbl() {
+    fun initAbl() {
         abl_nav.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
             info { "verticalOffset$verticalOffset" }
             if (-verticalOffset == appBarLayout.height) {
@@ -101,7 +101,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         })
     }
 
-    private fun initTb() {
+    open fun initTb() {
         sl_nav.visibility = View.VISIBLE
     }
 
