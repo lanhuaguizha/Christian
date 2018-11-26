@@ -1,26 +1,19 @@
 package com.christian.navdetail
 
 import android.support.design.widget.CoordinatorLayout
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.christian.R
-import com.christian.data.Nav
-import com.christian.nav.NavActivity
-import com.christian.nav.NavFragment
-import com.christian.navitem.NavItemPresenter
-import com.christian.view.ItemDecoration
+import com.christian.nav.*
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
-import org.jetbrains.anko.info
 
-private fun NavActivity.initTbE(title: String) {
-    sl_nav.visibility = View.GONE
+private fun NavActivity.initTbWithTitle(title: String) {
+    sb_nav.visibility = View.GONE
 
     /**
      * set up button
@@ -31,30 +24,30 @@ private fun NavActivity.initTbE(title: String) {
     tb_nav.setNavigationOnClickListener { finish() }
 }
 
-//private fun NavActivity.initSrlForbidden() {
-//    srl_nav.isEnabled = false
-//}
-//
+private fun NavActivity.initSrlForbidden() {
+    (presenter as NavPresenter).navFragmentList[mPosition].srl_nav.isEnabled = false
+}
+
 //// 不需要添加背景色的同时不需要有elevation
 //private fun NavActivity.initFlE() {
 //    srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, theme)
 //}
 
-//private fun NavActivity.initBvE() {
-//    //set background, if your root layout doesn't have one
-//    val windowBackground = window.decorView.background
-//    val radius = 25f
-//    bv_nav.setupWith(cl_nav)
-//            .windowBackground(windowBackground)
-//            .blurAlgorithm(SupportRenderScriptBlur(this))
-//            .blurRadius(radius)
-//            .setHasFixedTransformationMatrix(true)
-//    // set behavior
-//    val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
-//    params.gravity = Gravity.BOTTOM
-//    params.behavior = NavActivity.BottomNavigationViewBehaviorExt(this, null)
-//    bv_nav.layoutParams = params
-//}
+private fun NavActivity.initBvWithReviews() {
+    //set background, if your root layout doesn't have one
+    val windowBackground = window.decorView.background
+    val radius = 25f
+    bv_nav.setupWith(cl_nav)
+            .windowBackground(windowBackground)
+            .blurAlgorithm(SupportRenderScriptBlur(this))
+            .blurRadius(radius)
+            .setHasFixedTransformationMatrix(true)
+    // set behavior
+    val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
+    params.gravity = Gravity.BOTTOM
+    params.behavior = NavActivity.BottomNavigationViewBehaviorExt(this, null)
+    bv_nav.layoutParams = params
+}
 
 //private fun NavActivity.initFABE() {
 //    fab_nav.visibility = View.INVISIBLE
@@ -84,20 +77,26 @@ class NavDetailActivity : NavActivity() {
 //    override fun initView(navs: List<Nav>) {
 //        info { "navs$navs" }
 //        initAbl()
-//        initTbE(intent.extras.getString("title"))
+//        initTbWithTitle(intent.extras.getString("title"))
 //        initSrlForbidden()
 //        initFlE()
 //        initRv(navs)
-//        initBvE()
+//        initBvWithReviews()
 //        startNavE("0")
 //    }
 
-    override fun initTb() {
-        initTbE(intent.extras.getString("title"))
+    override fun initSbl() {
     }
 
+    override fun initTb() {
+        initTbWithTitle(intent?.extras?.getString(toolbarTitle) ?: nullString)
+    }
 
-//    override fun initRv(navs: List<Nav>) {
+    override fun initBv() {
+        initBvWithReviews()
+    }
+
+    //    override fun initRv(navs: List<Nav>) {
 //        adapter = NavItemPresenter(navs, false)
 //        rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.activity_horizontal_margin_0).toInt()))
 //        rv_nav.layoutManager = LinearLayoutManager(this)

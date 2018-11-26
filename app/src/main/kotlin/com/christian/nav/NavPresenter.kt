@@ -16,9 +16,13 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
-import java.util.ArrayList
+import java.util.*
 import java.util.concurrent.TimeUnit
 
+const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
+const val initFragmentIndex = 0
+const val nullString = ""
+const val toolbarTitle = "toolbarTitle"
 
 /**
  * This contains all the NAV business logic, and the MVP control center. We'll write the code here first.
@@ -151,6 +155,3 @@ class NavPresenter(
     }
 
 }
-
-const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
-const val initFragmentIndex = 0

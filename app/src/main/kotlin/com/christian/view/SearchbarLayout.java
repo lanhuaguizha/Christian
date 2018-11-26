@@ -33,7 +33,7 @@ import com.christian.R;
 import com.christian.util.AnimUtils;
 import com.christian.util.DialerUtils;
 
-public class SearchEditTextLayout extends FrameLayout {
+public class SearchbarLayout extends FrameLayout {
     private static final float EXPAND_MARGIN_FRACTION_START = 0.8f;
     private static final int ANIMATION_DURATION = 200;
 
@@ -72,7 +72,7 @@ public class SearchEditTextLayout extends FrameLayout {
         public void onSearchViewClicked();
     }
 
-    public SearchEditTextLayout(Context context, AttributeSet attrs) {
+    public SearchbarLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

@@ -22,8 +22,6 @@ class NavContract {
          */
         fun initView(navFragments: List<NavFragment>)
 
-        fun initSb(searchHint: String)
-
         /**
          * Start the loading animation before inserting the data.
          */

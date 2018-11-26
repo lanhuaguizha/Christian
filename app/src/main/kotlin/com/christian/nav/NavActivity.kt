@@ -42,6 +42,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         const val RC_SIGN_IN = 0
     }
 
+    internal var mPosition: Int = 0
     /**
      * presenter will be initialized when the NavPresenter is initialized
      */
@@ -76,7 +77,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     override fun deinitView() {
     }
 
-    private fun initSbl() {
+    open fun initSbl() {
         SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false)
         SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true)
     }
@@ -102,17 +103,15 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun initTb() {
-        sl_nav.visibility = View.VISIBLE
+        sb_nav.visibility = View.VISIBLE
     }
 
     private fun initSb() {
-        sl_nav.setOnClickListener { slExpand() }
+        sb_nav.setOnClickListener { slExpand() }
         search_magnifying_glass.setOnClickListener { slExpand() }
         search_box_start_search.setOnClickListener { slExpand() }
         search_back_button.setOnClickListener { slCollapse() }
     }
-
-    private var mPosition: Int = 0
 
     private fun initVp(navFragments: List<NavFragment>) {
         val navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragments, supportFragmentManager)
@@ -137,7 +136,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         })
     }
 
-    private fun initBv() {
+    open fun initBv() {
         //set background, if your root layout doesn't have one
         val windowBackground = window.decorView.background
         val radius = 25f
@@ -191,10 +190,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
     }
 
-    override fun initSb(searchHint: String) {
-    }
-
-
     override fun showPb() {
         pb_nav.visibility = View.VISIBLE
     }
@@ -239,17 +234,17 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     private fun slExpand() {
-        if (!sl_nav.isExpanded) {
-            sl_nav.expand(true, true)
+        if (!sb_nav.isExpanded) {
+            sb_nav.expand(true, true)
         }
     }
 
     private fun slCollapse() {
-        if (sl_nav.isExpanded) {
-            sl_nav.collapse(true)
+        if (sb_nav.isExpanded) {
+            sb_nav.collapse(true)
         }
-        if (sl_nav.isFadedOut) {
-            sl_nav.fadeIn()
+        if (sb_nav.isFadedOut) {
+            sb_nav.fadeIn()
         }
     }
 
