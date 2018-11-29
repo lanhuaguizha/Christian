@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.christian.R
+import com.christian.nav.toolbarTitle
 import com.christian.navdetail.NavDetailActivity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_view.*
@@ -26,7 +27,7 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.IPrese
 
             val i = Intent(itemView.context, NavDetailActivity::class.java)
 
-            i.putExtra("title", presenter.getTitle(adapterPosition))
+            i.putExtra(toolbarTitle, presenter.getTitle(adapterPosition))
 
             itemView.context.startActivity(i)
 

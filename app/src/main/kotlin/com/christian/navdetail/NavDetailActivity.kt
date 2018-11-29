@@ -33,22 +33,6 @@ private fun NavActivity.initSrlForbidden() {
 //    srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, theme)
 //}
 
-private fun NavActivity.initBvWithReviews() {
-    //set background, if your root layout doesn't have one
-    val windowBackground = window.decorView.background
-    val radius = 25f
-    bv_nav.setupWith(cl_nav)
-            .windowBackground(windowBackground)
-            .blurAlgorithm(SupportRenderScriptBlur(this))
-            .blurRadius(radius)
-            .setHasFixedTransformationMatrix(true)
-    // set behavior
-    val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
-    params.gravity = Gravity.BOTTOM
-    params.behavior = NavActivity.BottomNavigationViewBehaviorExt(this, null)
-    bv_nav.layoutParams = params
-}
-
 //private fun NavActivity.initFABE() {
 //    fab_nav.visibility = View.INVISIBLE
 //
@@ -90,10 +74,6 @@ class NavDetailActivity : NavActivity() {
 
     override fun initTb() {
         initTbWithTitle(intent?.extras?.getString(toolbarTitle) ?: nullString)
-    }
-
-    override fun initBv() {
-        initBvWithReviews()
     }
 
     //    override fun initRv(navs: List<Nav>) {
