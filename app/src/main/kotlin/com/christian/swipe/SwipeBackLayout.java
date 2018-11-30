@@ -294,7 +294,7 @@ public class SwipeBackLayout extends FrameLayout {
         if (mScrimOpacity > 0 && drawContent
                 && mDragHelper.getViewDragState() != ViewDragHelper.STATE_IDLE) {
             drawShadow(canvas, child);
-//            drawScrim(canvas, child);
+            drawScrim(canvas, child);
         }
         return ret;
     }

@@ -78,8 +78,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun initSbl() {
-        SwipeBackHelper.getCurrentPage(this).setSwipeBackEnable(false)
-        SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true)
+        SwipeBackHelper.getCurrentPage(this)
+                .setSwipeBackEnable(false)
+                .setDisallowInterceptTouchEvent(true)
     }
 
     fun initAbl() {

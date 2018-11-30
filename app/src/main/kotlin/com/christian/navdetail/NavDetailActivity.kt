@@ -1,13 +1,15 @@
 package com.christian.navdetail
 
-import android.support.design.widget.CoordinatorLayout
-import android.view.Gravity
+import android.graphics.Color
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.christian.R
-import com.christian.nav.*
-import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
+import com.christian.nav.NavActivity
+import com.christian.nav.NavPresenter
+import com.christian.nav.nullString
+import com.christian.nav.toolbarTitle
+import com.christian.swipe.SwipeBackHelper
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
@@ -70,6 +72,10 @@ class NavDetailActivity : NavActivity() {
 //    }
 
     override fun initSbl() {
+        SwipeBackHelper.getCurrentPage(this)
+                .setSwipeBackEnable(true)
+                .setDisallowInterceptTouchEvent(false)
+                .setSwipeEdgePercent(0.1f)
     }
 
     override fun initTb() {
