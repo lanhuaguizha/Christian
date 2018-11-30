@@ -3,8 +3,8 @@
     android:shape="rectangle">
 
     <size
-        android:width="10dp"
-        android:height="16dp" />
+        android:width="40dp"
+        android:height="1920dp" />
 
     <gradient
         android:endColor="@color/text_color_tertiary"

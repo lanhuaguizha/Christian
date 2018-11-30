@@ -22,7 +22,7 @@ abstract class SwipeBackActivity : AppCompatActivity() {
                 .setSwipeRelateEnable(false)
                 .setSwipeRelateOffset(300)
                 .setSwipeEdgePercent(1f)
-                .setClosePercent(0.8f)
+                .setClosePercent(0.2f)
     }
 
 
