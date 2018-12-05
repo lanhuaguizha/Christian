@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:color="@color/colorPrimaryRipple"
-    android:radius="800dp"
-    tools:targetApi="lollipop"/>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/divider" android:state_focused="true" />
+    <item android:drawable="@color/divider" android:state_pressed="true" />
+</selector>

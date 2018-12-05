@@ -62,7 +62,6 @@
             android:layout_height="@dimen/action_bar_height">
 
             <android.support.design.widget.BottomNavigationView
-                app:itemBackground="@drawable/fluent_ripple"
                 android:id="@+id/bnv_nav"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

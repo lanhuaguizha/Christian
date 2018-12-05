@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     android:id="@+id/cv_nav_item"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="@drawable/fluent_ripple"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="true"
-    android:foreground="@drawable/fluent_ripple"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/card_corner_radius">
 
