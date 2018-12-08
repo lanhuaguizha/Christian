@@ -48,6 +48,7 @@
             android:layout_gravity="end"
             android:layout_marginEnd="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
+            app:srcCompat="@drawable/ic_edit_black_24dp"
             app:layout_anchor="@id/bv_nav"
             app:layout_anchorGravity="end" />
 
