@@ -73,6 +73,9 @@ class NavPresenter(
     }
 
     override fun createNav(navId: Int, isSrl: Boolean, navFragment: NavFragment): Boolean {
+
+        navFragmentList[navId] = navFragment
+
         if (isSrl) {
             view.hidePb()
         } else {
