@@ -86,7 +86,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
             }
 
             override fun onShow() {
-                activity?.fab_nav?.show()
+                navActivity.showFAB()
             }
 
             override fun onTop() {
@@ -113,7 +113,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     override fun invalidateRv(navs: List<Nav>) {
         adapter.navs = navs
         runLayoutAnimation(v.rv_nav)
-        navActivity.initFAB()
+        navActivity.showFAB()
     }
 
     private fun runLayoutAnimation(recyclerView: RecyclerView) {

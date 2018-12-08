@@ -137,7 +137,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                     fab_nav.hide()
                 } else if (state == 0) {
 //                    fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
-                    fab_nav.show()
+                    showFAB()
                 }
             }
 
@@ -161,9 +161,12 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     @SuppressLint("RestrictedApi")
-    fun initFAB() {
+    fun showFAB() {
 //        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
-        fab_nav.show()
+        when (mPosition) {
+            3 -> fab_nav.show()
+            else -> fab_nav.hide()
+        }
         fab_nav.setOnClickListener {
 
             // Create and launch sign-in intent
