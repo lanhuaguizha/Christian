@@ -25,7 +25,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     private lateinit var mContext: Context
     private lateinit var adapter: NavItemPresenter
     lateinit var v: View
-    var navId = 0
+    var navId = -1
 
     init {
         info { "look at init times" }
@@ -49,7 +49,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        info { "onCreateView" }
+        info { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
         initView((presenter as NavPresenter).navList)
         return v
@@ -61,7 +61,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         initFs()
         initRv(navs)
         presenter.createNav(navId, navFragment = this)
-        info { "nav fragment is $this" }
+        info { "nav fragment is $this and navId is $navId" }
     }
 
     private fun initSrl() {

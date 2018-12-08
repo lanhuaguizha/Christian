@@ -40,6 +40,7 @@ class NavPresenter(
     }
 
     val navFragmentList = ArrayList<NavFragment>()
+    lateinit var navFragment: NavFragment
     val navList = listOf(Nav())
     private val call: Call<List<Nav>>
 
@@ -72,15 +73,20 @@ class NavPresenter(
     override fun deleteNav(navId: String) {
     }
 
+    var i = -1
     override fun createNav(navId: Int, isSrl: Boolean, navFragment: NavFragment): Boolean {
 
-        navFragmentList[navId] = navFragment
+        if (navId == -1) {
+            navFragmentList[++i] = navFragment
+            info { "i$i" }
+        }
+        this.navFragment = navFragment
 
         if (isSrl) {
             view.hidePb()
         } else {
             view.showPb()
-            info { "nav fragment is $navFragment" }
+            info { "nav fragment is $navFragment and navId is $navId" }
             navFragment.hideSrl()
         }
 
