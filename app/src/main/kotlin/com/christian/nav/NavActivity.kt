@@ -9,7 +9,6 @@ import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.CoordinatorLayout
-import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.util.Log
@@ -122,6 +121,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                info { "onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
             }
 
             override fun onPageSelected(position: Int) {
@@ -132,6 +132,13 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             }
 
             override fun onPageScrollStateChanged(state: Int) {
+                info { "onPageScrollStateChanged, state$state" }
+                if (state == 1) {
+                    fab_nav.hide()
+                } else if (state == 0) {
+//                    fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
+                    fab_nav.show()
+                }
             }
 
         })
@@ -155,8 +162,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     @SuppressLint("RestrictedApi")
     fun initFAB() {
-        fab_nav.visibility = View.GONE
-        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
+//        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.show()
         fab_nav.setOnClickListener {
 
@@ -168,10 +174,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                             .build(),
                     RC_SIGN_IN)
         }
-        if (fab_nav.visibility != View.VISIBLE) {
-            info { "initFAB View.VISIBLE" }
-            fab_nav.visibility = View.VISIBLE
-        }
+//        if (fab_nav.visibility != View.VISIBLE) {
+//            info { "initFAB View.VISIBLE" }
+//            fab_nav.visibility = View.VISIBLE
+//        }
     }
 
     private fun initBnv(navFragments: List<NavFragment>) {
