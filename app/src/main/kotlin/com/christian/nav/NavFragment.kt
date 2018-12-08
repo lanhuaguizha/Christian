@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.christian.R
 import com.christian.data.Nav
-import com.christian.index.IndexScrollListener
 import com.christian.navitem.NavItemPresenter
 import com.christian.view.ItemDecoration
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -61,12 +60,13 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         initSrl()
         initFs()
         initRv(navs)
-        presenter.createNav(navId)
+        presenter.createNav(navId, navFragment = this)
+        info { "nav fragment is $this" }
     }
 
     private fun initSrl() {
         v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(context!!.resources, R.color.colorAccent, context?.theme))
-        v.srl_nav.setOnRefreshListener { presenter.createNav(navId, true) }
+        v.srl_nav.setOnRefreshListener { presenter.createNav(navId, true, this) }
         v.srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, context?.theme)
     }
 

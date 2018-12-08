@@ -57,9 +57,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        NavPresenter(initFragmentIndex, Injection.provideNavsRepository(applicationContext), this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nav_activity)
-        NavPresenter(initFragmentIndex, Injection.provideNavsRepository(applicationContext), this)
         presenter.init()
         info { "look at init times" }
     }

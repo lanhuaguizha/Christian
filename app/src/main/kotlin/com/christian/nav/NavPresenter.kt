@@ -53,7 +53,7 @@ class NavPresenter(
         }
 
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://10.200.11.209:8080/")
+                .baseUrl("http://192.168.0.193:8080/")
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -72,29 +72,29 @@ class NavPresenter(
     override fun deleteNav(navId: String) {
     }
 
-    override fun createNav(navId: Int, isSrl: Boolean): Boolean {
+    override fun createNav(navId: Int, isSrl: Boolean, navFragment: NavFragment): Boolean {
         if (isSrl) {
             view.hidePb()
         } else {
             view.showPb()
-            info { "create nav Fragment is ${navFragmentList[navId]}" }
-            navFragmentList[navId].hideSrl()
+            info { "nav fragment is $navFragment" }
+            navFragment.hideSrl()
         }
 
         navsRepository.getNavs(call, object : NavsDataSource.LoadNavsCallback {
 
             override fun onNavsLoaded(navs: List<Nav>) {
 
-                navFragmentList[navId].invalidateRv(navs)
+                navFragment.invalidateRv(navs)
 
                 view.hidePb()
-                navFragmentList[navId].hideSrl()
+                navFragment.hideSrl()
 
             }
 
             override fun onDataNotAvailable() {
                 view.hidePb()
-                navFragmentList[navId].hideSrl()
+                navFragment.hideSrl()
             }
 
         })
