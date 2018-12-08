@@ -133,7 +133,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
             override fun onPageScrollStateChanged(state: Int) {
                 info { "onPageScrollStateChanged, state$state" }
-                if (state == 1) {
+                if (state == 2) {
                     fab_nav.hide()
                 } else if (state == 0) {
 //                    fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
