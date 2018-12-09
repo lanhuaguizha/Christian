@@ -49,6 +49,8 @@ class NavPresenter(
 
         for (i in 0..3) {
             val navFragment = NavFragment()
+            navFragment.retainInstance = true
+
             navFragment.navId = i
             navFragmentList.add(navFragment)
         }
@@ -76,10 +78,8 @@ class NavPresenter(
     var i = -1
     override fun createNav(navId: Int, isSrl: Boolean, navFragment: NavFragment): Boolean {
 
-        if (navId == -1) {
-            navFragmentList[++i] = navFragment
-            info { "i$i" }
-        }
+        navFragmentList[++i] = navFragment
+        info { "i$i" }
         this.navFragment = navFragment
 
         if (isSrl) {
