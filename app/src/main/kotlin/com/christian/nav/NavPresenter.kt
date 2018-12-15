@@ -75,11 +75,10 @@ class NavPresenter(
     override fun deleteNav(navId: String) {
     }
 
-    var i = -1
     override fun createNav(navId: Int, isSrl: Boolean, navFragment: NavFragment): Boolean {
 
-        navFragmentList[++i] = navFragment
-        info { "i$i" }
+        navFragmentList[navId] = navFragment
+        info { "navId$navId" }
         this.navFragment = navFragment
 
         if (isSrl) {

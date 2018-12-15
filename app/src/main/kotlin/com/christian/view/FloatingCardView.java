@@ -35,14 +35,38 @@ public class FloatingCardView extends CardView {
     }
 
     // For shadow of card view like google search box. At First writing in  onTouchEvent but not triggered
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//
+//        if (!hasElevation) {
+//            return super.dispatchTouchEvent(ev);
+//        }
+//
+//        switch (ev.getAction()) {
+//            case MotionEvent.ACTION_DOWN:
+//                ObjectAnimator upAnim = ObjectAnimator.ofFloat(this, "translationZ", ChristianUtil.dpToPx(8));
+//                upAnim.setDuration(150);
+//                upAnim.setInterpolator(new DecelerateInterpolator());
+//                upAnim.start();
+//                break;
+//
+//            case MotionEvent.ACTION_UP:
+//            case MotionEvent.ACTION_CANCEL:
+//                ObjectAnimator downAnim = ObjectAnimator.ofFloat(this, "translationZ", 0);
+//                downAnim.setDuration(150);
+//                downAnim.setInterpolator(new AccelerateInterpolator());
+//                downAnim.start();
+//                break;
+//
+//        }
+//        return super.dispatchTouchEvent(ev);
+//    }
+
+
+    // 逻辑写在了dispatchTouchEvent
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-
-        if (!hasElevation) {
-            return super.dispatchTouchEvent(ev);
-        }
-
-        switch (ev.getAction()) {
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 ObjectAnimator upAnim = ObjectAnimator.ofFloat(this, "translationZ", ChristianUtil.dpToPx(8));
                 upAnim.setDuration(150);
@@ -59,32 +83,8 @@ public class FloatingCardView extends CardView {
                 break;
 
         }
-        return super.dispatchTouchEvent(ev);
+        return super.onTouchEvent(event);
     }
-
-
-    // 逻辑写在了dispatchTouchEvent
-//    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                ObjectAnimator upAnim = ObjectAnimator.ofFloat(this, "translationZ", 16);
-//                upAnim.setDuration(150);
-//                upAnim.setInterpolator(new DecelerateInterpolator());
-//                upAnim.start();
-//                break;
-//
-//            case MotionEvent.ACTION_UP:
-//            case MotionEvent.ACTION_CANCEL:
-//                ObjectAnimator downAnim = ObjectAnimator.ofFloat(this, "translationZ", 0);
-//                downAnim.setDuration(150);
-//                downAnim.setInterpolator(new AccelerateInterpolator());
-//                downAnim.start();
-//                break;
-//
-//        }
-//        return super.onTouchEvent(event);
-//    }
 
 
 }
