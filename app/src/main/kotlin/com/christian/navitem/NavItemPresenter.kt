@@ -55,16 +55,14 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
          */
         val itemView: View
         when (navId) {
-            0 -> {
-            }
-            3 -> {
-                itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_small, parent, false)
+            0, 1, 2 -> {
+                itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false)
                 navItemView = NavItemView(itemView, this, itemView)
                 navItemView.initView(hasElevation)
                 return navItemView
             }
-            else -> {
-                itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false)
+            3 -> {
+                itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_small, parent, false)
                 navItemView = NavItemView(itemView, this, itemView)
                 navItemView.initView(hasElevation)
                 return navItemView
@@ -126,6 +124,7 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
             ""
         }
     }
+
 }
 
 const val VIEW_TYPE_SMALL = 1

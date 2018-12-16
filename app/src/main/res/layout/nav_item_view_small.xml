@@ -12,22 +12,25 @@
         android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardElevation="0dp"
-        app:cardCornerRadius="@dimen/card_corner_radius">
+        app:cardBackgroundColor="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_horizontal_margin_0"
             android:adjustViewBounds="true"
             android:contentDescription="@string/the_avatars"
             android:cropToPadding="false"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/the_virgin" />
+            app:srcCompat="@drawable/ic_settings_black_24dp" />
     </android.support.v7.widget.CardView>
 
     <TextView
