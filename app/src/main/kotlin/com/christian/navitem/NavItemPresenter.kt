@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.christian.BaseContract
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.index.TextGetter
@@ -17,7 +16,7 @@ import org.jetbrains.anko.info
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
  */
-class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = true) : NavItemContract.IPresenter, RecyclerView.Adapter<NavItemView>(), TextGetter {
+class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = true, private val navId: Int) : NavItemContract.IPresenter, RecyclerView.Adapter<NavItemView>(), TextGetter {
 
     override lateinit var view: NavItemContract.IView
 
@@ -54,13 +53,27 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
         /**
          * First "present = this" init Presenter in constructor, then "navItemView = this" init View in init method
          */
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false)
+        val itemView: View
+        when (navId) {
+            0 -> {
+            }
+            3 -> {
+                itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_small, parent, false)
+                navItemView = NavItemView(itemView, this, itemView)
+                navItemView.initView(hasElevation)
+                return navItemView
+            }
+            else -> {
+                itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false)
+                navItemView = NavItemView(itemView, this, itemView)
+                navItemView.initView(hasElevation)
+                return navItemView
+            }
+        }
+        itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false)
         navItemView = NavItemView(itemView, this, itemView)
-
         navItemView.initView(hasElevation)
-
         return navItemView
-
     }
 
     override fun getItemCount(): Int {
@@ -71,38 +84,39 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
 
     override fun onBindViewHolder(holder: NavItemView, position: Int) {
 
-        if (navs[position].subtitle == "") {
+        when (navId) {
+            0, 1, 2 -> {
+                // 第一次加载不可见，后续invalidate时才可见
+                if (navs[position].subtitle == "") {
+                    holder.itemView.visibility = View.GONE
+                } else {
+                    holder.itemView.visibility = View.VISIBLE
+                    holder.tv_subtitle_nav_item.text = navs[position].subtitle
+                    holder.tv_title_nav_item.text = navs[position].title
+                    holder.tv_detail_nav_item.text = navs[position].detail
 
-            holder.itemView.visibility = View.GONE
-
-        } else {
-
-            holder.itemView.visibility = View.VISIBLE
-
-            info { "mPosition$mPosition" }
-            if (hasElevation && holder.adapterPosition > mPosition) {
-                navItemView.animate(holder.itemView)
-            } else {
-                navItemView.clearAnimate(holder.itemView)
+                    if (position == 4) {
+                        holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
+                        holder.iv_nav_item.visibility = View.VISIBLE
+                    } else {
+                        holder.iv_nav_item.visibility = View.GONE
+                    }
+                    applyViewHolderAnimation(holder)
+                }
             }
-            mPosition = holder.adapterPosition
-
-            holder.tv_subtitle_nav_item.text = navs[position].subtitle
-
-            holder.tv_title_nav_item.text = navs[position].title
-
-//            holder.tv_detail_nav_item.loadContent(mContentStyle)
-            holder.tv_detail_nav_item.text = navs[position].detail
-
-            if (position == 4) {
-                holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
-                holder.iv_nav_item.visibility = View.VISIBLE
-            } else {
-                holder.iv_nav_item.visibility = View.GONE
+            3 -> {
             }
-
         }
+    }
 
+    private fun applyViewHolderAnimation(holder: NavItemView) {
+        info { "mPosition$mPosition" }
+        if (hasElevation && holder.adapterPosition > mPosition) {
+            navItemView.animate(holder.itemView)
+        } else {
+            navItemView.clearAnimate(holder.itemView)
+        }
+        mPosition = holder.adapterPosition
     }
 
     override fun getTextFromAdapter(pos: Int): String {
@@ -113,3 +127,5 @@ class NavItemPresenter(var navs: List<Nav>, private val hasElevation: Boolean = 
         }
     }
 }
+
+const val VIEW_TYPE_SMALL = 1

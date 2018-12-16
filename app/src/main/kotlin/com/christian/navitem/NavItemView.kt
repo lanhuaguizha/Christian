@@ -33,7 +33,7 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.IPrese
 
         }
 
-        itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View -> showPopupMenu(v) }
+//        itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View -> showPopupMenu(v) }
 
     }
 

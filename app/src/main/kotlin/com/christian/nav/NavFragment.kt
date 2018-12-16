@@ -75,7 +75,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     }
 
     private fun initRv(navs: List<Nav>) {
-        adapter = NavItemPresenter(navs)
+        adapter = NavItemPresenter(navs = navs, navId = navId)
         v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v.rv_nav.layoutManager = LinearLayoutManager(context)
         v.rv_nav.adapter = adapter
