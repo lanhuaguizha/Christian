@@ -38,20 +38,14 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         super.onAttach(context)
         navActivity = context as NavActivity
         mContext = context
-        presenter = navActivity.presenter
-        presenter.init(navFragment = this)
         info { "onAttach" }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        info { "onCreate" }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         info { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
-        initView((presenter as NavPresenter).navList)
+        presenter = navActivity.presenter
+        presenter.init(navFragment = this)
         return v
     }
 

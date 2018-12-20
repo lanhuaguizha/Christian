@@ -40,8 +40,8 @@ class NavPresenter(
     }
 
     val navFragmentList = ArrayList<NavFragment>()
-    lateinit var navFragment: NavFragment
-    val navList = listOf(Nav())
+//    lateinit var navFragment: NavFragment
+    private val navList = listOf(Nav())
     private val call: Call<List<Nav>>
 
     init {
@@ -68,6 +68,7 @@ class NavPresenter(
         when (navFragment == null) {
             true -> view.initView(navFragmentList)
             false -> {
+                navFragment.initView(navList)
             }
         }
     }
@@ -79,7 +80,7 @@ class NavPresenter(
 
         navFragmentList[navId] = navFragment
         info { "navId$navId" }
-        this.navFragment = navFragment
+//        this.navFragment = navFragment
 
         if (isSrl) {
             view.hidePb()
