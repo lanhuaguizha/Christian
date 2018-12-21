@@ -117,3 +117,4 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         recyclerView.scheduleLayoutAnimation()
     }
 }
+
