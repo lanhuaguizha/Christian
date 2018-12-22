@@ -45,17 +45,16 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         info { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
         presenter = navActivity.presenter
-        presenter.init(navFragment = this)
+        presenter.init( this, savedInstanceState)
         return v
     }
 
     override fun initView(navs: List<Nav>) {
-        info { "initView$navId" }
+        info { "nav fragment is $this and navId is $navId --initView" }
         initSrl()
         initFs()
         initRv(navs)
         presenter.createNav(navId, navFragment = this)
-        info { "nav fragment is $this and navId is $navId" }
     }
 
     private fun initSrl() {

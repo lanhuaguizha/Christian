@@ -1,5 +1,6 @@
 package com.christian.nav
 
+import android.os.Bundle
 import com.christian.BaseContract
 import com.christian.data.Nav
 
@@ -69,7 +70,7 @@ class NavContract {
     interface IPresenter : BaseContract.IPresenter<INavActivity> {
 
 
-        fun init(navFragment: NavFragment? = null)
+        fun init(navFragment: NavFragment? = null, savedInstanceState: Bundle?)
 
         /**
          * Summary of business logic is db's CRUD

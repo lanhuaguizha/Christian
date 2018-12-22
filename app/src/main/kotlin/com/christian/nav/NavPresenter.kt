@@ -1,5 +1,6 @@
 package com.christian.nav
 
+import android.os.Bundle
 import com.christian.R
 import com.christian.data.Nav
 import com.christian.data.source.NavsDataSource
@@ -40,7 +41,7 @@ class NavPresenter(
     }
 
     val navFragmentList = ArrayList<NavFragment>()
-//    lateinit var navFragment: NavFragment
+    //    lateinit var navFragment: NavFragment
     private val navList = listOf(Nav())
     private val call: Call<List<Nav>>
 
@@ -53,6 +54,7 @@ class NavPresenter(
 
             navFragment.navId = i
             navFragmentList.add(navFragment)
+            info { "nav fragment is $navFragment and navId is ${navFragment.navId}" }
         }
 
         val retrofit = Retrofit.Builder()
@@ -64,10 +66,14 @@ class NavPresenter(
         call = navService.getNavs()
     }
 
-    override fun init(navFragment: NavFragment?) {
+    override fun init(navFragment: NavFragment?, savedInstanceState: Bundle?) {
         when (navFragment == null) {
             true -> view.initView(navFragmentList)
             false -> {
+                if (savedInstanceState != null) {
+                    info { "nav fragment is $navFragment and navId is $navId ---init" }
+                    navFragmentList[navFragment.navId] = navFragment
+                }
                 navFragment.initView(navList)
             }
         }
@@ -78,15 +84,12 @@ class NavPresenter(
 
     override fun createNav(navId: Int, isSrl: Boolean, navFragment: NavFragment): Boolean {
 
-        navFragmentList[navId] = navFragment
-        info { "navId$navId" }
-//        this.navFragment = navFragment
+        info { "nav fragment is $navFragment and navId is $navId ---createNav" }
 
         if (isSrl) {
             view.hidePb()
         } else {
             view.showPb()
-            info { "nav fragment is $navFragment and navId is $navId" }
             navFragment.hideSrl()
         }
 
