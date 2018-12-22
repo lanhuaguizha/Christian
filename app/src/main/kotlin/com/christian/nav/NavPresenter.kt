@@ -167,3 +167,13 @@ class NavPresenter(
     }
 
 }
+
+//private void applyMarqueeEffect(TextView textView) {
+//    textView.setEllipsize(MARQUEE);
+//    textView.setHorizontalFadingEdgeEnabled(true);
+//    // 布局设置竟然不生效？网上解决方案：https://www.cnblogs.com/yuqf/p/5808236.html
+//    textView.setSingleLine(true);
+//    textView.setSelected(true);
+//    textView.setFocusable(true);
+//    textView.setFocusableInTouchMode(true);
+//}
