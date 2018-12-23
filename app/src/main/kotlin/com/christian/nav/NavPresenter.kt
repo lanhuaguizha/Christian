@@ -56,14 +56,7 @@ class NavPresenter(
     init {
         view.presenter = this
 
-        for (i in 0..3) {
-            val navFragment = NavFragment()
-            navFragment.retainInstance = true
-
-            navFragment.navId = i
-            navFragmentList.add(navFragment)
-            info { "nav fragment is $navFragment and navId is ${navFragment.navId}" }
-        }
+        initNavFragmentList()
 
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://192.168.0.193:8080/")
@@ -74,13 +67,29 @@ class NavPresenter(
         call = navService.getNavs()
     }
 
+    private fun initNavFragmentList() {
+        for (i in 0..3) {
+            val navFragment = NavFragment()
+            navFragment.retainInstance = true
+
+            navFragment.navId = i
+            navFragmentList.add(navFragment)
+            info { "nav fragment is $navFragment and navId is ${navFragment.navId}" }
+        }
+    }
+
     override fun init(navFragment: NavFragment?, savedInstanceState: Bundle?) {
         when (navFragment == null) {
             true -> view.initView(navFragmentList)
             false -> {
                 if (savedInstanceState != null) {
                     info { "nav fragment is $navFragment and navId is $navId ---init" }
-                    navFragmentList[navFragment.navId] = navFragment
+                    try {
+                        navFragmentList[navFragment.navId] = navFragment
+                    } catch (e: Exception) {
+                        info { "Exception ---init" }
+                        initNavFragmentList()
+                    }
                 }
                 navFragment.initView(navList)
             }
