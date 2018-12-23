@@ -89,6 +89,7 @@ class NavPresenter(
                     } catch (e: Exception) {
                         info { "Exception ---init" }
                         initNavFragmentList()
+                        view.initView(navFragmentList)
                     }
                 }
                 navFragment.initView(navList)

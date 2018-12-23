@@ -118,6 +118,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         vp_nav.offscreenPageLimit = 3
         vp_nav.adapter = navFragmentPagerAdapter
+        navFragmentPagerAdapter.notifyDataSetChanged()
 
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
