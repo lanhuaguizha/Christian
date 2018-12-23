@@ -7,14 +7,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Switch
 import com.christian.R
-import com.christian.nav.NavActivity
 import com.christian.nav.toolbarTitle
 import com.christian.navdetail.NavDetailActivity
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_view.*
-import kotlinx.android.synthetic.main.nav_item_view_button.view.*
 import org.jetbrains.anko.textColor
 import java.util.*
 
@@ -44,16 +43,26 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.IPrese
 //                    NavActivity.RC_SIGN_IN)
 //        }
 
-        itemView.setOnClickListener {
-
-            val i = Intent(itemView.context, NavDetailActivity::class.java)
-
-            i.putExtra(toolbarTitle, presenter.getTitle(adapterPosition))
-
-            itemView.context.startActivity(i)
-
-        }
-
+//        when (adapterPosition) {
+//            1 -> {
+//                itemView.setOnClickListener {
+//                    if (isOn) {
+//                        itemView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = false
+//                        isOn = false
+//                    } else {
+//                        itemView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = true
+//                        isOn = true
+//                    }
+//                }
+//            }
+//            else -> {
+//                itemView.setOnClickListener {
+//                    val i = Intent(itemView.context, NavDetailActivity::class.java)
+//                    i.putExtra(toolbarTitle, presenter.getTitle(adapterPosition))
+//                    itemView.context.startActivity(i)
+//                }
+//            }
+//        }
 //        itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View -> showPopupMenu(v) }
 
     }

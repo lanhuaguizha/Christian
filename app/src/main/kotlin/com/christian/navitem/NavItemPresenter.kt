@@ -1,16 +1,19 @@
 package com.christian.navitem
 
+import android.content.Intent
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.data.NavBean
 import com.christian.index.TextGetter
 import com.christian.nav.*
+import com.christian.navdetail.NavDetailActivity
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.nav_item_view.*
 import kotlinx.android.synthetic.main.nav_item_view_button.view.*
@@ -28,10 +31,7 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
     private lateinit var navItemView: NavItemView
     private lateinit var ctx: NavActivity
     private val providers = Arrays.asList(AuthUI.IdpConfig.PhoneBuilder().build())
-
-    init {
-
-    }
+    private var isOn = false
 
     override fun getTitle(pos: Int): String {
 
@@ -41,8 +41,15 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                 navBean[pos].title
             }
             VIEW_ME -> {
-                val meBean = navs as MeBean
-                meBean.settings[pos - 1].name
+                info { "pos$pos" }
+                when (pos) {
+                    0 -> "我的"
+                    in 1..4 -> {
+                        val meBean = navs as MeBean
+                        meBean.settings[pos - 1].name
+                    }
+                    else -> ""
+                }
             }
             else -> {
                 return ""
@@ -130,6 +137,27 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
 
     override fun onBindViewHolder(holder: NavItemView, position: Int) {
 
+        when (holder.adapterPosition) {
+            1 -> {
+                holder.containerView.setOnClickListener {
+                    if (isOn) {
+                        holder.containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = false
+                        isOn = false
+                    } else {
+                        holder.containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = true
+                        isOn = true
+                    }
+                }
+            }
+            else -> {
+                holder.containerView.setOnClickListener {
+                    val i = Intent(holder.containerView.context, NavDetailActivity::class.java)
+                    i.putExtra(toolbarTitle, getTitle(holder.adapterPosition))
+                    holder.containerView.context.startActivity(i)
+                }
+            }
+        }
+
         when (navId) {
             VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
                 // 第一次加载不可见，后续invalidate时才可见
@@ -205,9 +233,6 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
         }
     }
 
-//    override fun getItemViewType(position: Int): Int {
-//        return super.getItemViewType(position)
-//    }
 }
 
 const val VIEW_TYPE_NORMAL = 0
