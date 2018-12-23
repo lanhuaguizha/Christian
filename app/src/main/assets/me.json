@@ -1,0 +1,33 @@
+{
+  "name": "Yongqiang Tao",
+  "url": "R.drawable.the_virgin",
+  "id": 0,
+  "nick_name": "lanhuaguizha",
+  "address": {
+    "street": "张江高科",
+    "city": "上海",
+    "country": "中国"
+  },
+  "settings": [
+    {
+      "name": "Dark Mode",
+      "url": "ic_brightness_medium_black_24dp",
+      "desc": "黑暗模式"
+    },
+    {
+      "name": "Read Articles",
+      "url": "ic_folder_open_black_24dp",
+      "desc": "阅读过的文章"
+    },
+    {
+      "name": "Stored Articles",
+      "url": "ic_folder_special_black_24dp",
+      "desc": "已收藏的文章"
+    },
+    {
+      "name": "Setting",
+      "url": "R.drawable.ic_settings_black_24dp",
+      "desc": "夜间模式、清除缓存、字体大小"
+    }
+  ]
+}

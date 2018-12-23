@@ -2,7 +2,7 @@ package com.christian.nav
 
 import android.os.Bundle
 import com.christian.BaseContract
-import com.christian.data.Nav
+import com.christian.data.NavBean
 
 /**
  * Contract of Nav View & Presenter.
@@ -51,7 +51,7 @@ class NavContract {
 
     interface INavFragment : BaseContract.IView<IPresenter> {
 
-        fun initView(navs: List<Nav>)
+        fun initView(navBeans: List<NavBean>)
 
         fun showSrl()
 
@@ -60,7 +60,7 @@ class NavContract {
         /**
          * You have to show the view in init view and invalidate view in the callback.
          */
-        fun invalidateRv(navs: List<Nav>)
+        fun invalidateRv(navBeans: List<NavBean>)
     }
 
     /**
@@ -91,7 +91,7 @@ class NavContract {
          */
         fun deleteNav(navId: String)
 
-        fun updateNav(navs: List<Nav>)
+        fun updateNav(navBeans: List<NavBean>)
 
         fun readNav()
     }

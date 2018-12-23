@@ -11,9 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.christian.R
-import com.christian.data.Nav
+import com.christian.data.MeBean
+import com.christian.data.NavBean
 import com.christian.navitem.NavItemPresenter
 import com.christian.view.ItemDecoration
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
@@ -22,9 +24,10 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
 
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
-    private lateinit var mContext: Context
-    private lateinit var adapter: NavItemPresenter
-    lateinit var v: View
+    private lateinit var ctx: Context
+    private lateinit var adapter: NavItemPresenter<NavBean>
+    private lateinit var meAdapter: NavItemPresenter<MeBean.Settings>
+    private lateinit var v: View
     var navId = -1
 
     init {
@@ -37,7 +40,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         navActivity = context as NavActivity
-        mContext = context
+        ctx = context
         info { "onAttach" }
     }
 
@@ -45,15 +48,15 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         info { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
         presenter = navActivity.presenter
-        presenter.init( this, savedInstanceState)
+        presenter.init(this, savedInstanceState)
         return v
     }
 
-    override fun initView(navs: List<Nav>) {
+    override fun initView(navBeans: List<NavBean>) {
         info { "nav fragment is $this and navId is $navId --initView" }
         initSrl()
         initFs()
-        initRv(navs)
+        initRv(navBeans)
         presenter.createNav(navId, navFragment = this)
     }
 
@@ -67,11 +70,20 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         v.fs_nav.setRecyclerView(v.rv_nav)
     }
 
-    private fun initRv(navs: List<Nav>) {
-        adapter = NavItemPresenter(navs = navs, navId = navId)
+    private fun initRv(navBeans: List<NavBean>) {
+        when (navId) {
+            VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
+                adapter = NavItemPresenter(navs = navBeans, navId = navId)
+                v.rv_nav.adapter = adapter
+            }
+            VIEW_ME -> {
+                val meBeans = listOf<MeBean.Settings>()
+                meAdapter = NavItemPresenter(navs = meBeans, navId = navId)
+                v.rv_nav.adapter = meAdapter
+            }
+        }
         v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v.rv_nav.layoutManager = LinearLayoutManager(context)
-        v.rv_nav.adapter = adapter
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
 
             override fun onHide() {
@@ -103,8 +115,16 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         v.srl_nav.isRefreshing = false
     }
 
-    override fun invalidateRv(navs: List<Nav>) {
-        adapter.navs = navs
+    override fun invalidateRv(navBeans: List<NavBean>) {
+        when (navId) {
+            VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
+                adapter.navs = navBeans
+            }
+            VIEW_ME -> {
+                val meBean = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
+                meAdapter.navs = meBean.settings
+            }
+        }
         runLayoutAnimation(v.rv_nav)
         navActivity.showFAB()
     }

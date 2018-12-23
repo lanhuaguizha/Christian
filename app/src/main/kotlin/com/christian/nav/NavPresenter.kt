@@ -1,8 +1,11 @@
 package com.christian.nav
 
+import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
+import android.widget.TextView
 import com.christian.R
-import com.christian.data.Nav
+import com.christian.data.NavBean
 import com.christian.data.source.NavsDataSource
 import com.christian.data.source.NavsRepository
 import com.christian.data.source.remote.NavService
@@ -13,12 +16,17 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.jetbrains.anko.info
+import org.jetbrains.anko.singleLine
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.BufferedReader
 import java.io.File
+import java.io.IOException
+import java.io.InputStreamReader
 import java.util.*
 import java.util.concurrent.TimeUnit
+
 
 const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
 const val initFragmentIndex = 0
@@ -28,7 +36,7 @@ const val toolbarTitle = "toolbarTitle"
 /**
  * This contains all the NAV business logic, and the MVP control center. We'll write the code here first.
  * Hold references to View and Model, implementation of View is NavActivity, implementation of Model
- * is Nav
+ * is NavBean
  */
 class NavPresenter(
         private var navId: Int,
@@ -42,8 +50,8 @@ class NavPresenter(
 
     val navFragmentList = ArrayList<NavFragment>()
     //    lateinit var navFragment: NavFragment
-    private val navList = listOf(Nav())
-    private val call: Call<List<Nav>>
+    private val navList = listOf(NavBean())
+    private val call: Call<List<NavBean>>
 
     init {
         view.presenter = this
@@ -95,9 +103,9 @@ class NavPresenter(
 
         navsRepository.getNavs(call, object : NavsDataSource.LoadNavsCallback {
 
-            override fun onNavsLoaded(navs: List<Nav>) {
+            override fun onNavsLoaded(navBeans: List<NavBean>) {
 
-                navFragment.invalidateRv(navs)
+                navFragment.invalidateRv(navBeans)
 
                 view.hidePb()
                 navFragment.hideSrl()
@@ -114,7 +122,7 @@ class NavPresenter(
         return true
     }
 
-    override fun updateNav(navs: List<Nav>) {
+    override fun updateNav(navBeans: List<NavBean>) {
     }
 
     override fun readNav() {
@@ -168,12 +176,43 @@ class NavPresenter(
 
 }
 
-//private void applyMarqueeEffect(TextView textView) {
-//    textView.setEllipsize(MARQUEE);
-//    textView.setHorizontalFadingEdgeEnabled(true);
-//    // 布局设置竟然不生效？网上解决方案：https://www.cnblogs.com/yuqf/p/5808236.html
-//    textView.setSingleLine(true);
-//    textView.setSelected(true);
-//    textView.setFocusable(true);
-//    textView.setFocusableInTouchMode(true);
-//}
+const val VIEW_HOME = 0
+const val VIEW_GOSPEL = 1
+const val VIEW_DISCIPLE = 2
+const val VIEW_ME = 3
+
+// 布局设置竟然不生效？网上解决方案：https://www.cnblogs.com/yuqf/p/5808236.html
+fun applyMarqueeEffect(textView: TextView) {
+    textView.ellipsize = TextUtils.TruncateAt.MARQUEE
+    textView.isHorizontalFadingEdgeEnabled = true
+    textView.singleLine = true
+    textView.isSelected = true
+    textView.isFocusable = true
+    textView.isFocusableInTouchMode = true
+}
+
+// 读取assets目录下文件里的json
+fun getJson(fileName: String, context: Context): String {
+    //将json数据变成字符串
+    val stringBuilder = StringBuilder()
+    try {
+        //获取assets资源管理器
+        val assetManager = context.assets
+        //通过管理器打开文件并读取
+        val bf = BufferedReader(InputStreamReader(
+                assetManager.open(fileName)))
+        var line: String
+        while (true) {
+            try {
+                line = bf.readLine()
+            } catch (e: Exception) {
+                break
+            }
+            stringBuilder.append(line)
+        }
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+
+    return stringBuilder.toString()
+}

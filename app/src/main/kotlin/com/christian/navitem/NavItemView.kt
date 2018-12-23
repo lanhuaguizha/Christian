@@ -2,18 +2,21 @@ package com.christian.navitem
 
 import android.content.Intent
 import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.AppCompatImageButton
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
 import android.view.animation.AnimationUtils
 import com.christian.R
+import com.christian.nav.NavActivity
 import com.christian.nav.toolbarTitle
 import com.christian.navdetail.NavDetailActivity
+import com.firebase.ui.auth.AuthUI
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_view.*
+import kotlinx.android.synthetic.main.nav_item_view_button.view.*
 import org.jetbrains.anko.textColor
+import java.util.*
 
 /**
  * NavItemView/NavItemHolder is view logic of nav items.
@@ -21,7 +24,25 @@ import org.jetbrains.anko.textColor
 
 class NavItemView(itemView: View, override var presenter: NavItemContract.IPresenter, override val containerView: View) : NavItemContract.IView, RecyclerView.ViewHolder(itemView), LayoutContainer {
 
+    private val providers = Arrays.asList(
+//                    AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.PhoneBuilder().build()
+//                    AuthUI.IdpConfig.GoogleBuilder().build(),
+//                    AuthUI.IdpConfig.FacebookBuilder().build(),
+//                    AuthUI.IdpConfig.TwitterBuilder().build())
+    )
+
     init {
+
+//        containerView.login_nav_item.setOnClickListener {
+//            // Create and launch sign-in intent
+//            (presenter as NavItemPresenter).ctx.startActivityForResult(
+//                    AuthUI.getInstance()
+//                            .createSignInIntentBuilder()
+//                            .setAvailableProviders(providers)
+//                            .build(),
+//                    NavActivity.RC_SIGN_IN)
+//        }
 
         itemView.setOnClickListener {
 

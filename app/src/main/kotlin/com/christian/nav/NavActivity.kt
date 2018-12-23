@@ -70,7 +70,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         initSb()
         initVp(navFragments)
         initBv()
-        initBnv(navFragments)
+        initBnv()
     }
 
     override fun deinitView() {
@@ -149,9 +149,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         val windowBackground = window.decorView.background
         val radius = 25f
         bv_nav.setupWith(cl_nav)
-                .windowBackground(windowBackground)
-                .blurAlgorithm(SupportRenderScriptBlur(this))
-                .blurRadius(radius)
+                .setFrameClearDrawable(windowBackground)
+                .setBlurAlgorithm(SupportRenderScriptBlur(this))
+                .setBlurRadius(radius)
                 .setHasFixedTransformationMatrix(false)
         // set behavior
         val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
@@ -183,7 +183,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 //        }
     }
 
-    private fun initBnv(navFragments: List<NavFragment>) {
+    private fun initBnv() {
         disableShiftMode(bnv_nav)
 
 //        vp_nav.currentItem = initFragmentIndex

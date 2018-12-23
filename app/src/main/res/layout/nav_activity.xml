@@ -10,7 +10,7 @@
         android:id="@+id/cl_nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".nav.NavActivity">
+        tools:context=".navBean.NavActivity">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/abl_nav"

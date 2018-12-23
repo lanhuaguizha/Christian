@@ -5,7 +5,7 @@ import java.util.*
  * Nav Activity model class.
  * I think one data class is enough.
  */
-data class Nav @JvmOverloads constructor(
+data class NavBean @JvmOverloads constructor(
         var subtitle: String = "",
         var title: String = "",
         var detail: String = "",

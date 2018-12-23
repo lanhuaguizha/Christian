@@ -15,7 +15,7 @@
  */
 package com.christian.data.source
 
-import com.christian.data.Nav
+import com.christian.data.NavBean
 import retrofit2.Call
 import java.util.*
 
@@ -35,7 +35,7 @@ class NavsRepository(
     /**
      * This variable has public visibility so it can be accessed from tests.
      */
-    var cachedNavs: LinkedHashMap<String, Nav> = LinkedHashMap()
+    var cachedNavs: LinkedHashMap<String, NavBean> = LinkedHashMap()
 
     /**
      * Marks the cache as invalid, to force an update the next time data is requested. This variable
@@ -51,7 +51,7 @@ class NavsRepository(
      * Note: [NavsDataSource.LoadNavsCallback.onDataNotAvailable] is fired if all data sources fail to
      * get the data.
      */
-    override fun getNavs(call: Call<List<Nav>>, callback: NavsDataSource.LoadNavsCallback) {
+    override fun getNavs(call: Call<List<NavBean>>, callback: NavsDataSource.LoadNavsCallback) {
         // Respond immediately with cache if available and not dirty
 //        if (cachedNavs.isNotEmpty() && !cacheIsDirty) {
 //            callback.onNavsLoaded(ArrayList(cachedNavs.values))
@@ -65,7 +65,7 @@ class NavsRepository(
 //        } else {
 //            // Query the local storage if available. If not, query the network.
 //            navsLocalDataSource.getNavs(object : NavsDataSource.LoadNavsCallback {
-//                override fun onNavsLoaded(navs: List<Nav>) {
+//                override fun onNavsLoaded(navs: List<NavBean>) {
 //                    refreshCache(navs)
 //                    callback.onNavsLoaded(ArrayList(cachedNavs.values))
 //                }
@@ -77,17 +77,17 @@ class NavsRepository(
 //        }
     }
 
-    override fun saveNav(nav: Nav) {
+    override fun saveNav(navBean: NavBean) {
         // Do in memory cache update to keep the app UI up to date
-        cacheAndPerform(nav) {
+        cacheAndPerform(navBean) {
             navsRemoteDataSource.saveNav(it)
 //            navsLocalDataSource.saveNav(it)
         }
     }
 
-    override fun completeNav(nav: Nav) {
+    override fun completeNav(navBean: NavBean) {
         // Do in memory cache update to keep the app UI up to date
-        cacheAndPerform(nav) {
+        cacheAndPerform(navBean) {
             it.isCompleted = true
             navsRemoteDataSource.completeNav(it)
 //            navsLocalDataSource.completeNav(it)
@@ -100,9 +100,9 @@ class NavsRepository(
         }
     }
 
-    override fun activateNav(nav: Nav) {
+    override fun activateNav(navBean: NavBean) {
         // Do in memory cache update to keep the app UI up to date
-        cacheAndPerform(nav) {
+        cacheAndPerform(navBean) {
             it.isCompleted = false
             navsRemoteDataSource.activateNav(it)
 //            navsLocalDataSource.activateNav(it)
@@ -121,7 +121,7 @@ class NavsRepository(
 
         cachedNavs = cachedNavs.filterValues {
             !it.isCompleted
-        } as LinkedHashMap<String, Nav>
+        } as LinkedHashMap<String, NavBean>
     }
 
     /**
@@ -143,9 +143,9 @@ class NavsRepository(
 
         // Load from server/persisted if needed.
 
-        // Is the Nav in the local data source? If not, query the network.
+        // Is the NavBean in the local data source? If not, query the network.
 //        navsLocalDataSource.getNav(navId, object : NavsDataSource.GetNavCallback {
-//            override fun onNavLoaded(nav: Nav) {
+//            override fun onNavLoaded(nav: NavBean) {
 //                // Do in memory cache update to keep the app UI up to date
 //                cacheAndPerform(nav) {
 //                    callback.onNavLoaded(it)
@@ -154,7 +154,7 @@ class NavsRepository(
 //
 //            override fun onDataNotAvailable() {
 //                navsRemoteDataSource.getNav(navId, object : NavsDataSource.GetNavCallback {
-//                    override fun onNavLoaded(nav: Nav) {
+//                    override fun onNavLoaded(nav: NavBean) {
 //                        // Do in memory cache update to keep the app UI up to date
 //                        cacheAndPerform(nav) {
 //                            callback.onNavLoaded(it)
@@ -185,13 +185,13 @@ class NavsRepository(
         cachedNavs.remove(navId)
     }
 
-    private fun getNavsFromRemoteDataSource(call: Call<List<Nav>>, callback: NavsDataSource.LoadNavsCallback) {
+    private fun getNavsFromRemoteDataSource(call: Call<List<NavBean>>, callback: NavsDataSource.LoadNavsCallback) {
         navsRemoteDataSource.getNavs(call, object : NavsDataSource.LoadNavsCallback {
-            override fun onNavsLoaded(navs: List<Nav>) {
-                refreshCache(navs)
-                refreshLocalDataSource(navs)
+            override fun onNavsLoaded(navBeans: List<NavBean>) {
+                refreshCache(navBeans)
+                refreshLocalDataSource(navBeans)
 //                callback.onNavsLoaded(ArrayList(cachedNavs.values))
-                callback.onNavsLoaded(navs)
+                callback.onNavsLoaded(navBeans)
             }
 
             override fun onDataNotAvailable() {
@@ -200,27 +200,27 @@ class NavsRepository(
         })
     }
 
-    private fun refreshCache(navs: List<Nav>) {
+    private fun refreshCache(navBeans: List<NavBean>) {
         cachedNavs.clear()
-        navs.forEach {
+        navBeans.forEach {
             cacheAndPerform(it) {}
         }
         cacheIsDirty = false
     }
 
-    private fun refreshLocalDataSource(navs: List<Nav>) {
+    private fun refreshLocalDataSource(navBeans: List<NavBean>) {
 //        navsLocalDataSource.deleteAllNavs()
-//        for (Nav in navs) {
-//            navsLocalDataSource.saveNav(Nav)
+//        for (NavBean in navBeans) {
+//            navsLocalDataSource.saveNav(NavBean)
 //        }
-        System.out.print(navs)
+        System.out.print(navBeans)
     }
 
     private fun getNavWithId(id: String) = cachedNavs[id]
 
-    private inline fun cacheAndPerform(nav: Nav, perform: (Nav) -> Unit) {
-        val cachedNav = Nav(nav.title, nav.relation, nav.id).apply {
-            isCompleted = nav.isCompleted
+    private inline fun cacheAndPerform(navBean: NavBean, perform: (NavBean) -> Unit) {
+        val cachedNav = NavBean(navBean.title, navBean.relation, navBean.id).apply {
+            isCompleted = navBean.isCompleted
         }
         cachedNavs.put(cachedNav.id, cachedNav)
         perform(cachedNav)

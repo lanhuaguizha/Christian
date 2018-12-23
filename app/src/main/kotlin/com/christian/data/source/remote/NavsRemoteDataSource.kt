@@ -17,7 +17,7 @@ package com.christian.data.source.remote
 
 import android.os.Handler
 import android.util.Log
-import com.christian.data.Nav
+import com.christian.data.NavBean
 import com.christian.data.source.NavsDataSource
 import org.jetbrains.anko.info
 import retrofit2.Call
@@ -32,7 +32,7 @@ object NavsRemoteDataSource : NavsDataSource {
 
     private const val SERVICE_LATENCY_IN_MILLIS = 5000L
 
-    private var NAVS_SERVICE_DATA = LinkedHashMap<String, Nav>(2)
+    private var NAVS_SERVICE_DATA = LinkedHashMap<String, NavBean>(2)
 
     init {
         addNav("Build tower in Pisa", "Ground looks good, no foundation work required.")
@@ -40,7 +40,7 @@ object NavsRemoteDataSource : NavsDataSource {
     }
 
     private fun addNav(title: String, description: String) {
-        val newNav = Nav(title, description)
+        val newNav = NavBean(title, description)
         NAVS_SERVICE_DATA.put(newNav.id, newNav)
     }
 
@@ -49,18 +49,18 @@ object NavsRemoteDataSource : NavsDataSource {
      * source implementation, this would be fired if the server can't be contacted or the server
      * returns an error.
      */
-    override fun getNavs(call: Call<List<Nav>>, callback: NavsDataSource.LoadNavsCallback) {
+    override fun getNavs(call: Call<List<NavBean>>, callback: NavsDataSource.LoadNavsCallback) {
 
         val newCall = call.clone()
-        newCall.enqueue(object : Callback<List<Nav>> {
+        newCall.enqueue(object : Callback<List<NavBean>> {
 
-            override fun onFailure(call: Call<List<Nav>>?, t: Throwable?) {
+            override fun onFailure(call: Call<List<NavBean>>?, t: Throwable?) {
                 info { "onFailure${t.toString()}" }
                 Log.d("cache_log", "onFailure")
                 callback.onDataNotAvailable()
             }
 
-            override fun onResponse(call: Call<List<Nav>>?, response: Response<List<Nav>>) {
+            override fun onResponse(call: Call<List<NavBean>>?, response: Response<List<NavBean>>) {
                 Log.d("cache_log", response.code().toString())
                 when (response.code()) {
                     504 -> callback.onDataNotAvailable()
@@ -96,36 +96,36 @@ object NavsRemoteDataSource : NavsDataSource {
         }
     }
 
-    override fun saveNav(nav: Nav) {
-        NAVS_SERVICE_DATA.put(nav.id, nav)
+    override fun saveNav(navBean: NavBean) {
+        NAVS_SERVICE_DATA.put(navBean.id, navBean)
     }
 
-    override fun completeNav(nav: Nav) {
-        val completedNav = Nav(nav.title, nav.relation, nav.id).apply {
+    override fun completeNav(navBean: NavBean) {
+        val completedNav = NavBean(navBean.title, navBean.relation, navBean.id).apply {
             isCompleted = true
         }
-        NAVS_SERVICE_DATA.put(nav.id, completedNav)
+        NAVS_SERVICE_DATA.put(navBean.id, completedNav)
     }
 
     override fun completeNav(navId: String) {
         // Not required for the remote data source because the {@link NavsRepository} handles
-        // converting from a {@code navId} to a {@link Nav} using its cached data.
+        // converting from a {@code navId} to a {@link NavBean} using its cached data.
     }
 
-    override fun activateNav(nav: Nav) {
-        val activeNav = Nav(nav.title, nav.relation, nav.id)
-        NAVS_SERVICE_DATA.put(nav.id, activeNav)
+    override fun activateNav(navBean: NavBean) {
+        val activeNav = NavBean(navBean.title, navBean.relation, navBean.id)
+        NAVS_SERVICE_DATA.put(navBean.id, activeNav)
     }
 
     override fun activateNav(navId: String) {
         // Not required for the remote data source because the {@link NavsRepository} handles
-        // converting from a {@code navId} to a {@link Nav} using its cached data.
+        // converting from a {@code navId} to a {@link NavBean} using its cached data.
     }
 
     override fun clearCompletedNavs() {
         NAVS_SERVICE_DATA = NAVS_SERVICE_DATA.filterValues {
             !it.isCompleted
-        } as LinkedHashMap<String, Nav>
+        } as LinkedHashMap<String, NavBean>
     }
 
     override fun refreshNavs() {

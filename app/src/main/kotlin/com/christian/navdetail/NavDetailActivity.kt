@@ -60,7 +60,7 @@ private fun NavActivity.initSrlForbidden() {
  */
 class NavDetailActivity : NavActivity() {
 
-//    override fun initView(navs: List<Nav>) {
+//    override fun initView(navs: List<NavBean>) {
 //        info { "navs$navs" }
 //        initAbl()
 //        initTbWithTitle(intent.extras.getString("title"))
@@ -82,7 +82,7 @@ class NavDetailActivity : NavActivity() {
         initTbWithTitle(intent?.extras?.getString(toolbarTitle) ?: nullString)
     }
 
-    //    override fun initRv(navs: List<Nav>) {
+    //    override fun initRv(navs: List<NavBean>) {
 //        adapter = NavItemPresenter(navs, false)
 //        rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.activity_horizontal_margin_0).toInt()))
 //        rv_nav.layoutManager = LinearLayoutManager(this)
@@ -104,7 +104,7 @@ class NavDetailActivity : NavActivity() {
 //        })
 //    }
 
-//    override fun invalidateRv(navs: List<Nav>) {
+//    override fun invalidateRv(navs: List<NavBean>) {
 //        adapter.navs = navs
 //        runLayoutAnimationE(rv_nav)
 //        fab_nav.post {

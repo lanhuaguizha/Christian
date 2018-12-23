@@ -1,6 +1,6 @@
 package com.christian.data.source.remote
 
-import com.christian.data.Nav
+import com.christian.data.NavBean
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -10,7 +10,7 @@ interface NavService {
 
     @Headers("Cache-Control: max-age=2592000")
     @GET("nav")
-    fun getNavs(): Call<List<Nav>>
+    fun getNavs(): Call<List<NavBean>>
 }
 
 
