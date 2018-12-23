@@ -158,7 +158,8 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                     if (holder.iv_nav_item_small != null) {
                         Glide.with(ctx).load(generateUrlId((navs as MeBean).url)).into(holder.iv_nav_item_small)
                     }
-                } else if (position in 1..4 && (navs as MeBean).settings.isNotEmpty()) { // ?why
+                } else if (position in 1..4 && (navs as MeBean).settings.isNotEmpty()) {
+                    if (holder.switch_nav_item_small != null && position == 1) holder.switch_nav_item_small.visibility = View.VISIBLE
                     if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (navs as MeBean).settings[position - 1].name
                     if (holder.tv2_nav_item_small != null) holder.tv2_nav_item_small.text = (navs as MeBean).settings[position - 1].desc
                     if (holder.iv_nav_item_small != null) {
