@@ -1,8 +1,8 @@
 {
-  "name": "Yongqiang Tao",
-  "url": "R.drawable.the_virgin",
+  "name": "陶永强",
+  "url": "R.drawable.me",
   "id": 0,
-  "nick_name": "lanhuaguizha",
+  "nickName": "个性签名：基督徒软件开发者",
   "address": {
     "street": "张江高科",
     "city": "上海",
@@ -10,17 +10,17 @@
   },
   "settings": [
     {
-      "name": "Dark Mode",
+      "name": "夜间模式",
       "url": "ic_brightness_medium_black_24dp",
       "desc": "黑暗模式"
     },
     {
-      "name": "Read Articles",
+      "name": "已阅读",
       "url": "ic_folder_open_black_24dp",
       "desc": "阅读过的文章"
     },
     {
-      "name": "Stored Articles",
+      "name": "已收藏",
       "url": "ic_folder_special_black_24dp",
       "desc": "已收藏的文章"
     },

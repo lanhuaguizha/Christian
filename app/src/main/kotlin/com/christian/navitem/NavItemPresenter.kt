@@ -22,7 +22,7 @@ import java.util.*
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
  */
-class NavItemPresenter<Bean>(var navs: List<Bean>, private val hasElevation: Boolean = true, private val navId: Int) : NavItemContract.IPresenter, RecyclerView.Adapter<NavItemView>(), TextGetter {
+class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean = true, private val navId: Int) : NavItemContract.IPresenter, RecyclerView.Adapter<NavItemView>(), TextGetter {
 
     override lateinit var view: NavItemContract.IView
     private lateinit var navItemView: NavItemView
@@ -35,7 +35,19 @@ class NavItemPresenter<Bean>(var navs: List<Bean>, private val hasElevation: Boo
 
     override fun getTitle(pos: Int): String {
 
-        return navs[pos].toString()
+        return when (navId) {
+            VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
+                val navBean = navs as List<NavBean>
+                navBean[pos].title
+            }
+            VIEW_ME -> {
+                val meBean = navs as MeBean
+                meBean.settings[pos - 1].name
+            }
+            else -> {
+                return ""
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NavItemView {
@@ -52,6 +64,18 @@ class NavItemPresenter<Bean>(var navs: List<Bean>, private val hasElevation: Boo
             }
             VIEW_ME -> {
                 when (viewType) {
+                    VIEW_TYPE_PORTRAIT -> {
+                        itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_potrait, parent, false)
+                        navItemView = NavItemView(itemView, this, itemView)
+                        navItemView.initView(hasElevation)
+                        return navItemView
+                    }
+                    VIEW_TYPE_SMALL -> {
+                        itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_small, parent, false)
+                        navItemView = NavItemView(itemView, this, itemView)
+                        navItemView.initView(hasElevation)
+                        return navItemView
+                    }
                     VIEW_TYPE_BUTTON -> {
                         itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_button, parent, false)
                         itemView.login_nav_item.setOnClickListener {
@@ -63,12 +87,6 @@ class NavItemPresenter<Bean>(var navs: List<Bean>, private val hasElevation: Boo
                                             .build(),
                                     NavActivity.RC_SIGN_IN)
                         }
-                        navItemView = NavItemView(itemView, this, itemView)
-                        navItemView.initView(hasElevation)
-                        return navItemView
-                    }
-                    VIEW_TYPE_SMALL -> {
-                        itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_small, parent, false)
                         navItemView = NavItemView(itemView, this, itemView)
                         navItemView.initView(hasElevation)
                         return navItemView
@@ -87,10 +105,10 @@ class NavItemPresenter<Bean>(var navs: List<Bean>, private val hasElevation: Boo
             VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
             }
             VIEW_ME -> {
-                return navs.size + 1
+                return (navs as MeBean).settings.size + 2
             }
         }
-        return navs.size
+        return (navs as List<NavBean>).size
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -99,7 +117,8 @@ class NavItemPresenter<Bean>(var navs: List<Bean>, private val hasElevation: Boo
             }
             VIEW_ME -> {
                 return when (position) {
-                    navs.size -> VIEW_TYPE_BUTTON
+                    0 -> VIEW_TYPE_PORTRAIT
+                    (navs as MeBean).settings.size + 1 -> VIEW_TYPE_BUTTON
                     else -> VIEW_TYPE_SMALL
                 }
             }
@@ -114,13 +133,13 @@ class NavItemPresenter<Bean>(var navs: List<Bean>, private val hasElevation: Boo
         when (navId) {
             VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
                 // 第一次加载不可见，后续invalidate时才可见
-                if ((navs[position] as NavBean).subtitle == "") {
+                if ((navs as List<NavBean>)[position].subtitle == "") {
                     holder.itemView.visibility = View.GONE
                 } else {
                     holder.itemView.visibility = View.VISIBLE
-                    holder.tv_subtitle_nav_item.text = (navs[position] as NavBean).subtitle
-                    holder.tv_title_nav_item.text = (navs[position] as NavBean).title
-                    holder.tv_detail_nav_item.text = (navs[position] as NavBean).detail
+                    holder.tv_subtitle_nav_item.text = (navs as List<NavBean>)[position].subtitle
+                    holder.tv_title_nav_item.text = (navs as List<NavBean>)[position].title
+                    holder.tv_detail_nav_item.text = (navs as List<NavBean>)[position].detail
 
                     if (position == 4) {
                         holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
@@ -132,11 +151,22 @@ class NavItemPresenter<Bean>(var navs: List<Bean>, private val hasElevation: Boo
                 }
             }
             VIEW_ME -> {
-                if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (navs[position] as MeBean.Settings).name
-                if (holder.tv2_nav_item_small != null) holder.tv2_nav_item_small.text = (navs[position] as MeBean.Settings).desc
-                if (holder.iv_nav_item_small != null) {
-                    val url = (navs[position] as MeBean.Settings).url
-                    Glide.with(ctx).load(generateUrlId(url)).into(holder.iv_nav_item_small)
+                info { "VIEW_ME position$position" }
+                if (position == 0) {
+                    if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (navs as MeBean).name
+                    if (holder.tv2_nav_item_small != null) holder.tv2_nav_item_small.text = (navs as MeBean).nickName
+                    if (holder.iv_nav_item_small != null) {
+                        Glide.with(ctx).load(generateUrlId((navs as MeBean).url)).into(holder.iv_nav_item_small)
+                    }
+                } else if (position in 1..4 && (navs as MeBean).settings.isNotEmpty()) { // ?why
+                    if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (navs as MeBean).settings[position - 1].name
+                    if (holder.tv2_nav_item_small != null) holder.tv2_nav_item_small.text = (navs as MeBean).settings[position - 1].desc
+                    if (holder.iv_nav_item_small != null) {
+                        val url = (navs as MeBean).settings[position - 1].url
+                        Glide.with(ctx).load(generateUrlId(url)).into(holder.iv_nav_item_small)
+                    }
+                } else if (position == 5) {
+
                 }
             }
         }
@@ -144,11 +174,12 @@ class NavItemPresenter<Bean>(var navs: List<Bean>, private val hasElevation: Boo
 
     private fun generateUrlId(url: String?): Int {
         return when (url) {
+            "R.drawable.me" -> R.drawable.me
+            "R.drawable.the_virgin" -> R.drawable.the_virgin
             "ic_brightness_medium_black_24dp" -> R.drawable.ic_brightness_medium_black_24dp
             "ic_folder_open_black_24dp" -> R.drawable.ic_folder_open_black_24dp
             "ic_folder_special_black_24dp" -> R.drawable.ic_folder_special_black_24dp
             "R.drawable.ic_settings_black_24dp" -> R.drawable.ic_settings_black_24dp
-            "R.drawable.the_virgin" -> R.drawable.the_virgin
             else -> {
                 return 0
             }
@@ -166,8 +197,8 @@ class NavItemPresenter<Bean>(var navs: List<Bean>, private val hasElevation: Boo
     }
 
     override fun getTextFromAdapter(pos: Int): String {
-        return if ((navs[0] as NavBean).subtitle.isNotEmpty()) {
-            (navs[pos] as NavBean).subtitle[0].toUpperCase().toString()
+        return if ((navs as List<NavBean>)[0].subtitle.isNotEmpty()) {
+            (navs as List<NavBean>)[pos].subtitle[0].toUpperCase().toString()
         } else {
             ""
         }
@@ -179,5 +210,6 @@ class NavItemPresenter<Bean>(var navs: List<Bean>, private val hasElevation: Boo
 }
 
 const val VIEW_TYPE_NORMAL = 0
-const val VIEW_TYPE_SMALL = 1
-const val VIEW_TYPE_BUTTON = 2
+const val VIEW_TYPE_PORTRAIT = 1
+const val VIEW_TYPE_SMALL = 2
+const val VIEW_TYPE_BUTTON = 3

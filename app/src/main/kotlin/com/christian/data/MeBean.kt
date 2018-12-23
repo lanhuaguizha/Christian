@@ -1,22 +1,23 @@
 package com.christian.data
 
-class MeBean {
-    var id: Int = 0
-    var url: String? = null
-    var name: String? = null
-    var nickName: String? = null
-    var address: Address? = null
+data class MeBean (
+    var id: Int = 0,
+    var url: String = "",
+    var name: String = "",
+    var nickName: String = "",
+    var address: Address = Address(),
     var settings: List<Settings> = arrayListOf()
+)
 
-    inner class Address {
-        var street: String? = null
-        var city: String? = null
-        var country: String? = null
-    }
+data class Settings(
+        var name: String = "",
+        var url: String = "",
+        var desc: String = ""
+)
 
-    class Settings {
-        var name: String? = null
-        var url: String? = null
-        var desc: String? = null
-    }
-}
+// 头像点击开后的详情
+data class Address(
+        var street: String = "",
+        var city: String = "",
+        var country: String = ""
+)

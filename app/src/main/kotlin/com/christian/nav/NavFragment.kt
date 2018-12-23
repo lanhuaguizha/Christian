@@ -25,8 +25,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
     private lateinit var ctx: Context
-    private lateinit var adapter: NavItemPresenter<NavBean>
-    private lateinit var meAdapter: NavItemPresenter<MeBean.Settings>
+    private lateinit var adapter: NavItemPresenter<List<NavBean>>
+    private lateinit var meAdapter: NavItemPresenter<MeBean>
     private lateinit var v: View
     var navId = -1
 
@@ -77,7 +77,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
                 v.rv_nav.adapter = adapter
             }
             VIEW_ME -> {
-                val meBeans = listOf<MeBean.Settings>()
+                val meBeans = MeBean()
                 meAdapter = NavItemPresenter(navs = meBeans, navId = navId)
                 v.rv_nav.adapter = meAdapter
             }
@@ -122,7 +122,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
             }
             VIEW_ME -> {
                 val meBean = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
-                meAdapter.navs = meBean.settings
+                meAdapter.navs = meBean
             }
         }
         runLayoutAnimation(v.rv_nav)
