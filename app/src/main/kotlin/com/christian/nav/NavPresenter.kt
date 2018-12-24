@@ -56,8 +56,6 @@ class NavPresenter(
     init {
         view.presenter = this
 
-        initNavFragmentList()
-
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://192.168.0.193:8080/")
                 .client(getOkHttpClient())
@@ -67,33 +65,35 @@ class NavPresenter(
         call = navService.getNavs()
     }
 
-    private fun initNavFragmentList() {
-        for (i in 0..3) {
-            val navFragment = NavFragment()
-            navFragment.retainInstance = true
-
-            navFragment.navId = i
-            navFragmentList.add(navFragment)
-            info { "nav fragment is $navFragment and navId is ${navFragment.navId}" }
-        }
-    }
-
     override fun init(navFragment: NavFragment?, savedInstanceState: Bundle?) {
-        when (navFragment == null) {
-            true -> view.initView(navFragmentList)
-            false -> {
-                if (savedInstanceState != null) {
-                    info { "nav fragment is $navFragment and navId is $navId ---init" }
-                    try {
-                        navFragmentList[navFragment.navId] = navFragment
-                    } catch (e: Exception) {
-                        info { "Exception ---init" }
-                        initNavFragmentList()
-                        view.initView(navFragmentList)
+
+        if (savedInstanceState == null) {
+
+            when (navFragment == null) {
+                true -> {
+                    for (i in 0..3) {
+                        val mNavFragment = NavFragment()
+                        mNavFragment.retainInstance = true
+
+                        mNavFragment.navId = i
+                        navFragmentList.add(mNavFragment)
+                        info { "nav fragment is $mNavFragment and navId is ${mNavFragment.navId} ---initial" }
                     }
+                    view.initView(navFragmentList)
                 }
-                navFragment.initView(navList)
+                false -> {
+                    navFragment.initView(navList)
+                }
             }
+        } else {
+            when (navFragment != null) {
+                true -> {
+                    navFragmentList.add(savedInstanceState.getShort(NAV_ID).toInt(), navFragment)
+                    info { "nav fragment is $navFragment and navId is $navId and NAV_ID${savedInstanceState.getShort(NAV_ID).toInt()}---init" }
+                    view.initView(navFragmentList)
+                }
+            }
+
         }
     }
 
@@ -226,3 +226,5 @@ fun getJson(fileName: String, context: Context): String {
 
     return stringBuilder.toString()
 }
+
+const val NAV_ID = "navId"

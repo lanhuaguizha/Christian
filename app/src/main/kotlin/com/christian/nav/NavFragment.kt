@@ -45,7 +45,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        info { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState" }
+        info { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState ---onCreateView" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
         presenter = navActivity.presenter
         presenter.init(this, savedInstanceState)
@@ -134,6 +134,11 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         recyclerView.layoutAnimation = animation
         recyclerView.adapter?.notifyDataSetChanged()
         recyclerView.scheduleLayoutAnimation()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putShort(NAV_ID, navId.toShort())
     }
 }
 
