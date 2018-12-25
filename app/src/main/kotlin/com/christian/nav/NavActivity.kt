@@ -37,6 +37,11 @@ import kotlin.math.abs
  */
 open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putParcelableArrayList(NAV_FRAGMENT_LIST, (presenter as NavPresenter).navFragmentList)
+    }
+
     companion object {
         const val RC_SIGN_IN = 0
     }

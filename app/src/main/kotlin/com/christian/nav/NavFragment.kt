@@ -2,6 +2,8 @@ package com.christian.nav
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -20,7 +22,7 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
 
-open class NavFragment : Fragment(), NavContract.INavFragment {
+open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
 
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
@@ -29,6 +31,10 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     private lateinit var meAdapter: NavItemPresenter<MeBean>
     private lateinit var v: View
     var navId = -1
+
+    constructor(parcel: Parcel) : this() {
+        navId = parcel.readInt()
+    }
 
     init {
         info { "look at init times" }
@@ -139,6 +145,24 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putShort(NAV_ID, navId.toShort())
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(navId)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<NavFragment> {
+        override fun createFromParcel(parcel: Parcel): NavFragment {
+            return NavFragment(parcel)
+        }
+
+        override fun newArray(size: Int): Array<NavFragment?> {
+            return arrayOfNulls(size)
+        }
     }
 }
 

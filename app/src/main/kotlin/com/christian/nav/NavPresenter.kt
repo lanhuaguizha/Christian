@@ -48,8 +48,7 @@ class NavPresenter(
         const val DEFAULT_TIMEOUT = 5L
     }
 
-    val navFragmentList = ArrayList<NavFragment>()
-    //    lateinit var navFragment: NavFragment
+    var navFragmentList = ArrayList<NavFragment>()
     private val navList = listOf(NavBean())
     private val call: Call<List<NavBean>>
 
@@ -67,33 +66,42 @@ class NavPresenter(
 
     override fun init(navFragment: NavFragment?, savedInstanceState: Bundle?) {
 
-        if (savedInstanceState == null) {
+        when (navFragment == null) {
+            // Activity
+            true -> {
+                when (savedInstanceState == null) {
+                    // initial
+                    true -> {
+                        for (i in 0..3) {
+                            val mNavFragment = NavFragment()
+                            mNavFragment.retainInstance = true
 
-            when (navFragment == null) {
-                true -> {
-                    for (i in 0..3) {
-                        val mNavFragment = NavFragment()
-                        mNavFragment.retainInstance = true
-
-                        mNavFragment.navId = i
-                        navFragmentList.add(mNavFragment)
-                        info { "nav fragment is $mNavFragment and navId is ${mNavFragment.navId} ---initial" }
+                            mNavFragment.navId = i
+                            navFragmentList.add(mNavFragment)
+                            info { "nav fragment is $mNavFragment and navId is ${mNavFragment.navId} ---initial" }
+                        }
                     }
-                    view.initView(navFragmentList)
+                    // init
+                    false -> {
+                        navFragmentList = savedInstanceState.getParcelableArrayList<NavFragment>(NAV_FRAGMENT_LIST)
+                    }
                 }
-                false -> {
-                    navFragment.initView(navList)
-                }
+                view.initView(navFragmentList)
             }
-        } else {
-            when (navFragment != null) {
-                true -> {
-                    navFragmentList.add(savedInstanceState.getShort(NAV_ID).toInt(), navFragment)
-                    info { "nav fragment is $navFragment and navId is $navId and NAV_ID${savedInstanceState.getShort(NAV_ID).toInt()}---init" }
-                    view.initView(navFragmentList)
+            // Fragment
+            false -> {
+                when (savedInstanceState == null) {
+                    // initial
+                    true -> {
+                    }
+                    // init
+                    false -> {
+                        navFragmentList[savedInstanceState.getShort(NAV_ID).toInt()] = navFragment
+                        info { "nav fragment is $navFragment and navId is $navId and NAV_ID${savedInstanceState.getShort(NAV_ID).toInt()}---init" }
+                    }
                 }
+                navFragment.initView(navList)
             }
-
         }
     }
 
@@ -228,3 +236,4 @@ fun getJson(fileName: String, context: Context): String {
 }
 
 const val NAV_ID = "navId"
+const val NAV_FRAGMENT_LIST = "navFragmentList"
