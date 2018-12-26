@@ -137,29 +137,14 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
 
     override fun onBindViewHolder(holder: NavItemView, position: Int) {
 
-        when (holder.adapterPosition) {
-            1 -> {
-                holder.containerView.setOnClickListener {
-                    if (isOn) {
-                        holder.containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = false
-                        isOn = false
-                    } else {
-                        holder.containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = true
-                        isOn = true
-                    }
-                }
-            }
-            else -> {
+        when (navId) {
+            VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
                 holder.containerView.setOnClickListener {
                     val i = Intent(holder.containerView.context, NavDetailActivity::class.java)
                     i.putExtra(toolbarTitle, getTitle(holder.adapterPosition))
                     holder.containerView.context.startActivity(i)
                 }
-            }
-        }
 
-        when (navId) {
-            VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
                 // 第一次加载不可见，后续invalidate时才可见
                 if ((navs as List<NavBean>)[position].subtitle == "") {
                     holder.itemView.visibility = View.GONE
@@ -179,6 +164,27 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                 }
             }
             VIEW_ME -> {
+                when (holder.adapterPosition) {
+                    1 -> {
+                        holder.containerView.setOnClickListener {
+                            if (isOn) {
+                                holder.containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = false
+                                isOn = false
+                            } else {
+                                holder.containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = true
+                                isOn = true
+                            }
+                        }
+                    }
+                    else -> {
+                        holder.containerView.setOnClickListener {
+                            val i = Intent(holder.containerView.context, NavDetailActivity::class.java)
+                            i.putExtra(toolbarTitle, getTitle(holder.adapterPosition))
+                            holder.containerView.context.startActivity(i)
+                        }
+                    }
+                }
+
                 info { "VIEW_ME position$position" }
                 if (position == 0) {
                     if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (navs as MeBean).name

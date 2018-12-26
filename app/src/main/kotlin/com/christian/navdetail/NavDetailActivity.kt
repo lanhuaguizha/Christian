@@ -100,11 +100,9 @@ class NavDetailActivity : NavActivity() {
             override fun onPageSelected(position: Int) {
                 if (position == 0) {
                     SwipeBackHelper.getCurrentPage(this@NavDetailActivity)
-                            .setSwipeBackEnable(true)
                             .setDisallowInterceptTouchEvent(false)
                 } else {
                     SwipeBackHelper.getCurrentPage(this@NavDetailActivity)
-                            .setSwipeBackEnable(false)
                             .setDisallowInterceptTouchEvent(true)
                 }
             }
