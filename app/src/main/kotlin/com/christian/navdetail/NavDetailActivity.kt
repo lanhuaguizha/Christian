@@ -1,14 +1,13 @@
 package com.christian.navdetail
 
-import android.graphics.Color
+import android.support.design.widget.CoordinatorLayout
+import android.support.v4.view.ViewPager
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.christian.R
-import com.christian.nav.NavActivity
-import com.christian.nav.NavPresenter
-import com.christian.nav.nullString
-import com.christian.nav.toolbarTitle
+import com.christian.nav.*
 import com.christian.swipe.SwipeBackHelper
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
@@ -75,12 +74,46 @@ class NavDetailActivity : NavActivity() {
         SwipeBackHelper.getCurrentPage(this)
                 .setSwipeBackEnable(true)
                 .setDisallowInterceptTouchEvent(false)
-                .setSwipeEdgePercent(0.1f)
     }
 
     override fun initTb() {
         initTbWithTitle(intent?.extras?.getString(toolbarTitle) ?: nullString)
     }
+
+    override fun initBv() {
+        super.initBv()
+        val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
+        params.gravity = Gravity.BOTTOM
+        params.behavior = BottomNavigationViewBehaviorDetail(this, null)
+        bv_nav.layoutParams = params
+    }
+
+    override fun initVp(navFragments: List<NavFragment>) {
+        super.initVp(navFragments)
+        vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(p0: Int) {
+            }
+
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                if (position == 0) {
+                    SwipeBackHelper.getCurrentPage(this@NavDetailActivity)
+                            .setClosePercent(0.9f)
+                            .setSwipeBackEnable(true)
+                            .setDisallowInterceptTouchEvent(false)
+                } else {
+                    SwipeBackHelper.getCurrentPage(this@NavDetailActivity)
+                            .setClosePercent(0.9f)
+                            .setSwipeBackEnable(false)
+                            .setDisallowInterceptTouchEvent(true)
+                }
+            }
+
+        })
+    }
+
 
     //    override fun initRv(navs: List<NavBean>) {
 //        adapter = NavItemPresenter(navs, false)

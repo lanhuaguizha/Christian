@@ -118,7 +118,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         search_back_button.setOnClickListener { slCollapse() }
     }
 
-    private fun initVp(navFragments: List<NavFragment>) {
+    open fun initVp(navFragments: List<NavFragment>) {
         val navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragments, supportFragmentManager)
 
         vp_nav.offscreenPageLimit = 3
@@ -288,7 +288,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     /**
      * Locate nav detail FAB
      */
-    class BottomNavigationViewBehaviorExt(context: Context?, attrs: AttributeSet?) : CoordinatorLayout.Behavior<View>(context, attrs) {
+    class BottomNavigationViewBehaviorDetail(context: Context?, attrs: AttributeSet?) : CoordinatorLayout.Behavior<View>(context, attrs) {
         override fun onLayoutChild(parent: CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
             (child.layoutParams as CoordinatorLayout.LayoutParams).topMargin = parent.measuredHeight.minus(child.measuredHeight)
             return super.onLayoutChild(parent, child, layoutDirection)
