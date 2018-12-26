@@ -65,41 +65,21 @@ class NavPresenter(
     }
 
     override fun init(navFragment: NavFragment?, savedInstanceState: Bundle?) {
-
         when (navFragment == null) {
             // Activity
             true -> {
-                when (savedInstanceState == null) {
-                    // initial
-                    true -> {
-                        for (i in 0..3) {
-                            val mNavFragment = NavFragment()
-                            mNavFragment.retainInstance = true
+                for (i in 0..3) {
+                    val mNavFragment = NavFragment()
+//                            mNavFragment.retainInstance = true
 
-                            mNavFragment.navId = i
-                            navFragmentList.add(mNavFragment)
-                            info { "nav fragment is $mNavFragment and navId is ${mNavFragment.navId} ---initial" }
-                        }
-                    }
-                    // init
-                    false -> {
-                        navFragmentList = savedInstanceState.getParcelableArrayList<NavFragment>(NAV_FRAGMENT_LIST)
-                    }
+                    mNavFragment.navId = i
+                    navFragmentList.add(mNavFragment)
+                    info { "nav fragment is $mNavFragment and navId is ${mNavFragment.navId} ---initial" }
                 }
                 view.initView(navFragmentList)
             }
             // Fragment
             false -> {
-                when (savedInstanceState == null) {
-                    // initial
-                    true -> {
-                    }
-                    // init
-                    false -> {
-                        navFragmentList[savedInstanceState.getShort(NAV_ID).toInt()] = navFragment
-                        info { "nav fragment is $navFragment and navId is $navId and NAV_ID${savedInstanceState.getShort(NAV_ID).toInt()}---init" }
-                    }
-                }
                 navFragment.initView(navList)
             }
         }

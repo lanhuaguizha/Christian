@@ -1,6 +1,6 @@
 # Me a christian and the Christian logo
 ![me](https://github.com/lanhuaguizha/Christian/blob/master/20180331_085803.jpg)
-![logo](https://github.com/lanhuaguizha/Christian/blob/master/app/src/main/ic_launcher-web.png)
+![logo](https://github.com/lanhuaguizha/Christian/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
 # Reference of open source software
 
@@ -31,7 +31,7 @@ Official website: https://www.christian.com
 Open source address for our server and client(https://github.com/lanhuaguizha)
 
 # Software introduction
-![screenshot](https://github.com/lanhuaguizha/Christian/blob/master/device-2018-03-30-225123.png)
+![screenshot](https://github.com/lanhuaguizha/Christian/blob/master/device-2018-03-30-225123.jpg)
 
 ## Christian
     First of all, this is christian software's client

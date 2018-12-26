@@ -143,8 +143,8 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putShort(NAV_ID, navId.toShort())
-        super.onSaveInstanceState(outState)
+//        outState.putShort(NAV_ID, navId.toShort())
+//        super.onSaveInstanceState(outState)
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
