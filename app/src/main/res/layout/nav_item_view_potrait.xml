@@ -6,7 +6,7 @@
     app:cardCornerRadius="@dimen/card_corner_radius"
     android:focusable="true"
     android:clickable="true"
-    android:foreground="@drawable/fluent_ripple"
+    android:foreground="?selectableItemBackgroundBorderless"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.constraint.ConstraintLayout
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="65dp"
-            app:cardElevation="10dp"
+            app:cardElevation="4dp"
             app:cardBackgroundColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
