@@ -11,15 +11,15 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="8dp"
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardView"
+            android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="0dp"
+            app:cardCornerRadius="65dp"
+            app:cardElevation="10dp"
             app:cardBackgroundColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,8 +27,8 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/iv_nav_item_small"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:scaleType="center"
                 android:cropToPadding="false"
                 android:adjustViewBounds="true"

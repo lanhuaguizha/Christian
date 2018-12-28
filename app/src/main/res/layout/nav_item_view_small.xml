@@ -30,7 +30,6 @@
                 android:id="@+id/iv_nav_item_small"
                 android:layout_width="@dimen/search_box_icon_size"
                 android:layout_height="@dimen/search_box_icon_size"
-                android:padding="@dimen/search_box_search_icon_padding"
                 android:scaleType="center"
                 android:cropToPadding="false"
                 android:adjustViewBounds="true"
