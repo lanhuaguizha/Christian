@@ -83,7 +83,7 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
                 v.rv_nav.adapter = adapter
             }
             VIEW_ME -> {
-                val meBeans = MeBean()
+                val meBeans = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
                 meAdapter = NavItemPresenter(navs = meBeans, navId = navId)
                 v.rv_nav.adapter = meAdapter
             }

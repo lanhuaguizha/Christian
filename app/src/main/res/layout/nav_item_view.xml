@@ -29,6 +29,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:focusable="false"
+            android:clickable="false"
+            android:focusableInTouchMode="false"
             android:id="@+id/tv_subtitle_nav_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
