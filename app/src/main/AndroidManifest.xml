@@ -21,6 +21,8 @@
         android:theme="@style/Christian">
         <activity
             android:name=".nav.NavActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize
+|screenLayout|smallestScreenSize"
             android:theme="@style/BottomNavigationActivityTheme"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
