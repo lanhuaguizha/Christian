@@ -5,15 +5,15 @@
     android:id="@+id/sb_nav"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/search_bottom_margin"
     android:layout_marginLeft="@dimen/search_margin_horizontal"
-    android:layout_marginRight="@dimen/search_margin_horizontal"
     android:layout_marginTop="@dimen/search_top_margin"
+    android:layout_marginRight="@dimen/search_margin_horizontal"
+    android:layout_marginBottom="@dimen/search_bottom_margin"
     android:background="@drawable/rounded_corner"
     android:elevation="@dimen/search_box_elevation"
-    tools:targetApi="lollipop"
     android:focusable="true"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    tools:targetApi="lollipop">
 
     <LinearLayout
         android:id="@+id/search_box_collapsed"
@@ -21,10 +21,10 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingEnd="@dimen/activity_horizontal_margin_0"
+        android:paddingStart="@dimen/card_view_padding"
         android:paddingLeft="@dimen/card_view_padding"
-        android:paddingRight="@dimen/activity_horizontal_margin_0"
-        android:paddingStart="@dimen/card_view_padding">
+        android:paddingEnd="@dimen/activity_horizontal_margin_0"
+        android:paddingRight="@dimen/activity_horizontal_margin_0">
 
         <ImageView
             android:id="@+id/search_magnifying_glass"
@@ -32,21 +32,20 @@
             android:layout_height="@dimen/search_box_icon_size"
             android:importantForAccessibility="no"
             android:scaleType="center"
-            android:tint="@color/text_color_tertiary"
+            android:tint="@android:color/tertiary_text_dark"
             app:srcCompat="@drawable/ic_search_black_24dp" />
 
         <TextView
             android:id="@+id/search_box_start_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/search_box_collapsed_text_margin_left"
             android:layout_marginStart="@dimen/search_box_collapsed_text_margin_left"
+            android:layout_marginLeft="@dimen/search_box_collapsed_text_margin_left"
             android:layout_weight="1"
-            android:fontFamily="@string/search_font_family"
             android:gravity="center_vertical"
             android:hint="@string/search_hint"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            android:textColorHint="@color/text_color_secondary" />
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            android:textColorHint="@android:color/tertiary_text_light" />
 
         <ImageView
             android:id="@+id/voice_search_button"
@@ -56,7 +55,7 @@
             android:clickable="true"
             android:contentDescription="@string/description_start_voice_search"
             android:scaleType="center"
-            android:tint="@color/text_color_tertiary"
+            android:tint="@android:color/tertiary_text_dark"
             app:srcCompat="@drawable/ic_mic_black_24dp" />
 
         <ImageButton
@@ -65,10 +64,10 @@
             android:layout_height="match_parent"
             android:background="?selectableItemBackgroundBorderless"
             android:contentDescription="@string/action_menu_overflow_description"
-            android:paddingEnd="@dimen/card_view_padding"
-            android:paddingLeft="@dimen/activity_horizontal_margin_0"
-            android:paddingRight="@dimen/card_view_padding"
             android:paddingStart="@dimen/activity_horizontal_margin_0"
+            android:paddingLeft="@dimen/activity_horizontal_margin_0"
+            android:paddingEnd="@dimen/card_view_padding"
+            android:paddingRight="@dimen/card_view_padding"
             android:scaleType="center"
             android:tint="@color/text_color_tertiary"
             android:visibility="gone"
