@@ -168,7 +168,7 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
 
     override fun onDestroy() {
         super.onDestroy()
-        val refWatcher = ChristianApplication.getRefWatcher(navActivity)
+        val refWatcher = ChristianApplication.getRefWatcher(ctx)
         refWatcher.watch(this)
     }
 }
