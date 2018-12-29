@@ -14,19 +14,6 @@ abstract class SwipeBackActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         SwipeBackHelper.onCreate(this)
         initSwipeBack()
-
-        val leakThread = LeakThread()
-        leakThread.start()
-    }
-
-    class LeakThread : Thread() {
-        override fun run() {
-            super.run()
-            try {
-                Thread.sleep(6 * 60 * 1000)
-            } catch (e: Exception) {
-            }
-        }
     }
 
     private fun initSwipeBack() {
@@ -48,9 +35,6 @@ abstract class SwipeBackActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         SwipeBackHelper.onDestroy(this)
-
-        val refWatcher = ChristianApplication.getRefWatcher(this)
-        refWatcher.watch(this)
     }
 
 }

@@ -14,6 +14,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import com.christian.ChristianApplication
 import com.christian.Injection
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
@@ -304,6 +305,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        val refWatcher = ChristianApplication.getRefWatcher(this)
+        refWatcher.watch(this)
+    }
 }
 
 @SuppressLint("RestrictedApi")
@@ -315,4 +321,5 @@ fun disableShiftMode(view: BottomNavigationView) {
         item.setShifting(false)
         item.setChecked(item.itemData.isChecked)
     }
+
 }

@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.nav.*
 import com.christian.swipe.SwipeBackHelper
@@ -157,5 +158,11 @@ class NavDetailActivity : NavActivity() {
             R.id.menu_collection -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val refWatcher = ChristianApplication.getRefWatcher(this)
+        refWatcher.watch(this)
     }
 }
