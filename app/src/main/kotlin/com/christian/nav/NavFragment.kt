@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.data.NavBean
@@ -163,6 +164,12 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
         override fun newArray(size: Int): Array<NavFragment?> {
             return arrayOfNulls(size)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val refWatcher = ChristianApplication.getRefWatcher(navActivity)
+        refWatcher.watch(this)
     }
 }
 
