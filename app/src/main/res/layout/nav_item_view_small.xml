@@ -7,7 +7,7 @@
     app:cardCornerRadius="@dimen/card_corner_radius"
     android:focusable="true"
     android:clickable="true"
-    android:foreground="@drawable/fluent_ripple"
+    android:foreground="?selectableItemBackgroundBorderless"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.constraint.ConstraintLayout
@@ -30,7 +30,6 @@
                 android:id="@+id/iv_nav_item_small"
                 android:layout_width="@dimen/search_box_icon_size"
                 android:layout_height="@dimen/search_box_icon_size"
-                android:padding="@dimen/search_box_search_icon_padding"
                 android:scaleType="center"
                 android:cropToPadding="false"
                 android:adjustViewBounds="true"
