@@ -1,5 +1,4 @@
 # Me a christian and the Christian logo
-![me](https://github.com/lanhuaguizha/Christian/blob/master/20180331_085803.jpg)
 ![logo](https://github.com/lanhuaguizha/Christian/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 
 # Reference of open source software
