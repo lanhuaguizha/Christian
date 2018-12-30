@@ -154,8 +154,11 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                     holder.tv_title_nav_item.text = (navs as List<NavBean>)[position].title
                     holder.tv_detail_nav_item.text = (navs as List<NavBean>)[position].detail
 
-                    if (position == 4) {
+                    if (position == 1) {
                         holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.foot, holder.containerView.context.theme)
+                        holder.iv_nav_item.visibility = View.VISIBLE
+                    } else if (position == 2) {
+                        holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
                         holder.iv_nav_item.visibility = View.VISIBLE
                     } else {
                         holder.iv_nav_item.visibility = View.GONE
