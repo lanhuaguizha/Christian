@@ -19,7 +19,7 @@
             android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="50dp"
+            app:cardCornerRadius="52.5dp"
             app:cardElevation="4dp"
             app:cardBackgroundColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,8 +28,8 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/iv_nav_item_small"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="105dp"
+                android:layout_height="105dp"
                 android:scaleType="center"
                 android:cropToPadding="false"
                 android:adjustViewBounds="true"
@@ -59,7 +59,7 @@
 
         <TextView
             android:id="@+id/tv2_nav_item_small"
-            style="@android:style/TextAppearance.Medium"
+            style="@android:style/TextAppearance.Small"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"

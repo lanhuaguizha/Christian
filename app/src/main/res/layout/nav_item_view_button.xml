@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <Button
+        style="@android:style/TextAppearance.Medium"
         android:id="@+id/login_nav_item"
         android:theme="@style/Christian.Button.colorPrimary"
         android:layout_width="0dp"
@@ -18,7 +19,6 @@
         android:lineSpacingExtra="12dp"
         android:text="@string/title_activity_login"
         android:textColor="@android:color/white"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

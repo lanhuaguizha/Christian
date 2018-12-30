@@ -44,7 +44,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:hint="@string/search_hint"
-            style="@android:style/TextAppearance.Large"
+            style="@android:style/TextAppearance.Medium"
             android:textColorHint="@android:color/tertiary_text_light" />
 
         <ImageView
