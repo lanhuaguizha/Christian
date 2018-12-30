@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/card_corner_radius"
-    android:focusable="true"
-    android:clickable="true"
+    android:focusable="false"
+    android:clickable="false"
     android:foreground="?selectableItemBackgroundBorderless"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -19,7 +19,7 @@
             android:layout_margin="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="52.5dp"
+            app:cardCornerRadius="53dp"
             app:cardElevation="4dp"
             app:cardBackgroundColor="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,8 +28,8 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/iv_nav_item_small"
-                android:layout_width="105dp"
-                android:layout_height="105dp"
+                android:layout_width="106dp"
+                android:layout_height="106dp"
                 android:scaleType="center"
                 android:cropToPadding="false"
                 android:adjustViewBounds="true"
@@ -58,6 +58,8 @@
             app:layout_constraintStart_toEndOf="@+id/cardView" />
 
         <TextView
+            android:focusable="true"
+            android:clickable="true"
             android:id="@+id/tv2_nav_item_small"
             style="@android:style/TextAppearance.Small"
             android:layout_width="0dp"
