@@ -2,6 +2,7 @@
 <com.christian.view.FloatingCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/card_corner_radius"
     android:focusable="true"
@@ -49,8 +50,8 @@
             android:ellipsize="end"
             android:gravity="bottom"
             android:singleLine="true"
-            android:text="Yongqiang Tao"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            tools:text="Yongqiang Tao"
+            style="@android:style/TextAppearance.Large"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -58,19 +59,20 @@
 
         <TextView
             android:id="@+id/tv2_nav_item_small"
+            style="@android:style/TextAppearance.Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:gravity="top"
             android:maxLines="2"
-            android:text="个性签名：基督徒软件开发者，致力于打造全球最优体验的传福音软件"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
             android:textColor="@android:color/tertiary_text_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_nav_item_small"
-            app:layout_constraintTop_toTopOf="@+id/guideline" />
+            app:layout_constraintTop_toTopOf="@+id/guideline"
+            tools:text="个性签名：基督徒软件开发者，致力于打造全球最优体验的传福音软件" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"

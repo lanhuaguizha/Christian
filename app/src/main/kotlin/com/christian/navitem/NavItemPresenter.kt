@@ -188,7 +188,10 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                 info { "VIEW_ME position$position" }
                 if (position == 0) {
                     if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (navs as MeBean).name
-                    if (holder.tv2_nav_item_small != null) holder.tv2_nav_item_small.text = (navs as MeBean).nickName
+                    if (holder.tv2_nav_item_small != null) {
+                        applyMarqueeEffect(holder.tv2_nav_item_small)
+                        holder.tv2_nav_item_small.text = (navs as MeBean).nickName
+                    }
                     if (holder.iv_nav_item_small != null) {
                         Glide.with(ctx).load(generateUrlId((navs as MeBean).url)).into(holder.iv_nav_item_small)
                     }

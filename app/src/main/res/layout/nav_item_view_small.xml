@@ -50,8 +50,8 @@
             android:ellipsize="end"
             android:gravity="bottom"
             android:singleLine="true"
-            android:text="Yongqiang Tao"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            tools:text="Yongqiang Tao"
+            style="@android:style/TextAppearance.Large"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toStartOf="@+id/switch_nav_item_small"
             app:layout_constraintStart_toEndOf="@+id/cardView" />
@@ -64,8 +64,8 @@
             android:layout_marginRight="8dp"
             android:ellipsize="end"
             android:singleLine="true"
-            android:text="个性签名：基督徒软件开发者，致力于打造全球最优体验的传福音软件"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+            tools:text="个性签名：基督徒软件开发者，致力于打造全球最优体验的传福音软件"
+            style="@android:style/TextAppearance.Medium"
             app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@android:color/tertiary_text_dark"
             app:layout_constraintStart_toStartOf="@+id/tv_nav_item_small"
@@ -89,7 +89,7 @@
             android:clickable="false"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+            style="@android:style/TextAppearance.Medium"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent" />
     </android.support.constraint.ConstraintLayout>

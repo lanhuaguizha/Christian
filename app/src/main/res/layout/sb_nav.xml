@@ -44,7 +44,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:hint="@string/search_hint"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            style="@android:style/TextAppearance.Large"
             android:textColorHint="@android:color/tertiary_text_light" />
 
         <ImageView
