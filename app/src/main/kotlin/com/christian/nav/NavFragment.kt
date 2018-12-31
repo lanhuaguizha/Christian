@@ -30,7 +30,7 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
     private lateinit var ctx: Context
     private lateinit var adapter: NavItemPresenter<List<NavBean>>
     private lateinit var meAdapter: NavItemPresenter<MeBean>
-    private lateinit var v: View
+    private var v: View? = null
     var navId = -1
 
     constructor(parcel: Parcel) : this() {
@@ -68,30 +68,30 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
     }
 
     private fun initSrl() {
-        v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(context!!.resources, R.color.colorAccent, context?.theme))
-        v.srl_nav.setOnRefreshListener { presenter.createNav(navId, true, this) }
-        v.srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, context?.theme)
+        v?.srl_nav?.setColorSchemeColors(ResourcesCompat.getColor(context!!.resources, R.color.colorAccent, context?.theme))
+        v?.srl_nav?.setOnRefreshListener { presenter.createNav(navId, true, this) }
+        v?.srl_nav?.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, context?.theme)
     }
 
     private fun initFs() {
-        v.fs_nav.setRecyclerView(v.rv_nav)
+        v?.fs_nav?.setRecyclerView(v?.rv_nav)
     }
 
     private fun initRv(navBeans: List<NavBean>) {
         when (navId) {
             VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
                 adapter = NavItemPresenter(navs = navBeans, navId = navId)
-                v.rv_nav.adapter = adapter
+                v?.rv_nav?.adapter = adapter
             }
             VIEW_ME -> {
                 val meBeans = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
                 meAdapter = NavItemPresenter(navs = meBeans, navId = navId)
-                v.rv_nav.adapter = meAdapter
+                v?.rv_nav?.adapter = meAdapter
             }
         }
-        v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
-        v.rv_nav.layoutManager = LinearLayoutManager(context)
-        v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
+        v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
+        v?.rv_nav?.layoutManager = LinearLayoutManager(context)
+        v?.rv_nav?.addOnScrollListener(object : HidingScrollListener(this) {
 
             override fun onHide() {
                 activity?.fab_nav?.hide()
@@ -119,7 +119,7 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
     }
 
     override fun hideSrl() {
-        v.srl_nav.isRefreshing = false
+        v?.srl_nav?.isRefreshing = false
     }
 
     override fun invalidateRv(navBeans: List<NavBean>) {
@@ -132,15 +132,15 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
                 meAdapter.navs = meBean
             }
         }
-        runLayoutAnimation(v.rv_nav)
+        runLayoutAnimation(v?.rv_nav)
         navActivity.showFAB()
     }
 
-    private fun runLayoutAnimation(recyclerView: RecyclerView) {
-        val animation = AnimationUtils.loadLayoutAnimation(recyclerView.context, R.anim.layout_animation_from_right)
-        recyclerView.layoutAnimation = animation
-        recyclerView.adapter?.notifyDataSetChanged()
-        recyclerView.scheduleLayoutAnimation()
+    private fun runLayoutAnimation(recyclerView: RecyclerView?) {
+        val animation = AnimationUtils.loadLayoutAnimation(recyclerView?.context, R.anim.layout_animation_from_right)
+        recyclerView?.layoutAnimation = animation
+        recyclerView?.adapter?.notifyDataSetChanged()
+        recyclerView?.scheduleLayoutAnimation()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -168,6 +168,10 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
 
     override fun onDestroy() {
         super.onDestroy()
+
+        // handling memory leaks
+        v = null
+
         val refWatcher = ChristianApplication.getRefWatcher(ctx)
         refWatcher.watch(this)
     }

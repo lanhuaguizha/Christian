@@ -142,7 +142,9 @@ class NavDetailActivity : NavActivity() {
 //        }
 //    }
 
+    var menu: Menu? = null
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        this.menu = menu
         menuInflater.inflate(R.menu.menu_share, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -162,6 +164,12 @@ class NavDetailActivity : NavActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        // Handling memory leaks
+        val navPresenter = presenter as NavPresenter
+        navPresenter.navFragmentList.clear()
+
+        menu?.close()
+
         val refWatcher = ChristianApplication.getRefWatcher(this)
         refWatcher.watch(this)
     }
