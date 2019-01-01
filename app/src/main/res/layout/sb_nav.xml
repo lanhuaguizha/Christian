@@ -23,8 +23,8 @@
         android:orientation="horizontal"
         android:paddingStart="@dimen/card_view_padding"
         android:paddingLeft="@dimen/card_view_padding"
-        android:paddingEnd="1dp"
-        android:paddingRight="1dp">
+        android:paddingEnd="2dp"
+        android:paddingRight="2dp">
 
         <ImageView
             android:id="@+id/search_magnifying_glass"
