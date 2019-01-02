@@ -15,6 +15,7 @@
         android:id="@+id/cl_nav_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="122dp"
         android:orientation="vertical">
 
         <ImageView
