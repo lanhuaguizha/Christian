@@ -45,7 +45,8 @@
         </activity>
         <activity
             android:name=".navdetail.NavDetailActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:configChanges="orientation|keyboardHidden|screenSize
+|screenLayout|smallestScreenSize"
             android:label=""
             android:launchMode="singleTop"
             android:parentActivityName=".nav.NavActivity">
