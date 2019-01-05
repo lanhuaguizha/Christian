@@ -1,5 +1,7 @@
 package com.christian.navdetail
 
+import android.app.Activity
+import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.view.ViewPager
 import android.view.Gravity
@@ -13,6 +15,7 @@ import com.christian.swipe.SwipeBackHelper
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
+import org.jetbrains.anko.info
 
 private fun NavActivity.initTbWithTitle(title: String) {
     sb_nav.visibility = View.GONE
@@ -71,6 +74,17 @@ class NavDetailActivity : NavActivity() {
 //        startNavE("0")
 //    }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // The internal execution of init is initView.
+        presenter.init(navFragmentSize = 2, savedInstanceState = savedInstanceState)
+    }
+
+    override fun initView(navFragments: List<NavFragment>) {
+        super.initView(navFragments)
+        initVp(navFragments)
+    }
+
     override fun initSbl() {
         SwipeBackHelper.getCurrentPage(this)
                 .setSwipeBackEnable(true)
@@ -92,20 +106,17 @@ class NavDetailActivity : NavActivity() {
     override fun initVp(navFragments: List<NavFragment>) {
         super.initVp(navFragments)
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(p0: Int) {
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                info { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
             }
 
-            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+            override fun onPageScrollStateChanged(state: Int) {
             }
 
             override fun onPageSelected(position: Int) {
-                if (position == 0) {
-                    SwipeBackHelper.getCurrentPage(this@NavDetailActivity)
-                            .setDisallowInterceptTouchEvent(false)
-                } else {
-                    SwipeBackHelper.getCurrentPage(this@NavDetailActivity)
-                            .setDisallowInterceptTouchEvent(true)
-                }
+                info { "initVp: onPageSelected$position" }
+                disallowInterceptTouchEventOfSwipeBackLayout(position, this@NavDetailActivity)
             }
 
         })
@@ -172,5 +183,15 @@ class NavDetailActivity : NavActivity() {
 
         val refWatcher = ChristianApplication.getRefWatcher(this)
         refWatcher.watch(this)
+    }
+}
+
+fun disallowInterceptTouchEventOfSwipeBackLayout(position: Int, activity: Activity) {
+    if (position < 1) {
+        SwipeBackHelper.getCurrentPage(activity)
+                .setDisallowInterceptTouchEvent(false)
+    } else {
+        SwipeBackHelper.getCurrentPage(activity)
+                .setDisallowInterceptTouchEvent(true)
     }
 }

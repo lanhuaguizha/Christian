@@ -70,7 +70,7 @@ class NavContract {
     interface IPresenter : BaseContract.IPresenter<INavActivity> {
 
 
-        fun init(navFragment: NavFragment? = null, savedInstanceState: Bundle?)
+        fun init(navFragmentSize: Int?, navFragment: NavFragment? = null, savedInstanceState: Bundle?)
 
         /**
          * Summary of business logic is db's CRUD

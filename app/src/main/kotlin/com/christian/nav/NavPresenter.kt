@@ -65,11 +65,12 @@ class NavPresenter(
         call = navService.getNavs()
     }
 
-    override fun init(navFragment: NavFragment?, savedInstanceState: Bundle?) {
-        when (navFragment == null) {
-            // Activity
+    override fun init(navFragmentSize: Int?, navFragment: NavFragment?, savedInstanceState: Bundle?) {
+        when (navFragment == null && navFragmentSize != null) {
+            // represent called from a Activity
             true -> {
-                for (i in 0..3) {
+                navFragmentList.clear()
+                for (i in 0 until navFragmentSize) {
                     val mNavFragment = NavFragment()
 //                            mNavFragment.retainInstance = true
 
@@ -79,9 +80,9 @@ class NavPresenter(
                 }
                 view.initView(navFragmentList)
             }
-            // Fragment
+            // represent called from a Fragment
             false -> {
-                navFragment.initView(navList)
+                navFragment?.initView(navList)
             }
         }
     }

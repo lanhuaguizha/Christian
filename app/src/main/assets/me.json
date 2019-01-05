@@ -25,9 +25,19 @@
       "desc": "已收藏的文章"
     },
     {
-      "name": "智能家居设置",
+      "name": "扫一扫",
+      "url": "ic_crop_free_black_24dp",
+      "desc": "打开二维码相机"
+    },
+    {
+      "name": "我的二维码",
+      "url": "ic_wallpaper_black_24dp",
+      "desc": "二维码相机扫描"
+    },
+    {
+      "name": "设置",
       "url": "R.drawable.ic_settings_black_24dp",
-      "desc": "夜间模式、清除缓存、字体大小"
+      "desc": "清除缓存、字体大小、开源声明、关于我们"
     }
   ]
 }

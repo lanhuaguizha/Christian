@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
 
-open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
+open class NavFragment() : Fragment(), NavContract.INavFragment {
 
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
@@ -32,10 +32,6 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
     private lateinit var meAdapter: NavItemPresenter<MeBean>
     private var v: View? = null
     var navId = -1
-
-    constructor(parcel: Parcel) : this() {
-        navId = parcel.readInt()
-    }
 
     init {
         info { "look at init times" }
@@ -55,7 +51,7 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
         info { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState ---onCreateView" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
         presenter = navActivity.presenter
-        presenter.init(this, savedInstanceState)
+        presenter.init(navFragmentSize = null, navFragment = this, savedInstanceState = savedInstanceState)
         return v
     }
 
@@ -146,24 +142,6 @@ open class NavFragment() : Fragment(), NavContract.INavFragment, Parcelable {
     override fun onSaveInstanceState(outState: Bundle) {
 //        outState.putShort(NAV_ID, navId.toShort())
 //        super.onSaveInstanceState(outState)
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(navId)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<NavFragment> {
-        override fun createFromParcel(parcel: Parcel): NavFragment {
-            return NavFragment(parcel)
-        }
-
-        override fun newArray(size: Int): Array<NavFragment?> {
-            return arrayOfNulls(size)
-        }
     }
 
     override fun onDestroy() {

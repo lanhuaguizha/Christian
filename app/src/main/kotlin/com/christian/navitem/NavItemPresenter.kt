@@ -154,10 +154,7 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                     holder.tv_title_nav_item.text = (navs as List<NavBean>)[position].title
                     holder.tv_detail_nav_item.text = (navs as List<NavBean>)[position].detail
 
-                    if (position == 1) {
-                        holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.foot, holder.containerView.context.theme)
-                        holder.iv_nav_item.visibility = View.VISIBLE
-                    } else if (position == 2) {
+                   if (position == 7) {
                         holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
                         holder.iv_nav_item.visibility = View.VISIBLE
                     } else {
@@ -198,7 +195,7 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                     if (holder.iv_nav_item_small != null) {
                         Glide.with(ctx).load(generateUrlId((navs as MeBean).url)).into(holder.iv_nav_item_small)
                     }
-                } else if (position in 1..4 && (navs as MeBean).settings.isNotEmpty()) {
+                } else if (position in 1 ..position  && (navs as MeBean).settings.isNotEmpty()) {
                     if (holder.switch_nav_item_small != null && position == 1) holder.switch_nav_item_small.visibility = View.VISIBLE
                     if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (navs as MeBean).settings[position - 1].name
                     if (holder.tv2_nav_item_small != null) holder.tv2_nav_item_small.text = (navs as MeBean).settings[position - 1].desc
@@ -206,8 +203,6 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                         val url = (navs as MeBean).settings[position - 1].url
                         Glide.with(ctx).load(generateUrlId(url)).into(holder.iv_nav_item_small)
                     }
-                } else if (position == 5) {
-
                 }
             }
         }
@@ -220,6 +215,8 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
             "ic_brightness_medium_black_24dp" -> R.drawable.ic_brightness_medium_black_24dp
             "ic_folder_open_black_24dp" -> R.drawable.ic_folder_open_black_24dp
             "ic_folder_special_black_24dp" -> R.drawable.ic_folder_special_black_24dp
+            "ic_crop_free_black_24dp" -> R.drawable.ic_crop_free_black_24dp
+            "ic_wallpaper_black_24dp" -> R.drawable.ic_wallpaper_black_24dp
             "R.drawable.ic_settings_black_24dp" -> R.drawable.ic_settings_black_24dp
             else -> {
                 return 0
