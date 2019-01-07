@@ -2,6 +2,7 @@ package com.christian.navitem
 
 import android.content.Intent
 import android.support.v4.content.res.ResourcesCompat
+import android.support.v7.widget.AppCompatImageButton
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -73,13 +74,13 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                 when (viewType) {
                     VIEW_TYPE_PORTRAIT -> {
                         itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_potrait, parent, false)
-                        navItemView = NavItemView(itemView, this, itemView)
+                        navItemView = NavItemView(itemView, this, itemView, ctx)
                         navItemView.initView(hasElevation)
                         return navItemView
                     }
                     VIEW_TYPE_SMALL -> {
                         itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_small, parent, false)
-                        navItemView = NavItemView(itemView, this, itemView)
+                        navItemView = NavItemView(itemView, this, itemView, ctx)
                         navItemView.initView(hasElevation)
                         return navItemView
                     }
@@ -94,7 +95,7 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                                             .build(),
                                     NavActivity.RC_SIGN_IN)
                         }
-                        navItemView = NavItemView(itemView, this, itemView)
+                        navItemView = NavItemView(itemView, this, itemView, ctx)
                         navItemView.initView(hasElevation)
                         return navItemView
                     }
@@ -102,7 +103,7 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
             }
         }
         itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false)
-        navItemView = NavItemView(itemView, this, itemView)
+        navItemView = NavItemView(itemView, this, itemView, ctx)
         navItemView.initView(hasElevation)
         return navItemView
     }
@@ -144,6 +145,9 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                     i.putExtra(toolbarTitle, getTitle(holder.adapterPosition))
                     holder.containerView.context.startActivity(i)
                 }
+                holder.containerView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View ->
+                    navItemView.showPopupMenu(v)
+                }
 
                 // 第一次加载不可见，后续invalidate时才可见
                 if ((navs as List<NavBean>)[position].subtitle == "") {
@@ -154,7 +158,7 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                     holder.tv_title_nav_item.text = (navs as List<NavBean>)[position].title
                     holder.tv_detail_nav_item.text = (navs as List<NavBean>)[position].detail
 
-                   if (position == 7) {
+                    if (position == 7) {
                         holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
                         holder.iv_nav_item.visibility = View.VISIBLE
                     } else {
@@ -195,7 +199,7 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                     if (holder.iv_nav_item_small != null) {
                         Glide.with(ctx).load(generateUrlId((navs as MeBean).url)).into(holder.iv_nav_item_small)
                     }
-                } else if (position in 1 ..position  && (navs as MeBean).settings.isNotEmpty()) {
+                } else if (position in 1..position && (navs as MeBean).settings.isNotEmpty()) {
                     if (holder.switch_nav_item_small != null && position == 1) holder.switch_nav_item_small.visibility = View.VISIBLE
                     if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (navs as MeBean).settings[position - 1].name
                     if (holder.tv2_nav_item_small != null) holder.tv2_nav_item_small.text = (navs as MeBean).settings[position - 1].desc

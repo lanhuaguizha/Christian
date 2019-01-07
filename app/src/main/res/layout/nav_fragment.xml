@@ -11,10 +11,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_nav"
-            android:scrollbars="vertical"
             android:scrollbarSize="@dimen/search_bottom_margin"
-            android:scrollbarThumbVertical="@drawable/thumb"
-            android:scrollbarThumbHorizontal="@drawable/thumb"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </android.support.v4.widget.SwipeRefreshLayout>

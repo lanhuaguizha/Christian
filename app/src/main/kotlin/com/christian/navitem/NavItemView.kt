@@ -1,16 +1,13 @@
 package com.christian.navitem
 
-import android.content.Intent
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Switch
 import com.christian.R
-import com.christian.nav.toolbarTitle
-import com.christian.navdetail.NavDetailActivity
+import com.christian.nav.NavActivity
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_view.*
@@ -21,7 +18,7 @@ import java.util.*
  * NavItemView/NavItemHolder is view logic of nav items.
  */
 
-class NavItemView(itemView: View, override var presenter: NavItemContract.IPresenter, override val containerView: View) : NavItemContract.IView, RecyclerView.ViewHolder(itemView), LayoutContainer {
+class NavItemView(itemView: View, override var presenter: NavItemContract.IPresenter, override val containerView: View, navActivity: NavActivity) : NavItemContract.IView, RecyclerView.ViewHolder(itemView), LayoutContainer {
 
     private val providers = Arrays.asList(
 //                    AuthUI.IdpConfig.EmailBuilder().build(),
@@ -82,10 +79,9 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.IPrese
         }
     }
 
-    private fun showPopupMenu(v: View) {
+    fun showPopupMenu(v: View) {
 
         val popupMenu = PopupMenu(v.context, v)
-        popupMenu.gravity = Gravity.END
 
         popupMenu.menuInflater.inflate(R.menu.menu_home, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener { false }
