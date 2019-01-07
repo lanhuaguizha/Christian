@@ -109,6 +109,12 @@ class NavDetailActivity : NavActivity() {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 info { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
+                disallowInterceptTouchEventOfSwipeBackLayout(position, this@NavDetailActivity)
+                if (position == 0 && positionOffset < 0.3 && positionOffset > 0) {
+                    vp_nav.setDisallowInterceptTouchEvent(true)
+                } else {
+                    vp_nav.setDisallowInterceptTouchEvent(false)
+                }
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -116,7 +122,7 @@ class NavDetailActivity : NavActivity() {
 
             override fun onPageSelected(position: Int) {
                 info { "initVp: onPageSelected$position" }
-                disallowInterceptTouchEventOfSwipeBackLayout(position, this@NavDetailActivity)
+//                disallowInterceptTouchEventOfSwipeBackLayout(position, this@NavDetailActivity)
             }
 
         })
