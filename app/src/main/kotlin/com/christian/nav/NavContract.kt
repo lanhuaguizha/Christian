@@ -69,7 +69,6 @@ class NavContract {
      */
     interface IPresenter : BaseContract.IPresenter<INavActivity> {
 
-
         fun init(navFragmentSize: Int?, navFragment: NavFragment? = null, savedInstanceState: Bundle?)
 
         /**
@@ -94,5 +93,6 @@ class NavContract {
         fun updateNav(navBeans: List<NavBean>)
 
         fun readNav()
+
     }
 }

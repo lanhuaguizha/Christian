@@ -19,6 +19,15 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
+
+//    signingConfigs {
+//        release {
+//            storeFile file("")
+//            storePassword ''
+//            keyAlias ''
+//            keyPassword ''
+//        }
+//    }
     buildTypes {
         debug {
             // Very important to reduce the apk size
@@ -30,6 +39,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
         }
     }
     compileOptions {

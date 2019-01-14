@@ -27,12 +27,45 @@ import java.util.*
  * NavItemPresenter/Adapter is business logic of nav items.
  */
 class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean = true, private val navId: Int) : NavItemContract.IPresenter, RecyclerView.Adapter<NavItemView>(), TextGetter {
-
     override lateinit var view: NavItemContract.IView
+
     private lateinit var navItemView: NavItemView
-    private lateinit var ctx: NavActivity
+    private lateinit var navActivity: NavActivity
     private val providers = Arrays.asList(AuthUI.IdpConfig.PhoneBuilder().build())
     private var isOn = false
+
+    companion object {
+        const val RC_SIGN_IN = 0
+    }
+
+    // 创建账号
+    override fun createUser() {
+        // Create and launch sign-in intent
+        navActivity.startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN)
+    }
+
+    // 退出账号
+    override fun updateUser() {
+        AuthUI.getInstance()
+                .signOut(navActivity)
+                .addOnCompleteListener {
+                    // ...
+                }
+    }
+
+    // 删除账号
+    override fun deleteUser() {
+        AuthUI.getInstance()
+                .delete(navActivity)
+                .addOnCompleteListener {
+            // ...
+        }
+    }
 
     override fun getTitle(pos: Int): String {
 
@@ -60,8 +93,8 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NavItemView {
 
-        ctx = parent.context as NavActivity
-        info { "ctx$ctx" }
+        navActivity = parent.context as NavActivity
+        info { "navActivity$navActivity" }
 
         /**
          * First "present = this" init Presenter in constructor, then "navItemView = this" init View in init method
@@ -74,28 +107,22 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                 when (viewType) {
                     VIEW_TYPE_PORTRAIT -> {
                         itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_potrait, parent, false)
-                        navItemView = NavItemView(itemView, this, itemView, ctx)
+                        navItemView = NavItemView(itemView, this, itemView, navActivity)
                         navItemView.initView(hasElevation)
                         return navItemView
                     }
                     VIEW_TYPE_SMALL -> {
                         itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_small, parent, false)
-                        navItemView = NavItemView(itemView, this, itemView, ctx)
+                        navItemView = NavItemView(itemView, this, itemView, navActivity)
                         navItemView.initView(hasElevation)
                         return navItemView
                     }
                     VIEW_TYPE_BUTTON -> {
                         itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_button, parent, false)
                         itemView.login_nav_item.setOnClickListener {
-                            // Create and launch sign-in intent
-                            ctx.startActivityForResult(
-                                    AuthUI.getInstance()
-                                            .createSignInIntentBuilder()
-                                            .setAvailableProviders(providers)
-                                            .build(),
-                                    NavActivity.RC_SIGN_IN)
+                            createUser()
                         }
-                        navItemView = NavItemView(itemView, this, itemView, ctx)
+                        navItemView = NavItemView(itemView, this, itemView, navActivity)
                         navItemView.initView(hasElevation)
                         return navItemView
                     }
@@ -103,7 +130,7 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
             }
         }
         itemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false)
-        navItemView = NavItemView(itemView, this, itemView, ctx)
+        navItemView = NavItemView(itemView, this, itemView, navActivity)
         navItemView.initView(hasElevation)
         return navItemView
     }
@@ -197,7 +224,7 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                         holder.tv2_nav_item_small.text = (navs as MeBean).nickName
                     }
                     if (holder.iv_nav_item_small != null) {
-                        Glide.with(ctx).load(generateUrlId((navs as MeBean).url)).into(holder.iv_nav_item_small)
+                        Glide.with(navActivity).load(generateUrlId((navs as MeBean).url)).into(holder.iv_nav_item_small)
                     }
                 } else if (position in 1..position && (navs as MeBean).settings.isNotEmpty()) {
                     if (holder.switch_nav_item_small != null && position == 1) holder.switch_nav_item_small.visibility = View.VISIBLE
@@ -205,7 +232,7 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                     if (holder.tv2_nav_item_small != null) holder.tv2_nav_item_small.text = (navs as MeBean).settings[position - 1].desc
                     if (holder.iv_nav_item_small != null) {
                         val url = (navs as MeBean).settings[position - 1].url
-                        Glide.with(ctx).load(generateUrlId(url)).into(holder.iv_nav_item_small)
+                        Glide.with(navActivity).load(generateUrlId(url)).into(holder.iv_nav_item_small)
                     }
                 }
             }

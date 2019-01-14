@@ -14,6 +14,15 @@ class NavItemContract {
 
     interface IPresenter : BaseContract.IPresenter<IView> {
 
+        /**
+         * UserBean logic
+         */
+        fun createUser()
+
+        fun updateUser()
+
+        fun deleteUser()
+
         fun getTitle(pos: Int): String
 
     }
