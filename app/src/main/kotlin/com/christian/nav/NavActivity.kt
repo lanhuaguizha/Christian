@@ -19,6 +19,7 @@ import android.view.View
 import com.christian.ChristianApplication
 import com.christian.Injection
 import com.christian.R
+import com.christian.navitem.NavItemPresenter.Companion.RC_SIGN_IN
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
@@ -326,7 +327,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     // presenter solve login in and login out logic
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        presenter.createUser()
+//        presenter.createUser()
         if (requestCode == RC_SIGN_IN) {
             val response = IdpResponse.fromResultIntent(data)
 
