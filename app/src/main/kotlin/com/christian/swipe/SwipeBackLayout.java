@@ -13,7 +13,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
 import com.christian.R;
 
 import java.util.ArrayList;
@@ -74,7 +73,7 @@ public class SwipeBackLayout extends FrameLayout {
      */
     private List<SwipeListener> mListeners;
 
-//    Drawable mShadowLeft;
+    Drawable mShadowLeft;
 
     private float mScrimOpacity;
 
@@ -101,7 +100,7 @@ public class SwipeBackLayout extends FrameLayout {
         super(context, attrs);
         mDragHelper = ViewDragHelper.create(this, new ViewDragCallback());
 
-        //setShadow(R.drawable.shadow_left);
+        setShadow(R.drawable.shadow_left);
 
         final float density = getResources().getDisplayMetrics().density;
         final float minVel = MIN_FLING_VELOCITY * density;
@@ -205,7 +204,6 @@ public class SwipeBackLayout extends FrameLayout {
     /**
      * Set scroll threshold, we will close the activity, when scrollPercent over
      * this value
-     *
      */
     public void setScrollThreshold(float threshold) {
         if (threshold >= 1.0f || threshold <= 0) {
@@ -216,7 +214,7 @@ public class SwipeBackLayout extends FrameLayout {
 
 
     public void setShadow(Drawable shadow) {
-//        mShadowLeft = shadow;
+        mShadowLeft = shadow;
         invalidate();
     }
 
@@ -233,7 +231,7 @@ public class SwipeBackLayout extends FrameLayout {
     public void scrollToFinishActivity() {
         final int childWidth = mContentView.getWidth();
         int left = 0, top = 0;
-        left = childWidth + /*mShadowLeft.getIntrinsicWidth() +*/ OVERSCROLL_DISTANCE;
+        left = childWidth + mShadowLeft.getIntrinsicWidth() + OVERSCROLL_DISTANCE;
         mDragHelper.smoothSlideViewTo(mContentView, left, top);
         invalidate();
     }
@@ -294,7 +292,7 @@ public class SwipeBackLayout extends FrameLayout {
         if (mScrimOpacity > 0 && drawContent
                 && mDragHelper.getViewDragState() != ViewDragHelper.STATE_IDLE) {
             drawShadow(canvas, child);
-            drawScrim(canvas, child);
+//            drawScrim(canvas, child);
         }
         return ret;
     }
@@ -311,10 +309,10 @@ public class SwipeBackLayout extends FrameLayout {
         final Rect childRect = mTmpRect;
         child.getHitRect(childRect);
 
-//        mShadowLeft.setBounds(childRect.left - mShadowLeft.getIntrinsicWidth() / 3, childRect.top,
-//                childRect.left, childRect.bottom);
-//        mShadowLeft.setAlpha((int) (mScrimOpacity * FULL_ALPHA));
-//        mShadowLeft.draw(canvas);
+        mShadowLeft.setBounds(childRect.left - mShadowLeft.getIntrinsicWidth() / 4 * 3, childRect.top,
+                childRect.left, childRect.bottom);
+        mShadowLeft.setAlpha((int) (mScrimOpacity * FULL_ALPHA));
+        mShadowLeft.draw(canvas);
     }
 
     public void attachToActivity(Activity activity) {
@@ -422,7 +420,7 @@ public class SwipeBackLayout extends FrameLayout {
             int left = 0, top = 0;
             //判断释放以后是应该滑到最右边(关闭)，还是最左边（还原）
             left = xvel > 0 || xvel == 0 && mScrollPercent > mScrollThreshold ? childWidth
-                    + /*mShadowLeft.getIntrinsicWidth() +*/ OVERSCROLL_DISTANCE : 0;
+                    + mShadowLeft.getIntrinsicWidth() + OVERSCROLL_DISTANCE : 0;
 
 
             mDragHelper.settleCapturedViewAt(left, top);
