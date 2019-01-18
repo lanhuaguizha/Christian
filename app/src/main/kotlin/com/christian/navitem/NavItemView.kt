@@ -29,6 +29,7 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.IPrese
     )
 
     init {
+        containerView.isLongClickable = true
 
 //        containerView.login_nav_item.setOnClickListener {
 //            // Create and launch sign-in intent

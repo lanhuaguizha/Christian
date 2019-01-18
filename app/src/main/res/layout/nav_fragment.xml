@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <com.christian.view.ContextMenuRecyclerView
             android:id="@+id/rv_nav"
             android:scrollbarSize="@dimen/search_bottom_margin"
             android:layout_width="match_parent"

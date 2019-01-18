@@ -2,13 +2,17 @@ package com.christian.swipe
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.christian.ChristianApplication
+import android.support.v7.app.AppCompatDelegate
 
 
 /**
  * The activity base class, swipe back logic here.
  */
 abstract class SwipeBackActivity : AppCompatActivity() {
+
+    init {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -3,6 +3,7 @@ package com.christian.navitem
 import android.content.Intent
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.AppCompatImageButton
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,8 @@ import com.christian.data.NavBean
 import com.christian.index.TextGetter
 import com.christian.nav.*
 import com.christian.navdetail.NavDetailActivity
+import com.christian.util.ChristianUtil
+import com.christian.view.ContextMenuRecyclerView
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.nav_item_view.*
 import kotlinx.android.synthetic.main.nav_item_view_button.view.*
@@ -173,7 +176,8 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
                     holder.containerView.context.startActivity(i)
                 }
                 holder.containerView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View ->
-                    navItemView.showPopupMenu(v)
+                    mRvNav?.showContextMenuForChild(holder.containerView, holder.containerView.measuredWidth.toFloat() - ChristianUtil.dpToPx(200), ChristianUtil.dpToPx(4).toFloat())
+//                    navItemView.showPopupMenu(v)
                 }
 
                 // 第一次加载不可见，后续invalidate时才可见
@@ -271,6 +275,12 @@ class NavItemPresenter<Bean>(var navs: Bean, private val hasElevation: Boolean =
         } else {
             ""
         }
+    }
+
+    private var mRvNav: ContextMenuRecyclerView? = null
+
+    fun setRv(rv_nav: ContextMenuRecyclerView?) {
+        mRvNav = rv_nav
     }
 
 }

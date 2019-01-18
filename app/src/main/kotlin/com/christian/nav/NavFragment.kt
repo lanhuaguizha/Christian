@@ -1,20 +1,20 @@
 package com.christian.nav
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AnimationUtils
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.data.NavBean
 import com.christian.navitem.NavItemPresenter
+import com.christian.view.ContextMenuRecyclerView
 import com.christian.view.ItemDecoration
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -75,6 +75,7 @@ open class NavFragment() : Fragment(), NavContract.INavFragment {
         when (navId) {
             VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
                 adapter = NavItemPresenter(navs = navBeans, navId = navId)
+                adapter.setRv(v?.rv_nav)
                 v?.rv_nav?.adapter = adapter
             }
             VIEW_ME -> {
@@ -85,6 +86,8 @@ open class NavFragment() : Fragment(), NavContract.INavFragment {
         }
         v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v?.rv_nav?.layoutManager = LinearLayoutManager(context)
+        registerForContextMenu(v?.rv_nav)
+
         v?.rv_nav?.addOnScrollListener(object : HidingScrollListener(this) {
 
             override fun onHide() {
@@ -135,6 +138,20 @@ open class NavFragment() : Fragment(), NavContract.INavFragment {
         recyclerView?.layoutAnimation = animation
         recyclerView?.adapter?.notifyDataSetChanged()
         recyclerView?.scheduleLayoutAnimation()
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        navActivity.menuInflater.inflate(R.menu.menu_share, menu)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val info = item.menuInfo as ContextMenuRecyclerView.ContextMenuInfo
+        val position = info.position
+        val data = info.itemView.tag
+//        val message = getString(R.string.app_name, item.title, position, data)
+//        AlertDialog.Builder(context!!).setMessage(message).show()
+        return true
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
