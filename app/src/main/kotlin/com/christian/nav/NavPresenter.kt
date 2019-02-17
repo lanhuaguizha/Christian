@@ -263,5 +263,5 @@ fun makeViewBlur(view: BlurView, parent: ViewGroup, window: Window) {
             .setFrameClearDrawable(windowBackground)
             .setBlurAlgorithm(SupportRenderScriptBlur(parent.context))
             .setBlurRadius(radius)
-            .setHasFixedTransformationMatrix(true)
+            .setHasFixedTransformationMatrix(false)
 }
