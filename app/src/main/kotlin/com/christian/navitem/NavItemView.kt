@@ -1,32 +1,30 @@
 package com.christian.navitem
 
 import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
-import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.christian.R
 import com.christian.nav.NavActivity
-import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_view.*
 import org.jetbrains.anko.textColor
-import java.util.*
 
 /**
  * NavItemView/NavItemHolder is view logic of nav items.
  */
 
-class NavItemView(itemView: View, override var presenter: NavItemContract.IPresenter, override val containerView: View, navActivity: NavActivity) : NavItemContract.IView, RecyclerView.ViewHolder(itemView), LayoutContainer {
+open class NavItemView(override var presenter: NavItemContract.IPresenter, final override val containerView: View, private val navActivity: NavActivity) : NavItemContract.IView, RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-    private val providers = Arrays.asList(
-//                    AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.PhoneBuilder().build()
-//                    AuthUI.IdpConfig.GoogleBuilder().build(),
-//                    AuthUI.IdpConfig.FacebookBuilder().build(),
-//                    AuthUI.IdpConfig.TwitterBuilder().build())
-    )
+    override fun onCreateView(parent: ViewGroup, viewType: Int, itemView: View): NavItemView {
+        initView()
+        return NavItemView(presenter, itemView, navActivity)
+    }
+
+    override fun updateUserUI(currentUser: FirebaseUser?) {
+    }
 
     init {
         containerView.isLongClickable = true
@@ -65,32 +63,20 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.IPrese
 
     }
 
-    override fun initView(hasElevation: Boolean) {
-
-        if (hasElevation) {
-        } else {
-            cv_nav_item.hasElevation = hasElevation
-            cv_nav_item.radius = 0f
-            cv_nav_item.foreground = null
-            tv_subtitle_nav_item.visibility = View.GONE
-            tv_title_nav_item.visibility = View.GONE
-            tv_detail_nav_item.textColor = ResourcesCompat.getColor(itemView.resources, R.color.text_color_primary, itemView.context.theme)
-            tv_detail_nav_item.textSize = 18f
-            tv_detail_nav_item.maxLines = Integer.MAX_VALUE
-        }
+    override fun initView() {
+//        cv_nav_item.radius = 0f
+//        cv_nav_item.foreground = null
+//        tv_subtitle_nav_item.visibility = View.GONE
+//        tv_title_nav_item.visibility = View.GONE
+//        tv_detail_nav_item.textColor = ResourcesCompat.getColor(itemView.resources, R.color.text_color_primary, itemView.context.theme)
+//        tv_detail_nav_item.textSize = 18f
+//        tv_detail_nav_item.maxLines = Integer.MAX_VALUE
     }
 
-    fun showPopupMenu(v: View) {
-
-        val popupMenu = PopupMenu(v.context, v)
-
-        popupMenu.menuInflater.inflate(R.menu.menu_home, popupMenu.menu)
-        popupMenu.setOnMenuItemClickListener { false }
-        popupMenu.show()
-
+    override fun deinitView() {
     }
 
-    override fun animate(itemView: View) {
+    override fun animateItemView(itemView: View) {
 
         val animation = AnimationUtils.loadAnimation(itemView.context, R.anim.up_from_bottom)
 
@@ -98,7 +84,7 @@ class NavItemView(itemView: View, override var presenter: NavItemContract.IPrese
 
     }
 
-    fun clearAnimate(itemView: View) {
+    fun clearItemAnimation(itemView: View) {
         itemView.clearAnimation()
     }
 

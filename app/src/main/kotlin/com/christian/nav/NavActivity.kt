@@ -22,7 +22,6 @@ import com.christian.R
 import com.christian.navitem.NavItemPresenter.Companion.RC_SIGN_IN
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
-import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -123,6 +122,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     open fun initTb() {
         sb_nav.visibility = View.VISIBLE
+        makeViewBlur(bv_tabs_nav, cl_nav, window)
+        for (tabTitle in (presenter as NavPresenter).tabTitleList) {
+            tl_nav.addTab(tl_nav.newTab().setText(tabTitle))
+        }
     }
 
     private fun initSb() {
@@ -165,13 +168,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     open fun initBv() {
         //set background, if your root layout doesn't have one
-        val windowBackground = window.decorView.background
-        val radius = 25f
-        bv_nav.setupWith(cl_nav)
-                .setFrameClearDrawable(windowBackground)
-                .setBlurAlgorithm(SupportRenderScriptBlur(this))
-                .setBlurRadius(radius)
-                .setHasFixedTransformationMatrix(false)
+        makeViewBlur(bv_nav, cl_nav, window)
         // set behavior
         val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
         params.gravity = Gravity.BOTTOM

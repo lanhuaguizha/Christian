@@ -3,6 +3,8 @@ package com.christian.nav
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.ViewGroup
+import android.view.Window
 import android.widget.TextView
 import com.christian.R
 import com.christian.data.NavBean
@@ -12,6 +14,8 @@ import com.christian.data.source.remote.NavService
 import com.christian.http.CacheInterceptor
 import com.christian.http.SdHelper
 import com.christian.http.cache.CacheStrategy
+import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
+import eightbitlab.com.blurview.BlurView
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,12 +30,6 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.util.*
 import java.util.concurrent.TimeUnit
-
-
-const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
-const val initFragmentIndex = 0
-const val nullString = ""
-const val toolbarTitle = "toolbarTitle"
 
 /**
  * This contains all the NAV business logic, and the MVP control center. We'll write the code here first.
@@ -48,8 +46,38 @@ class NavPresenter(
         const val DEFAULT_TIMEOUT = 5L
     }
 
-    var navFragmentList = ArrayList<NavFragment>()
+    val tabTitleList = listOf(
+            "马太福音",
+            "马可福音",
+            "路加福音",
+            "约翰福音",
+            "使徒行传",
+            "罗马书",
+            "哥林多前书",
+            "哥林多后书",
+            "加拉太书",
+            "以弗所书",
+            "腓立比书",
+            "歌罗西书",
+            "帖撒罗尼迦前书",
+            "帖撒罗尼迦后书",
+            "提摩太前书",
+            "提摩太后书",
+            "提多书",
+            "腓利门书",
+            "希伯来书",
+            "雅各书",
+            "彼得前书",
+            "彼得后书",
+            "约翰一书",
+            "约翰二书",
+            "约翰三书",
+            "犹太书",
+            "启示录"
+    )
+
     private val navList = listOf(NavBean())
+    var navFragmentList = ArrayList<NavFragment>()
     private val call: Call<List<NavBean>>
 
     init {
@@ -180,6 +208,12 @@ const val VIEW_HOME = 0
 const val VIEW_GOSPEL = 1
 const val VIEW_DISCIPLE = 2
 const val VIEW_ME = 3
+const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
+const val initFragmentIndex = 0
+const val nullString = ""
+const val toolbarTitle = "toolbarTitle"
+const val NAV_ID = "navId"
+const val NAV_FRAGMENT_LIST = "navFragmentList"
 
 // 布局设置竟然不生效？网上解决方案：https://www.cnblogs.com/yuqf/p/5808236.html
 fun applyMarqueeEffect(textView: TextView) {
@@ -191,7 +225,9 @@ fun applyMarqueeEffect(textView: TextView) {
     textView.isFocusableInTouchMode = true
 }
 
-// 读取assets目录下文件里的json
+/**
+ * utils to load json files from /assets folder
+ */
 fun getJson(fileName: String, context: Context): String {
     //将json数据变成字符串
     val stringBuilder = StringBuilder()
@@ -217,5 +253,15 @@ fun getJson(fileName: String, context: Context): String {
     return stringBuilder.toString()
 }
 
-const val NAV_ID = "navId"
-const val NAV_FRAGMENT_LIST = "navFragmentList"
+/**
+ * utils to blur a view
+ */
+fun makeViewBlur(view: BlurView, parent: ViewGroup, window: Window) {
+    val windowBackground = window.decorView.background
+    val radius = 25f
+    view.setupWith(parent)
+            .setFrameClearDrawable(windowBackground)
+            .setBlurAlgorithm(SupportRenderScriptBlur(parent.context))
+            .setBlurRadius(radius)
+            .setHasFixedTransformationMatrix(false)
+}

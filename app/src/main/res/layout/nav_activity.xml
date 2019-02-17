@@ -15,6 +15,7 @@
         <android.support.design.widget.AppBarLayout
             android:id="@+id/abl_nav"
             app:expanded="true"
+            android:background="@android:color/transparent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -24,13 +25,33 @@
                 android:layout_height="@dimen/action_bar_height"
                 android:theme="@style/AppTheme.AppBarOverlay"
                 app:contentInsetStart="0dp"
+                android:background="@color/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 tools:showIn="@layout/home_frag">
 
                 <include layout="@layout/sb_nav" />
             </android.support.v7.widget.Toolbar>
+
+            <eightbitlab.com.blurview.BlurView
+                android:id="@+id/bv_tabs_nav"
+                tools:targetApi="lollipop"
+                android:outlineProvider="bounds"
+                app:blurOverlayColor="@color/colorOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/action_bar_height">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tl_nav"
+                    android:layout_width="match_parent"
+                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabIndicatorColor="@color/colorPrimary"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    app:tabMode="scrollable" />
+            </eightbitlab.com.blurview.BlurView>
         </android.support.design.widget.AppBarLayout>
+
 
 
         <com.christian.view.CustomViewPager
