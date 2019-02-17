@@ -3,6 +3,7 @@ package com.christian.view;
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import com.christian.util.ChristianUtil;
 
 /**
  * author：Administrator on 2017/6/13 22:07
@@ -26,6 +27,6 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
 
         // Add top margin only for the first item to avoid double space between items
         if (parent.getChildPosition(view) == 0)
-            outRect.top = space;
+            outRect.top = space + ChristianUtil.dpToPx(56);
     }
 }
