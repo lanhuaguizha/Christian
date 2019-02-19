@@ -13,6 +13,7 @@
     <color name="colorPrimary">#2196f3</color>
     <color name="colorPrimaryDark">#1976d2</color>
     <color name="colorAccent">#FFAB40</color>
+    <color name="colorAccentRed">#FF5252</color>
     <color name="white">#FFFFFF</color>
     <color name="colorPrimaryTransparent">#aa2196F3</color>
     <color name="card">#FFFFFF</color>
