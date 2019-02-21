@@ -32,8 +32,6 @@
 
                 <include layout="@layout/sb_nav" />
             </android.support.v7.widget.Toolbar>
-
-
         </android.support.design.widget.AppBarLayout>
 
         <com.christian.view.CustomViewPager
@@ -43,10 +41,11 @@
             android:layout_height="match_parent" />
 
         <eightbitlab.com.blurview.BlurView
-            android:elevation="@dimen/bottom_navigation_view_elevation"
+            android:elevation="3dp"
             android:layout_marginTop="@dimen/action_bar_height"
             android:id="@+id/bv_tabs_nav"
             tools:targetApi="lollipop"
+            android:visibility="gone"
             android:outlineProvider="bounds"
             app:blurOverlayColor="@color/colorOverlay"
             android:layout_width="match_parent"

@@ -1,6 +1,5 @@
 package com.christian.nav
 
-import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -20,8 +19,9 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
+import org.jetbrains.anko.support.v4.dip
 
-open class NavFragment() : Fragment(), NavContract.INavFragment {
+open class NavFragment : Fragment(), NavContract.INavFragment {
 
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
@@ -84,7 +84,12 @@ open class NavFragment() : Fragment(), NavContract.INavFragment {
                 v?.rv_nav?.adapter = meAdapter
             }
         }
-        v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
+
+        if (navId == 1) {
+            v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8 + 56)))
+        } else {
+            v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8)))
+        }
         v?.rv_nav?.layoutManager = LinearLayoutManager(context)
         registerForContextMenu(v?.rv_nav)
 

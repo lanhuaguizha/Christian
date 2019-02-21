@@ -1,10 +1,12 @@
 package com.christian.nav
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
 import android.view.ViewGroup
-import android.view.Window
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.christian.R
 import com.christian.data.NavBean
@@ -14,11 +16,14 @@ import com.christian.data.source.remote.NavService
 import com.christian.http.CacheInterceptor
 import com.christian.http.SdHelper
 import com.christian.http.cache.CacheStrategy
+import com.christian.util.ChristianUtil
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import eightbitlab.com.blurview.BlurView
+import kotlinx.android.synthetic.main.nav_activity.*
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
 import org.jetbrains.anko.singleLine
 import retrofit2.Call
@@ -202,6 +207,30 @@ class NavPresenter(
     fun hideAblAndScrollRv() {
     }
 
+    fun showOrHideTabLayout(isNavActivity: Boolean = false, position: Int) {
+        if (isNavActivity) {// TabLayout visibility logic
+            val navActivity = view as NavActivity
+            if (position == 1) {
+                navActivity.bv_tabs_nav.visibility = View.VISIBLE
+                val anim = AnimationUtils.loadAnimation(navActivity, R.anim.translate_in_top)
+                navActivity.bv_tabs_nav.startAnimation(anim)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    //                navActivity.bv_tabs_nav.elevation = navActivity.dip(4).toFloat()
+                }
+                navActivity.bv_tabs_nav.postDelayed({
+                    navActivity.bv_tabs_nav.setBlurEnabled(true)
+                    makeViewBlur(navActivity.bv_tabs_nav, navActivity.cl_nav)
+                }, 210)
+            } else {
+                navActivity.bv_tabs_nav.setBlurEnabled(false)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    //                navActivity.bv_tabs_nav.elevation = navActivity.dip(3).toFloat()
+                }
+                navActivity.bv_tabs_nav.visibility = View.GONE
+            }
+        }
+    }
+
 }
 
 const val VIEW_HOME = 0
@@ -256,11 +285,11 @@ fun getJson(fileName: String, context: Context): String {
 /**
  * utils to blur a view
  */
-fun makeViewBlur(view: BlurView, parent: ViewGroup, window: Window) {
-    val windowBackground = window.decorView.background
+fun makeViewBlur(view: BlurView, parent: ViewGroup) {
+//    val windowBackground = window.decorView.background
     val radius = 7f
     view.setupWith(parent)
-            .setFrameClearDrawable(windowBackground)
+//            .setFrameClearDrawable(windowBackground)
             .setBlurAlgorithm(SupportRenderScriptBlur(parent.context))
             .setBlurRadius(radius)
             .setHasFixedTransformationMatrix(false)

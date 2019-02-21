@@ -123,7 +123,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     open fun initTb() {
         sb_nav.visibility = View.VISIBLE
-        makeViewBlur(bv_tabs_nav, cl_nav, window)
 
         val params = CoordinatorLayout.LayoutParams(bv_tabs_nav.layoutParams)
         params.behavior = TabLayoutBehavior(this, null)
@@ -154,6 +153,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
             override fun onPageSelected(position: Int) {
                 info { "onPageSelected$position" }
+                (presenter as NavPresenter).showOrHideTabLayout(true, position)
                 mPosition = position
                 info { "position$position" }
                 bnv_nav.menu.getItem(position).isChecked = true
@@ -174,7 +174,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     open fun initBv() {
         //set background, if your root layout doesn't have one
-        makeViewBlur(bv_nav, cl_nav, window)
+        makeViewBlur(bv_nav, cl_nav)
         // set behavior
         val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
         params.gravity = Gravity.BOTTOM
@@ -211,8 +211,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 //        vp_nav.currentItem = initFragmentIndex
 
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
-            info { "generateNavId${(presenter as NavPresenter).generateNavId(it.itemId)}" }
-            vp_nav.currentItem = (presenter as NavPresenter).generateNavId(it.itemId)
+            val itemPosition = (presenter as NavPresenter).generateNavId(it.itemId)
+            info { "generateNavId$itemPosition" }
+            vp_nav.currentItem = itemPosition
+            (presenter as NavPresenter).showOrHideTabLayout(true, itemPosition)
             true
         }
 

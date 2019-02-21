@@ -13,9 +13,12 @@ import com.christian.util.ChristianUtil;
 
 public class ItemDecoration extends RecyclerView.ItemDecoration {
     int space;
+    int top;
 
-    public ItemDecoration(int space) {
+    public ItemDecoration(int space, int top) {
+//    public ItemDecoration(int space, int left, int top, int right, int bottom) {
         this.space = space;
+        this.top = top;
     }
 
     @Override
@@ -27,6 +30,6 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
 
         // Add top margin only for the first item to avoid double space between items
         if (parent.getChildPosition(view) == 0)
-            outRect.top = space + ChristianUtil.dpToPx(56);
+            outRect.top = top;
     }
 }
