@@ -214,7 +214,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             val itemPosition = (presenter as NavPresenter).generateNavId(it.itemId)
             info { "generateNavId$itemPosition" }
             vp_nav.currentItem = itemPosition
-            (presenter as NavPresenter).showOrHideTabLayout(true, itemPosition)
             true
         }
 

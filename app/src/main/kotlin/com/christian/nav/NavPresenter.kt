@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.TextView
 import com.christian.R
 import com.christian.data.NavBean
@@ -212,26 +211,19 @@ class NavPresenter(
             if (position == 1) {
                 if (navActivity.bv_tabs_nav.visibility != View.VISIBLE) {
                     info { "visible" }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        navActivity.bv_tabs_nav.elevation = navActivity.dip(4).toFloat()
+                    }
+                    makeViewBlur(navActivity.bv_tabs_nav, navActivity.cl_nav)
                     navActivity.bv_tabs_nav.visibility = View.VISIBLE
-                    val anim = AnimationUtils.loadAnimation(navActivity, R.anim.translate_in_top)
-                    navActivity.bv_tabs_nav.startAnimation(anim)
-                    navActivity.bv_tabs_nav.postDelayed({
-                        navActivity.bv_tabs_nav.setBlurEnabled(true)
-                        makeViewBlur(navActivity.bv_tabs_nav, navActivity.cl_nav)
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            navActivity.bv_tabs_nav.elevation = navActivity.dip(4).toFloat()
-                        }
-                    }, 201)
                 }
             } else {
                 if (navActivity.bv_tabs_nav.visibility != View.GONE) {
                     info { "gone" }
+                    navActivity.bv_tabs_nav.visibility = View.GONE
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         navActivity.bv_tabs_nav.elevation = navActivity.dip(3).toFloat()
                     }
-                    navActivity.bv_tabs_nav.visibility = View.GONE
-                    navActivity.bv_tabs_nav.setBlurEnabled(false)
-                    navActivity.bv_tabs_nav.clearAnimation()
                 }
             }
         }
