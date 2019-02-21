@@ -1,6 +1,7 @@
 package com.christian.navitem
 
 import android.content.Intent
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.AppCompatImageButton
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ import com.christian.view.ContextMenuRecyclerView
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.nav_item_view.*
 import kotlinx.android.synthetic.main.nav_item_view_small.*
+import org.jetbrains.anko.image
 import org.jetbrains.anko.info
 
 /**
@@ -158,7 +160,7 @@ open class NavItemPresenter<Bean>(var navs: Bean, private val navId: Int) : NavI
                     holder.tv_detail_nav_item.text = (navs as List<NavBean>)[position].detail
 
                     if (position == 2) {
-//                        holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
+                        holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
                         holder.iv_nav_item.visibility = View.VISIBLE
                     } else {
                         holder.iv_nav_item.visibility = View.GONE

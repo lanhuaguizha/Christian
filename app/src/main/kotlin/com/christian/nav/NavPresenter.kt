@@ -16,7 +16,6 @@ import com.christian.data.source.remote.NavService
 import com.christian.http.CacheInterceptor
 import com.christian.http.SdHelper
 import com.christian.http.cache.CacheStrategy
-import com.christian.util.ChristianUtil
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -211,22 +210,29 @@ class NavPresenter(
         if (isNavActivity) {// TabLayout visibility logic
             val navActivity = view as NavActivity
             if (position == 1) {
-                navActivity.bv_tabs_nav.visibility = View.VISIBLE
-                val anim = AnimationUtils.loadAnimation(navActivity, R.anim.translate_in_top)
-                navActivity.bv_tabs_nav.startAnimation(anim)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-    //                navActivity.bv_tabs_nav.elevation = navActivity.dip(4).toFloat()
+                if (navActivity.bv_tabs_nav.visibility != View.VISIBLE) {
+                    info { "visible" }
+                    navActivity.bv_tabs_nav.visibility = View.VISIBLE
+                    val anim = AnimationUtils.loadAnimation(navActivity, R.anim.translate_in_top)
+                    navActivity.bv_tabs_nav.startAnimation(anim)
+                    navActivity.bv_tabs_nav.postDelayed({
+                        navActivity.bv_tabs_nav.setBlurEnabled(true)
+                        makeViewBlur(navActivity.bv_tabs_nav, navActivity.cl_nav)
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            navActivity.bv_tabs_nav.elevation = navActivity.dip(4).toFloat()
+                        }
+                    }, 201)
                 }
-                navActivity.bv_tabs_nav.postDelayed({
-                    navActivity.bv_tabs_nav.setBlurEnabled(true)
-                    makeViewBlur(navActivity.bv_tabs_nav, navActivity.cl_nav)
-                }, 250)
             } else {
-                navActivity.bv_tabs_nav.setBlurEnabled(false)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-    //                navActivity.bv_tabs_nav.elevation = navActivity.dip(3).toFloat()
+                if (navActivity.bv_tabs_nav.visibility != View.GONE) {
+                    info { "gone" }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        navActivity.bv_tabs_nav.elevation = navActivity.dip(3).toFloat()
+                    }
+                    navActivity.bv_tabs_nav.visibility = View.GONE
+                    navActivity.bv_tabs_nav.setBlurEnabled(false)
+                    navActivity.bv_tabs_nav.clearAnimation()
                 }
-                navActivity.bv_tabs_nav.visibility = View.GONE
             }
         }
     }
