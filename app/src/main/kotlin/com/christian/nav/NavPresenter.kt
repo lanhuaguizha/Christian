@@ -220,7 +220,7 @@ class NavPresenter(
                 navActivity.bv_tabs_nav.postDelayed({
                     navActivity.bv_tabs_nav.setBlurEnabled(true)
                     makeViewBlur(navActivity.bv_tabs_nav, navActivity.cl_nav)
-                }, 210)
+                }, 250)
             } else {
                 navActivity.bv_tabs_nav.setBlurEnabled(false)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
