@@ -22,6 +22,7 @@ import com.christian.R
 import com.christian.navitem.NavItemPresenter.Companion.RC_SIGN_IN
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
+import com.christian.view.TabLayoutBehavior
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -123,6 +124,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     open fun initTb() {
         sb_nav.visibility = View.VISIBLE
         makeViewBlur(bv_tabs_nav, cl_nav, window)
+
+        val params = CoordinatorLayout.LayoutParams(bv_tabs_nav.layoutParams)
+        params.behavior = TabLayoutBehavior(this, null)
+        bv_tabs_nav.layoutParams = params
+
         for (tabTitle in (presenter as NavPresenter).tabTitleList) {
             tl_nav.addTab(tl_nav.newTab().setText(tabTitle))
         }

@@ -26,6 +26,7 @@
                 android:theme="@style/AppTheme.AppBarOverlay"
                 app:contentInsetStart="0dp"
                 android:background="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 tools:showIn="@layout/home_frag">
 
@@ -35,9 +36,6 @@
 
         </android.support.design.widget.AppBarLayout>
 
-
-
-
         <com.christian.view.CustomViewPager
             android:id="@+id/vp_nav"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -45,7 +43,7 @@
             android:layout_height="match_parent" />
 
         <eightbitlab.com.blurview.BlurView
-            android:elevation="3dp"
+            android:elevation="@dimen/bottom_navigation_view_elevation"
             android:layout_marginTop="@dimen/action_bar_height"
             android:id="@+id/bv_tabs_nav"
             tools:targetApi="lollipop"
