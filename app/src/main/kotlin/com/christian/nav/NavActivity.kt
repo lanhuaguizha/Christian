@@ -124,9 +124,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     open fun initTb() {
         sb_nav.visibility = View.VISIBLE
 
-        val params = CoordinatorLayout.LayoutParams(bv_tabs_nav.layoutParams)
-        params.behavior = TabLayoutBehavior(this, null)
-        bv_tabs_nav.layoutParams = params
+//        val params = CoordinatorLayout.LayoutParams(bv_tabs_nav.layoutParams)
+//        params.behavior = TabLayoutBehavior(this, null)
+//        bv_tabs_nav.layoutParams = params
 
         for (tabTitle in (presenter as NavPresenter).tabTitleList) {
             tl_nav.addTab(tl_nav.newTab().setText(tabTitle))

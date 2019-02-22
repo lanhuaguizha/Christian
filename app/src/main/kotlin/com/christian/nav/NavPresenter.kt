@@ -87,8 +87,8 @@ class NavPresenter(
         view.presenter = this
 
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.193:8080/")
-//                .baseUrl("http://10.200.11.209:8080/")
+//                .baseUrl("http://192.168.0.193:8080/")
+                .baseUrl("http://10.200.11.209:8080/")
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -209,22 +209,12 @@ class NavPresenter(
         if (isNavActivity) {// TabLayout visibility logic
             val navActivity = view as NavActivity
             if (position == 1) {
-                if (navActivity.bv_tabs_nav.visibility != View.VISIBLE) {
-                    info { "visible" }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        navActivity.bv_tabs_nav.elevation = navActivity.dip(4).toFloat()
-                    }
-                    makeViewBlur(navActivity.bv_tabs_nav, navActivity.cl_nav)
-                    navActivity.bv_tabs_nav.visibility = View.VISIBLE
-                }
+                info { "visible" }
+                makeViewBlur(navFragmentList[position].bv_tabs_nav, navActivity.cl_nav)
+                navFragmentList[position].bv_tabs_nav.visibility = View.VISIBLE
             } else {
-                if (navActivity.bv_tabs_nav.visibility != View.GONE) {
-                    info { "gone" }
-                    navActivity.bv_tabs_nav.visibility = View.GONE
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        navActivity.bv_tabs_nav.elevation = navActivity.dip(3).toFloat()
-                    }
-                }
+                info { "gone" }
+                navFragmentList[position].bv_tabs_nav.visibility = View.GONE
             }
         }
     }
