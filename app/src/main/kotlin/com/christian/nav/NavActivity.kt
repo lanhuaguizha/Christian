@@ -123,14 +123,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     open fun initTb() {
         sb_nav.visibility = View.VISIBLE
-
-        val params = CoordinatorLayout.LayoutParams(bv_tabs_nav.layoutParams)
-        params.behavior = TabLayoutBehavior(this, null)
-        bv_tabs_nav.layoutParams = params
-
-        for (tabTitle in (presenter as NavPresenter).tabTitleList) {
-            tl_nav.addTab(tl_nav.newTab().setText(tabTitle))
-        }
     }
 
     private fun initSb() {
@@ -153,7 +145,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
             override fun onPageSelected(position: Int) {
                 info { "onPageSelected$position" }
-                (presenter as NavPresenter).showOrHideTabLayout(true, position)
                 mPosition = position
                 info { "position$position" }
                 bnv_nav.menu.getItem(position).isChecked = true

@@ -1,7 +1,6 @@
 package com.christian.nav
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -18,10 +17,10 @@ import com.christian.http.cache.CacheStrategy
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
 import org.jetbrains.anko.singleLine
 import retrofit2.Call
@@ -203,30 +202,6 @@ class NavPresenter(
     }
 
     fun hideAblAndScrollRv() {
-    }
-
-    fun showOrHideTabLayout(isNavActivity: Boolean = false, position: Int) {
-        if (isNavActivity) {// TabLayout visibility logic
-            val navActivity = view as NavActivity
-            if (position == 1) {
-                if (navActivity.bv_tabs_nav.visibility != View.VISIBLE) {
-                    info { "visible" }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        navActivity.bv_tabs_nav.elevation = navActivity.dip(4).toFloat()
-                    }
-                    makeViewBlur(navActivity.bv_tabs_nav, navActivity.cl_nav)
-                    navActivity.bv_tabs_nav.visibility = View.VISIBLE
-                }
-            } else {
-                if (navActivity.bv_tabs_nav.visibility != View.GONE) {
-                    info { "gone" }
-                    navActivity.bv_tabs_nav.visibility = View.GONE
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        navActivity.bv_tabs_nav.elevation = navActivity.dip(3).toFloat()
-                    }
-                }
-            }
-        }
     }
 
 }
