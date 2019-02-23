@@ -102,6 +102,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     fun initAbl() {
+        if (mPosition == 1) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                abl_nav.elevation = 0f
+            }
+        }
         abl_nav.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
             info { "verticalOffset$verticalOffset" }
             if (-verticalOffset == appBarLayout.height) {
@@ -110,7 +115,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 }
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    abl_nav.elevation = dip(4).toFloat()
+                    if (mPosition !=1) {
+                        abl_nav.elevation = dip(4).toFloat()
+                    } else{
+                        abl_nav.elevation = dip(0).toFloat()
+                    }
                 }
             }
 
