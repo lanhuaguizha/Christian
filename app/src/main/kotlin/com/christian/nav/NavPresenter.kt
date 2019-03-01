@@ -198,12 +198,6 @@ class NavPresenter(
         return navId
     }
 
-    fun showAblAndScrollRv() {
-    }
-
-    fun hideAblAndScrollRv() {
-    }
-
 }
 
 const val VIEW_HOME = 0

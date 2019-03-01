@@ -1,7 +1,6 @@
 package com.christian.nav
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
@@ -18,7 +17,6 @@ import com.christian.view.ContextMenuRecyclerView
 import com.christian.view.ItemDecoration
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.dip
@@ -97,6 +95,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
                 v?.tl_nav?.newTab()?.setText(tabTitle)?.let { v?.tl_nav?.addTab(it) }
             }
             v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8 + 56)))
+        } else if (navId == 3) {
+            v?.bv_tabs_nav?.visibility = View.GONE
         } else {
             v?.bv_tabs_nav?.visibility = View.GONE
             v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8)))

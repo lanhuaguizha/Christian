@@ -101,12 +101,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 .setDisallowInterceptTouchEvent(true)
     }
 
-    fun initAbl() {
-        if (mPosition == 1) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                abl_nav.elevation = 0f
-            }
-        }
+    private fun initAbl() {
         abl_nav.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
             info { "verticalOffset$verticalOffset" }
             if (-verticalOffset == appBarLayout.height) {
@@ -115,17 +110,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 }
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    if (mPosition !=1) {
-                        abl_nav.elevation = dip(4).toFloat()
-                    } else{
-                        abl_nav.elevation = dip(0).toFloat()
-                    }
+                    abl_nav.elevation = dip(4).toFloat()
                 }
-            }
-
-            when (abs(verticalOffset) - appBarLayout.height / 2 > 0) {
-                true -> (presenter as NavPresenter).showAblAndScrollRv()
-                false -> (presenter as NavPresenter).hideAblAndScrollRv()
             }
         })
     }

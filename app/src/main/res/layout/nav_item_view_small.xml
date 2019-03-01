@@ -7,6 +7,7 @@
     app:cardCornerRadius="@dimen/card_corner_radius"
     android:focusable="true"
     android:clickable="true"
+    app:cardElevation="0dp"
     android:foreground="@drawable/fluent_ripple"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
