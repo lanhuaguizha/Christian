@@ -95,8 +95,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
                 v?.tl_nav?.newTab()?.setText(tabTitle)?.let { v?.tl_nav?.addTab(it) }
             }
             v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8 + 56)))
-        } else if (navId == 3) {
-            v?.bv_tabs_nav?.visibility = View.GONE
         } else {
             v?.bv_tabs_nav?.visibility = View.GONE
             v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8)))
