@@ -3,7 +3,6 @@ package com.christian.nav
 import android.content.Context
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.christian.R
@@ -11,13 +10,13 @@ import com.christian.data.NavBean
 import com.christian.data.source.NavsDataSource
 import com.christian.data.source.NavsRepository
 import com.christian.data.source.remote.NavService
+import com.christian.disciple.DiscipleFragment
+import com.christian.disciple.MainActivity
 import com.christian.http.CacheInterceptor
 import com.christian.http.SdHelper
 import com.christian.http.cache.CacheStrategy
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import eightbitlab.com.blurview.BlurView
-import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_fragment.*
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -100,14 +99,30 @@ class NavPresenter(
             // represent called from a Activity
             true -> {
                 navFragmentList.clear()
-                for (i in 0 until navFragmentSize) {
-                    val mNavFragment = NavFragment()
-//                            mNavFragment.retainInstance = true
+//                for (i in 0 until navFragmentSize) {
+//                    val mNavFragment = NavFragment()
+////                            mNavFragment.retainInstance = true
+//
+//                    mNavFragment.navId = i
+//                    navFragmentList.add(mNavFragment)
+//                    info { "nav fragment is $mNavFragment and navId is ${mNavFragment.navId} ---initial" }
+//                }
+                val mNavFragment = NavFragment()
+                navFragmentList.add(mNavFragment)
+                mNavFragment.navId = 0
 
-                    mNavFragment.navId = i
-                    navFragmentList.add(mNavFragment)
-                    info { "nav fragment is $mNavFragment and navId is ${mNavFragment.navId} ---initial" }
-                }
+                val gospelFragment = NavFragment()
+                gospelFragment.navId = 1
+                navFragmentList.add(gospelFragment)
+
+                val discipleFragment = MainActivity()
+                discipleFragment.navId = 2
+                navFragmentList.add(discipleFragment)
+
+                val meFragment = NavFragment()
+                meFragment.navId = 4
+                navFragmentList.add(meFragment)
+
                 view.initView(navFragmentList)
             }
             // represent called from a Fragment

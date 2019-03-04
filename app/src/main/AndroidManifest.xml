@@ -57,7 +57,15 @@
                 android:value=".nav.NavActivity" />
         </activity>
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".me.SignInActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".nav.NavActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.christian.nav.NavActivity" />
+        </activity>
+        <activity
+            android:name=".disciple.SignInActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".nav.NavActivity">
             <meta-data
