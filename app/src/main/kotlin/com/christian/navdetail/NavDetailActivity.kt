@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import org.jetbrains.anko.info
+import java.util.ArrayList
 
 private fun NavActivity.initTbWithTitle(title: String) {
     sb_nav.visibility = View.GONE
@@ -76,13 +77,13 @@ class NavDetailActivity : NavActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // The internal execution of init is initView.
-        presenter.init(navFragmentSize = 2, savedInstanceState = savedInstanceState)
+        // determine size of view pager
+        presenter.init(whichActivity = GOSPEL_DETAIL_ACTIVITY)
     }
 
-    override fun initView(navFragments: List<NavFragment>) {
-        super.initView(navFragments)
-        initVp(navFragments)
+    override fun initView(navFragmentList: ArrayList<NavFragment>) {
+        super.initView(navFragmentList)
+        initVp(navFragmentList)
     }
 
     override fun initSbl() {
@@ -103,8 +104,8 @@ class NavDetailActivity : NavActivity() {
         bv_nav.layoutParams = params
     }
 
-    override fun initVp(navFragments: List<NavFragment>) {
-        super.initVp(navFragments)
+    override fun initVp(navFragmentList: ArrayList<NavFragment>) {
+        super.initVp(navFragmentList)
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {

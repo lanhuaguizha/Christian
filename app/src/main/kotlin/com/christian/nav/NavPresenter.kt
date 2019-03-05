@@ -1,7 +1,6 @@
 package com.christian.nav
 
 import android.content.Context
-import android.os.Bundle
 import android.text.TextUtils
 import android.view.ViewGroup
 import android.widget.TextView
@@ -10,11 +9,12 @@ import com.christian.data.NavBean
 import com.christian.data.source.NavsDataSource
 import com.christian.data.source.NavsRepository
 import com.christian.data.source.remote.NavService
-import com.christian.disciple.DiscipleFragment
 import com.christian.disciple.MainActivity
 import com.christian.http.CacheInterceptor
 import com.christian.http.SdHelper
 import com.christian.http.cache.CacheStrategy
+import com.christian.navdetail.ui.main.GospelDetailFragment
+import com.christian.navdetail.ui.main.GospelReviewFragment
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import eightbitlab.com.blurview.BlurView
 import okhttp3.Cache
@@ -94,38 +94,42 @@ class NavPresenter(
         call = navService.getNavs()
     }
 
-    override fun init(navFragmentSize: Int?, navFragment: NavFragment?, savedInstanceState: Bundle?) {
-        when (navFragment == null && navFragmentSize != null) {
-            // represent called from a Activity
+    override fun init(whichActivity: Int?, navFragment: NavFragment?) {
+        when (navFragment == null && whichActivity != null) {
+            // called from a activity
             true -> {
                 navFragmentList.clear()
-//                for (i in 0 until navFragmentSize) {
-//                    val mNavFragment = NavFragment()
-////                            mNavFragment.retainInstance = true
-//
-//                    mNavFragment.navId = i
-//                    navFragmentList.add(mNavFragment)
-//                    info { "nav fragment is $mNavFragment and navId is ${mNavFragment.navId} ---initial" }
-//                }
-                val mNavFragment = NavFragment()
-                navFragmentList.add(mNavFragment)
-                mNavFragment.navId = 0
+                when (whichActivity) {
+                    NAV_ACTIVITY -> {
+                        val homeFragment = NavFragment()
+                        homeFragment.navId = 0
+                        navFragmentList.add(homeFragment)
 
-                val gospelFragment = NavFragment()
-                gospelFragment.navId = 1
-                navFragmentList.add(gospelFragment)
+                        val gospelFragment = NavFragment()
+                        gospelFragment.navId = 1
+                        navFragmentList.add(gospelFragment)
 
-                val discipleFragment = MainActivity()
-                discipleFragment.navId = 2
-                navFragmentList.add(discipleFragment)
+                        val discipleFragment = MainActivity()
+                        discipleFragment.navId = 2
+                        navFragmentList.add(discipleFragment)
 
-                val meFragment = NavFragment()
-                meFragment.navId = 3
-                navFragmentList.add(meFragment)
+                        val meFragment = NavFragment()
+                        meFragment.navId = 3
+                        navFragmentList.add(meFragment)
+                    }
+                    GOSPEL_DETAIL_ACTIVITY -> {
+                        val gospelDetailFragment = GospelDetailFragment()
+                        gospelDetailFragment.navId = 4
+                        navFragmentList.add(gospelDetailFragment)
 
+                        val gospelReviewFragment = GospelReviewFragment()
+                        gospelReviewFragment.navId = 5
+                        navFragmentList.add(gospelReviewFragment)
+                    }
+                }
                 view.initView(navFragmentList)
             }
-            // represent called from a Fragment
+            // called from a fragment
             false -> {
                 navFragment?.initView(navList)
             }
@@ -219,12 +223,21 @@ const val VIEW_HOME = 0
 const val VIEW_GOSPEL = 1
 const val VIEW_DISCIPLE = 2
 const val VIEW_ME = 3
+const val VIEW_GOSPEL_DETAIL = 4
+const val VIEW_GOSPEL_REVIEW = 5
+
 const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
 const val initFragmentIndex = 0
 const val nullString = ""
 const val toolbarTitle = "toolbarTitle"
 const val NAV_ID = "navId"
 const val NAV_FRAGMENT_LIST = "navFragmentList"
+
+// whichActivity parameters
+const val NAV_ACTIVITY = 0
+const val GOSPEL_DETAIL_ACTIVITY = 1
+const val ME_PORTRAIT_DETAIL_ACTIVITY = 2
+const val ME_SETTING_DETAIL_ACTIVITY = 3
 
 // 布局设置竟然不生效？网上解决方案：https://www.cnblogs.com/yuqf/p/5808236.html
 fun applyMarqueeEffect(textView: TextView) {

@@ -50,7 +50,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         info { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState ---onCreateView" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
         presenter = navActivity.presenter
-        presenter.init(navFragmentSize = null, navFragment = this, savedInstanceState = savedInstanceState)
+        presenter.init(whichActivity = null, navFragment = this)
         return v
     }
 

@@ -76,16 +76,15 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nav_activity)
         NavPresenter(initFragmentIndex, Injection.provideNavsRepository(applicationContext), this)
-        presenter.init(navFragmentSize = 4, savedInstanceState = savedInstanceState)
-        info { "look at init times" }
+        presenter.init(whichActivity = NAV_ACTIVITY)
     }
 
-    override fun initView(navFragments: List<NavFragment>) {
+    override fun initView(navFragmentList: ArrayList<NavFragment>) {
         initSbl()
         initAbl()
         initTb()
         initSb()
-        initVp(navFragments)
+        initVp(navFragmentList)
         initBv()
         initBnv()
     }
@@ -129,8 +128,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         search_back_button.setOnClickListener { slCollapse() }
     }
 
-    open fun initVp(navFragments: List<NavFragment>) {
-        val navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragments, supportFragmentManager)
+    open fun initVp(navFragmentList: ArrayList<NavFragment>) {
+        val navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragmentList, supportFragmentManager)
 
         vp_nav.offscreenPageLimit = 3
         vp_nav.adapter = navFragmentPagerAdapter

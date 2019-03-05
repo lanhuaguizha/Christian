@@ -1,8 +1,8 @@
 package com.christian.nav
 
-import android.os.Bundle
 import com.christian.BaseContract
 import com.christian.data.NavBean
+import java.util.ArrayList
 
 /**
  * Contract of Nav View & Presenter.
@@ -21,7 +21,7 @@ class NavContract {
          * Summary of init view, initCl(), initAbl(), initTb(), initSb(), initSrl(), initRv(), initFs()
          * initFab(), initBv(), initBnv(), initPb()
          */
-        fun initView(navFragments: List<NavFragment>)
+        fun initView(navFragmentList: ArrayList<NavFragment>)
 
         /**
          * Start the loading animation before inserting the data.
@@ -69,7 +69,7 @@ class NavContract {
      */
     interface IPresenter : BaseContract.IPresenter<INavActivity> {
 
-        fun init(navFragmentSize: Int?, navFragment: NavFragment? = null, savedInstanceState: Bundle?)
+        fun init(whichActivity: Int?, navFragment: NavFragment? = null)
 
         /**
          * Summary of business logic is db's CRUD
