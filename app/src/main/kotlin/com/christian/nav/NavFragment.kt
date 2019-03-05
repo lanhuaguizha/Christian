@@ -17,6 +17,7 @@ import com.christian.view.ContextMenuRecyclerView
 import com.christian.view.ItemDecoration
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
 import org.jetbrains.anko.support.v4.dip
@@ -94,7 +95,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
             for (tabTitle in (presenter as NavPresenter).tabTitleList) {
                 v?.tl_nav?.newTab()?.setText(tabTitle)?.let { v?.tl_nav?.addTab(it) }
             }
-            v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8 + 56)))
+            v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8)))
         } else {
             v?.bv_tabs_nav?.visibility = View.GONE
             v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8)))
@@ -105,11 +106,11 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         v?.rv_nav?.addOnScrollListener(object : HidingScrollListener(this) {
 
             override fun onHide() {
-                activity?.fab_nav?.hide()
+                hide()
             }
 
             override fun onShow() {
-                navActivity.showFAB()
+                show()
             }
 
             override fun onTop() {
@@ -124,6 +125,24 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
 //        val indexScrollListener = IndexScrollListener()
 //        indexScrollListener.register(v.fs_nav)
 //        v.rv_nav.addOnScrollListener(indexScrollListener)
+    }
+
+    fun show() {
+        navActivity.showFAB()
+        if (navId == 1 && bv_tabs_nav.visibility == View.GONE) {
+            bv_tabs_nav.visibility = View.VISIBLE
+            val fadeIn = AnimationUtils.loadAnimation(context, R.anim.abc_fade_in)
+            bv_tabs_nav.startAnimation(fadeIn)
+        }
+    }
+
+    fun hide() {
+        activity?.fab_nav?.hide()
+        if (navId == 1 && bv_tabs_nav.visibility == View.VISIBLE) {
+            val fadeOut = AnimationUtils.loadAnimation(context, R.anim.abc_fade_out)
+            bv_tabs_nav.startAnimation(fadeOut)
+            bv_tabs_nav.visibility = View.GONE
+        }
     }
 
     override fun showSrl() {

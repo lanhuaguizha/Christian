@@ -147,7 +147,7 @@ public class MainActivity extends NavFragment implements
 
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
-            startActivity(new Intent(getContext(), SignInActivity.class));
+//            startActivity(new Intent(getContext(), SignInActivity.class));
 //            finish();
 //            return;
         } else {

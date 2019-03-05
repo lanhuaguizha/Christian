@@ -8,6 +8,9 @@
     <eightbitlab.com.blurview.BlurView
         android:id="@+id/bv_tabs_nav"
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/search_margin_horizontal"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:layout_height="@dimen/action_bar_height"
         android:elevation="@dimen/bottom_navigation_view_elevation"
         android:outlineProvider="bounds"

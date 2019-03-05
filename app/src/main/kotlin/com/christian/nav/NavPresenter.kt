@@ -120,7 +120,7 @@ class NavPresenter(
                 navFragmentList.add(discipleFragment)
 
                 val meFragment = NavFragment()
-                meFragment.navId = 4
+                meFragment.navId = 3
                 navFragmentList.add(meFragment)
 
                 view.initView(navFragmentList)

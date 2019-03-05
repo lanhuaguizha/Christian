@@ -22,7 +22,6 @@ import com.christian.R
 import com.christian.navitem.NavItemPresenter.Companion.RC_SIGN_IN
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
-import com.christian.view.TabLayoutBehavior
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -34,7 +33,6 @@ import kotlinx.android.synthetic.main.search_bar_expanded.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
 import java.util.*
-import kotlin.math.abs
 
 
 @SuppressLint("RestrictedApi")
@@ -108,10 +106,14 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     abl_nav.elevation = 0f
                 }
+                if (mPosition != 2)
+                    (presenter as NavPresenter).navFragmentList[mPosition].hide()
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     abl_nav.elevation = dip(4).toFloat()
                 }
+                if (mPosition != 2) // mPosition !=2 should be removed
+                    (presenter as NavPresenter).navFragmentList[mPosition].show()
             }
         })
     }
