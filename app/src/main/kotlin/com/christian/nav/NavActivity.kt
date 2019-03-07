@@ -105,12 +105,14 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     abl_nav.elevation = 0f
                 }
+                showOrHideLogicExecute = false
                 if (mPosition != 2)
                     (presenter as NavPresenter).navFragmentList[mPosition].hide()
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     abl_nav.elevation = dip(4).toFloat()
                 }
+                showOrHideLogicExecute = true
                 if (mPosition != 2) // mPosition !=2 should be removed
                     (presenter as NavPresenter).navFragmentList[mPosition].show()
             }
@@ -152,7 +154,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                     fab_nav.hide()
                 } else if (state == 0) {
 //                    fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
-                    showFAB()
+                    if (showOrHideLogicExecute) {
+                        showFAB()
+                    }
                 }
             }
 

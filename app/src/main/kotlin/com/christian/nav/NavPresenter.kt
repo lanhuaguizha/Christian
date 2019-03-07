@@ -85,8 +85,8 @@ class NavPresenter(
         view.presenter = this
 
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.0.193:8080/")
-//                .baseUrl("http://10.200.11.209:8080/")
+//                .baseUrl("http://192.168.0.193:8080/")
+                .baseUrl("http://10.200.11.209:8080/")
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
@@ -219,6 +219,7 @@ class NavPresenter(
 
 }
 
+// nav contains views
 const val VIEW_HOME = 0
 const val VIEW_GOSPEL = 1
 const val VIEW_DISCIPLE = 2
@@ -226,6 +227,7 @@ const val VIEW_ME = 3
 const val VIEW_GOSPEL_DETAIL = 4
 const val VIEW_GOSPEL_REVIEW = 5
 
+var showOrHideLogicExecute = true
 const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
 const val initFragmentIndex = 0
 const val nullString = ""
