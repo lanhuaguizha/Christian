@@ -13,8 +13,8 @@ import com.christian.disciple.MainActivity
 import com.christian.http.CacheInterceptor
 import com.christian.http.SdHelper
 import com.christian.http.cache.CacheStrategy
-import com.christian.navdetail.ui.main.GospelDetailFragment
-import com.christian.navdetail.ui.main.GospelReviewFragment
+import com.christian.gospeldetail.ui.main.GospelDetailFragment
+import com.christian.gospeldetail.ui.main.GospelReviewFragment
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import eightbitlab.com.blurview.BlurView
 import okhttp3.Cache
@@ -227,7 +227,6 @@ const val VIEW_ME = 3
 const val VIEW_GOSPEL_DETAIL = 4
 const val VIEW_GOSPEL_REVIEW = 5
 
-var showOrHideLogicExecute = true
 const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
 const val initFragmentIndex = 0
 const val nullString = ""

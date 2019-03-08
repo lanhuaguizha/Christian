@@ -1,7 +1,6 @@
-package com.christian.navdetail
+package com.christian.gospeldetail
 
 import com.christian.BaseContract
-import com.christian.nav.NavContract
 
 /**
  * Including View logic, Business logic and write respectively,

@@ -1,4 +1,4 @@
-package com.christian.navdetail
+package com.christian.gospeldetail
 
 import android.app.Activity
 import android.os.Bundle

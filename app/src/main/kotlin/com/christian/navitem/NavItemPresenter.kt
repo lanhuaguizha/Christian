@@ -14,7 +14,7 @@ import com.christian.data.MeBean
 import com.christian.data.NavBean
 import com.christian.index.TextGetter
 import com.christian.nav.*
-import com.christian.navdetail.NavDetailActivity
+import com.christian.gospeldetail.NavDetailActivity
 import com.christian.navitem.me.MeItemView
 import com.christian.util.ChristianUtil
 import com.christian.view.ContextMenuRecyclerView

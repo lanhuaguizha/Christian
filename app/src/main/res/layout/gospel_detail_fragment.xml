@@ -2,32 +2,16 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_gospel_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl_gospel_detail"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_gospel_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_gospel_detail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbarSize="@dimen/search_bottom_margin"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            tools:context="com.christian.navdetail.NavDetailActivity"
-            tools:listitem="@layout/list_item_gospel_detail" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-    <com.christian.index.FastScroller
-        android:id="@+id/fs_gospel_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/search_margin_horizontal"
-        android:layout_marginBottom="@dimen/search_margin_horizontal"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:scrollbarSize="@dimen/search_bottom_margin"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        tools:context="com.christian.gospeldetail.NavDetailActivity"
+        tools:listitem="@layout/list_item_gospel_detail" />
 </android.support.constraint.ConstraintLayout>
