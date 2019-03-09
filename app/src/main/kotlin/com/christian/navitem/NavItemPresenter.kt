@@ -159,7 +159,7 @@ open class NavItemPresenter<Bean>(var navs: Bean, private val navId: Int) : NavI
                     holder.tv_title_nav_item.text = (navs as List<NavBean>)[position].title
                     holder.tv_detail_nav_item.text = (navs as List<NavBean>)[position].detail
 
-                    if (position == 2) {
+                    if (position == 10) {
                         holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
                         holder.iv_nav_item.visibility = View.VISIBLE
                     } else {

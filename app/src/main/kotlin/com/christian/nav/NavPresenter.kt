@@ -283,7 +283,7 @@ fun getJson(fileName: String, context: Context): String {
  */
 fun makeViewBlur(view: BlurView, parent: ViewGroup) {
 //    val windowBackground = window.decorView.background
-    val radius = 7f
+    val radius = 25f
     view.setupWith(parent)
 //            .setFrameClearDrawable(windowBackground)
             .setBlurAlgorithm(SupportRenderScriptBlur(parent.context))
