@@ -91,13 +91,13 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
 //                navActivity.abl_nav.elevation = dip(0).toFloat()
 //            }
             v?.bv_tabs_nav?.let { makeViewBlur(it, navActivity.cl_nav) }
-            v?.bv_tabs_nav?.visibility = View.VISIBLE
+            v?.cv_nav_frag?.visibility = View.VISIBLE
             for (tabTitle in (presenter as NavPresenter).tabTitleList) {
                 v?.tl_nav?.newTab()?.setText(tabTitle)?.let { v?.tl_nav?.addTab(it) }
             }
             v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8)))
         } else {
-            v?.bv_tabs_nav?.visibility = View.GONE
+            v?.cv_nav_frag?.visibility = View.GONE
             v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8)))
         }
         v?.rv_nav?.layoutManager = LinearLayoutManager(context)
@@ -129,19 +129,19 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
 
     fun show() {
         navActivity.showFAB()
-        if (navId == 1 && bv_tabs_nav.visibility == View.GONE) {
-            bv_tabs_nav.visibility = View.VISIBLE
+        if (navId == 1 && cv_nav_frag.visibility == View.GONE) {
+            cv_nav_frag.visibility = View.VISIBLE
             val fadeIn = AnimationUtils.loadAnimation(context, R.anim.abc_fade_in)
-            bv_tabs_nav.startAnimation(fadeIn)
+            cv_nav_frag.startAnimation(fadeIn)
         }
     }
 
     fun hide() {
         activity?.fab_nav?.hide()
-        if (navId == 1 && bv_tabs_nav.visibility == View.VISIBLE) {
+        if (navId == 1 && cv_nav_frag.visibility == View.VISIBLE) {
             val fadeOut = AnimationUtils.loadAnimation(context, R.anim.abc_fade_out)
-            bv_tabs_nav.startAnimation(fadeOut)
-            bv_tabs_nav.visibility = View.GONE
+            cv_nav_frag.startAnimation(fadeOut)
+            cv_nav_frag.visibility = View.GONE
         }
     }
 
