@@ -1,6 +1,6 @@
 package com.christian.gospeldetail.data.source
 
-import com.christian.gospeldetail.data.GospelDetailBean
+import com.christian.data.GospelDetailBean
 
 interface GospelDetailDataSource {
     interface LoadGospelDetailsCallback {

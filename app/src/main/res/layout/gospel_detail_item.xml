@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/tv_gospel_detail_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:text="TensorFlow Dev Summit 2019"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_gospel_detail_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_gospel_detail_item"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[8]" />
+
+    <TextView
+        android:id="@+id/tv2_detail_nav_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="TensorFlow Dev Summit 是一年一度的机器学习盛会，我们将世界各地不同背景的机器学习开发者聚集在一起沟通交流，参加为期两天的前沿技术分享。    TensorFlow Dev Summit 已经举办到了第三届，这也是至今最大的一届 Dev Summit。届时，TensorFlow 团队会发布关于 TensorFlow 2.0，TensorFlow Lite，TensorFlow.js，Swift for TensorFlow，TFX 等产品生态体系的最新更新和首次发布的内容。更有，详实的技术解析，最新的 demo 体验，全球应用案例的分享，今年在案例和分享中也将看到更多中国企业的身影！让我们尽情期待！"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_gospel_detail_item" />
 </android.support.constraint.ConstraintLayout>

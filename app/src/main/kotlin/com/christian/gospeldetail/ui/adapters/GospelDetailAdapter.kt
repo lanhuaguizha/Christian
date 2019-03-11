@@ -1,21 +1,25 @@
 package com.christian.gospeldetail.ui.adapters
 
+import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.christian.gospeldetail.data.GospelDetailBean
-import com.christian.gospeldetail.ui.main.GospelDetailFragment
 import com.google.firebase.firestore.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.warn
 import com.christian.R
+import com.christian.nav.NavActivity
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.gospel_detail_item.*
+import org.jetbrains.anko.info
+import java.util.HashMap
 
 /**
  * Adapter for the RecyclerView in GospelDetailFragment
  */
-abstract class GospelDetailAdapter(private var query: Query, private val gospelDetailBeanList: GospelDetailFragment) : RecyclerView.Adapter<GospelDetailAdapter.ViewHolder>(), EventListener<QuerySnapshot>, AnkoLogger {
+abstract class GospelDetailAdapter(private var query: Query, val navActivity: NavActivity) : RecyclerView.Adapter<GospelDetailAdapter.ViewHolder>(), EventListener<QuerySnapshot>, AnkoLogger {
 
     private var registration: ListenerRegistration? = null
     private val snapshots = ArrayList<DocumentSnapshot>()
@@ -73,7 +77,7 @@ abstract class GospelDetailAdapter(private var query: Query, private val gospelD
         }
     }
 
-    private fun stopListening() {
+    fun stopListening() {
         registration?.remove()
         registration = null
 
@@ -102,29 +106,25 @@ abstract class GospelDetailAdapter(private var query: Query, private val gospelD
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.gospel_detail_item, parent, false))
     }
 
-    override fun getItemViewType(position: Int): Int {
-        when (position) {
-            0 -> VIEW_TYPE_GOSPEL_DETAIL_TITLE
-            snapshots.size - 2 -> VIEW_TYPE_GOSPEL_DETAIL_AMEN
-            snapshots.size - 1 -> VIEW_TYPE_GOSPEL_DETAIL_AUTHOR
-            snapshots.size -> VIEW_TYPE_GOSPEL_DETAIL_DATE
-        }
-        return VIEW_TYPE_GOSPEL_DETAIL_CONTENT
-    }
-
     override fun getItemCount(): Int {
         return snapshots.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        info { "position$position, snapshot${getSnapshot(position)}" }
+        navActivity.hidePb()
         holder.bind(getSnapshot(position))
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(snapshot: DocumentSnapshot) {
 
-            val gospelDetailBean = snapshot.toObject(GospelDetailBean::class.java)
-            val resources = itemView.resources
+//            tv_gospel_detail_item.text = snapshot.data?.get("title")?.toString()
+            tv_gospel_detail_item.text = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["subtitle"].toString()
+            tv2_detail_nav_item.text = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["content"].toString()
+
+//            val gospelDetailBean = snapshot.toObject(GospelDetailBean::class.java)
+//            val resources = itemView.resources
 
             // Load image
 //            Glide.with(imageView.getContext())
@@ -146,14 +146,6 @@ abstract class GospelDetailAdapter(private var query: Query, private val gospelD
 //                }
             }
         }
-    }
-
-    companion object {
-        const val VIEW_TYPE_GOSPEL_DETAIL_TITLE = 0
-        const val VIEW_TYPE_GOSPEL_DETAIL_CONTENT = 1
-        const val VIEW_TYPE_GOSPEL_DETAIL_AMEN = 2
-        const val VIEW_TYPE_GOSPEL_DETAIL_AUTHOR = 3
-        const val VIEW_TYPE_GOSPEL_DETAIL_DATE = 4
     }
 
     abstract fun onDataChanged()

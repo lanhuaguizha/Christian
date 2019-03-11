@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.christian.R
 import com.christian.gospeldetail.ui.adapters.GospelDetailAdapter
+import com.christian.nav.NavActivity
 import com.christian.nav.NavFragment
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
+import kotlinx.android.synthetic.main.gospel_detail_fragment.view.*
 import org.jetbrains.anko.info
 
 /**
@@ -36,6 +37,8 @@ class GospelDetailFragment : NavFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
+        val view = inflater.inflate(R.layout.gospel_detail_fragment, container, false)
+
         // Enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true)
         // Firestore
@@ -43,7 +46,7 @@ class GospelDetailFragment : NavFragment() {
         // Get ${LIMIT} gospels
         query = firestore.collection("gospels")
         info { "query$query" }
-        gospelDetailAdapter = object : GospelDetailAdapter(query, this@GospelDetailFragment) {
+        gospelDetailAdapter = object : GospelDetailAdapter(query, this@GospelDetailFragment.activity as NavActivity) {
             override fun onDataChanged() {
                 // Show/hide content if the query returns empty.
                 if (itemCount == 0) {
@@ -64,7 +67,9 @@ class GospelDetailFragment : NavFragment() {
         // set Query
         gospelDetailAdapter.setQuery(query)
 
-        return inflater.inflate(R.layout.gospel_detail_fragment, container, false)
+        view.rv_gospel_detail.adapter = gospelDetailAdapter
+
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -73,4 +78,8 @@ class GospelDetailFragment : NavFragment() {
         // TODO: Use the ViewModel
     }
 
+    override fun onStop() {
+        super.onStop()
+        gospelDetailAdapter.stopListening()
+    }
 }
