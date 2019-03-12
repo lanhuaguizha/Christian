@@ -5,7 +5,7 @@
     android:id="@+id/cv_nav_item"
     android:focusable="false"
     android:clickable="false"
-    android:foreground="@drawable/fluent_ripple"
+    android:foreground="?selectableItemBackgroundBorderless"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@color/white"

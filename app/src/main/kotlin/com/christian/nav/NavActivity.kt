@@ -207,7 +207,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
 
         bnv_nav.setOnNavigationItemReselectedListener {
-            (presenter as NavPresenter).navFragmentList[mPosition].rv_nav.smoothScrollToPosition(dip(0)) // 为了滚到顶
+            if ((presenter as NavPresenter).navFragmentList[mPosition].rv_nav != null)
+                (presenter as NavPresenter).navFragmentList[mPosition].rv_nav.smoothScrollToPosition(dip(0)) // 为了滚到顶
             abl_nav.setExpanded(true, true)
         }
     }

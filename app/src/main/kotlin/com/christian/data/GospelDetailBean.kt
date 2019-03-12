@@ -1,4 +1,4 @@
 package com.christian.data
 
-data class GospelDetailBean(var title: String, var listDetail: List<Detail>)
-data class Detail(var subtitle: String, var image: String, var content: String)
+data class GospelDetailBean(val title: String, val detailList: ArrayList<Detail>)
+data class Detail(val subtitle: String, val image: String, val content: String)

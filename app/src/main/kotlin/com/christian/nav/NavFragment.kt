@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.view.animation.AnimationUtils
@@ -20,14 +19,13 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
-import org.jetbrains.anko.support.v4.dip
 
 open class NavFragment : Fragment(), NavContract.INavFragment {
 
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
     private lateinit var ctx: Context
-    private lateinit var adapter: NavItemPresenter<List<NavBean>>
+    private lateinit var navAdapter: NavItemPresenter<List<NavBean>>
     private lateinit var meAdapter: NavItemPresenter<MeBean>
     private var v: View? = null
     var navId = -1
@@ -73,36 +71,36 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     }
 
     private fun initRv(navBeans: List<NavBean>) {
+        v?.cv_nav_frag?.visibility = View.GONE
+        registerForContextMenu(v?.rv_nav)
+
         when (navId) {
-            VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
-                adapter = NavItemPresenter(navs = navBeans, navId = navId)
-                adapter.setRv(v?.rv_nav)
-                v?.rv_nav?.adapter = adapter
+            VIEW_HOME -> {
+
+            }
+            VIEW_GOSPEL -> {
+                v?.bv_tabs_nav?.let { makeViewBlur(it, navActivity.cl_nav) }
+                v?.cv_nav_frag?.visibility = View.VISIBLE
+                for (tabTitle in (presenter as NavPresenter).tabTitleList) {
+                    v?.tl_nav?.newTab()?.setText(tabTitle)?.let { v?.tl_nav?.addTab(it) }
+                }
+            }
+            VIEW_DISCIPLE -> {
+
             }
             VIEW_ME -> {
                 val meBeans = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
                 meAdapter = NavItemPresenter(navs = meBeans, navId = navId)
                 v?.rv_nav?.adapter = meAdapter
+                unregisterForContextMenu(v?.rv_nav)
             }
         }
-
-        if (navId == 1) {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                navActivity.abl_nav.elevation = dip(0).toFloat()
-//            }
-            v?.bv_tabs_nav?.let { makeViewBlur(it, navActivity.cl_nav) }
-            v?.cv_nav_frag?.visibility = View.VISIBLE
-            for (tabTitle in (presenter as NavPresenter).tabTitleList) {
-                v?.tl_nav?.newTab()?.setText(tabTitle)?.let { v?.tl_nav?.addTab(it) }
-            }
-            v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8)))
-        } else {
-            v?.cv_nav_frag?.visibility = View.GONE
-            v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt(), dip(8)))
+        if (navId != VIEW_ME) {
+            navAdapter = NavItemPresenter(navs = navBeans, navId = navId)
+            navAdapter.setRv(v?.rv_nav)
+            v?.rv_nav?.adapter = navAdapter
         }
-        v?.rv_nav?.layoutManager = LinearLayoutManager(context)
-        registerForContextMenu(v?.rv_nav)
-
+        v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v?.rv_nav?.addOnScrollListener(object : HidingScrollListener(this) {
 
             override fun onHide() {
@@ -155,7 +153,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     override fun invalidateRv(navBeans: List<NavBean>) {
         when (navId) {
             VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
-                adapter.navs = navBeans
+                navAdapter.navs = navBeans
             }
             VIEW_ME -> {
                 val meBean = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)

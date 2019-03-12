@@ -1,6 +1,7 @@
 package com.christian.view;
 
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.christian.util.ChristianUtil;
@@ -12,24 +13,21 @@ import com.christian.util.ChristianUtil;
 
 
 public class ItemDecoration extends RecyclerView.ItemDecoration {
-    int space;
-    int top;
+    private int space;
 
-    public ItemDecoration(int space, int top) {
-//    public ItemDecoration(int space, int left, int top, int right, int bottom) {
+    public ItemDecoration(int space) {
         this.space = space;
-        this.top = top;
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view,
-                               RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(@NonNull Rect outRect, @NonNull View view,
+                               @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         outRect.left = space;
         outRect.right = space;
         outRect.bottom = space;
 
         // Add top margin only for the first item to avoid double space between items
         if (parent.getChildPosition(view) == 0)
-            outRect.top = top;
+            outRect.top = space;
     }
 }
