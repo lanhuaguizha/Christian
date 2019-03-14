@@ -2,6 +2,7 @@ package com.christian.nav
 
 import android.content.Context
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
@@ -13,8 +14,13 @@ import com.christian.data.MeBean
 import com.christian.data.NavBean
 import com.christian.navitem.NavItemPresenter
 import com.christian.view.ContextMenuRecyclerView
+import com.christian.view.GospelItemDecoration
 import com.christian.view.ItemDecoration
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.Query
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
@@ -22,12 +28,15 @@ import org.jetbrains.anko.info
 
 open class NavFragment : Fragment(), NavContract.INavFragment {
 
+    open lateinit var firestore: FirebaseFirestore
+    open lateinit var query: Query
+
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
     private lateinit var ctx: Context
     private lateinit var navAdapter: NavItemPresenter<List<NavBean>>
     private lateinit var meAdapter: NavItemPresenter<MeBean>
-    private var v: View? = null
+    private lateinit var v: View
     var navId = -1
 
     init {
@@ -47,6 +56,13 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         info { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState ---onCreateView" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
+        // Enable Firestore logging
+        FirebaseFirestore.setLoggingEnabled(true)
+        // Firestore
+        firestore = FirebaseFirestore.getInstance()
+        // Get ${LIMIT} gospels
+        query = firestore.collection("gospels")
+
         presenter = navActivity.presenter
         presenter.init(whichActivity = null, navFragment = this)
         return v
@@ -57,13 +73,12 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         initSrl()
         initFs()
         initRv(navBeans)
-        presenter.createNav(navId, navFragment = this)
     }
 
     private fun initSrl() {
-        v?.srl_nav?.setColorSchemeColors(ResourcesCompat.getColor(context!!.resources, R.color.colorAccent, context?.theme))
-        v?.srl_nav?.setOnRefreshListener { presenter.createNav(navId, true, this) }
-        v?.srl_nav?.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, context?.theme)
+        v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(context!!.resources, R.color.colorAccent, context?.theme))
+        v.srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, context?.theme)
+        v.srl_nav.isEnabled = false
     }
 
     private fun initFs() {
@@ -84,23 +99,59 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
                 for (tabTitle in (presenter as NavPresenter).tabTitleList) {
                     v?.tl_nav?.newTab()?.setText(tabTitle)?.let { v?.tl_nav?.addTab(it) }
                 }
+                v?.rv_nav?.addItemDecoration(GospelItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
             }
             VIEW_DISCIPLE -> {
-
             }
             VIEW_ME -> {
                 val meBeans = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
-                meAdapter = NavItemPresenter(navs = meBeans, navId = navId)
+                meAdapter = object : NavItemPresenter<MeBean>(query, this@NavFragment.navActivity, navs = meBeans, navId = navId) {
+                    override fun onDataChanged() {
+//                        if (itemCount == 0) {
+//                            rv_nav.visibility = View.GONE
+//                            navActivity.pb_nav.visibility = View.GONE
+//                        } else {
+//                            rv_nav.visibility = View.VISIBLE
+//                            navActivity.pb_nav.visibility = View.GONE
+//                        }
+                    }
+
+                    override fun onError(e: FirebaseFirestoreException) {
+                        // Show a snackbar on errors
+                        Snackbar.make(cl_gospel_detail,
+                                "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
+                    }
+                }
                 v?.rv_nav?.adapter = meAdapter
                 unregisterForContextMenu(v?.rv_nav)
             }
         }
         if (navId != VIEW_ME) {
-            navAdapter = NavItemPresenter(navs = navBeans, navId = navId)
+            navAdapter = object : NavItemPresenter<List<NavBean>>(query, this@NavFragment.navActivity, navs = navBeans, navId = navId) {
+                override fun onDataChanged() {
+                    if (itemCount == 0) {
+                        rv_nav.visibility = View.GONE
+                        (activity as NavActivity).pb_nav.visibility = View.GONE
+                    } else {
+                        rv_nav.visibility = View.VISIBLE
+                        (activity as NavActivity).pb_nav.visibility = View.GONE
+                    }
+                }
+
+                override fun onError(e: FirebaseFirestoreException) {
+                    // Show a snackbar on errors
+                    Snackbar.make(cl_gospel_detail,
+                            "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
+                }
+
+            }
+            // set Query
+            navAdapter.setQuery(query)
             navAdapter.setRv(v?.rv_nav)
             v?.rv_nav?.adapter = navAdapter
         }
-        v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
+        if (navId != VIEW_GOSPEL)
+            v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v?.rv_nav?.addOnScrollListener(object : HidingScrollListener(this) {
 
             override fun onHide() {
@@ -127,20 +178,20 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
 
     fun show() {
         navActivity.showFAB()
-        if (navId == 1 && cv_nav_frag.visibility == View.GONE) {
-            cv_nav_frag.visibility = View.VISIBLE
-            val fadeIn = AnimationUtils.loadAnimation(context, R.anim.abc_fade_in)
-            cv_nav_frag.startAnimation(fadeIn)
-        }
+//        if (navId == 1 && cv_nav_frag.visibility == View.GONE) {
+//            cv_nav_frag.visibility = View.VISIBLE
+//            val fadeIn = AnimationUtils.loadAnimation(context, R.anim.abc_fade_in)
+//            cv_nav_frag.startAnimation(fadeIn)
+//        }
     }
 
     fun hide() {
         activity?.fab_nav?.hide()
-        if (navId == 1 && cv_nav_frag.visibility == View.VISIBLE) {
-            val fadeOut = AnimationUtils.loadAnimation(context, R.anim.abc_fade_out)
-            cv_nav_frag.startAnimation(fadeOut)
-            cv_nav_frag.visibility = View.GONE
-        }
+//        if (navId == 1 && cv_nav_frag.visibility == View.VISIBLE) {
+//            val fadeOut = AnimationUtils.loadAnimation(context, R.anim.abc_fade_out)
+//            cv_nav_frag.startAnimation(fadeOut)
+//            cv_nav_frag.visibility = View.GONE
+//        }
     }
 
     override fun showSrl() {
@@ -190,12 +241,18 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
 //        super.onSaveInstanceState(outState)
     }
 
+    override fun onStop() {
+        super.onStop()
+        if (navId != VIEW_ME) {
+            navAdapter.stopListening()
+        } else {
+            meAdapter.stopListening()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-
         // handling memory leaks
-        v = null
-
         val refWatcher = ChristianApplication.getRefWatcher(ctx)
         refWatcher.watch(this)
     }

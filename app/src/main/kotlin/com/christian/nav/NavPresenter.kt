@@ -31,6 +31,8 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.util.*
 import java.util.concurrent.TimeUnit
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.FirebaseFirestore
 
 /**
  * This contains all the NAV business logic, and the MVP control center. We'll write the code here first.
@@ -41,11 +43,6 @@ class NavPresenter(
         private var navId: Int,
         private val navsRepository: NavsRepository,
         override var view: NavContract.INavActivity) : NavContract.IPresenter {
-
-    companion object {
-        const val DEFAULT_HTTP_CACHE_SIZE = 10 * 1024 * 1024L
-        const val DEFAULT_TIMEOUT = 5L
-    }
 
     val tabTitleList = listOf(
             "马太福音",
@@ -79,19 +76,10 @@ class NavPresenter(
 
     private val navList = listOf(NavBean())
     var navFragmentList = ArrayList<NavFragment>()
-    private val call: Call<List<NavBean>>
 
     init {
         view.presenter = this
 
-        val retrofit = Retrofit.Builder()
-//                .baseUrl("http://192.168.0.193:8080/")
-                .baseUrl("http://10.200.11.209:8080/")
-                .client(getOkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        val navService = retrofit.create(NavService::class.java)
-        call = navService.getNavs()
     }
 
     override fun init(whichActivity: Int?, navFragment: NavFragment?) {
@@ -139,58 +127,10 @@ class NavPresenter(
     override fun deleteNav(navId: String) {
     }
 
-    override fun createNav(navId: Int, isSrl: Boolean, navFragment: NavFragment): Boolean {
-
-        info { "nav fragment is $navFragment and navId is $navId ---createNav" }
-
-        if (isSrl) {
-            view.hidePb()
-        } else {
-            view.showPb()
-            navFragment.hideSrl()
-        }
-
-        navsRepository.getNavs(call, object : NavsDataSource.LoadNavsCallback {
-
-            override fun onNavsLoaded(navBeans: List<NavBean>) {
-
-                navFragment.invalidateRv(navBeans)
-
-                view.hidePb()
-                navFragment.hideSrl()
-
-            }
-
-            override fun onDataNotAvailable() {
-                view.hidePb()
-                navFragment.hideSrl()
-            }
-
-        })
-        info { "insert nav id $navId" }
-        return true
-    }
-
     override fun updateNav(navBeans: List<NavBean>) {
     }
 
     override fun readNav() {
-    }
-
-    /**
-     * Cache strategy
-     */
-    private fun getOkHttpClient(): OkHttpClient {
-
-        val logInterceptor = HttpLoggingInterceptor(CacheStrategy())
-        logInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        val builder = OkHttpClient.Builder()
-        builder.cache(getCache())
-        builder.addInterceptor(CacheInterceptor()) //为了在没有网络的情况下也能设置request和response
-        builder.addNetworkInterceptor(CacheInterceptor())
-        builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
-        return builder.build()
     }
 
     private fun getCache(): Cache {

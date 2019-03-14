@@ -19,12 +19,15 @@ import android.view.View
 import com.christian.ChristianApplication
 import com.christian.Injection
 import com.christian.R
+import com.christian.gospeldetail.NavDetailActivity
+import com.christian.navitem.NavItemPresenter
 import com.christian.navitem.NavItemPresenter.Companion.RC_SIGN_IN
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
@@ -51,8 +54,15 @@ fun disableShiftMode(view: BottomNavigationView) {
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
  * implementation of NavContract.View.
  */
-open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
+open class NavActivity : SwipeBackActivity(), NavContract.INavActivity, NavItemPresenter.OnGospelSelectedListener {
+    override fun onGospelSelected(gospel: DocumentSnapshot) {
+        // Go to the details page for the selected restaurant
+        val intent = Intent(this, NavDetailActivity::class.java)
+        intent.putExtra(NavDetailActivity.KEY_GOSPEL_ID, gospel.id)
+        startActivity(intent)
+    }
 
+    @SuppressLint("MissingSuperCall")
     override fun onSaveInstanceState(outState: Bundle?) {
 //        super.onSaveInstanceState(outState)
 //        outState?.putParcelableArrayList(NAV_FRAGMENT_LIST, (presenter as NavPresenter).navFragmentList)

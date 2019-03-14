@@ -110,7 +110,7 @@ dependencies {
 //    implementation(name: 'lib_tv_fullhtml-debug', ext: 'aar')
     // https://github.com/xuyisheng/TextViewForFullHtml
     // Avoid manual configuration on proguard-rules.pro files
-//    implementation 'com.blankj:free-proguard:0.0.8'
+    implementation 'com.blankj:free-proguard:0.0.8'
 
     // Google
     implementation 'com.google.android.gms:play-services-auth:16.0.1'

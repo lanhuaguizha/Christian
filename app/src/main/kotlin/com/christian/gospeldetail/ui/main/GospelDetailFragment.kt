@@ -3,6 +3,7 @@ package com.christian.gospeldetail.ui.main
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.gospel_detail_fragment.view.*
-import org.jetbrains.anko.info
 
 /**
  * MVVM-databinding架构开发
@@ -29,9 +29,9 @@ class GospelDetailFragment : NavFragment() {
 
     private lateinit var viewModel: GospelDetailViewModel
 
-    private lateinit var firestore: FirebaseFirestore
+    override lateinit var firestore: FirebaseFirestore
 
-    private lateinit var query: Query
+    override lateinit var query: Query
 
     private lateinit var gospelDetailAdapter: GospelDetailAdapter
 
@@ -45,7 +45,6 @@ class GospelDetailFragment : NavFragment() {
         firestore = FirebaseFirestore.getInstance()
         // Get ${LIMIT} gospels
         query = firestore.collection("gospels")
-        info { "query$query" }
         gospelDetailAdapter = object : GospelDetailAdapter(query, this@GospelDetailFragment.activity as NavActivity) {
             override fun onDataChanged() {
                 // Show/hide content if the query returns empty.

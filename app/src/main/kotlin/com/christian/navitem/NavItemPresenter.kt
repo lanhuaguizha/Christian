@@ -12,22 +12,107 @@ import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.data.NavBean
-import com.christian.index.TextGetter
-import com.christian.nav.*
 import com.christian.gospeldetail.NavDetailActivity
+import com.christian.nav.*
 import com.christian.navitem.me.MeItemView
 import com.christian.util.ChristianUtil
 import com.christian.view.ContextMenuRecyclerView
 import com.firebase.ui.auth.AuthUI
+import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.nav_item_view.*
 import kotlinx.android.synthetic.main.nav_item_view_small.*
+import org.jetbrains.anko.debug
 import org.jetbrains.anko.image
 import org.jetbrains.anko.info
+import org.jetbrains.anko.warn
 
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
  */
-open class NavItemPresenter<Bean>(var navs: Bean, private val navId: Int) : NavItemContract.IPresenter, RecyclerView.Adapter<NavItemView>(), TextGetter {
+abstract class NavItemPresenter<Bean>(private var query: Query, private val listener: OnGospelSelectedListener, var navs: Bean, private val navId: Int) : NavItemContract.IPresenter, RecyclerView.Adapter<NavItemView>(), EventListener<QuerySnapshot> {
+    private val snapshots = ArrayList<DocumentSnapshot>()
+    private var registration: ListenerRegistration? = null
+
+    abstract fun onDataChanged()
+    abstract fun onError(e: FirebaseFirestoreException)
+
+    fun setQuery(query: Query) {
+        // Stop listening
+        stopListening()
+
+        // Clear existing data
+        snapshots.clear()
+        notifyDataSetChanged()
+
+        // Listen to new query
+        this.query = query
+        startListening()
+    }
+
+    private fun startListening() {
+        if (registration == null) {
+            registration = query.addSnapshotListener(this)
+        }
+    }
+
+    fun stopListening() {
+        registration?.remove()
+        registration = null
+
+        snapshots.clear()
+        notifyDataSetChanged()
+    }
+
+    override fun onEvent(documentSnapshots: QuerySnapshot?, e: FirebaseFirestoreException?) {
+        if (e != null) {
+            warn { "onEvent:error$e" }
+            onError(e)
+            return
+        }
+
+        if (documentSnapshots == null) {
+            return
+        }
+
+        // Dispatch the event
+        debug { "onEvent:numChanges:$documentSnapshots.documentChanges.size" }
+        for (change in documentSnapshots.documentChanges) {
+            when (change.type) {
+                DocumentChange.Type.ADDED -> onDocumentAdded(change)
+                DocumentChange.Type.MODIFIED -> onDocumentModified(change)
+                DocumentChange.Type.REMOVED -> onDocumentRemoved(change)
+            }
+        }
+
+        onDataChanged()
+    }
+    private fun onDocumentAdded(change: DocumentChange) {
+        snapshots.add(change.newIndex, change.document)
+        notifyItemInserted(change.newIndex)
+    }
+
+    private fun onDocumentModified(change: DocumentChange) {
+        if (change.oldIndex == change.newIndex) {
+            // Item changed but remained in same position
+            snapshots[change.oldIndex] = change.document
+            notifyItemChanged(change.oldIndex)
+        } else {
+            // Item changed and changed position
+            snapshots.removeAt(change.oldIndex)
+            snapshots.add(change.newIndex, change.document)
+            notifyItemMoved(change.oldIndex, change.newIndex)
+        }
+    }
+
+    private fun onDocumentRemoved(change: DocumentChange) {
+        snapshots.removeAt(change.oldIndex)
+        notifyItemRemoved(change.oldIndex)
+    }
+
+    // 回到给NavActivity跳转到GospelDetailActivity
+    interface OnGospelSelectedListener {
+        fun onGospelSelected(gospel: DocumentSnapshot)
+    }
 
     override lateinit var view: NavItemContract.IView
 
@@ -116,7 +201,7 @@ open class NavItemPresenter<Bean>(var navs: Bean, private val navId: Int) : NavI
                 return (navs as MeBean).settings.size + 2
             }
         }
-        return (navs as List<NavBean>).size
+        return snapshots.size
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -150,23 +235,7 @@ open class NavItemPresenter<Bean>(var navs: Bean, private val navId: Int) : NavI
 //                    navItemView.showPopupMenu(v)
                 }
 
-                // 第一次加载不可见，后续invalidate时才可见
-                if ((navs as List<NavBean>)[position].subtitle == "") {
-                    holder.itemView.visibility = View.GONE
-                } else {
-                    holder.itemView.visibility = View.VISIBLE
-                    holder.tv_subtitle_nav_item.text = (navs as List<NavBean>)[position].subtitle
-                    holder.tv_title_nav_item.text = (navs as List<NavBean>)[position].title
-                    holder.tv_detail_nav_item.text = (navs as List<NavBean>)[position].detail
-
-                    if (position == 0) {
-                        holder.iv_nav_item.image = ResourcesCompat.getDrawable(holder.containerView.resources, R.drawable.the_virgin, holder.containerView.context.theme)
-                        holder.iv_nav_item.visibility = View.VISIBLE
-                    } else {
-                        holder.iv_nav_item.visibility = View.GONE
-                    }
-                    applyViewHolderAnimation(holder)
-                }
+                holder.bind(snapshots[position], listener)
             }
             VIEW_ME -> {
                 when (holder.adapterPosition) {
@@ -237,14 +306,6 @@ open class NavItemPresenter<Bean>(var navs: Bean, private val navId: Int) : NavI
             navItemView.clearItemAnimation(holder.itemView)
         }
         mPosition = holder.adapterPosition
-    }
-
-    override fun getTextFromAdapter(pos: Int): String {
-        return if ((navs as List<NavBean>)[0].subtitle.isNotEmpty()) {
-            (navs as List<NavBean>)[pos].subtitle[0].toUpperCase().toString()
-        } else {
-            ""
-        }
     }
 
     private var mRvNav: ContextMenuRecyclerView? = null

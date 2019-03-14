@@ -64,6 +64,10 @@ private fun NavActivity.initSrlForbidden() {
  */
 class NavDetailActivity : NavActivity() {
 
+    companion object {
+        const val KEY_GOSPEL_ID = "key_gospel_id" // gospels集合ID
+    }
+
 //    override fun initView(navs: List<NavBean>) {
 //        info { "navs$navs" }
 //        initAbl()
@@ -77,6 +81,10 @@ class NavDetailActivity : NavActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Get gospel ID from extras
+        val gospelId = intent.extras?.getString(KEY_GOSPEL_ID)
+                ?: throw IllegalArgumentException("Must pass extra $KEY_GOSPEL_ID")
+
         // determine size of view pager
         presenter.init(whichActivity = GOSPEL_DETAIL_ACTIVITY)
     }

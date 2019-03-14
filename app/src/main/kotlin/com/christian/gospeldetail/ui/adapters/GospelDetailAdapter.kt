@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
@@ -107,6 +108,7 @@ abstract class GospelDetailAdapter(private var query: Query, val navActivity: Na
     }
 
     override fun getItemCount(): Int {
+        info { "getItemCount${snapshots[0].id}" }
         return snapshots.size
     }
 
@@ -121,6 +123,7 @@ abstract class GospelDetailAdapter(private var query: Query, val navActivity: Na
 
 //            tv_gospel_detail_item.text = snapshot.data?.get("title")?.toString()
             tv_gospel_detail_item.text = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["subtitle"].toString()
+            Glide.with(containerView.context).load(R.drawable.the_virgin).into(iv_gospel_detail_item)
             tv2_detail_nav_item.text = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["content"].toString()
 
 //            val gospelDetailBean = snapshot.toObject(GospelDetailBean::class.java)
@@ -142,7 +145,7 @@ abstract class GospelDetailAdapter(private var query: Query, val navActivity: Na
             // Click listener
             itemView.setOnClickListener {
                 //                if (listener != null) {
-//                    listener!!.onRestaurantSelected(snapshot)
+//                    listener!!.onGospelSelected(snapshot)
 //                }
             }
         }
