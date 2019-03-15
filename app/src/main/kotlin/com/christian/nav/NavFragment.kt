@@ -1,5 +1,8 @@
 package com.christian.nav
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -64,8 +67,23 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
         query = firestore.collection("gospels")
 
         presenter = navActivity.presenter
-        presenter.init(whichActivity = null, navFragment = this)
+        lifecycle.addObserver(MyObserver())
         return v
+    }
+
+    inner class MyObserver : LifecycleObserver {
+        @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+        fun bindNavAdapter() {
+            info { "Lifecycle.Event.ON_CREATE" }
+            presenter.init(whichActivity = null, navFragment = this@NavFragment)
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+        fun setQuery() {
+            // set Query
+            if (navId != VIEW_ME) // 增加了复杂性，需要想办法统一Me
+                navAdapter.setQuery(query) // onStop的时候注销了snapshotListener，onResume的时候一定要开启
+        }
     }
 
     override fun initView(navBeans: List<NavBean>) {
@@ -145,8 +163,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
                 }
 
             }
-            // set Query
-            navAdapter.setQuery(query)
             navAdapter.setRv(v.rv_nav)
             v.rv_nav.adapter = navAdapter
         }

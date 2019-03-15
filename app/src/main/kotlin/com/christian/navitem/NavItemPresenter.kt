@@ -75,7 +75,7 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
         }
 
         // Dispatch the event
-        debug { "onEvent:numChanges:$documentSnapshots.documentChanges.size" }
+        debug { "onEvent:numChanges:${documentSnapshots.documentChanges.size}" }
         for (change in documentSnapshots.documentChanges) {
             when (change.type) {
                 DocumentChange.Type.ADDED -> onDocumentAdded(change)
