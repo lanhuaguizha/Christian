@@ -76,30 +76,30 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     }
 
     private fun initSrl() {
-        v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(context!!.resources, R.color.colorAccent, context?.theme))
-        v.srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, context?.theme)
+        v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(navActivity.resources, R.color.colorAccent, navActivity.theme))
+        v.srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, navActivity.theme)
         v.srl_nav.isEnabled = false
     }
 
     private fun initFs() {
-        v?.fs_nav?.setRecyclerView(v?.rv_nav)
+        v.fs_nav.setRecyclerView(v.rv_nav)
     }
 
     private fun initRv(navBeans: List<NavBean>) {
-        v?.cv_nav_frag?.visibility = View.GONE
-        registerForContextMenu(v?.rv_nav)
+        v.cv_nav_frag.visibility = View.GONE
+        registerForContextMenu(v.rv_nav)
 
         when (navId) {
             VIEW_HOME -> {
 
             }
             VIEW_GOSPEL -> {
-                v?.bv_tabs_nav?.let { makeViewBlur(it, navActivity.cl_nav) }
-                v?.cv_nav_frag?.visibility = View.VISIBLE
+                makeViewBlur(v.bv_tabs_nav, navActivity.cl_nav)
+                v.cv_nav_frag.visibility = View.VISIBLE
                 for (tabTitle in (presenter as NavPresenter).tabTitleList) {
-                    v?.tl_nav?.newTab()?.setText(tabTitle)?.let { v?.tl_nav?.addTab(it) }
+                    v.tl_nav.newTab().setText(tabTitle).let { v.tl_nav.addTab(it) }
                 }
-                v?.rv_nav?.addItemDecoration(GospelItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
+                v.rv_nav.addItemDecoration(GospelItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
             }
             VIEW_DISCIPLE -> {
             }
@@ -122,8 +122,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
                                 "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
                     }
                 }
-                v?.rv_nav?.adapter = meAdapter
-                unregisterForContextMenu(v?.rv_nav)
+                v.rv_nav.adapter = meAdapter
+                unregisterForContextMenu(v.rv_nav)
             }
         }
         if (navId != VIEW_ME) {
@@ -147,12 +147,12 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
             }
             // set Query
             navAdapter.setQuery(query)
-            navAdapter.setRv(v?.rv_nav)
-            v?.rv_nav?.adapter = navAdapter
+            navAdapter.setRv(v.rv_nav)
+            v.rv_nav.adapter = navAdapter
         }
         if (navId != VIEW_GOSPEL)
-            v?.rv_nav?.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
-        v?.rv_nav?.addOnScrollListener(object : HidingScrollListener(this) {
+            v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
+        v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
 
             override fun onHide() {
                 hide()
@@ -186,7 +186,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     }
 
     fun hide() {
-        activity?.fab_nav?.hide()
+        navActivity.fab_nav.hide()
 //        if (navId == 1 && cv_nav_frag.visibility == View.VISIBLE) {
 //            val fadeOut = AnimationUtils.loadAnimation(context, R.anim.abc_fade_out)
 //            cv_nav_frag.startAnimation(fadeOut)
@@ -198,7 +198,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     }
 
     override fun hideSrl() {
-        v?.srl_nav?.isRefreshing = false
+        v.srl_nav.isRefreshing = false
     }
 
     override fun invalidateRv(navBeans: List<NavBean>) {
@@ -211,18 +211,18 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
                 meAdapter.navs = meBean
             }
         }
-        runLayoutAnimation(v?.rv_nav)
+        runLayoutAnimation(v.rv_nav)
         navActivity.showFAB()
     }
 
-    private fun runLayoutAnimation(recyclerView: RecyclerView?) {
-        val animation = AnimationUtils.loadLayoutAnimation(recyclerView?.context, R.anim.layout_animation_from_right)
-        recyclerView?.layoutAnimation = animation
-        recyclerView?.adapter?.notifyDataSetChanged()
-        recyclerView?.scheduleLayoutAnimation()
+    private fun runLayoutAnimation(recyclerView: RecyclerView) {
+        val animation = AnimationUtils.loadLayoutAnimation(recyclerView.context, R.anim.layout_animation_from_right)
+        recyclerView.layoutAnimation = animation
+        recyclerView.adapter?.notifyDataSetChanged()
+        recyclerView.scheduleLayoutAnimation()
     }
 
-    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo)
         navActivity.menuInflater.inflate(R.menu.menu_share, menu)
     }

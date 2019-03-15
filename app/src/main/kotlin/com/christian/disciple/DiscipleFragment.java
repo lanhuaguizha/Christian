@@ -79,7 +79,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends NavFragment implements
+public class DiscipleFragment extends NavFragment implements
         GoogleApiClient.OnConnectionFailedListener {
 
     @NotNull
@@ -103,7 +103,7 @@ public class MainActivity extends NavFragment implements
         }
     }
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "DiscipleFragment";
     public static final String MESSAGES_CHILD = "messages";
     private static final int REQUEST_INVITE = 1;
     private static final int REQUEST_IMAGE = 2;
@@ -240,7 +240,7 @@ public class MainActivity extends NavFragment implements
                     viewHolder.messengerImageView.setImageDrawable(ContextCompat.getDrawable(getContext(),
                             R.drawable.ic_account_circle_black_24dp));
                 } else {
-                    Glide.with(MainActivity.this)
+                    Glide.with(DiscipleFragment.this)
                             .load(friendlyMessage.getPhotoUrl())
                             .into(viewHolder.messengerImageView);
                 }
@@ -540,7 +540,7 @@ public class MainActivity extends NavFragment implements
 //    }
 
 //    private void putImageInStorage(StorageReference storageReference, Uri uri, final String key) {
-//        storageReference.putFile(uri).addOnCompleteListener(MainActivity.this,
+//        storageReference.putFile(uri).addOnCompleteListener(DiscipleFragment.this,
 //                new OnCompleteListener<UploadTask.TaskSnapshot>() {
 //                    @Override
 //                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {

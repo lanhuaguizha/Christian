@@ -6,33 +6,20 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.christian.R
 import com.christian.data.NavBean
-import com.christian.data.source.NavsDataSource
 import com.christian.data.source.NavsRepository
-import com.christian.data.source.remote.NavService
-import com.christian.disciple.MainActivity
-import com.christian.http.CacheInterceptor
+import com.christian.disciple.DiscipleFragment
 import com.christian.http.SdHelper
-import com.christian.http.cache.CacheStrategy
 import com.christian.gospeldetail.ui.main.GospelDetailFragment
 import com.christian.gospeldetail.ui.main.GospelReviewFragment
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import eightbitlab.com.blurview.BlurView
 import okhttp3.Cache
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import org.jetbrains.anko.info
 import org.jetbrains.anko.singleLine
-import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.io.BufferedReader
 import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
 import java.util.*
-import java.util.concurrent.TimeUnit
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.FirebaseFirestore
 
 /**
  * This contains all the NAV business logic, and the MVP control center. We'll write the code here first.
@@ -97,7 +84,7 @@ class NavPresenter(
                         gospelFragment.navId = 1
                         navFragmentList.add(gospelFragment)
 
-                        val discipleFragment = MainActivity()
+                        val discipleFragment = DiscipleFragment()
                         discipleFragment.navId = 2
                         navFragmentList.add(discipleFragment)
 
