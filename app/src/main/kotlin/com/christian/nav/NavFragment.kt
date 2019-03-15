@@ -19,6 +19,7 @@ import com.christian.navitem.NavItemPresenter
 import com.christian.view.ContextMenuRecyclerView
 import com.christian.view.GospelItemDecoration
 import com.christian.view.ItemDecoration
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
@@ -29,10 +30,13 @@ import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.info
 
-open class NavFragment : Fragment(), NavContract.INavFragment {
+open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
+    override fun onGospelSelected(gospel: DocumentSnapshot) {
+        gospelId = gospel.id
+    }
 
     open lateinit var firestore: FirebaseFirestore
-    open lateinit var query: Query
+    private lateinit var query: Query
 
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
@@ -40,6 +44,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
     private lateinit var navAdapter: NavItemPresenter<List<NavBean>>
     private lateinit var meAdapter: NavItemPresenter<MeBean>
     private lateinit var v: View
+    lateinit var gospelId: String
     var navId = -1
 
     init {

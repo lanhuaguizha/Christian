@@ -11,6 +11,7 @@ import com.christian.R
 import com.christian.gospeldetail.ui.adapters.GospelDetailAdapter
 import com.christian.nav.NavActivity
 import com.christian.nav.NavFragment
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
@@ -31,7 +32,7 @@ class GospelDetailFragment : NavFragment() {
 
     override lateinit var firestore: FirebaseFirestore
 
-    override lateinit var query: Query
+    private lateinit var gospelRef: DocumentReference
 
     private lateinit var gospelDetailAdapter: GospelDetailAdapter
 
@@ -44,29 +45,30 @@ class GospelDetailFragment : NavFragment() {
         // Firestore
         firestore = FirebaseFirestore.getInstance()
         // Get ${LIMIT} gospels
-        query = firestore.collection("gospels")
-        gospelDetailAdapter = object : GospelDetailAdapter(query, this@GospelDetailFragment.activity as NavActivity) {
-            override fun onDataChanged() {
-                // Show/hide content if the query returns empty.
-                if (itemCount == 0) {
-                    rv_gospel_detail.visibility = View.GONE
-//                    viewEmpty.visibility = View.VISIBLE
-                } else {
-                    rv_gospel_detail.visibility = View.VISIBLE
-//                    viewEmpty.visibility = View.GONE
-                }
-            }
+        gospelRef = firestore.collection("gospels").document(gospelId)
 
-            override fun onError(e: FirebaseFirestoreException) {
-                // Show a snackbar on errors
-                Snackbar.make(cl_gospel_detail,
-                        "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
-            }
-        }
+//        gospelDetailAdapter = object : GospelDetailAdapter(gospelRef, this@GospelDetailFragment.activity as NavActivity) {
+//            override fun onDataChanged() {
+//                // Show/hide content if the query returns empty.
+//                if (itemCount == 0) {
+//                    rv_gospel_detail.visibility = View.GONE
+////                    viewEmpty.visibility = View.VISIBLE
+//                } else {
+//                    rv_gospel_detail.visibility = View.VISIBLE
+////                    viewEmpty.visibility = View.GONE
+//                }
+//            }
+//
+//            override fun onError(e: FirebaseFirestoreException) {
+//                // Show a snackbar on errors
+//                Snackbar.make(cl_gospel_detail,
+//                        "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
+//            }
+//        }
         // set Query
-        gospelDetailAdapter.setQuery(query)
+//        gospelDetailAdapter.setQuery(query)
 
-        view.rv_gospel_detail.adapter = gospelDetailAdapter
+//        view.rv_gospel_detail.adapter = gospelDetailAdapter
 
         return view
     }
