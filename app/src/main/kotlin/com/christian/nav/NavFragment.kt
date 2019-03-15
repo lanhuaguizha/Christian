@@ -243,10 +243,12 @@ open class NavFragment : Fragment(), NavContract.INavFragment {
 
     override fun onStop() {
         super.onStop()
-        if (navId != VIEW_ME) {
-            navAdapter.stopListening()
-        } else {
+        if (navId == VIEW_ME) {
+            info { "me stop listening" }
             meAdapter.stopListening()
+        } else if (navId == VIEW_HOME || navId == VIEW_GOSPEL) {
+            info { "home or gospel stop listening" }
+            navAdapter.stopListening()
         }
     }
 
