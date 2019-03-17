@@ -4,6 +4,7 @@ import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -15,6 +16,7 @@ import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.data.NavBean
+import com.christian.gospeldetail.NavDetailActivity
 import com.christian.navitem.NavItemPresenter
 import com.christian.view.ContextMenuRecyclerView
 import com.christian.view.GospelItemDecoration
@@ -32,11 +34,14 @@ import org.jetbrains.anko.info
 
 open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
     override fun onGospelSelected(gospel: DocumentSnapshot) {
+        // Go to the details page for the selected restaurant
         gospelId = gospel.id
+        val intent = Intent(this@NavFragment.navActivity, NavDetailActivity::class.java)
+        startActivity(intent)
     }
 
     open lateinit var firestore: FirebaseFirestore
-    private lateinit var query: Query
+    open lateinit var query: Query
 
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
@@ -44,8 +49,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     private lateinit var navAdapter: NavItemPresenter<List<NavBean>>
     private lateinit var meAdapter: NavItemPresenter<MeBean>
     private lateinit var v: View
-    lateinit var gospelId: String
     var navId = -1
+    lateinit var gospelId: String
 
     init {
         info { "look at init times" }
@@ -81,13 +86,14 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         fun bindNavAdapter() {
             info { "Lifecycle.Event.ON_CREATE" }
             presenter.init(whichActivity = null, navFragment = this@NavFragment)
+            // set Query
+            if (navId != VIEW_ME) // 增加了复杂性，需要想办法统一Me
+                navAdapter.setQuery(query) // onStop的时候注销了snapshotListener，onResume的时候一定要开启
         }
 
         @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
         fun setQuery() {
-            // set Query
-            if (navId != VIEW_ME) // 增加了复杂性，需要想办法统一Me
-                navAdapter.setQuery(query) // onStop的时候注销了snapshotListener，onResume的时候一定要开启
+
         }
     }
 
@@ -128,7 +134,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             }
             VIEW_ME -> {
                 val meBeans = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
-                meAdapter = object : NavItemPresenter<MeBean>(query, this@NavFragment.navActivity, navs = meBeans, navId = navId) {
+                meAdapter = object : NavItemPresenter<MeBean>(query, this@NavFragment, navs = meBeans, navId = navId) {
                     override fun onDataChanged() {
 //                        if (itemCount == 0) {
 //                            rv_nav.visibility = View.GONE
@@ -150,7 +156,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             }
         }
         if (navId != VIEW_ME) {
-            navAdapter = object : NavItemPresenter<List<NavBean>>(query, this@NavFragment.navActivity, navs = navBeans, navId = navId) {
+            navAdapter = object : NavItemPresenter<List<NavBean>>(query, this@NavFragment, navs = navBeans, navId = navId) {
                 override fun onDataChanged() {
                     if (itemCount == 0) {
                         rv_nav.visibility = View.GONE

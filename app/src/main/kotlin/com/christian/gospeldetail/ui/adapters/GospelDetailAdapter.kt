@@ -1,6 +1,5 @@
 package com.christian.gospeldetail.ui.adapters
 
-import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +19,13 @@ import java.util.HashMap
 /**
  * Adapter for the RecyclerView in GospelDetailFragment
  */
-abstract class GospelDetailAdapter(private var query: Query, val navActivity: NavActivity) : RecyclerView.Adapter<GospelDetailAdapter.ViewHolder>(), EventListener<QuerySnapshot>, AnkoLogger {
+abstract class GospelDetailAdapter(private var gospelRef: DocumentReference, val navActivity: NavActivity) : RecyclerView.Adapter<GospelDetailAdapter.ViewHolder>(), EventListener<DocumentSnapshot>, AnkoLogger {
 
     private var registration: ListenerRegistration? = null
     private val snapshots = ArrayList<DocumentSnapshot>()
+    private var snapshot: DocumentSnapshot? = null
 
-    override fun onEvent(documentSnapshots: QuerySnapshot?, e: FirebaseFirestoreException?) {
+    override fun onEvent(documentSnapshots: DocumentSnapshot?, e: FirebaseFirestoreException?) {
         if (e != null) {
             warn { "onEvent:error$e" }
             onError(e)
@@ -36,16 +36,18 @@ abstract class GospelDetailAdapter(private var query: Query, val navActivity: Na
             return
         }
 
+        snapshot = documentSnapshots
         // Dispatch the event
         debug { "onEvent:numChanges:$documentSnapshots.documentChanges.size" }
-        for (change in documentSnapshots.documentChanges) {
-            when (change.type) {
-                DocumentChange.Type.ADDED -> onDocumentAdded(change)
-                DocumentChange.Type.MODIFIED -> onDocumentModified(change)
-                DocumentChange.Type.REMOVED -> onDocumentRemoved(change)
-            }
-        }
-
+//        for (change in documentSnapshots.documentChanges) {
+//            when (change.type) {
+//                DocumentChange.Type.ADDED -> onDocumentAdded(change)
+//                DocumentChange.Type.MODIFIED -> onDocumentModified(change)
+//                DocumentChange.Type.REMOVED -> onDocumentRemoved(change)
+//            }
+//        }
+//        onDocumentAdded(documentSnapshots)
+        notifyDataSetChanged()
         onDataChanged()
     }
 
@@ -74,7 +76,7 @@ abstract class GospelDetailAdapter(private var query: Query, val navActivity: Na
 
     private fun startListening() {
         if (registration == null) {
-            registration = query.addSnapshotListener(this)
+            registration = gospelRef.addSnapshotListener(this)
         }
     }
 
@@ -86,7 +88,7 @@ abstract class GospelDetailAdapter(private var query: Query, val navActivity: Na
         notifyDataSetChanged()
     }
 
-    fun setQuery(query: Query) {
+    fun setQuery(gospelRef: DocumentReference) {
         // Stop listening
         stopListening()
 
@@ -95,7 +97,7 @@ abstract class GospelDetailAdapter(private var query: Query, val navActivity: Na
         notifyDataSetChanged()
 
         // Listen to new query
-        this.query = query
+        this.gospelRef = gospelRef
         startListening()
     }
 
@@ -108,21 +110,23 @@ abstract class GospelDetailAdapter(private var query: Query, val navActivity: Na
     }
 
     override fun getItemCount(): Int {
-        info { "getItemCount${snapshots[0].id}" }
-        return snapshots.size
+        if (snapshot != null) {
+            return (snapshot?.data?.get("detail") as java.util.ArrayList<*>).size
+        } else {
+            return 0
+        }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        info { "position$position, snapshot${getSnapshot(position)}" }
         navActivity.hidePb()
-        holder.bind(getSnapshot(position))
+        snapshot?.let { holder.bind(it) }
     }
 
     class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(snapshot: DocumentSnapshot) {
 
 //            tv_gospel_detail_item.text = snapshot.data?.get("title")?.toString()
-            tv_gospel_detail_item.text = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["subtitle"].toString()
+//            tv_gospel_detail_item.text = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["subtitle"].toString()
             Glide.with(containerView.context).load(R.drawable.the_virgin).into(iv_gospel_detail_item)
             tv2_detail_nav_item.text = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["content"].toString()
 

@@ -81,10 +81,6 @@ class NavDetailActivity : NavActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Get gospel ID from extras
-        val gospelId = intent.extras?.getString(KEY_GOSPEL_ID)
-                ?: throw IllegalArgumentException("Must pass extra $KEY_GOSPEL_ID")
-
         // determine size of view pager
         presenter.init(whichActivity = GOSPEL_DETAIL_ACTIVITY)
     }

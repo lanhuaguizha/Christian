@@ -3,7 +3,6 @@ package com.christian.gospeldetail.ui.main
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import com.christian.nav.NavFragment
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.gospel_detail_fragment.view.*
 
@@ -45,30 +43,29 @@ class GospelDetailFragment : NavFragment() {
         // Firestore
         firestore = FirebaseFirestore.getInstance()
         // Get ${LIMIT} gospels
-        gospelRef = firestore.collection("gospels").document(gospelId)
+        gospelRef = firestore.collection("gospels").document("2019.3.15 10:31")
+        gospelDetailAdapter = object : GospelDetailAdapter(gospelRef, this@GospelDetailFragment.activity as NavActivity) {
+            override fun onDataChanged() {
+                // Show/hide content if the query returns empty.
+                if (itemCount == 0) {
+                    rv_gospel_detail.visibility = View.GONE
+//                    viewEmpty.visibility = View.VISIBLE
+                } else {
+                    rv_gospel_detail.visibility = View.VISIBLE
+//                    viewEmpty.visibility = View.GONE
+                }
+            }
 
-//        gospelDetailAdapter = object : GospelDetailAdapter(gospelRef, this@GospelDetailFragment.activity as NavActivity) {
-//            override fun onDataChanged() {
-//                // Show/hide content if the query returns empty.
-//                if (itemCount == 0) {
-//                    rv_gospel_detail.visibility = View.GONE
-////                    viewEmpty.visibility = View.VISIBLE
-//                } else {
-//                    rv_gospel_detail.visibility = View.VISIBLE
-////                    viewEmpty.visibility = View.GONE
-//                }
-//            }
-//
-//            override fun onError(e: FirebaseFirestoreException) {
-//                // Show a snackbar on errors
-//                Snackbar.make(cl_gospel_detail,
-//                        "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
-//            }
-//        }
-        // set Query
-//        gospelDetailAdapter.setQuery(query)
+            override fun onError(e: FirebaseFirestoreException) {
+                // Show a snackbar on errors
+                Snackbar.make(cl_gospel_detail,
+                        "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
+            }
+        }
+        // stopListening
+        gospelDetailAdapter.setQuery(gospelRef)
 
-//        view.rv_gospel_detail.adapter = gospelDetailAdapter
+        view.rv_gospel_detail.adapter = gospelDetailAdapter
 
         return view
     }

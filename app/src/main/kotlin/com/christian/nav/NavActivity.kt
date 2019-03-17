@@ -54,13 +54,7 @@ fun disableShiftMode(view: BottomNavigationView) {
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
  * implementation of NavContract.View.
  */
-open class NavActivity : SwipeBackActivity(), NavContract.INavActivity, NavItemPresenter.OnGospelSelectedListener {
-    override fun onGospelSelected(gospel: DocumentSnapshot) {
-        // Go to the details page for the selected restaurant
-        val intent = Intent(this, NavDetailActivity::class.java)
-        intent.putExtra(NavDetailActivity.KEY_GOSPEL_ID, gospel.id)
-        startActivity(intent)
-    }
+open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     @SuppressLint("MissingSuperCall")
     override fun onSaveInstanceState(outState: Bundle?) {
