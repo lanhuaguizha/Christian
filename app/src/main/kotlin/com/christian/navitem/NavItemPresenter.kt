@@ -49,7 +49,7 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
         startListening()
     }
 
-    private fun startListening() {
+    fun startListening() {
         if (registration == null) {
             registration = query.addSnapshotListener(this)
         }

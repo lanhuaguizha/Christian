@@ -77,23 +77,22 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         query = firestore.collection("gospels")
 
         presenter = navActivity.presenter
-        lifecycle.addObserver(MyObserver())
+        lifecycle.addObserver(NavFragmentLifecycleObserver())
         return v
     }
 
-    inner class MyObserver : LifecycleObserver {
+    inner class NavFragmentLifecycleObserver : LifecycleObserver {
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         fun bindNavAdapter() {
             info { "Lifecycle.Event.ON_CREATE" }
             presenter.init(whichActivity = null, navFragment = this@NavFragment)
-            // set Query
-            if (navId != VIEW_ME) // 增加了复杂性，需要想办法统一Me
-                navAdapter.setQuery(query) // onStop的时候注销了snapshotListener，onResume的时候一定要开启
         }
 
-        @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-        fun setQuery() {
-
+        @OnLifecycleEvent(Lifecycle.Event.ON_START)
+        fun startListening() {
+            if (navId != VIEW_ME) {
+                navAdapter.startListening()
+            }
         }
     }
 
@@ -174,6 +173,10 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
                 }
 
             }
+
+            // set Query
+            if (navId != VIEW_ME) // 增加了复杂性，需要想办法统一Me
+                navAdapter.setQuery(query) // onStop的时候注销了snapshotListener，onResume的时候一定要开启
             navAdapter.setRv(v.rv_nav)
             v.rv_nav.adapter = navAdapter
         }
