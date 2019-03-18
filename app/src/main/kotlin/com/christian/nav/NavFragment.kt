@@ -88,10 +88,21 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             presenter.init(whichActivity = null, navFragment = this@NavFragment)
         }
 
-        @OnLifecycleEvent(Lifecycle.Event.ON_START)
+        @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         fun startListening() {
             if (navId != VIEW_ME) {
                 navAdapter.startListening()
+            }
+        }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        fun stopListening() {
+            if (navId == VIEW_ME) {
+                info { "me stop listening" }
+                meAdapter.stopListening()
+            } else if (navId == VIEW_HOME || navId == VIEW_GOSPEL) {
+                info { "home or gospel stop listening" }
+                navAdapter.stopListening()
             }
         }
     }
@@ -269,17 +280,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     override fun onSaveInstanceState(outState: Bundle) {
 //        outState.putShort(NAV_ID, navId.toShort())
 //        super.onSaveInstanceState(outState)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        if (navId == VIEW_ME) {
-            info { "me stop listening" }
-            meAdapter.stopListening()
-        } else if (navId == VIEW_HOME || navId == VIEW_GOSPEL) {
-            info { "home or gospel stop listening" }
-            navAdapter.stopListening()
-        }
     }
 
     override fun onDestroy() {
