@@ -153,8 +153,7 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
 
         return when (navId) {
             VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
-                val navBean = navs as List<NavBean>
-                navBean[pos].title
+                snapshots[pos].data?.get("subtitle").toString()
             }
             VIEW_ME -> {
                 info { "pos$pos" }
@@ -225,11 +224,10 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
 
         when (navId) {
             VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
-                holder.containerView.setOnClickListener {
-                    val i = Intent(holder.containerView.context, NavDetailActivity::class.java)
-                    i.putExtra(toolbarTitle, getTitle(holder.adapterPosition))
-                    holder.containerView.context.startActivity(i)
-                }
+//                holder.containerView.setOnClickListener {
+//                    val i = Intent(holder.containerView.context, NavDetailActivity::class.java)
+//                    holder.containerView.context.startActivity(i)
+//                }
                 holder.containerView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View ->
                     mRvNav?.showContextMenuForChild(holder.containerView, holder.containerView.measuredWidth.toFloat() - ChristianUtil.dpToPx(200), ChristianUtil.dpToPx(4).toFloat())
 //                    navItemView.showPopupMenu(v)

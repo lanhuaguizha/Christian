@@ -125,9 +125,21 @@ abstract class GospelDetailAdapter(private var gospelRef: DocumentReference, val
     class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(snapshot: DocumentSnapshot) {
 
-//            tv_gospel_detail_item.text = snapshot.data?.get("title")?.toString()
-//            tv_gospel_detail_item.text = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["subtitle"].toString()
-            Glide.with(containerView.context).load(R.drawable.the_virgin).into(iv_gospel_detail_item)
+            val subtitle = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["subtitle"]
+            if (subtitle != null) {
+                tv_gospel_detail_item.visibility = View.VISIBLE
+                tv_gospel_detail_item.text = subtitle.toString()
+            } else {
+                tv_gospel_detail_item.visibility = View.GONE
+            }
+
+            val image = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["image"]
+            if (image != null) {
+                iv_gospel_detail_item.visibility = View.VISIBLE
+                Glide.with(containerView.context).load(image).into(iv_gospel_detail_item)
+            } else {
+                iv_gospel_detail_item.visibility = View.GONE
+            }
             tv2_detail_nav_item.text = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["content"].toString()
 
 //            val gospelDetailBean = snapshot.toObject(GospelDetailBean::class.java)

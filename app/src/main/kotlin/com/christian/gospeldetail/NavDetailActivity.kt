@@ -3,6 +3,7 @@ package com.christian.gospeldetail
 import android.app.Activity
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.view.ViewPager
 import android.view.Gravity
 import android.view.Menu
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import org.jetbrains.anko.info
-import java.util.ArrayList
+import java.util.*
 
 private fun NavActivity.initTbWithTitle(title: String) {
     sb_nav.visibility = View.GONE
@@ -39,17 +40,17 @@ private fun NavActivity.initSrlForbidden() {
 //    srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, theme)
 //}
 
-//private fun NavActivity.initFABE() {
-//    fab_nav.visibility = View.INVISIBLE
-//
-//    // set FAB image
-//    fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_upward_black_24dp, theme))
-//    fab_nav.show()
-//
-//    // set FAB animate to hide's behavior
-//    // set listener
-//    fab_nav.setOnClickListener { scrollRvToTop() }
-//}
+private fun NavActivity.initFABE() {
+    fab_nav.visibility = View.INVISIBLE
+
+    // set FAB image
+    fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_upward_black_24dp, theme))
+    fab_nav.show()
+
+    // set FAB animate to hide's behavior
+    // set listener
+    fab_nav.setOnClickListener { scrollToTop() }
+}
 
 //private fun NavActivity.startNavE(navId: String) {
 //    presenter.createNav(navId)
@@ -156,13 +157,16 @@ class NavDetailActivity : NavActivity() {
 //        })
 //    }
 
-//    override fun invalidateRv(navs: List<NavBean>) {
+    //    override fun invalidateRv(navs: List<NavBean>) {
 //        adapter.navs = navs
 //        runLayoutAnimationE(rv_nav)
 //        fab_nav.post {
 //            initFABE()
 //        }
 //    }
+    override fun initFab() {
+        initFABE()
+    }
 
     var menu: Menu? = null
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

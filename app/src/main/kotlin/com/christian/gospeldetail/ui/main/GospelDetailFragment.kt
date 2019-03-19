@@ -10,6 +10,7 @@ import com.christian.R
 import com.christian.gospeldetail.ui.adapters.GospelDetailAdapter
 import com.christian.nav.NavActivity
 import com.christian.nav.NavFragment
+import com.christian.view.GospelDetailItemDecoration
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -66,6 +67,7 @@ class GospelDetailFragment : NavFragment() {
         gospelDetailAdapter.setQuery(gospelRef)
 
         view.rv_gospel_detail.adapter = gospelDetailAdapter
+        view.rv_gospel_detail.addItemDecoration(GospelDetailItemDecoration(resources.getDimension(R.dimen.activity_horizontal_margin).toInt()))
 
         return view
     }

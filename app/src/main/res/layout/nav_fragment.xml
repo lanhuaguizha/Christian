@@ -11,7 +11,7 @@
         android:layout_height="@dimen/action_bar_height"
         app:cardCornerRadius="0dp"
         app:cardBackgroundColor="@android:color/transparent"
-        app:cardElevation="@dimen/bottom_navigation_view_elevation"
+        app:cardElevation="@dimen/search_box_elevation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

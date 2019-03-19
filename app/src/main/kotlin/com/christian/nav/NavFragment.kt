@@ -37,6 +37,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         // Go to the details page for the selected restaurant
         gospelId = gospel.id
         val intent = Intent(this@NavFragment.navActivity, NavDetailActivity::class.java)
+        intent.putExtra(toolbarTitle, gospel.data?.get("subtitle").toString())
         startActivity(intent)
     }
 

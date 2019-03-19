@@ -89,6 +89,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         initTb()
         initSb()
         initVp(navFragmentList)
+        initFab()
         initBv()
         initBnv()
     }
@@ -115,10 +116,14 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     abl_nav.elevation = dip(4).toFloat()
                 }
-                if (mPosition != 2) // mPosition !=2 should be removed
-                    (presenter as NavPresenter).navFragmentList[mPosition].show()
+                showFab()
             }
         })
+    }
+
+    fun showFab() {
+        if (mPosition != 2) // mPosition !=2 should be removed
+            (presenter as NavPresenter).navFragmentList[mPosition].show()
     }
 
     open fun initTb() {
@@ -163,6 +168,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             }
 
         })
+    }
+
+    open fun initFab() {
+
     }
 
     open fun initBv() {
@@ -211,10 +220,14 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
 
         bnv_nav.setOnNavigationItemReselectedListener {
-            if ((presenter as NavPresenter).navFragmentList[mPosition].rv_nav != null)
-                (presenter as NavPresenter).navFragmentList[mPosition].rv_nav.smoothScrollToPosition(dip(0)) // 为了滚到顶
-            abl_nav.setExpanded(true, true)
+            scrollToTop()
         }
+    }
+
+    fun scrollToTop() {
+        if ((presenter as NavPresenter).navFragmentList[mPosition].rv_nav != null)
+            (presenter as NavPresenter).navFragmentList[mPosition].rv_nav.smoothScrollToPosition(dip(0)) // 为了滚到顶
+        abl_nav.setExpanded(true, true)
     }
 
     override fun showPb() {
