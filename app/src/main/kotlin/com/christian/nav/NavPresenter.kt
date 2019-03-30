@@ -1,19 +1,25 @@
 package com.christian.nav
 
+import android.animation.Animator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.text.TextUtils
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import com.christian.R
 import com.christian.data.NavBean
 import com.christian.data.source.NavsRepository
 import com.christian.disciple.DiscipleFragment
-import com.christian.http.SdHelper
 import com.christian.gospeldetail.ui.main.GospelDetailFragment
 import com.christian.gospeldetail.ui.main.GospelReviewFragment
+import com.christian.http.SdHelper
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import eightbitlab.com.blurview.BlurView
+import kotlinx.android.synthetic.main.nav_activity.*
 import okhttp3.Cache
+import org.jetbrains.anko.dip
 import org.jetbrains.anko.singleLine
 import java.io.BufferedReader
 import java.io.File
@@ -178,7 +184,7 @@ fun applyMarqueeEffect(textView: TextView) {
 }
 
 /**
- * utils to load json files from /assets folder
+ * utils to load json files from assets folder
  */
 fun getJson(fileName: String, context: Context): String {
     //将json数据变成字符串
@@ -216,4 +222,60 @@ fun makeViewBlur(view: BlurView, parent: ViewGroup) {
             .setBlurAlgorithm(SupportRenderScriptBlur(parent.context))
             .setBlurRadius(radius)
             .setHasFixedTransformationMatrix(false)
+}
+
+/**
+ * utils to expand a toolbar
+ */
+fun setToolbarExpanded(context: Context, expanded: Boolean) {
+    val navActivity = context as NavActivity
+    when (expanded) {
+        true -> {
+            expandedAnimation(navActivity, true)
+        }
+        false -> {
+            expandedAnimation(navActivity, false)
+        }
+    }
+
+}
+
+fun isToolbarExpanded(context: Context): Boolean {
+    val navActivity = context as NavActivity
+    return navActivity.tl_nav_1.visibility == View.VISIBLE
+}
+
+private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean) {
+    val animator: ValueAnimator = if (expanded) {
+        navActivity.tl_nav_1.visibility = View.VISIBLE
+        ValueAnimator.ofFloat(navActivity.dip(56).toFloat(), navActivity.dip(112).toFloat())
+    } else {
+        ValueAnimator.ofFloat(navActivity.dip(112).toFloat(), navActivity.dip(56).toFloat())
+    }
+    animator.duration = 4000
+    animator.interpolator = LinearInterpolator()
+    animator.addUpdateListener {
+        val floatValue = it.animatedValue as Float
+        navActivity.abl_nav.bottom = floatValue.toInt()
+    }
+    animator.start()
+    animator.addListener(object : Animator.AnimatorListener {
+        override fun onAnimationRepeat(animation: Animator) {
+        }
+
+        override fun onAnimationEnd(animation: Animator) {
+            if (expanded) {
+                navActivity.tl_nav_1.visibility = View.VISIBLE
+            } else {
+                navActivity.tl_nav_1.visibility = View.GONE
+            }
+        }
+
+        override fun onAnimationCancel(animation: Animator) {
+        }
+
+        override fun onAnimationStart(animation: Animator) {
+        }
+
+    })
 }

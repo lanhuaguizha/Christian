@@ -18,6 +18,7 @@
 
         <eightbitlab.com.blurview.BlurView
             android:id="@+id/bv_tabs_nav"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:outlineProvider="bounds"

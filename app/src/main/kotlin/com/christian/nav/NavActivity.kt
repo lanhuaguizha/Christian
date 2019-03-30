@@ -19,15 +19,12 @@ import android.view.View
 import com.christian.ChristianApplication
 import com.christian.Injection
 import com.christian.R
-import com.christian.gospeldetail.NavDetailActivity
-import com.christian.navitem.NavItemPresenter
 import com.christian.navitem.NavItemPresenter.Companion.RC_SIGN_IN
 import com.christian.swipe.SwipeBackActivity
 import com.christian.swipe.SwipeBackHelper
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
@@ -121,13 +118,19 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         })
     }
 
-    fun showFab() {
+    private fun showFab() {
         if (mPosition != 2) // mPosition !=2 should be removed
             (presenter as NavPresenter).navFragmentList[mPosition].show()
     }
 
     open fun initTb() {
         sb_nav.visibility = View.VISIBLE
+
+        if (isToolbarExpanded(this)) {
+            setToolbarExpanded(this, false)
+        } else {
+            setToolbarExpanded(this, true)
+        }
     }
 
     private fun initSb() {

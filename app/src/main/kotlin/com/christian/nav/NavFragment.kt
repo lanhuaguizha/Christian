@@ -135,11 +135,9 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             }
             VIEW_GOSPEL -> {
                 makeViewBlur(v.bv_tabs_nav, navActivity.cl_nav)
-                v.cv_nav_frag.visibility = View.VISIBLE
                 for (tabTitle in (presenter as NavPresenter).tabTitleList) {
                     v.tl_nav.newTab().setText(tabTitle).let { v.tl_nav.addTab(it) }
                 }
-                v.rv_nav.addItemDecoration(GospelItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
             }
             VIEW_DISCIPLE -> {
             }
@@ -192,8 +190,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             navAdapter.setRv(v.rv_nav)
             v.rv_nav.adapter = navAdapter
         }
-        if (navId != VIEW_GOSPEL)
-            v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
+        v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
 
             override fun onHide() {
