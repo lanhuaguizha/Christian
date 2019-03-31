@@ -89,6 +89,16 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         initFab()
         initBv()
         initBnv()
+
+
+        abl_nav.postDelayed({
+            if (isToolbarExpanded(this)) {
+                setToolbarExpanded(this, false)
+            } else {
+                setToolbarExpanded(this, true)
+            }
+        }, 1000)
+
     }
 
     override fun deinitView() {
@@ -125,12 +135,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     open fun initTb() {
         sb_nav.visibility = View.VISIBLE
-
-        if (isToolbarExpanded(this)) {
-            setToolbarExpanded(this, false)
-        } else {
-            setToolbarExpanded(this, true)
-        }
     }
 
     private fun initSb() {

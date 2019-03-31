@@ -18,8 +18,10 @@ import com.christian.http.SdHelper
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import okhttp3.Cache
 import org.jetbrains.anko.dip
+import org.jetbrains.anko.info
 import org.jetbrains.anko.singleLine
 import java.io.BufferedReader
 import java.io.File
@@ -32,11 +34,7 @@ import java.util.*
  * Hold references to View and Model, implementation of View is NavActivity, implementation of Model
  * is NavBean
  */
-class NavPresenter(
-        private var navId: Int,
-        private val navsRepository: NavsRepository,
-        override var view: NavContract.INavActivity) : NavContract.IPresenter {
-
+class NavPresenter(private var navId: Int, private val navsRepository: NavsRepository, override var view: NavContract.INavActivity) : NavContract.IPresenter {
     val tabTitleList = listOf(
             "马太福音",
             "马可福音",
@@ -231,10 +229,10 @@ fun setToolbarExpanded(context: Context, expanded: Boolean) {
     val navActivity = context as NavActivity
     when (expanded) {
         true -> {
-            expandedAnimation(navActivity, true)
+            expandedAnimation(navActivity, true, navActivity.tb_nav, navActivity.abl_nav)
         }
         false -> {
-            expandedAnimation(navActivity, false)
+            expandedAnimation(navActivity, false, navActivity.tb_nav, navActivity.abl_nav)
         }
     }
 
@@ -245,14 +243,15 @@ fun isToolbarExpanded(context: Context): Boolean {
     return navActivity.tl_nav_1.visibility == View.VISIBLE
 }
 
-private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean) {
+private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, view: View, expandedView: View) {
     val animator: ValueAnimator = if (expanded) {
         navActivity.tl_nav_1.visibility = View.VISIBLE
-        ValueAnimator.ofFloat(navActivity.dip(56).toFloat(), navActivity.dip(112).toFloat())
+        ValueAnimator.ofFloat(view.bottom.toFloat(), view.bottom.toFloat() + expandedView.bottom.toFloat())
     } else {
-        ValueAnimator.ofFloat(navActivity.dip(112).toFloat(), navActivity.dip(56).toFloat())
+        navActivity.info { "nav activity's abl_nav's height is ${navActivity.abl_nav.measuredHeight}" }
+        ValueAnimator.ofFloat(expandedView.bottom.toFloat(), view.bottom.toFloat())
     }
-    animator.duration = 4000
+    animator.duration = navActivity.resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
     animator.interpolator = LinearInterpolator()
     animator.addUpdateListener {
         val floatValue = it.animatedValue as Float

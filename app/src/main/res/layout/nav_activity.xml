@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fl_nav"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/cl_nav"
@@ -14,62 +14,74 @@
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/abl_nav"
-            app:expanded="true"
-            android:background="@android:color/transparent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:expanded="true">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/tb_nav"
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/ctl_nav"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/action_bar_height"
-                android:theme="@style/AppTheme.AppBarOverlay"
-                app:contentInsetStart="0dp"
-                android:background="@color/colorPrimary"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                tools:showIn="@layout/home_frag">
+                app:titleEnabled="false">
 
-                <include layout="@layout/sb_nav" />
-            </android.support.v7.widget.Toolbar>
+                <android.support.design.widget.TabLayout
+                    android:visibility="gone"
+                    android:id="@+id/tl_nav_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/action_bar_height"
+                    android:layout_marginTop="56dp"
+                    android:background="@color/colorPrimary"
+                    android:theme="@style/AppTheme.AppBarOverlay"
+                    app:tabIndicatorColor="@color/white"
+                    app:tabMode="scrollable" />
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tl_nav_1"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/action_bar_height"
-                app:tabMode="scrollable"
-                android:theme="@style/AppTheme.AppBarOverlay"
-                app:tabIndicatorColor="@color/white" />
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/tb_nav"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/action_bar_height"
+                    android:background="@color/colorPrimary"
+                    android:theme="@style/AppTheme.AppBarOverlay"
+                    app:contentInsetStart="0dp"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    tools:showIn="@layout/home_frag">
+
+                    <include layout="@layout/sb_nav" />
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
         <com.christian.view.CustomViewPager
             android:id="@+id/vp_nav"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.christian.view.AnimationFloatingActionButton
             android:id="@+id/fab_nav"
-            android:visibility="gone"
-            android:theme="@style/AppTheme.AppBarOverlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="@dimen/fab_margin"
             android:layout_marginRight="@dimen/fab_margin"
-            app:srcCompat="@drawable/ic_edit_black_24dp"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:visibility="gone"
             app:layout_anchor="@id/bv_nav"
-            app:layout_anchorGravity="end" />
+            app:layout_anchorGravity="end"
+            app:srcCompat="@drawable/ic_edit_black_24dp" />
 
         <eightbitlab.com.blurview.BlurView
             android:id="@+id/bv_nav"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/action_bar_height"
             android:layout_gravity="bottom"
             android:elevation="@dimen/bottom_navigation_view_elevation"
-            tools:targetApi="lollipop"
             android:outlineProvider="bounds"
             app:blurOverlayColor="@color/colorOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/action_bar_height">
+            tools:targetApi="lollipop">
 
             <android.support.design.widget.BottomNavigationView
                 android:id="@+id/bnv_nav"
@@ -82,10 +94,10 @@
 
     <ProgressBar
         android:id="@+id/pb_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
