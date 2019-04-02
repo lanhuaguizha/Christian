@@ -3,11 +3,20 @@ package com.christian.swipe
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
+import com.christian.R
+import com.github.anzewei.parallaxbacklayout.ParallaxBack
+import com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout
+import com.github.anzewei.parallaxbacklayout.ParallaxHelper
+import com.github.anzewei.parallaxbacklayout.ViewDragHelper
+import android.view.ViewGroup
+
+
 
 
 /**
  * The activity base class, swipe back logic here.
  */
+@ParallaxBack(edge = ParallaxBack.Edge.LEFT, layout = ParallaxBack.Layout.PARALLAX, edgeMode = ParallaxBack.EdgeMode.FULLSCREEN)
 abstract class SwipeBackActivity : AppCompatActivity() {
 
     init {
@@ -16,29 +25,11 @@ abstract class SwipeBackActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SwipeBackHelper.onCreate(this)
-        initSwipeBack()
+        initSbl()
     }
 
-    private fun initSwipeBack() {
-        SwipeBackHelper.getCurrentPage(this)
-                .setSwipeBackEnable(true)
-                .setSwipeSensitivity(0.5f)
-                .setSwipeRelateEnable(false)
-                .setSwipeRelateOffset(300)
-                .setSwipeEdgePercent(1f)
-                .setClosePercent(0.2f)
-    }
-
-
-    override fun onPostCreate(savedInstanceState: Bundle?) {
-        super.onPostCreate(savedInstanceState)
-        SwipeBackHelper.onPostCreate(this)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        SwipeBackHelper.onDestroy(this)
+    private fun initSbl() {
+        ParallaxHelper.getParallaxBackLayout(this, true).setLayoutType(ParallaxBackLayout.LAYOUT_PARALLAX, CupertinoParallaxTransform())
     }
 
 }

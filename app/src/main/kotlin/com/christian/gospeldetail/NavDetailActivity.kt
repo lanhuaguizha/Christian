@@ -12,7 +12,7 @@ import android.view.View
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.nav.*
-import com.christian.swipe.SwipeBackHelper
+import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
@@ -41,8 +41,6 @@ private fun NavActivity.initSrlForbidden() {
 //}
 
 private fun NavActivity.initFABE() {
-    fab_nav.visibility = View.INVISIBLE
-
     // set FAB image
     fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_upward_black_24dp, theme))
     fab_nav.show()
@@ -89,12 +87,6 @@ class NavDetailActivity : NavActivity() {
     override fun initView(navFragmentList: ArrayList<NavFragment>) {
         super.initView(navFragmentList)
         initVp(navFragmentList)
-    }
-
-    override fun initSbl() {
-        SwipeBackHelper.getCurrentPage(this)
-                .setSwipeBackEnable(true)
-                .setDisallowInterceptTouchEvent(false)
     }
 
     override fun initTb() {
@@ -202,11 +194,9 @@ class NavDetailActivity : NavActivity() {
 }
 
 fun disallowInterceptTouchEventOfSwipeBackLayout(position: Int, activity: Activity) {
-    if (position < 1) {
-        SwipeBackHelper.getCurrentPage(activity)
-                .setDisallowInterceptTouchEvent(false)
-    } else {
-        SwipeBackHelper.getCurrentPage(activity)
-                .setDisallowInterceptTouchEvent(true)
-    }
+//    if (position < 1) {
+//        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(true)
+//    } else {
+//        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(false)
+//    }
 }

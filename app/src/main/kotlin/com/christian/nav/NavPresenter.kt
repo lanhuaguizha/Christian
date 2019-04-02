@@ -14,17 +14,12 @@ import com.christian.data.source.NavsRepository
 import com.christian.disciple.DiscipleFragment
 import com.christian.gospeldetail.ui.main.GospelDetailFragment
 import com.christian.gospeldetail.ui.main.GospelReviewFragment
-import com.christian.http.SdHelper
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_fragment.*
-import okhttp3.Cache
-import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
 import org.jetbrains.anko.singleLine
 import java.io.BufferedReader
-import java.io.File
 import java.io.IOException
 import java.io.InputStreamReader
 import java.util.*
@@ -122,12 +117,6 @@ class NavPresenter(private var navId: Int, private val navsRepository: NavsRepos
     }
 
     override fun readNav() {
-    }
-
-    private fun getCache(): Cache {
-        val httpCacheDirectory = File(SdHelper.getDiskCacheDir(), "responses")
-        val cacheSize = 10 * 1024 * 1024//确定10M大小的缓存
-        return Cache(httpCacheDirectory, cacheSize.toLong())
     }
 
     fun generateNavId(itemId: Int): Int {

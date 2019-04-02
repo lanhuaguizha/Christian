@@ -21,7 +21,6 @@ import com.christian.Injection
 import com.christian.R
 import com.christian.navitem.NavItemPresenter.Companion.RC_SIGN_IN
 import com.christian.swipe.SwipeBackActivity
-import com.christian.swipe.SwipeBackHelper
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -81,7 +80,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun initView(navFragmentList: ArrayList<NavFragment>) {
-        initSbl()
         initAbl()
         initTb()
         initSb()
@@ -91,23 +89,17 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         initBnv()
 
 
-        abl_nav.postDelayed({
-            if (isToolbarExpanded(this)) {
-                setToolbarExpanded(this, false)
-            } else {
-                setToolbarExpanded(this, true)
-            }
-        }, 1000)
+//        abl_nav.postDelayed({
+//            if (isToolbarExpanded(this)) {
+//                setToolbarExpanded(this, false)
+//            } else {
+//                setToolbarExpanded(this, true)
+//            }
+//        }, 1000)
 
     }
 
     override fun deinitView() {
-    }
-
-    open fun initSbl() {
-        SwipeBackHelper.getCurrentPage(this)
-                .setSwipeBackEnable(false)
-                .setDisallowInterceptTouchEvent(true)
     }
 
     private fun initAbl() {

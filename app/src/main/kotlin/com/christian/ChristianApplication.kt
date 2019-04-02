@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
 import com.christian.util.CrashHandler
+import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 
@@ -41,6 +42,8 @@ class ChristianApplication : Application() {
         // Normal app init code...
         val crashHandler = CrashHandler.getInstance()
         crashHandler.get()?.init(this)
+
+        registerActivityLifecycleCallbacks(ParallaxHelper.getInstance())
     }
 
     lateinit var refWatcher: RefWatcher
