@@ -187,8 +187,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     fun showFAB() {
 //        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         when (mPosition) {
-            3 -> fab_nav.show()
-            else -> fab_nav.hide()
+//            3 -> fab_nav.show()
+//            else -> fab_nav.hide()
         }
         fab_nav.setOnClickListener {
 
