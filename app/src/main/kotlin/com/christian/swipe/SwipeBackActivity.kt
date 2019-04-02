@@ -29,7 +29,7 @@ abstract class SwipeBackActivity : AppCompatActivity() {
     }
 
     private fun initSbl() {
-        ParallaxHelper.getParallaxBackLayout(this, true).setLayoutType(ParallaxBackLayout.LAYOUT_PARALLAX, CupertinoParallaxTransform())
+        ParallaxHelper.getParallaxBackLayout(this, true).setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, CupertinoParallaxTransform())
     }
 
 }
