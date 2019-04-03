@@ -20,6 +20,7 @@ import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
+import org.jetbrains.anko.debug
 import org.jetbrains.anko.info
 import org.jetbrains.anko.singleLine
 import java.io.BufferedReader
@@ -273,10 +274,12 @@ private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, view:
 
 fun enableBackGesture(position: Int, positionOffset: Float, activity: NavDetailActivity) {
     if (position == 0 && activity.isMovingRight && positionOffset in 0f..0.3f) { // pagePosition从onPageSelected放到onPageScrolled之后就需要使用pagePositionOffset来限制在Review页面就可以返回的bug
-        activity.info { "enableBackGesture: enable back gesture" }
+        activity.debug { "enableBackGesture: enable back gesture" }
+        activity.vp_nav.setDisallowInterceptTouchEvent(true)
         ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(true) // 滑动的过程当中，ParallaxBackLayout一直在接管手势
     } else {
-        activity.info { "enableBackGesture: disable back gesture" }
+        activity.debug { "enableBackGesture: disable back gesture" }
+        activity.vp_nav.setDisallowInterceptTouchEvent(false)
         ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(false)
     }
 }

@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
-import org.jetbrains.anko.info
+import org.jetbrains.anko.debug
 
 open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
     override fun onGospelSelected(gospel: DocumentSnapshot) {
@@ -53,7 +53,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     lateinit var gospelId: String
 
     init {
-        info { "look at init times" }
+        debug { "look at init times" }
     }
 
     /**
@@ -63,11 +63,11 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         super.onAttach(context)
         navActivity = context as NavActivity
         ctx = context
-        info { "onAttach" }
+        debug { "onAttach" }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        info { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState ---onCreateView" }
+        debug { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState ---onCreateView" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
         // Enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true)
@@ -84,7 +84,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     inner class NavFragmentLifecycleObserver : LifecycleObserver {
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         fun bindNavAdapter() {
-            info { "Lifecycle.Event.ON_CREATE" }
+            debug { "Lifecycle.Event.ON_CREATE" }
             presenter.init(whichActivity = null, navFragment = this@NavFragment)
         }
 
@@ -98,17 +98,17 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         fun stopListening() {
             if (navId == VIEW_ME) {
-                info { "me stop listening" }
+                debug { "me stop listening" }
                 meAdapter.stopListening()
             } else if (navId == VIEW_HOME || navId == VIEW_GOSPEL) {
-                info { "home or gospel stop listening" }
+                debug { "home or gospel stop listening" }
                 navAdapter.stopListening()
             }
         }
     }
 
     override fun initView(navBeans: List<NavBean>) {
-        info { "nav fragment is $this and navId is $navId --initView" }
+        debug { "nav fragment is $this and navId is $navId --initView" }
         initSrl()
         initRv(navBeans)
     }

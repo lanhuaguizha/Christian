@@ -19,7 +19,7 @@ import android.os.Handler
 import android.util.Log
 import com.christian.data.NavBean
 import com.christian.data.source.NavsDataSource
-import org.jetbrains.anko.info
+import org.jetbrains.anko.debug
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -55,7 +55,7 @@ object NavsRemoteDataSource : NavsDataSource {
         newCall.enqueue(object : Callback<List<NavBean>> {
 
             override fun onFailure(call: Call<List<NavBean>>?, t: Throwable?) {
-                info { "onFailure${t.toString()}" }
+                debug { "onFailure${t.toString()}" }
                 Log.d("cache_log", "onFailure")
                 callback.onDataNotAvailable()
             }
@@ -65,7 +65,7 @@ object NavsRemoteDataSource : NavsDataSource {
                 when (response.code()) {
                     504 -> callback.onDataNotAvailable()
                 }
-                info { "onResponse:${response.toString()}" }
+                debug { "onResponse:${response.toString()}" }
 
                 response.body()?.let {
                     callback.onNavsLoaded(it)

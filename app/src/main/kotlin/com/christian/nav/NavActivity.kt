@@ -29,8 +29,8 @@ import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.search_bar_expanded.*
+import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
-import org.jetbrains.anko.info
 import java.util.*
 
 
@@ -104,7 +104,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     private fun initAbl() {
         abl_nav.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
-            info { "verticalOffset$verticalOffset" }
+            debug { "verticalOffset$verticalOffset" }
             if (-verticalOffset == appBarLayout.height) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     abl_nav.elevation = 0f
@@ -144,18 +144,18 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                info { "onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
+                debug { "onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
             }
 
             override fun onPageSelected(position: Int) {
-                info { "onPageSelected$position" }
+                debug { "onPageSelected$position" }
                 mPosition = position
-                info { "position$position" }
+                debug { "position$position" }
                 bnv_nav.menu.getItem(position).isChecked = true
             }
 
             override fun onPageScrollStateChanged(state: Int) {
-                info { "onPageScrollStateChanged, state$state" }
+                debug { "onPageScrollStateChanged, state$state" }
                 if (state == 2) {
                     fab_nav.hide()
                 } else if (state == 0) {
@@ -201,7 +201,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                     RC_SIGN_IN)
         }
 //        if (fab_nav.visibility != View.VISIBLE) {
-//            info { "initFAB View.VISIBLE" }
+//            debug { "initFAB View.VISIBLE" }
 //            fab_nav.visibility = View.VISIBLE
 //        }
     }
@@ -213,7 +213,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
             val itemPosition = (presenter as NavPresenter).generateNavId(it.itemId)
-            info { "generateNavId$itemPosition" }
+            debug { "generateNavId$itemPosition" }
             vp_nav.currentItem = itemPosition
             true
         }

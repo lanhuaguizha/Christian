@@ -1,7 +1,6 @@
 package com.christian.navitem
 
 import android.content.Intent
-import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.AppCompatImageButton
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import android.widget.Switch
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.MeBean
-import com.christian.data.NavBean
 import com.christian.gospeldetail.NavDetailActivity
 import com.christian.nav.*
 import com.christian.navitem.me.MeItemView
@@ -19,11 +17,8 @@ import com.christian.util.ChristianUtil
 import com.christian.view.ContextMenuRecyclerView
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.firestore.*
-import kotlinx.android.synthetic.main.nav_item_view.*
 import kotlinx.android.synthetic.main.nav_item_view_small.*
 import org.jetbrains.anko.debug
-import org.jetbrains.anko.image
-import org.jetbrains.anko.info
 import org.jetbrains.anko.warn
 
 /**
@@ -86,6 +81,7 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
 
         onDataChanged()
     }
+
     private fun onDocumentAdded(change: DocumentChange) {
         snapshots.add(change.newIndex, change.document)
         notifyItemInserted(change.newIndex)
@@ -156,7 +152,7 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
                 snapshots[pos].data?.get("subtitle").toString()
             }
             VIEW_ME -> {
-                info { "pos$pos" }
+                debug { "pos$pos" }
                 when (pos) {
                     0 -> "我的"
                     in 1..4 -> {
@@ -174,7 +170,7 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NavItemView {
         navActivity = parent.context as NavActivity
-        info { "navActivity$navActivity" }
+        debug { "navActivity$navActivity" }
         val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false)
         navItemView = NavItemView(this, itemView, navActivity)
 
@@ -257,7 +253,7 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
                     }
                 }
 
-                info { "VIEW_ME position$position" }
+                debug { "VIEW_ME position$position" }
                 if (position == 0) {
                     if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (navs as MeBean).name
                     if (holder.tv2_nav_item_small != null) {
@@ -297,7 +293,7 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
     }
 
     private fun applyViewHolderAnimation(holder: NavItemView) {
-        info { "mPosition$mPosition" }
+        debug { "mPosition$mPosition" }
         if (holder.adapterPosition > mPosition) {
             navItemView.animateItemView(holder.itemView)
         } else {

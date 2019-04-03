@@ -5,16 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.christian.R
+import com.christian.nav.NavActivity
 import com.google.firebase.firestore.*
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.gospel_detail_item.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.warn
-import com.christian.R
-import com.christian.nav.NavActivity
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.gospel_detail_item.*
-import org.jetbrains.anko.info
 import java.util.HashMap
+import kotlin.collections.ArrayList
+import kotlin.collections.get
 
 /**
  * Adapter for the RecyclerView in GospelDetailFragment

@@ -8,11 +8,10 @@ import android.view.*
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.nav.*
-import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
-import org.jetbrains.anko.info
+import org.jetbrains.anko.debug
 import java.util.*
 
 private fun NavActivity.initTbWithTitle(title: String) {
@@ -65,7 +64,7 @@ class NavDetailActivity : NavActivity() {
     }
 
 //    override fun initView(navs: List<NavBean>) {
-//        info { "navs$navs" }
+//        debug { "navs$navs" }
 //        initAbl()
 //        initTbWithTitle(intent.extras.getString("title"))
 //        initSrlForbidden()
@@ -107,7 +106,7 @@ class NavDetailActivity : NavActivity() {
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                info { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
+                debug { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
                 pagePosition = position
                 pagePositionOffset = positionOffset
             }
@@ -116,7 +115,7 @@ class NavDetailActivity : NavActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                info { "initVp: onPageSelected$position" }
+                debug { "initVp: onPageSelected$position" }
             }
 
         })
@@ -140,12 +139,14 @@ class NavDetailActivity : NavActivity() {
                 } catch (e: Exception) {
                     true
                 }
+                debug { "ACTION_MOVE" }
             }
             MotionEvent.ACTION_UP -> {
                 mActivePointerId = INVALID_POINTER
+                debug { "ACTION_UP" }
             }
         }
-        info { "dispatchTouchEvent: isMovingRight$isMovingRight" }
+        debug { "dispatchTouchEvent: isMovingRight$isMovingRight, pagePosition$pagePosition, pagePositionOffset$pagePositionOffset" }
         enableBackGesture(pagePosition, pagePositionOffset, this@NavDetailActivity)
         return super.dispatchTouchEvent(ev)
     }

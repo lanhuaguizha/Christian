@@ -5,7 +5,7 @@ import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
+import org.jetbrains.anko.debug
 
 class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs), AnkoLogger {
 
@@ -13,10 +13,10 @@ class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(contex
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         return if (mDisallowIntercept) {
-            info { "false" }
+            debug { "false" }
             false
         } else {
-            info { "true" }
+            debug { "true" }
             super.onInterceptTouchEvent(ev)
         }
     }
