@@ -1,14 +1,10 @@
 package com.christian.gospeldetail
 
-import android.app.Activity
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.view.ViewPager
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.nav.*
@@ -101,18 +97,14 @@ class NavDetailActivity : NavActivity() {
         bv_nav.layoutParams = params
     }
 
+    private var pagePosition: Int = 0
+
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
         super.initVp(navFragmentList)
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 info { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
-                disallowInterceptTouchEventOfSwipeBackLayout(position, this@NavDetailActivity)
-                if (position == 0 && positionOffset < 0.3 && positionOffset > 0) {
-                    vp_nav.setDisallowInterceptTouchEvent(true)
-                } else {
-                    vp_nav.setDisallowInterceptTouchEvent(false)
-                }
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -120,12 +112,30 @@ class NavDetailActivity : NavActivity() {
 
             override fun onPageSelected(position: Int) {
                 info { "initVp: onPageSelected$position" }
-//                disallowInterceptTouchEventOfSwipeBackLayout(position, this@NavDetailActivity)
+                pagePosition = position
             }
 
         })
     }
 
+    private var lastX: Float = 0f
+
+    var isMovingRight: Boolean = true // true不会崩溃，进入nav detail左滑的时候
+
+    // used for enable back gesture
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        when (ev.action) {
+            MotionEvent.ACTION_DOWN -> {
+                lastX = ev.x
+            }
+            MotionEvent.ACTION_MOVE -> {
+                isMovingRight = ev.x - lastX > 0
+            }
+        }
+        info { "dispatchTouchEvent: isMovingRight$isMovingRight" }
+        enableBackGesture(pagePosition, this@NavDetailActivity)
+        return super.dispatchTouchEvent(ev)
+    }
 
     //    override fun initRv(navs: List<NavBean>) {
 //        adapter = NavItemPresenter(navs, false)
@@ -193,10 +203,14 @@ class NavDetailActivity : NavActivity() {
     }
 }
 
-fun disallowInterceptTouchEventOfSwipeBackLayout(position: Int, activity: Activity) {
-//    if (position < 1) {
-//        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(true)
-//    } else {
-//        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(false)
-//    }
+fun enableBackGesture(position: Int, activity: NavDetailActivity) {
+    if (position == 0 && activity.isMovingRight) {
+        activity.info { "enableBackGesture: enable back gesture" }
+        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(true) // 滑动的过程当中，ParallaxBackLayout一直在接管手势
+//        activity.vp_nav.setDisallowInterceptTouchEvent(true)
+    } else {
+        activity.info { "enableBackGesture: disable back gesture" }
+//        activity.vp_nav.setDisallowInterceptTouchEvent(false) // 静止或滑动的过程当中，vp_nav一直在接管手势
+        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(false)
+    }
 }
