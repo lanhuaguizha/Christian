@@ -19,7 +19,6 @@ import com.christian.data.NavBean
 import com.christian.gospeldetail.NavDetailActivity
 import com.christian.navitem.NavItemPresenter
 import com.christian.view.ContextMenuRecyclerView
-import com.christian.view.GospelItemDecoration
 import com.christian.view.ItemDecoration
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -128,7 +127,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
 
             }
             VIEW_GOSPEL -> {
-                makeViewBlur(v.bv_tabs_nav, navActivity.cl_nav)
+                makeViewBlur(v.bv_tabs_nav, navActivity.cl_nav, navActivity.window)
                 for (tabTitle in (presenter as NavPresenter).tabTitleList) {
                     v.tl_nav.newTab().setText(tabTitle).let { v.tl_nav.addTab(it) }
                 }

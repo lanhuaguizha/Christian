@@ -175,7 +175,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     open fun initBv() {
         //set background, if your root layout doesn't have one
-        makeViewBlur(bv_nav, cl_nav)
+        makeViewBlur(bv_nav, cl_nav, window)
         // set behavior
         val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
         params.gravity = Gravity.BOTTOM

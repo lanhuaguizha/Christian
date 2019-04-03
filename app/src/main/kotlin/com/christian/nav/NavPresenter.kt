@@ -6,15 +6,18 @@ import android.content.Context
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import com.christian.R
 import com.christian.data.NavBean
 import com.christian.data.source.NavsRepository
 import com.christian.disciple.DiscipleFragment
+import com.christian.gospeldetail.NavDetailActivity
 import com.christian.gospeldetail.ui.main.GospelDetailFragment
 import com.christian.gospeldetail.ui.main.GospelReviewFragment
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
+import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.info
@@ -201,11 +204,11 @@ fun getJson(fileName: String, context: Context): String {
 /**
  * utils to blur a view
  */
-fun makeViewBlur(view: BlurView, parent: ViewGroup) {
-//    val windowBackground = window.decorView.background
+fun makeViewBlur(view: BlurView, parent: ViewGroup, window: Window) {
+    val windowBackground = window.decorView.background
     val radius = 25f
     view.setupWith(parent)
-//            .setFrameClearDrawable(windowBackground)
+            .setFrameClearDrawable(windowBackground)
             .setBlurAlgorithm(SupportRenderScriptBlur(parent.context))
             .setBlurRadius(radius)
             .setHasFixedTransformationMatrix(false)
@@ -266,4 +269,14 @@ private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, view:
         }
 
     })
+}
+
+fun enableBackGesture(position: Int, positionOffset: Float, activity: NavDetailActivity) {
+    if (position == 0 && activity.isMovingRight && positionOffset in 0f..0.3f) { // pagePosition从onPageSelected放到onPageScrolled之后就需要使用pagePositionOffset来限制在Review页面就可以返回的bug
+        activity.info { "enableBackGesture: enable back gesture" }
+        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(true) // 滑动的过程当中，ParallaxBackLayout一直在接管手势
+    } else {
+        activity.info { "enableBackGesture: disable back gesture" }
+        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(false)
+    }
 }

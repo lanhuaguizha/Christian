@@ -205,13 +205,3 @@ class NavDetailActivity : NavActivity() {
         refWatcher.watch(this)
     }
 }
-
-fun enableBackGesture(position: Int, positionOffset: Float, activity: NavDetailActivity) {
-    if (position == 0 && activity.isMovingRight && positionOffset in 0f..0.3f) { // pagePosition从onPageSelected放到onPageScrolled之后就需要使用pagePositionOffset来限制在Review页面就可以返回的bug
-        activity.info { "enableBackGesture: enable back gesture" }
-        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(true) // 滑动的过程当中，ParallaxBackLayout一直在接管手势
-    } else {
-        activity.info { "enableBackGesture: disable back gesture" }
-        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(false)
-    }
-}
