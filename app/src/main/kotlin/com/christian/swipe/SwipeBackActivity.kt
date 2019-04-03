@@ -9,8 +9,7 @@ import com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import com.github.anzewei.parallaxbacklayout.ViewDragHelper
 import android.view.ViewGroup
-
-
+import org.jetbrains.anko.dip
 
 
 /**
@@ -25,11 +24,12 @@ abstract class SwipeBackActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initSbl()
+//        initSbl()
     }
 
     private fun initSbl() {
-        ParallaxHelper.getParallaxBackLayout(this, true).setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, CupertinoParallaxTransform())
+        val parallaxBackLayout = ParallaxHelper.getParallaxBackLayout(this, true)
+        parallaxBackLayout.setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, CupertinoParallaxTransform())
     }
 
 }

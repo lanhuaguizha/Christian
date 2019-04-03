@@ -99,12 +99,16 @@ class NavDetailActivity : NavActivity() {
 
     private var pagePosition: Int = 0
 
+    private var pagePositionOffset: Float = 0f
+
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
         super.initVp(navFragmentList)
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 info { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
+                pagePosition = position
+                pagePositionOffset = positionOffset
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -112,7 +116,6 @@ class NavDetailActivity : NavActivity() {
 
             override fun onPageSelected(position: Int) {
                 info { "initVp: onPageSelected$position" }
-                pagePosition = position
             }
 
         })
@@ -133,7 +136,7 @@ class NavDetailActivity : NavActivity() {
             }
         }
         info { "dispatchTouchEvent: isMovingRight$isMovingRight" }
-        enableBackGesture(pagePosition, this@NavDetailActivity)
+        enableBackGesture(pagePosition, pagePositionOffset, this@NavDetailActivity)
         return super.dispatchTouchEvent(ev)
     }
 
@@ -203,14 +206,12 @@ class NavDetailActivity : NavActivity() {
     }
 }
 
-fun enableBackGesture(position: Int, activity: NavDetailActivity) {
-    if (position == 0 && activity.isMovingRight) {
+fun enableBackGesture(position: Int, positionOffset: Float, activity: NavDetailActivity) {
+    if (position == 0 && activity.isMovingRight && positionOffset in 0f..0.3f) { // pagePosition从onPageSelected放到onPageScrolled之后就需要使用pagePositionOffset来限制在Review页面就可以返回的bug
         activity.info { "enableBackGesture: enable back gesture" }
         ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(true) // 滑动的过程当中，ParallaxBackLayout一直在接管手势
-//        activity.vp_nav.setDisallowInterceptTouchEvent(true)
     } else {
         activity.info { "enableBackGesture: disable back gesture" }
-//        activity.vp_nav.setDisallowInterceptTouchEvent(false) // 静止或滑动的过程当中，vp_nav一直在接管手势
         ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(false)
     }
 }

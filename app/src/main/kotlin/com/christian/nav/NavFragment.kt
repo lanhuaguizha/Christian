@@ -116,7 +116,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
 
     private fun initSrl() {
         v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(navActivity.resources, R.color.colorAccent, navActivity.theme))
-        v.srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, navActivity.theme)
         v.srl_nav.isEnabled = false
     }
 
