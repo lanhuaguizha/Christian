@@ -275,7 +275,8 @@ private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, view:
 fun enableBackGesture(position: Int, positionOffset: Float, activity: NavDetailActivity) {
     if (position == 0 && activity.isMovingRight && positionOffset in 0f..0.3f) { // pagePosition从onPageSelected放到onPageScrolled之后就需要使用pagePositionOffset来限制在Review页面就可以返回的bug
         activity.debug { "enableBackGesture: enable back gesture" }
-        activity.vp_nav.setDisallowInterceptTouchEvent(true)
+        if (positionOffset > 0f) // 第一次进入positionOffset == 0f不能禁用viewPager
+            activity.vp_nav.setDisallowInterceptTouchEvent(true)
         ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(true) // 滑动的过程当中，ParallaxBackLayout一直在接管手势
     } else {
         activity.debug { "enableBackGesture: disable back gesture" }
