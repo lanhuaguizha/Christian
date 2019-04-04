@@ -24,12 +24,13 @@ abstract class SwipeBackActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        initSbl()
+        initSbl()
     }
 
     private fun initSbl() {
         val parallaxBackLayout = ParallaxHelper.getParallaxBackLayout(this, true)
-        parallaxBackLayout.setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, CupertinoParallaxTransform())
+//        parallaxBackLayout.setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, CupertinoParallaxTransform())
+        parallaxBackLayout.setVelocity(Int.MAX_VALUE)
     }
 
 }
