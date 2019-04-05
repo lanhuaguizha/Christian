@@ -96,12 +96,19 @@ class NavDetailActivity : NavActivity() {
         bv_nav.layoutParams = params
     }
 
+    private var pagePosition: Int = 0
+
+    private var pagePositionOffset: Float = 0f
+
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
         super.initVp(navFragmentList)
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 debug { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
+                pagePosition = position
+                pagePositionOffset = positionOffset
+                enableSwipeBack(pagePosition, pagePositionOffset, this@NavDetailActivity)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -109,8 +116,6 @@ class NavDetailActivity : NavActivity() {
 
             override fun onPageSelected(position: Int) {
                 debug { "initVp: onPageSelected$position" }
-                // 测试只有ViewPager在第0页时才开启滑动返回
-                mSwipeBackHelper.setSwipeBackEnable(position == 0)
             }
 
         })

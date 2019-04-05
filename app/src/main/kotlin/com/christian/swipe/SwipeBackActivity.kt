@@ -15,7 +15,7 @@ abstract class SwipeBackActivity : AppCompatActivity(), BGASwipeBackHelper.Deleg
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 
-    protected lateinit var mSwipeBackHelper: BGASwipeBackHelper
+    lateinit var mSwipeBackHelper: BGASwipeBackHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // 「必须在 Application 的 onCreate 方法中执行 BGASwipeBackHelper.init 来初始化滑动返回」

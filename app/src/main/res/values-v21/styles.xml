@@ -7,6 +7,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+
+        <!--set the right in/out animation of Activity,you can change this to yours-->
+        <item name="android:windowAnimationStyle">@style/Animation_Right</item>
     </style>
 
 </resources>

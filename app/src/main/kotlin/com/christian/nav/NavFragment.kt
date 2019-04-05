@@ -209,7 +209,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     }
 
     fun show() {
-        navActivity.showFAB()
+//        navActivity.showFAB()
 //        if (navId == 1 && cv_nav_frag.visibility == View.GONE) {
 //            cv_nav_frag.visibility = View.VISIBLE
 //            val fadeIn = AnimationUtils.loadAnimation(context, R.anim.abc_fade_in)
@@ -218,7 +218,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     }
 
     fun hide() {
-        navActivity.fab_nav.hide()
+//        navActivity.fab_nav.hide()
 //        if (navId == 1 && cv_nav_frag.visibility == View.VISIBLE) {
 //            val fadeOut = AnimationUtils.loadAnimation(context, R.anim.abc_fade_out)
 //            cv_nav_frag.startAnimation(fadeOut)

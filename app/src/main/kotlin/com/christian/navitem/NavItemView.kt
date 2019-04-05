@@ -99,5 +99,6 @@ open class NavItemView(override var presenter: NavItemContract.IPresenter, final
         containerView.setOnClickListener {
             listener.onGospelSelected(snapshot)
         }
+        tv_title_nav_item.setOnClickListener { listener.onGospelSelected(snapshot) }
     }
 }
