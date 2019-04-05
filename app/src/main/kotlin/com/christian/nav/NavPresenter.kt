@@ -276,6 +276,8 @@ fun enableSwipeBack(position: Int, positionOffset: Float, activity: NavDetailAct
         activity.debug { "enableSwipeBack: enable back gesture" }
         if (positionOffset > 0f) // 第一次进入positionOffset == 0f不能禁用viewPager
             activity.vp_nav.setDisallowInterceptTouchEvent(true)
+        else
+            activity.vp_nav.setDisallowInterceptTouchEvent(false)
         activity.mSwipeBackHelper.setSwipeBackEnable(true) // 滑动的过程当中，ParallaxBackLayout一直在接管手势
     } else {
         activity.debug { "enableSwipeBack: disable back gesture" }

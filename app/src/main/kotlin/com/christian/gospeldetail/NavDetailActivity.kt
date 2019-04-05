@@ -108,7 +108,6 @@ class NavDetailActivity : NavActivity() {
                 debug { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
                 pagePosition = position
                 pagePositionOffset = positionOffset
-                enableSwipeBack(pagePosition, pagePositionOffset, this@NavDetailActivity)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -119,6 +118,11 @@ class NavDetailActivity : NavActivity() {
             }
 
         })
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        enableSwipeBack(pagePosition, pagePositionOffset, this@NavDetailActivity)
+        return super.dispatchTouchEvent(ev)
     }
 
     //    override fun initRv(navs: List<NavBean>) {
