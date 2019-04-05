@@ -82,6 +82,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class DiscipleFragment extends NavFragment implements
         GoogleApiClient.OnConnectionFailedListener {
 
+    private TextWatcher watcher;
+
     @NotNull
     @Override
     public String getLoggerTag() {
@@ -211,18 +213,15 @@ public class DiscipleFragment extends NavFragment implements
                         StorageReference storageReference = FirebaseStorage.getInstance()
                                 .getReferenceFromUrl(imageUrl);
                         storageReference.getDownloadUrl().addOnCompleteListener(
-                                new OnCompleteListener<Uri>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Uri> task) {
-                                        if (task.isSuccessful()) {
-                                            String downloadUrl = task.getResult().toString();
-                                            Glide.with(viewHolder.messageImageView.getContext())
-                                                    .load(downloadUrl)
-                                                    .into(viewHolder.messageImageView);
-                                        } else {
-                                            Log.w(TAG, "Getting download url was not successful.",
-                                                    task.getException());
-                                        }
+                                task -> {
+                                    if (task.isSuccessful()) {
+                                        String downloadUrl = task.getResult().toString();
+                                        Glide.with(viewHolder.messageImageView.getContext())
+                                                .load(downloadUrl)
+                                                .into(viewHolder.messageImageView);
+                                    } else {
+                                        Log.w(TAG, "Getting download url was not successful.",
+                                                task.getException());
                                     }
                                 });
                     } else {
@@ -305,7 +304,7 @@ public class DiscipleFragment extends NavFragment implements
         mMessageEditText = (EditText) view.findViewById(R.id.messageEditText);
         mMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(mSharedPreferences
                 .getInt(CodelabPreferences.FRIENDLY_MSG_LENGTH, DEFAULT_MSG_LENGTH_LIMIT))});
-        mMessageEditText.addTextChangedListener(new TextWatcher() {
+        watcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -322,29 +321,24 @@ public class DiscipleFragment extends NavFragment implements
             @Override
             public void afterTextChanged(Editable editable) {
             }
-        });
+        };
+        mMessageEditText.addTextChangedListener(watcher);
 
         mAddMessageImageView = (ImageView) view.findViewById(R.id.addMessageImageView);
-        mAddMessageImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("image/*");
-                startActivityForResult(intent, REQUEST_IMAGE);
-            }
+        mAddMessageImageView.setOnClickListener(view1 -> {
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("image/*");
+            startActivityForResult(intent, REQUEST_IMAGE);
         });
 
         mSendButton = (Button) view.findViewById(R.id.sendButton);
-        mSendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(), mUsername,
-                        mPhotoUrl, null);
-                mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(friendlyMessage);
-                mMessageEditText.setText("");
-                mFirebaseAnalytics.logEvent(MESSAGE_SENT_EVENT, null);
-            }
+        mSendButton.setOnClickListener(view12 -> {
+            FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(), mUsername,
+                    mPhotoUrl, null);
+            mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(friendlyMessage);
+            mMessageEditText.setText("");
+            mFirebaseAnalytics.logEvent(MESSAGE_SENT_EVENT, null);
         });
 
         return view;
@@ -401,6 +395,7 @@ public class DiscipleFragment extends NavFragment implements
 //            mAdView.destroy();
 //        }
         super.onDestroy();
+        mMessageEditText.removeTextChangedListener(watcher);
     }
 
 //    @Override
@@ -465,21 +460,15 @@ public class DiscipleFragment extends NavFragment implements
             cacheExpiration = 0;
         }
         mFirebaseRemoteConfig.fetch(cacheExpiration)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // Make the fetched config available via FirebaseRemoteConfig get<type> calls.
-                        mFirebaseRemoteConfig.activateFetched();
-                        applyRetrievedLengthLimit();
-                    }
+                .addOnSuccessListener(aVoid -> {
+                    // Make the fetched config available via FirebaseRemoteConfig get<type> calls.
+                    mFirebaseRemoteConfig.activateFetched();
+                    applyRetrievedLengthLimit();
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        // There has been an error fetching the config
-                        Log.w(TAG, "Error fetching config", e);
-                        applyRetrievedLengthLimit();
-                    }
+                .addOnFailureListener(e -> {
+                    // There has been an error fetching the config
+                    Log.w(TAG, "Error fetching config", e);
+                    applyRetrievedLengthLimit();
                 });
     }
 
