@@ -86,4 +86,9 @@ abstract class SwipeBackActivity : AppCompatActivity(), BGASwipeBackHelper.Deleg
         }
         mSwipeBackHelper.backward()
     }
+
+    fun originalBackPressed() {
+        super.onBackPressed()
+    }
+
 }
