@@ -6,16 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-        <!--set the right in/out animation of Activity,you can change this to yours-->
-        <item name="android:windowAnimationStyle">@style/Animation_Right</item>
-    </style>
-
-    <style name="Animation_Right" >
-        <item name="android:activityOpenEnterAnimation">@anim/pl_slide_in_from_right</item>
-        <item name="android:activityOpenExitAnimation">@anim/pl_slide_out_to_left</item>
-        <item name="android:activityCloseEnterAnimation">@anim/pl_slide_in_from_left</item>
-        <item name="android:activityCloseExitAnimation">@anim/pl_slide_out_to_right</item>
     </style>
 
     <!-- Base application theme. -->
@@ -24,9 +14,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-        <!--set the right in/out animation of Activity,you can change this to yours-->
-        <item name="android:windowAnimationStyle">@style/Animation_Right</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

@@ -60,7 +60,6 @@ class NavDetailActivity : NavActivity() {
 
     companion object {
         const val KEY_GOSPEL_ID = "key_gospel_id" // gospels集合ID
-        private const val INVALID_POINTER = -1
     }
 
 //    override fun initView(navs: List<NavBean>) {
@@ -97,18 +96,12 @@ class NavDetailActivity : NavActivity() {
         bv_nav.layoutParams = params
     }
 
-    private var pagePosition: Int = 0
-
-    private var pagePositionOffset: Float = 0f
-
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
         super.initVp(navFragmentList)
         vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 debug { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
-                pagePosition = position
-                pagePositionOffset = positionOffset
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -116,39 +109,11 @@ class NavDetailActivity : NavActivity() {
 
             override fun onPageSelected(position: Int) {
                 debug { "initVp: onPageSelected$position" }
+                // 测试只有ViewPager在第0页时才开启滑动返回
+                mSwipeBackHelper.setSwipeBackEnable(position == 0)
             }
 
         })
-    }
-
-    private var lastX: Float = 0f
-    var isMovingRight: Boolean = true // true不会崩溃，进入nav detail左滑的时候
-
-    private var mActivePointerId: Int = INVALID_POINTER
-
-    // used for enable back gesture
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        when (ev.action) {
-            MotionEvent.ACTION_DOWN -> {
-                lastX = ev.x
-                mActivePointerId = ev.getPointerId(0)
-            }
-            MotionEvent.ACTION_MOVE -> {
-                isMovingRight = try {
-                    ev.getX(ev.findPointerIndex(mActivePointerId)) - lastX > 0
-                } catch (e: Exception) {
-                    true
-                }
-                debug { "ACTION_MOVE" }
-            }
-            MotionEvent.ACTION_UP -> {
-                mActivePointerId = INVALID_POINTER
-                debug { "ACTION_UP" }
-            }
-        }
-        debug { "dispatchTouchEvent: isMovingRight$isMovingRight, pagePosition$pagePosition, pagePositionOffset$pagePositionOffset" }
-        enableBackGesture(pagePosition, pagePositionOffset, this@NavDetailActivity)
-        return super.dispatchTouchEvent(ev)
     }
 
     //    override fun initRv(navs: List<NavBean>) {
