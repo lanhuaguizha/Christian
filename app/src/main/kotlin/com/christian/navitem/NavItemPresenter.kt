@@ -20,6 +20,7 @@ import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.nav_item_view_small.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.warn
+import skin.support.SkinCompatManager
 
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
@@ -237,9 +238,12 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
                         holder.containerView.setOnClickListener {
                             if (isOn) {
                                 holder.containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = false
+                                // 恢复应用默认皮肤
+                                SkinCompatManager.getInstance().restoreDefaultTheme()
                                 isOn = false
                             } else {
                                 holder.containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = true
+                                SkinCompatManager.getInstance().loadSkin("night", SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN)
                                 isOn = true
                             }
                         }
