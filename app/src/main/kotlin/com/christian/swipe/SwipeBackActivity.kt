@@ -3,91 +3,35 @@ package com.christian.swipe
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
-import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper
+import com.christian.R
+import com.github.anzewei.parallaxbacklayout.ParallaxBack
+import com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout
+import com.github.anzewei.parallaxbacklayout.ParallaxHelper
+import com.github.anzewei.parallaxbacklayout.ViewDragHelper
+import android.view.ViewGroup
+import org.jetbrains.anko.dip
 
 
 /**
  * The activity base class, swipe back logic here.
  */
-abstract class SwipeBackActivity : AppCompatActivity(), BGASwipeBackHelper.Delegate {
+@ParallaxBack(edge = ParallaxBack.Edge.LEFT, layout = ParallaxBack.Layout.PARALLAX, edgeMode = ParallaxBack.EdgeMode.FULLSCREEN)
+abstract class SwipeBackActivity : AppCompatActivity() {
 
     init {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 
-    lateinit var mSwipeBackHelper: BGASwipeBackHelper
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        // 「必须在 Application 的 onCreate 方法中执行 BGASwipeBackHelper.init 来初始化滑动返回」
-        // 在 super.onCreate(savedInstanceState) 之前调用该方法
-        initSwipeBack()
         super.onCreate(savedInstanceState)
+        initSbl()
     }
 
-    /**
-     * 初始化滑动返回。在 super.onCreate(savedInstanceState) 之前调用该方法
-     */
-    private fun initSwipeBack() {
-        mSwipeBackHelper = BGASwipeBackHelper(this, this)
-
-        // 「必须在 Application 的 onCreate 方法中执行 BGASwipeBackHelper.init 来初始化滑动返回」
-        // 下面几项可以不配置，这里只是为了讲述接口用法。
-
-        // 设置滑动返回是否可用。默认值为 true
-        mSwipeBackHelper.setSwipeBackEnable(true)
-        // 设置是否仅仅跟踪左侧边缘的滑动返回。默认值为 true
-        mSwipeBackHelper.setIsOnlyTrackingLeftEdge(false)
-        // 设置是否是微信滑动返回样式。默认值为 true
-        mSwipeBackHelper.setIsWeChatStyle(true)
-        // 设置阴影资源 id。默认值为 R.drawable.bga_sbl_shadow
-//        mSwipeBackHelper.setShadowResId(R.drawable.bga_sbl_shadow)
-        // 设置是否显示滑动返回的阴影效果。默认值为 true
-        mSwipeBackHelper.setIsNeedShowShadow(true)
-        // 设置阴影区域的透明度是否根据滑动的距离渐变。默认值为 true
-        mSwipeBackHelper.setIsShadowAlphaGradient(true)
-        // 设置触发释放后自动滑动返回的阈值，默认值为 0.3f
-        mSwipeBackHelper.setSwipeBackThreshold(0.5f)
-        // 设置底部导航条是否悬浮在内容上，默认值为 false
-        mSwipeBackHelper.setIsNavigationBarOverlap(true)
+    private fun initSbl() {
+        val parallaxBackLayout = ParallaxHelper.getParallaxBackLayout(this, true)
+        parallaxBackLayout.setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, CupertinoParallaxTransform())
+        parallaxBackLayout.setScrollThresHold(0.2f)
+        parallaxBackLayout.setVelocity(Int.MAX_VALUE)
     }
 
-    /**
-     * 是否支持滑动返回。这里在父类中默认返回 true 来支持滑动返回，如果某个界面不想支持滑动返回则重写该方法返回 false 即可
-     *
-     * @return
-     */
-    override fun isSupportSwipeBack(): Boolean {
-        return true
-    }
-
-    /**
-     * 正在滑动返回
-     *
-     * @param slideOffset 从 0 到 1
-     */
-    override fun onSwipeBackLayoutSlide(slideOffset: Float) {}
-
-    /**
-     * 没达到滑动返回的阈值，取消滑动返回动作，回到默认状态
-     */
-    override fun onSwipeBackLayoutCancel() {}
-
-    /**
-     * 滑动返回执行完毕，销毁当前 Activity
-     */
-    override fun onSwipeBackLayoutExecuted() {
-        mSwipeBackHelper.swipeBackward()
-    }
-
-    override fun onBackPressed() {
-        // 正在滑动返回的时候取消返回按钮事件
-        if (isSupportSwipeBack) {
-            if (mSwipeBackHelper.isSliding) {
-                return
-            }
-            mSwipeBackHelper.backward()
-        } else {
-            super.onBackPressed()
-        }
-    }
 }

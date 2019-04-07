@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.view.ViewPager
+import android.support.v4.widget.ViewDragHelper.INVALID_POINTER
 import android.view.*
 import com.christian.ChristianApplication
 import com.christian.R
@@ -38,7 +39,7 @@ private fun NavActivity.initSrlForbidden() {
 private fun NavActivity.initFABE() {
     // set FAB image
     fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_upward_black_24dp, theme))
-    fab_nav.show()
+//    fab_nav.show()
 
     // set FAB animate to hide's behavior
     // set listener
@@ -120,7 +121,32 @@ class NavDetailActivity : NavActivity() {
         })
     }
 
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+    private var lastX: Float = 0f
+    var isMovingRight: Boolean = true // true不会崩溃，进入nav detail左滑的时候
+
+    private var mActivePointerId: Int = INVALID_POINTER
+
+    // used for enable back gesture
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        when (ev.action) {
+            MotionEvent.ACTION_DOWN -> {
+                lastX = ev.x
+                mActivePointerId = ev.getPointerId(0)
+            }
+            MotionEvent.ACTION_MOVE -> {
+                try {
+                    isMovingRight = ev.getX(ev.findPointerIndex(mActivePointerId)) - lastX > 0
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+                debug { "ACTION_MOVE" }
+            }
+            MotionEvent.ACTION_UP -> {
+                mActivePointerId = INVALID_POINTER
+                debug { "ACTION_UP" }
+            }
+        }
+        debug { "dispatchTouchEvent: isMovingRight$isMovingRight, pagePosition$pagePosition, pagePositionOffset$pagePositionOffset" }
         enableSwipeBack(pagePosition, pagePositionOffset, this@NavDetailActivity)
         return super.dispatchTouchEvent(ev)
     }
@@ -190,7 +216,4 @@ class NavDetailActivity : NavActivity() {
         refWatcher.watch(this)
     }
 
-    override fun isSupportSwipeBack(): Boolean {
-        return true
-    }
 }
