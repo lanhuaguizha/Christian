@@ -81,14 +81,13 @@ abstract class SwipeBackActivity : AppCompatActivity(), BGASwipeBackHelper.Deleg
 
     override fun onBackPressed() {
         // 正在滑动返回的时候取消返回按钮事件
-        if (mSwipeBackHelper.isSliding) {
-            return
+        if (isSupportSwipeBack) {
+            if (mSwipeBackHelper.isSliding) {
+                return
+            }
+            mSwipeBackHelper.backward()
+        } else {
+            super.onBackPressed()
         }
-        mSwipeBackHelper.backward()
     }
-
-    fun originalBackPressed() {
-        super.onBackPressed()
-    }
-
 }

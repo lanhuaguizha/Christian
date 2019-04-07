@@ -189,4 +189,8 @@ class NavDetailActivity : NavActivity() {
         val refWatcher = ChristianApplication.getRefWatcher(this)
         refWatcher.watch(this)
     }
+
+    override fun isSupportSwipeBack(): Boolean {
+        return true
+    }
 }
