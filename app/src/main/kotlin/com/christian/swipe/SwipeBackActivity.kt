@@ -46,9 +46,9 @@ abstract class SwipeBackActivity : AppCompatActivity(), BGASwipeBackHelper.Deleg
         // 设置阴影区域的透明度是否根据滑动的距离渐变。默认值为 true
         mSwipeBackHelper.setIsShadowAlphaGradient(true)
         // 设置触发释放后自动滑动返回的阈值，默认值为 0.3f
-        mSwipeBackHelper.setSwipeBackThreshold(0.3f)
+        mSwipeBackHelper.setSwipeBackThreshold(0.5f)
         // 设置底部导航条是否悬浮在内容上，默认值为 false
-        mSwipeBackHelper.setIsNavigationBarOverlap(false)
+        mSwipeBackHelper.setIsNavigationBarOverlap(true)
     }
 
     /**
