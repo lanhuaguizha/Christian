@@ -16,12 +16,12 @@
     },
     {
       "name": "历史记录",
-      "url": "ic_folder_open_black_24dp",
+      "url": "ic_history_black_24dp",
       "desc": "阅读过的文章"
     },
     {
       "name": "我的文章",
-      "url": "ic_folder_special_black_24dp",
+      "url": "ic_library_books_black_24dp",
       "desc": "已收藏的文章"
     },
     {

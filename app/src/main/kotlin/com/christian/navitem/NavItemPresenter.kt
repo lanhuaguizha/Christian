@@ -285,8 +285,8 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
             "R.drawable.me" -> R.drawable.me
             "R.drawable.the_virgin" -> R.drawable.the_virgin
             "ic_brightness_medium_black_24dp" -> R.drawable.ic_brightness_medium_black_24dp
-            "ic_folder_open_black_24dp" -> R.drawable.ic_folder_open_black_24dp
-            "ic_folder_special_black_24dp" -> R.drawable.ic_folder_special_black_24dp
+            "ic_history_black_24dp" -> R.drawable.ic_history_black_24dp
+            "ic_library_books_black_24dp" -> R.drawable.ic_library_books_black_24dp
             "ic_crop_free_black_24dp" -> R.drawable.ic_crop_free_black_24dp
             "ic_wallpaper_black_24dp" -> R.drawable.ic_wallpaper_black_24dp
             "R.drawable.ic_settings_black_24dp" -> R.drawable.ic_settings_black_24dp
