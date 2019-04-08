@@ -19,7 +19,7 @@ class CupertinoParallaxTransform : ITransform {
         val topBar = parallaxBackLayout.systemTop
         when (mEdgeFlag) {
             EDGE_LEFT -> {
-                val left = (child.left - width) / 4
+                val left = (child.left - width) / 3
                 canvas.translate(left.toFloat(), 0f)
                 canvas.clipRect(0, 0, left + width, child.bottom)
             }
