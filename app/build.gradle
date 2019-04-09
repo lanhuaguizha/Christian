@@ -116,17 +116,17 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
     // Firebase
-    implementation 'com.google.firebase:firebase-core:16.0.7'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.google.firebase:firebase-database:16.1.0'
     implementation 'com.google.firebase:firebase-storage:16.1.0'
-    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-auth:16.2.1'
 //    implementation 'com.google.android.gms:play-services-ads:17.1.3'
-    implementation 'com.google.firebase:firebase-messaging:17.4.0'
-    implementation 'com.google.firebase:firebase-config:16.3.0'
-    implementation 'com.google.firebase:firebase-analytics:16.3.0'
+    implementation 'com.google.firebase:firebase-messaging:17.6.0'
+    implementation 'com.google.firebase:firebase-config:16.5.0'
+    implementation 'com.google.firebase:firebase-analytics:16.4.0'
     implementation 'com.google.firebase:firebase-appindexing:17.1.0'
-    implementation 'com.google.android.gms:play-services-appinvite:16.1.0'
-    implementation 'com.google.firebase:firebase-firestore:18.1.0'
+    implementation 'com.google.android.gms:play-services-appinvite:16.1.1'
+    implementation 'com.google.firebase:firebase-firestore:18.2.0'
 
     // Firebase UI
     implementation 'com.firebaseui:firebase-ui-database:3.3.1'
@@ -155,7 +155,7 @@ dependencies {
     // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
 
     // RecyclerView load more
-    implementation 'com.jcodecraeer:xrecyclerview:1.5.9'
+    implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
 }
 
 androidExtensions {

@@ -33,7 +33,7 @@ abstract class SwipeBackActivity : AppCompatActivity() {
         val parallaxBackLayout = ParallaxHelper.getParallaxBackLayout(this, true)
         parallaxBackLayout.setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, CupertinoParallaxTransform())
         parallaxBackLayout.setShadowDrawable(AppCompatResources.getDrawable(this@SwipeBackActivity, R.drawable.bga_sbl_shadow))
-        parallaxBackLayout.setScrollThresHold(0.5f)
+        parallaxBackLayout.setScrollThresHold(0.25f)
         parallaxBackLayout.setVelocity(Int.MAX_VALUE)
     }
 

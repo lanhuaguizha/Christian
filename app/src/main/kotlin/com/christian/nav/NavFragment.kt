@@ -114,8 +114,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     }
 
     private fun initSrl() {
-        v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(navActivity.resources, R.color.colorAccent, navActivity.theme))
-        v.srl_nav.isEnabled = false
+//        v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(navActivity.resources, R.color.colorAccent, navActivity.theme))
+//        v.srl_nav.isEnabled = false
     }
 
     private fun initRv(navBeans: List<NavBean>) {
@@ -230,7 +230,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     }
 
     override fun hideSrl() {
-        v.srl_nav.isRefreshing = false
+//        v.srl_nav.isRefreshing = false
     }
 
     override fun invalidateRv(navBeans: List<NavBean>) {
