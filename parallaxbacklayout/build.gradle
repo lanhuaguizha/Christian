@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'com.github.anzewei'
+
+    publishedGroupId = 'com.github.anzewei'
+    libraryName = 'parallaxbacklayout'
+    artifact = 'parallaxbacklayout'
+
+    libraryDescription = 'An Android library that help you to finish activity with swipe back gesture and you can get parallax scrolling effect'
+
+    siteUrl = 'https://github.com/anzewei/ParallaxBackLayout'
+    gitUrl = 'https://github.com/anzewei/ParallaxBackLayout.git'
+
+    libraryVersion = '1.1.8'
+
+    developerId = 'anzewei'
+    developerName = 'An Zewei'
+    developerEmail = 'anzewei88@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 6
+        versionName libraryVersion
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:support-v4:28.0.0'
+}
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
