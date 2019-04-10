@@ -218,11 +218,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun showPb() {
-//        pb_nav.visibility = View.VISIBLE
+        pb_nav.visibility = View.VISIBLE
     }
 
     override fun hidePb() {
-//        pb_nav.visibility = View.GONE
+        pb_nav.visibility = View.GONE
     }
 
 

@@ -172,10 +172,10 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
                 override fun onDataChanged() {
                     if (itemCount == 0) {
                         rv_nav.visibility = View.GONE
-//                        (activity as NavActivity).pb_nav.visibility = View.GONE
+                        (activity as NavActivity).pb_nav.visibility = View.GONE
                     } else {
                         rv_nav.visibility = View.VISIBLE
-//                        (activity as NavActivity).pb_nav.visibility = View.GONE
+                        (activity as NavActivity).pb_nav.visibility = View.GONE
                     }
                 }
 

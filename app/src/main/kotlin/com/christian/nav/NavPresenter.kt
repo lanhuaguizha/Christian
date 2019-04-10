@@ -307,7 +307,7 @@ fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: 
     }
 
     // TwinklingRefreshLayout
-    navFragment.srl_nav.setEnableOverScroll(false)
+//    navFragment.srl_nav.setEnableOverScroll(false)
     if (verticalOffset == 0) {
         navActivity.info { "setEnableRefresh" }
         navFragment.srl_nav.setEnableRefresh(true)
