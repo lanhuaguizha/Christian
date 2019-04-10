@@ -28,7 +28,7 @@ open class NavItemView(override var presenter: NavItemContract.IPresenter, final
     }
 
     init {
-        containerView.isLongClickable = true
+//        containerView.isLongClickable = true
         containerView.setOnClickListener {
 
         }

@@ -310,9 +310,9 @@ fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: 
 //    navFragment.srl_nav.setEnableOverScroll(false)
     if (verticalOffset == 0) {
         navActivity.info { "setEnableRefresh" }
-        navFragment.srl_nav.setEnableRefresh(true)
+        if (navFragment.srl_nav != null) navFragment.srl_nav.setEnableRefresh(true)
     } else {
         navActivity.info { "setDisableRefresh" }
-        navFragment.srl_nav.setEnableRefresh(false)
+        if (navFragment.srl_nav != null) navFragment.srl_nav.setEnableRefresh(false)
     }
 }
