@@ -28,7 +28,7 @@ private fun NavActivity.initTbWithTitle(title: String) {
 }
 
 private fun NavActivity.initSrlForbidden() {
-    (presenter as NavPresenter).navFragmentList[mPosition].srl_nav.isEnabled = false
+//    (presenter as NavPresenter).navFragmentList[mPosition].srl_nav.isEnabled = false
 }
 
 //// 不需要添加背景色的同时不需要有elevation

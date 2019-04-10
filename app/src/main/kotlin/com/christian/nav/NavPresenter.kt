@@ -3,6 +3,8 @@ package com.christian.nav
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.content.Context
+import android.os.Build
+import android.support.design.widget.AppBarLayout
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +22,9 @@ import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import org.jetbrains.anko.debug
+import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
 import org.jetbrains.anko.singleLine
 import java.io.BufferedReader
@@ -284,5 +288,31 @@ fun enableSwipeBack(position: Int, positionOffset: Float, activity: NavDetailAct
         activity.debug { "enableSwipeBack: disable back gesture" }
         activity.vp_nav.setDisallowInterceptTouchEvent(false)
         ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(false)
+    }
+}
+
+fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: AppBarLayout, verticalOffset: Int) {
+
+    navActivity.info { "verticalOffset$verticalOffset" }
+    val navFragment = (navActivity.presenter as NavPresenter).navFragmentList[navActivity.mPosition]
+
+    if (verticalOffset == -appBarLayout.height) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            navActivity.abl_nav.elevation = 0f
+        }
+    } else {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            navActivity.abl_nav.elevation = navActivity.dip(4).toFloat()
+        }
+    }
+
+    // TwinklingRefreshLayout
+    navFragment.srl_nav.setEnableOverScroll(false)
+    if (verticalOffset == 0) {
+        navActivity.info { "setEnableRefresh" }
+        navFragment.srl_nav.setEnableRefresh(true)
+    } else {
+        navActivity.info { "setDisableRefresh" }
+        navFragment.srl_nav.setEnableRefresh(false)
     }
 }

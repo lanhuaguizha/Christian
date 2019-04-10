@@ -104,23 +104,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     private fun initAbl() {
         abl_nav.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
-            debug { "verticalOffset$verticalOffset" }
-            if (-verticalOffset == appBarLayout.height) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    abl_nav.elevation = 0f
-                }
-                if (mPosition != 2)
-                    (presenter as NavPresenter).navFragmentList[mPosition].hide()
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    abl_nav.elevation = dip(4).toFloat()
-                }
-                showFab()
-            }
+            appBarLayoutOnOffsetChangedListener(this@NavActivity, appBarLayout, verticalOffset)
         })
     }
 
-    private fun showFab() {
+    fun showFab() {
         if (mPosition != 2) // mPosition !=2 should be removed
             (presenter as NavPresenter).navFragmentList[mPosition].show()
     }
@@ -230,11 +218,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun showPb() {
-        pb_nav.visibility = View.VISIBLE
+//        pb_nav.visibility = View.VISIBLE
     }
 
     override fun hidePb() {
-        pb_nav.visibility = View.GONE
+//        pb_nav.visibility = View.GONE
     }
 
 

@@ -8,7 +8,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
-import android.support.v4.content.res.ResourcesCompat
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.view.animation.AnimationUtils
@@ -25,11 +24,15 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.google.gson.Gson
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.debug
+
 
 open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
     override fun onGospelSelected(gospel: DocumentSnapshot) {
@@ -114,8 +117,15 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     }
 
     private fun initSrl() {
-//        v.srl_nav.setColorSchemeColors(ResourcesCompat.getColor(navActivity.resources, R.color.colorAccent, navActivity.theme))
-//        v.srl_nav.isEnabled = false
+//        val headerView = ProgressLayout(navActivity)
+//        headerView.setColorSchemeColors(R.color.colorAccent, R.color.colorAccentRed, R.color.colorPrimary)
+//        v.srl_nav.setHeaderView(headerView)
+
+        v.srl_nav.setOnRefreshListener(object : RefreshListenerAdapter() {
+            override fun onRefresh(refreshLayout: TwinklingRefreshLayout) {
+                refreshLayout.finishRefreshing()
+            }
+        })
     }
 
     private fun initRv(navBeans: List<NavBean>) {
@@ -162,10 +172,10 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
                 override fun onDataChanged() {
                     if (itemCount == 0) {
                         rv_nav.visibility = View.GONE
-                        (activity as NavActivity).pb_nav.visibility = View.GONE
+//                        (activity as NavActivity).pb_nav.visibility = View.GONE
                     } else {
                         rv_nav.visibility = View.VISIBLE
-                        (activity as NavActivity).pb_nav.visibility = View.GONE
+//                        (activity as NavActivity).pb_nav.visibility = View.GONE
                     }
                 }
 
