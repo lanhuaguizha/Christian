@@ -63,6 +63,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
      * presenter will be initialized when the NavPresenter is initialized
      */
     override lateinit var presenter: NavContract.IPresenter
+    var verticalOffset = -1
     private lateinit var navFragment: NavFragment
     private val providers = Arrays.asList(
 //                    AuthUI.IdpConfig.EmailBuilder().build(),
@@ -105,6 +106,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     private fun initAbl() {
         abl_nav.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
             appBarLayoutOnOffsetChangedListener(this@NavActivity, appBarLayout, verticalOffset)
+            this@NavActivity.verticalOffset = verticalOffset
         })
     }
 

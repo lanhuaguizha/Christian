@@ -117,6 +117,9 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     }
 
     private fun initSrl() {
+        when (navId == initFragmentIndex) {
+            true -> navActivity.srl_nav.setTargetView(v.rv_nav)
+        }
 //        val headerView = ProgressLayout(navActivity)
 //        headerView.setColorSchemeColors(R.color.colorAccent, R.color.colorAccentRed, R.color.colorPrimary)
 //        v.srl_nav.setHeaderView(headerView)
@@ -127,6 +130,10 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
 //            }
 //        })
     }
+
+    var isPageTop: Boolean = true
+
+    var isPageBottom: Boolean = false
 
     private fun initRv(navBeans: List<NavBean>) {
         v.cv_nav_frag.visibility = View.GONE
@@ -198,18 +205,26 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
 
             override fun onHide() {
                 hide()
+                isPageTop = false
+                isPageBottom = false
+                controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
             }
 
             override fun onShow() {
                 show()
+                isPageTop = false
+                isPageBottom = false
+                controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
             }
 
             override fun onTop() {
+                isPageTop = true
+                controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
             }
 
             override fun onBottom() {
-//                bv_nav.requestFocus()
-//                Log.i("bottom", "onBottom")
+                isPageBottom = true
+                controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
             }
         })
 

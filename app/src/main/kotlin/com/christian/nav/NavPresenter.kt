@@ -22,7 +22,6 @@ import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_fragment.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
@@ -306,20 +305,20 @@ fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: 
         }
     }
 
+    controlOverScroll(navActivity, appBarLayout, verticalOffset)
     // TwinklingRefreshLayout
-//    navFragment.srl_nav.setEnableOverScroll(false)
     if (navActivity.srl_nav != null) {
         navActivity.srl_nav.setEnableRefresh(false)
     }
-//    if (navFragment.rv_nav.scrollY != 0) {
-//        if (navActivity.srl_nav != null) {
-//            navActivity.srl_nav.setEnableOverScroll(true)
-//            navActivity.info { "setDisableRefresh---" }
-//        }
-//    } else {
-//        if (navActivity.srl_nav != null) {
-//            navActivity.srl_nav.setEnableOverScroll(false)
-//            navActivity.info { "setDisableRefresh---" }
-//        }
-//    }
+}
+
+fun controlOverScroll(navActivity: NavActivity, appBarLayout: AppBarLayout, verticalOffset: Int) {
+    val navFragment = (navActivity.presenter as NavPresenter).navFragmentList[navActivity.mPosition]
+    if (verticalOffset == 0 && navFragment.isPageBottom) {
+        navActivity.srl_nav.setEnableOverScroll(false)
+    } else if (verticalOffset == -appBarLayout.height && navFragment.isPageTop) {
+        navActivity.srl_nav.setEnableOverScroll(false)
+    } else if (verticalOffset == 0 || verticalOffset == -appBarLayout.height && !navFragment.isPageBottom) {
+        navActivity.srl_nav.setEnableOverScroll(true)
+    }
 }

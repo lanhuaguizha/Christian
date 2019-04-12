@@ -29,11 +29,9 @@ abstract class HidingScrollListener(private val navFragment: NavFragment) : Recy
             onTop()
         }
 
-//            Log.i("bottom", (!rv_nav.canScrollVertically(1)).toString())
-//            Log.i("bottom dy > 0", (dy > 0).toString())
-//            if (!rv_nav.canScrollVertically(1)) { // 并且是向下滑动
-//                onBottom()
-//            }
+        if (!navFragment.rv_nav.canScrollVertically(1) && dy > 0) { // 并且是向下滑动
+            onBottom()
+        }
     }
 
     abstract fun onHide()
