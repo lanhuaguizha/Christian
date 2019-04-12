@@ -293,7 +293,7 @@ fun enableSwipeBack(position: Int, positionOffset: Float, activity: NavDetailAct
 
 fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: AppBarLayout, verticalOffset: Int) {
 
-    navActivity.info { "verticalOffset$verticalOffset" }
+//    navActivity.info { "verticalOffset$verticalOffset" }
     val navFragment = (navActivity.presenter as NavPresenter).navFragmentList[navActivity.mPosition]
 
     if (verticalOffset == -appBarLayout.height) {
@@ -308,11 +308,18 @@ fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: 
 
     // TwinklingRefreshLayout
 //    navFragment.srl_nav.setEnableOverScroll(false)
-    if (verticalOffset == 0) {
-        navActivity.info { "setEnableRefresh" }
-        if (navFragment.srl_nav != null) navFragment.srl_nav.setEnableRefresh(true)
-    } else {
-        navActivity.info { "setDisableRefresh" }
-        if (navFragment.srl_nav != null) navFragment.srl_nav.setEnableRefresh(false)
+    if (navActivity.srl_nav != null) {
+        navActivity.srl_nav.setEnableRefresh(false)
     }
+//    if (navFragment.rv_nav.scrollY != 0) {
+//        if (navActivity.srl_nav != null) {
+//            navActivity.srl_nav.setEnableOverScroll(true)
+//            navActivity.info { "setDisableRefresh---" }
+//        }
+//    } else {
+//        if (navActivity.srl_nav != null) {
+//            navActivity.srl_nav.setEnableOverScroll(false)
+//            navActivity.info { "setDisableRefresh---" }
+//        }
+//    }
 }

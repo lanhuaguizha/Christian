@@ -37,17 +37,11 @@
         </eightbitlab.com.blurview.BlurView>
     </android.support.v7.widget.CardView>
 
-    <com.christian.view.CustomSwipeRefreshLayout
-        android:id="@+id/srl_nav"
+    <com.christian.view.ContextMenuRecyclerView
+        android:id="@+id/rv_nav"
+        android:overScrollMode="never"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.christian.view.ContextMenuRecyclerView
-            android:id="@+id/rv_nav"
-            android:overScrollMode="never"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbarSize="@dimen/search_bottom_margin" />
-    </com.christian.view.CustomSwipeRefreshLayout>
+        android:layout_height="match_parent"
+        android:scrollbarSize="@dimen/search_bottom_margin" />
 </android.support.constraint.ConstraintLayout>

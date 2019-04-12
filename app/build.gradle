@@ -58,7 +58,7 @@ android {
             // sources. Because Gradle gives these directories equal priority, if
             // you define the same resource in more than one directory, you get an
             // error when merging resources. The default directory is 'src/main/res'.
-            res.srcDirs = ['src/main/res', 'src/main/res-night']
+            res.srcDirs = ['src/main/res']
 
             // Note: You should avoid specifying a directory which is a parent to one
             // or more other directories you specify. For example, avoid the following:
@@ -146,13 +146,13 @@ dependencies {
 //    implementation 'com.github.anzewei:parallaxbacklayout:1.1.9'
     implementation project(':parallaxbacklayout')
     // Dark Mode
-    implementation 'skin.support:skin-support:3.1.1'                   // skin-support 基础控件支持
-    implementation 'skin.support:skin-support-design:3.1.1'
-    // skin-support-design material design 控件支持[可选]
-    implementation 'skin.support:skin-support-cardview:3.1.1'
-    // skin-support-cardview CardView 控件支持[可选]
-    implementation 'skin.support:skin-support-constraint-layout:3.1.1'
-    // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
+//    implementation 'skin.support:skin-support:3.1.1'                   // skin-support 基础控件支持
+//    implementation 'skin.support:skin-support-design:3.1.1'
+//    // skin-support-design material design 控件支持[可选]
+//    implementation 'skin.support:skin-support-cardview:3.1.1'
+//    // skin-support-cardview CardView 控件支持[可选]
+//    implementation 'skin.support:skin-support-constraint-layout:3.1.1'
+//    // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
 
     // RecyclerView load more
     implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'

@@ -140,6 +140,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 mPosition = position
                 debug { "position$position" }
                 bnv_nav.menu.getItem(position).isChecked = true
+
+                srl_nav.setTargetView((presenter as NavPresenter).navFragmentList[mPosition].rv_nav)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
