@@ -67,7 +67,7 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
             "启示录"
     )
 
-    private val navList = GospelBean(listOf(Gospels("","", arrayListOf(),"","")))
+    private val navList = GospelBean(listOf(Gospels()))
     var navFragmentList = ArrayList<NavFragment>()
 
     init {

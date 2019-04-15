@@ -1,18 +1,16 @@
 package com.christian.data
 
-import java.util.*
-
 sealed class Bean
 
 data class GospelBean(val gospels: List<Gospels>
 ) : Bean()
 
-data class Gospels(
-        val title: String = "",
-        val subtitle: String = "",
-        val gospelDetails: List<GospelDetails>,
-        val date: String = "",
-        val author: String = ""
+data class Gospels @JvmOverloads constructor(
+        var title: String = "",
+        var subtitle: String = "",
+        var gospelDetails: List<GospelDetails> = arrayListOf(),
+        var date: String = "",
+        var author: String = ""
 )
 
 data class GospelDetailBean(val gospelDetails: List<GospelDetails>)

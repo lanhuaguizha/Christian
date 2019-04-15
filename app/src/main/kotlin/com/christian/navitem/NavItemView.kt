@@ -6,14 +6,13 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
 import com.christian.R
-import com.christian.data.GospelBean
 import com.christian.data.Gospels
 import com.christian.nav.NavActivity
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_view.*
-import java.util.HashMap
+import java.util.*
 
 /**
  * NavItemView/NavItemHolder is view logic of nav items.
@@ -94,7 +93,9 @@ open class NavItemView(override var presenter: NavItemContract.IPresenter, final
     }
 
     fun bind(snapshot: DocumentSnapshot, listener: NavItemPresenter.OnGospelSelectedListener) {
-        val gospels = snapshot.toObject(Gospels::class.java)
+        containerView.postDelayed({
+            val gospels = snapshot.toObject(Gospels::class.java)
+        }, 3000)
         Glide.with(containerView.context).load(R.drawable.the_virgin).into(iv_nav_item)
         tv_title_nav_item.text = snapshot.data?.get("title").toString()
         tv_subtitle_nav_item.text = snapshot.data?.get("subtitle").toString()
