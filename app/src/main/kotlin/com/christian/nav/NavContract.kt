@@ -1,7 +1,8 @@
 package com.christian.nav
 
 import com.christian.BaseContract
-import com.christian.data.NavBean
+import com.christian.data.Bean
+import com.christian.data.Gospels
 import java.util.ArrayList
 
 /**
@@ -51,7 +52,7 @@ class NavContract {
 
     interface INavFragment : BaseContract.IView<IPresenter> {
 
-        fun initView(navBeans: List<NavBean>)
+        fun initView(bean: Bean)
 
         fun showSrl()
 
@@ -60,7 +61,7 @@ class NavContract {
         /**
          * You have to show the view in init view and invalidate view in the callback.
          */
-        fun invalidateRv(navBeans: List<NavBean>)
+        fun invalidateRv(bean: Bean)
     }
 
     /**
@@ -88,7 +89,7 @@ class NavContract {
          */
         fun deleteNav(navId: String)
 
-        fun updateNav(navBeans: List<NavBean>)
+        fun updateNav(gospels: List<Gospels>)
 
         fun readNav()
 

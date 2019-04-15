@@ -13,8 +13,8 @@ import android.view.*
 import android.view.animation.AnimationUtils
 import com.christian.ChristianApplication
 import com.christian.R
+import com.christian.data.Bean
 import com.christian.data.MeBean
-import com.christian.data.NavBean
 import com.christian.gospeldetail.NavDetailActivity
 import com.christian.navitem.NavItemPresenter
 import com.christian.view.ContextMenuRecyclerView
@@ -24,9 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.google.gson.Gson
-import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter
-import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
-import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
@@ -49,8 +46,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
     private lateinit var ctx: Context
-    private lateinit var navAdapter: NavItemPresenter<List<NavBean>>
-    private lateinit var meAdapter: NavItemPresenter<MeBean>
+    private lateinit var navAdapter: NavItemPresenter<*>
     private lateinit var v: View
     var navId = -1
     lateinit var gospelId: String
@@ -100,20 +96,14 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
 
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         fun stopListening() {
-            if (navId == VIEW_ME) {
-                debug { "me stop listening" }
-                meAdapter.stopListening()
-            } else if (navId == VIEW_HOME || navId == VIEW_GOSPEL) {
-                debug { "home or gospel stop listening" }
-                navAdapter.stopListening()
-            }
+            navAdapter.stopListening()
         }
     }
 
-    override fun initView(navBeans: List<NavBean>) {
+    override fun initView(bean: Bean) {
         debug { "nav fragment is $this and navId is $navId --initView" }
         initSrl()
-        initRv(navBeans)
+        initRv(bean)
     }
 
     private fun initSrl() {
@@ -133,11 +123,13 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
 
     var isPageTop: Boolean = true
 
-    var isPageBottom: Boolean = false
+    var isPageBottom: Boolean = true
+    lateinit var bean: Bean
 
-    private fun initRv(navBeans: List<NavBean>) {
+    private fun initRv(bean: Bean) {
         v.cv_nav_frag.visibility = View.GONE
         registerForContextMenu(v.rv_nav)
+        this@NavFragment.bean = bean
 
         when (navId) {
             VIEW_HOME -> {
@@ -152,54 +144,34 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             VIEW_DISCIPLE -> {
             }
             VIEW_ME -> {
-                val meBeans = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
-                meAdapter = object : NavItemPresenter<MeBean>(query, this@NavFragment, navs = meBeans, navId = navId) {
-                    override fun onDataChanged() {
-//                        if (itemCount == 0) {
-//                            rv_nav.visibility = View.GONE
-//                            navActivity.pb_nav.visibility = View.GONE
-//                        } else {
-//                            rv_nav.visibility = View.VISIBLE
-//                            navActivity.pb_nav.visibility = View.GONE
-//                        }
-                    }
-
-                    override fun onError(e: FirebaseFirestoreException) {
-                        // Show a snackbar on errors
-                        Snackbar.make(cl_gospel_detail,
-                                "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
-                    }
-                }
-                v.rv_nav.adapter = meAdapter
+                this@NavFragment.bean = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
                 unregisterForContextMenu(v.rv_nav)
             }
         }
-        if (navId != VIEW_ME) {
-            navAdapter = object : NavItemPresenter<List<NavBean>>(query, this@NavFragment, navs = navBeans, navId = navId) {
-                override fun onDataChanged() {
-                    if (itemCount == 0) {
-                        rv_nav.visibility = View.GONE
-                        (activity as NavActivity).pb_nav.visibility = View.GONE
-                    } else {
-                        rv_nav.visibility = View.VISIBLE
-                        (activity as NavActivity).pb_nav.visibility = View.GONE
-                    }
+        navAdapter = object : NavItemPresenter<Bean>(query, this@NavFragment, bean = this@NavFragment.bean, navId = navId) {
+            override fun onDataChanged() {
+                if (itemCount == 0) {
+                    rv_nav.visibility = View.GONE
+                    (activity as NavActivity).pb_nav.visibility = View.GONE
+                } else {
+                    rv_nav.visibility = View.VISIBLE
+                    (activity as NavActivity).pb_nav.visibility = View.GONE
                 }
-
-                override fun onError(e: FirebaseFirestoreException) {
-                    // Show a snackbar on errors
-                    Snackbar.make(cl_gospel_detail,
-                            "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
-                }
-
             }
 
-            // set Query
-            if (navId != VIEW_ME) // 增加了复杂性，需要想办法统一Me
-                navAdapter.setQuery(query) // onStop的时候注销了snapshotListener，onResume的时候一定要开启
-            navAdapter.setRv(v.rv_nav)
-            v.rv_nav.adapter = navAdapter
+            override fun onError(e: FirebaseFirestoreException) {
+                // Show a snackbar on errors
+                Snackbar.make(cl_gospel_detail,
+                        "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
+            }
+
         }
+
+        // set Query
+        if (navId != VIEW_ME) // 增加了复杂性，需要想办法统一Me
+            navAdapter.setQuery(query) // onStop的时候注销了snapshotListener，onResume的时候一定要开启
+        navAdapter.setRv(v.rv_nav)
+        v.rv_nav.adapter = navAdapter
         v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
 
@@ -258,16 +230,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
 //        v.srl_nav.isRefreshing = false
     }
 
-    override fun invalidateRv(navBeans: List<NavBean>) {
-        when (navId) {
-            VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
-                navAdapter.navs = navBeans
-            }
-            VIEW_ME -> {
-                val meBean = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
-                meAdapter.navs = meBean
-            }
-        }
+    override fun invalidateRv(bean: Bean) {
+        navAdapter.bean = bean
         runLayoutAnimation(v.rv_nav)
         navActivity.showFAB()
     }

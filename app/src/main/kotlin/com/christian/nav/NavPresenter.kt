@@ -12,7 +12,8 @@ import android.view.Window
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import com.christian.R
-import com.christian.data.NavBean
+import com.christian.data.GospelBean
+import com.christian.data.Gospels
 import com.christian.data.source.NavsRepository
 import com.christian.disciple.DiscipleFragment
 import com.christian.gospeldetail.NavDetailActivity
@@ -34,7 +35,7 @@ import java.util.*
 /**
  * This contains all the NAV business logic, and the MVP control center. We'll write the code here first.
  * Hold references to View and Model, implementation of View is NavActivity, implementation of Model
- * is NavBean
+ * is Gospels
  */
 class NavPresenter(private var navId: Int, private val navsRepository: NavsRepository, override var view: NavContract.INavActivity) : NavContract.IPresenter {
     val tabTitleList = listOf(
@@ -67,7 +68,7 @@ class NavPresenter(private var navId: Int, private val navsRepository: NavsRepos
             "启示录"
     )
 
-    private val navList = listOf(NavBean())
+    private val navList = GospelBean(listOf(Gospels()))
     var navFragmentList = ArrayList<NavFragment>()
 
     init {
@@ -120,7 +121,7 @@ class NavPresenter(private var navId: Int, private val navsRepository: NavsRepos
     override fun deleteNav(navId: String) {
     }
 
-    override fun updateNav(navBeans: List<NavBean>) {
+    override fun updateNav(gospels: List<Gospels>) {
     }
 
     override fun readNav() {
@@ -316,9 +317,10 @@ fun controlOverScroll(navActivity: NavActivity, appBarLayout: AppBarLayout, vert
     val navFragment = (navActivity.presenter as NavPresenter).navFragmentList[navActivity.mPosition]
     if (verticalOffset == 0 && navFragment.isPageBottom) {
         navActivity.srl_nav.setEnableOverScroll(false)
+        navActivity.srl_nav.setEnableLoadmore(false)
     } else if (verticalOffset == -appBarLayout.height && navFragment.isPageTop) {
         navActivity.srl_nav.setEnableOverScroll(false)
-    } else if (verticalOffset == 0 || verticalOffset == -appBarLayout.height && !navFragment.isPageBottom) {
+    } else if (verticalOffset == 0 || verticalOffset == -appBarLayout.height) {
         navActivity.srl_nav.setEnableOverScroll(true)
     }
 }

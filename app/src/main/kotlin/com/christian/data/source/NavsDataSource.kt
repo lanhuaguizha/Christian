@@ -1,40 +1,40 @@
 package com.christian.data.source
 
-import com.christian.data.NavBean
+import com.christian.data.Gospels
 import org.jetbrains.anko.AnkoLogger
 import retrofit2.Call
 
 /**
- * Write NavBean model, first of all you think there are ways to
- * play the NavBean model
+ * Write Gospels model, first of all you think there are ways to
+ * play the Gospels model
  */
 interface NavsDataSource : AnkoLogger {
 
     interface LoadNavsCallback {
 
-        fun onNavsLoaded(navBeans: List<NavBean>)
+        fun onNavsLoaded(gospels: List<Gospels>)
 
         fun onDataNotAvailable()
     }
 
     interface GetNavCallback {
 
-        fun onNavLoaded(navBean: NavBean)
+        fun onNavLoaded(gospels: Gospels)
 
         fun onDataNotAvailable()
     }
 
-    fun getNavs(call: Call<List<NavBean>>, callback: LoadNavsCallback)
+    fun getNavs(call: Call<List<Gospels>>, callback: LoadNavsCallback)
 
     fun getNav(navId: String, callback: GetNavCallback)
 
-    fun saveNav(navBean: NavBean)
+    fun saveNav(gospels: Gospels)
 
-    fun completeNav(navBean: NavBean)
+    fun completeNav(gospels: Gospels)
 
     fun completeNav(navId: String)
 
-    fun activateNav(navBean: NavBean)
+    fun activateNav(gospels: Gospels)
 
     fun activateNav(navId: String)
 

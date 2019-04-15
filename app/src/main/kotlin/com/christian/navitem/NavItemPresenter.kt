@@ -24,7 +24,7 @@ import org.jetbrains.anko.warn
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
  */
-abstract class NavItemPresenter<Bean>(private var query: Query, private val listener: OnGospelSelectedListener, var navs: Bean, private val navId: Int) : NavItemContract.IPresenter, RecyclerView.Adapter<NavItemView>(), EventListener<QuerySnapshot> {
+abstract class NavItemPresenter<out Bean>(private var query: Query, private val listener: OnGospelSelectedListener, var bean: com.christian.data.Bean, private val navId: Int) : NavItemContract.IPresenter, RecyclerView.Adapter<NavItemView>(), EventListener<QuerySnapshot> {
     private val snapshots = ArrayList<DocumentSnapshot>()
     private var registration: ListenerRegistration? = null
 
@@ -156,7 +156,7 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
                 when (pos) {
                     0 -> "我的"
                     in 1..4 -> {
-                        val meBean = navs as MeBean
+                        val meBean = bean as MeBean
                         meBean.settings[pos - 1].name
                     }
                     else -> ""
@@ -193,7 +193,7 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
             VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
             }
             VIEW_ME -> {
-                return (navs as MeBean).settings.size + 2
+                return (bean as MeBean).settings.size + 2
             }
         }
         return snapshots.size
@@ -206,7 +206,7 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
             VIEW_ME -> {
                 return when (position) {
                     0 -> VIEW_TYPE_PORTRAIT
-                    (navs as MeBean).settings.size + 1 -> VIEW_TYPE_BUTTON
+                    (bean as MeBean).settings.size + 1 -> VIEW_TYPE_BUTTON
                     else -> VIEW_TYPE_SMALL
                 }
             }
@@ -258,20 +258,20 @@ abstract class NavItemPresenter<Bean>(private var query: Query, private val list
 
                 debug { "VIEW_ME position$position" }
                 if (position == 0) {
-                    if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (navs as MeBean).name
+                    if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (bean as MeBean).name
                     if (holder.tv2_nav_item_small != null) {
                         applyMarqueeEffect(holder.tv2_nav_item_small)
-                        holder.tv2_nav_item_small.text = (navs as MeBean).nickName
+                        holder.tv2_nav_item_small.text = (bean as MeBean).nickName
                     }
                     if (holder.iv_nav_item_small != null) {
-                        Glide.with(navActivity).load(generateUrlId((navs as MeBean).url)).into(holder.iv_nav_item_small)
+                        Glide.with(navActivity).load(generateUrlId((bean as MeBean).url)).into(holder.iv_nav_item_small)
                     }
-                } else if (position in 1..position && (navs as MeBean).settings.isNotEmpty()) {
+                } else if (position in 1..position && (bean as MeBean).settings.isNotEmpty()) {
                     if (holder.switch_nav_item_small != null && position == 1) holder.switch_nav_item_small.visibility = View.VISIBLE
-                    if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (navs as MeBean).settings[position - 1].name
-                    if (holder.tv2_nav_item_small != null) holder.tv2_nav_item_small.text = (navs as MeBean).settings[position - 1].desc
+                    if (holder.tv_nav_item_small != null) holder.tv_nav_item_small.text = (bean as MeBean).settings[position - 1].name
+                    if (holder.tv2_nav_item_small != null) holder.tv2_nav_item_small.text = (bean as MeBean).settings[position - 1].desc
                     if (holder.iv_nav_item_small != null) {
-                        val url = (navs as MeBean).settings[position - 1].url
+                        val url = (bean as MeBean).settings[position - 1].url
                         Glide.with(navActivity).load(generateUrlId(url)).into(holder.iv_nav_item_small)
                     }
                 }
