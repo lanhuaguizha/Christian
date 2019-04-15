@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
@@ -17,7 +16,6 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import com.christian.ChristianApplication
-import com.christian.Injection
 import com.christian.R
 import com.christian.navitem.NavItemPresenter.Companion.RC_SIGN_IN
 import com.christian.swipe.SwipeBackActivity
@@ -76,7 +74,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nav_activity)
-        NavPresenter(initFragmentIndex, Injection.provideNavsRepository(applicationContext), this)
+        NavPresenter(initFragmentIndex, this)
         presenter.init(whichActivity = NAV_ACTIVITY)
     }
 

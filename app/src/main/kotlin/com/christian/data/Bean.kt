@@ -7,20 +7,17 @@ sealed class Bean
 data class GospelBean(val gospels: List<Gospels>
 ) : Bean()
 
-data class Gospels @JvmOverloads constructor(
+data class Gospels(
         val title: String = "",
         val subtitle: String = "",
-        val detail: List<GospelDetailBean> = arrayListOf(),
-        val relation: String = "",
-        val author: String = "",
-        val id: String = UUID.randomUUID().toString()
-) {
+        val gospelDetails: List<GospelDetails>,
+        val date: String = "",
+        val author: String = ""
+)
 
-    /**
-     * True if the task is completed, false if it's active.
-     */
-    var isCompleted = false
-}
+data class GospelDetailBean(val gospelDetails: List<GospelDetails>)
+
+data class GospelDetails(val content: String, val image: String)
 
 data class MeBean(
         val id: Int = 0,
@@ -43,5 +40,3 @@ data class Address(
         val city: String = "",
         val country: String = ""
 )
-
-data class GospelDetailBean(val content: String, val image: String)

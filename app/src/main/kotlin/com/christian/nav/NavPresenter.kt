@@ -14,7 +14,6 @@ import android.widget.TextView
 import com.christian.R
 import com.christian.data.GospelBean
 import com.christian.data.Gospels
-import com.christian.data.source.NavsRepository
 import com.christian.disciple.DiscipleFragment
 import com.christian.gospeldetail.NavDetailActivity
 import com.christian.gospeldetail.ui.main.GospelDetailFragment
@@ -37,7 +36,7 @@ import java.util.*
  * Hold references to View and Model, implementation of View is NavActivity, implementation of Model
  * is Gospels
  */
-class NavPresenter(private var navId: Int, private val navsRepository: NavsRepository, override var view: NavContract.INavActivity) : NavContract.IPresenter {
+class NavPresenter(private var navId: Int, override var view: NavContract.INavActivity) : NavContract.IPresenter {
     val tabTitleList = listOf(
             "马太福音",
             "马可福音",
@@ -68,7 +67,7 @@ class NavPresenter(private var navId: Int, private val navsRepository: NavsRepos
             "启示录"
     )
 
-    private val navList = GospelBean(listOf(Gospels()))
+    private val navList = GospelBean(listOf(Gospels("","", arrayListOf(),"","")))
     var navFragmentList = ArrayList<NavFragment>()
 
     init {

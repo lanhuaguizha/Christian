@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.bumptech.glide.Glide
 import com.christian.R
+import com.christian.data.GospelBean
+import com.christian.data.Gospels
 import com.christian.nav.NavActivity
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
@@ -92,6 +94,7 @@ open class NavItemView(override var presenter: NavItemContract.IPresenter, final
     }
 
     fun bind(snapshot: DocumentSnapshot, listener: NavItemPresenter.OnGospelSelectedListener) {
+        val gospels = snapshot.toObject(Gospels::class.java)
         Glide.with(containerView.context).load(R.drawable.the_virgin).into(iv_nav_item)
         tv_title_nav_item.text = snapshot.data?.get("title").toString()
         tv_subtitle_nav_item.text = snapshot.data?.get("subtitle").toString()
