@@ -545,7 +545,7 @@ public class ParallaxBackLayout extends FrameLayout {
             invalidate();
             if (mSlideCallback != null)
                 mSlideCallback.onPositionChanged(mScrollPercent);
-            if (mScrollPercent >= 0.999f) {
+            if (mScrollPercent >= 0.8f) {
                 if (!mSwipeHelper.isFinishing()) {
                     mSwipeHelper.finish();
                     mSwipeHelper.overridePendingTransition(0, 0);
