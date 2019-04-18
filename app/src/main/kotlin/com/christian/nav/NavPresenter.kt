@@ -29,7 +29,6 @@ import org.jetbrains.anko.singleLine
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.util.*
 
 /**
  * This contains all the NAV business logic, and the MVP control center. We'll write the code here first.
@@ -37,45 +36,78 @@ import java.util.*
  * is Gospels
  */
 class NavPresenter(private var navId: Int, override var view: NavContract.INavActivity) : NavContract.IPresenter {
-    val tabTitleList = listOf(
-            "马太福音",
-            "马可福音",
-            "路加福音",
-            "约翰福音",
-            "使徒行传",
-            "罗马书",
-            "哥林多前书",
-            "哥林多后书",
-            "加拉太书",
-            "以弗所书",
-            "腓立比书",
-            "歌罗西书",
-            "帖撒罗尼迦前书",
-            "帖撒罗尼迦后书",
-            "提摩太前书",
-            "提摩太后书",
-            "提多书",
-            "腓利门书",
-            "希伯来书",
-            "雅各书",
-            "彼得前书",
-            "彼得后书",
-            "约翰一书",
-            "约翰二书",
-            "约翰三书",
-            "犹太书",
-            "启示录"
-    )
+
+    lateinit var tabTitleList: ArrayList<String>
+//    var tabTitleList = listOf(
+//            "马太福音",
+//            "马可福音",
+//            "路加福音",
+//            "约翰福音",
+//            "使徒行传",
+//            "罗马书",
+//            "哥林多前书",
+//            "哥林多后书",
+//            "加拉太书",
+//            "以弗所书",
+//            "腓立比书",
+//            "歌罗西书",
+//            "帖撒罗尼迦前书",
+//            "帖撒罗尼迦后书",
+//            "提摩太前书",
+//            "提摩太后书",
+//            "提多书",
+//            "腓利门书",
+//            "希伯来书",
+//            "雅各书",
+//            "彼得前书",
+//            "彼得后书",
+//            "约翰一书",
+//            "约翰二书",
+//            "约翰三书",
+//            "犹太书",
+//            "启示录"
+//    )
 
     private val navList = GospelBean(listOf(Gospels()))
     var navFragmentList = ArrayList<NavFragment>()
 
+    private var navActivity: NavActivity
+
     init {
         view.presenter = this
-
+        navActivity = view as NavActivity
     }
 
     override fun init(whichActivity: Int?, navFragment: NavFragment?) {
+        tabTitleList = arrayListOf(
+                navActivity.getString(R.string._Mat),
+                navActivity.getString(R.string._Mak),
+                navActivity.getString(R.string._Luk),
+                navActivity.getString(R.string._Jhn),
+                navActivity.getString(R.string._Act),
+                navActivity.getString(R.string._Rom),
+                navActivity.getString(R.string._1Co),
+                navActivity.getString(R.string._2Co),
+                navActivity.getString(R.string._Gal),
+                navActivity.getString(R.string._Eph),
+                navActivity.getString(R.string._Phl),
+                navActivity.getString(R.string._Col),
+                navActivity.getString(R.string._1Ts),
+                navActivity.getString(R.string._2Ts),
+                navActivity.getString(R.string._1Ti),
+                navActivity.getString(R.string._2Ti),
+                navActivity.getString(R.string._Tit),
+                navActivity.getString(R.string._Mon),
+                navActivity.getString(R.string._Heb),
+                navActivity.getString(R.string._Jas),
+                navActivity.getString(R.string._1Pe),
+                navActivity.getString(R.string._2Pe),
+                navActivity.getString(R.string._1Jn),
+                navActivity.getString(R.string._2Jn),
+                navActivity.getString(R.string._3Jn),
+                navActivity.getString(R.string._Jud),
+                navActivity.getString(R.string._Rev)
+                )
         when (navFragment == null && whichActivity != null) {
             // called from a activity
             true -> {
@@ -228,10 +260,7 @@ fun setToolbarExpanded(context: Context, presenter: NavPresenter, position: Int)
             setToolbarExpanded(context, false)
         }
         VIEW_GOSPEL -> {
-            for (tabTitle in (presenter as NavPresenter).tabTitleList) {
-                navActivity.tl_nav.newTab().setText(tabTitle).let { navActivity.tl_nav.addTab(it) }
-                setToolbarExpanded(context, true)
-            }
+            setToolbarExpanded(context, true)
         }
         VIEW_DISCIPLE -> {
             setToolbarExpanded(context, false)

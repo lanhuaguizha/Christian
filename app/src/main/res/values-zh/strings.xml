@@ -160,4 +160,32 @@
     <string name="author">神</string>
     <string name="the_avatars">The avatars</string>
 
+    <!--tab layout-->
+    <string name="_Mat">马太福音</string>
+    <string name="_Mak">马可福音</string>
+    <string name="_Luk">路加福音</string>
+    <string name="_Jhn">约翰福音</string>
+    <string name="_Act">使徒行传</string>
+    <string name="_Rom">罗马书</string>
+    <string name="_1Co">哥林多前书</string>
+    <string name="_2Co">哥林多后书</string>
+    <string name="_Gal">加拉太书</string>
+    <string name="_Eph">以弗所书</string>
+    <string name="_Phl">腓立比书</string>
+    <string name="_Col">歌罗西书</string>
+    <string name="_1Ts">帖撒罗尼迦前书</string>
+    <string name="_2Ts">帖撒罗尼迦后书</string>
+    <string name="_1Ti">提摩太前书</string>
+    <string name="_2Ti">提摩太后书</string>
+    <string name="_Tit">提多书</string>
+    <string name="_Mon">腓利门书</string>
+    <string name="_Heb">希伯来书</string>
+    <string name="_Jas">雅各书</string>
+    <string name="_1Pe">彼得前书</string>
+    <string name="_2Pe">彼得后书</string>
+    <string name="_1Jn">约翰一书</string>
+    <string name="_2Jn">约翰二书</string>
+    <string name="_3Jn">约翰三书</string>
+    <string name="_Jud">犹太书</string>
+    <string name="_Rev">启示录</string>
 </resources>

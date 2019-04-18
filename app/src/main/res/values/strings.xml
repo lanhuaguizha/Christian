@@ -170,4 +170,33 @@
     <string name="fresh_config">Fresh Config</string>
     <string name="cause_crash">Cause Crash</string>
     <string name="invite_menu_label">Invite</string>
+
+    <!--tab layout-->
+    <string name="_Mat">Mat</string>
+    <string name="_Mak">Mak</string>
+    <string name="_Luk">Luk</string>
+    <string name="_Jhn">Jhn</string>
+    <string name="_Act">Act</string>
+    <string name="_Rom">Rom</string>
+    <string name="_1Co">1Co</string>
+    <string name="_2Co">2Co</string>
+    <string name="_Gal">Gal</string>
+    <string name="_Eph">Eph</string>
+    <string name="_Phl">Phl</string>
+    <string name="_Col">Col</string>
+    <string name="_1Ts">1Ts</string>
+    <string name="_2Ts">2Ts</string>
+    <string name="_1Ti">1Ti</string>
+    <string name="_2Ti">2Ti</string>
+    <string name="_Tit">Tit</string>
+    <string name="_Mon">Mon</string>
+    <string name="_Heb">Heb</string>
+    <string name="_Jas">Jas</string>
+    <string name="_1Pe">1Pe</string>
+    <string name="_2Pe">2Pe</string>
+    <string name="_1Jn">1Jn</string>
+    <string name="_2Jn">2Jn</string>
+    <string name="_3Jn">3Jn</string>
+    <string name="_Jud">Jud</string>
+    <string name="_Rev">Rev</string>
 </resources>
