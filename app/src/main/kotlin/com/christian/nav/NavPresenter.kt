@@ -24,7 +24,6 @@ import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
-import org.jetbrains.anko.info
 import org.jetbrains.anko.singleLine
 import java.io.BufferedReader
 import java.io.IOException
@@ -107,7 +106,7 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
                 navActivity.getString(R.string._3Jn),
                 navActivity.getString(R.string._Jud),
                 navActivity.getString(R.string._Rev)
-                )
+        )
         when (navFragment == null && whichActivity != null) {
             // called from a activity
             true -> {
@@ -275,10 +274,12 @@ private fun setToolbarExpanded(context: Context, expanded: Boolean) {
     val navActivity = context as NavActivity
     when (expanded) {
         true -> {
-            expandedAnimation(navActivity, true, navActivity.tb_nav, navActivity.abl_nav)
+            if (!isToolbarExpanded(context))
+                expandedAnimation(navActivity, true, navActivity.tb_nav)
         }
         false -> {
-            expandedAnimation(navActivity, false, navActivity.tb_nav, navActivity.abl_nav)
+            if (isToolbarExpanded(context))
+                expandedAnimation(navActivity, false, navActivity.tb_nav)
         }
     }
 
@@ -289,13 +290,19 @@ fun isToolbarExpanded(context: Context): Boolean {
     return navActivity.tl_nav.visibility == View.VISIBLE
 }
 
-private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, view: View, expandedView: View) {
+private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, view: View) {
     val animator: ValueAnimator = if (expanded) {
-//        navActivity.tl_nav.visibility = View.VISIBLE
-        ValueAnimator.ofFloat(view.bottom.toFloat(), view.bottom.toFloat() + expandedView.bottom.toFloat())
+        if (navActivity.verticalOffset == 0) {
+            ValueAnimator.ofFloat(view.bottom.toFloat(), view.bottom.toFloat() * 2)
+        } else {
+            ValueAnimator.ofFloat(0f, view.bottom.toFloat())
+        }
     } else {
-        navActivity.info { "nav activity's abl_nav's height is ${navActivity.abl_nav.measuredHeight}" }
-        ValueAnimator.ofFloat(expandedView.bottom.toFloat(), view.bottom.toFloat())
+        if (navActivity.verticalOffset == 0) {
+            ValueAnimator.ofFloat(view.bottom.toFloat() * 2, view.bottom.toFloat())
+        } else {
+            ValueAnimator.ofFloat(view.bottom.toFloat(), 0f)
+        }
     }
     animator.duration = navActivity.resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
     animator.interpolator = LinearInterpolator()
