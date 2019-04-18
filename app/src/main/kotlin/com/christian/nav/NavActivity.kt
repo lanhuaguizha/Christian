@@ -141,7 +141,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 debug { "position$position" }
                 bnv_nav.menu.getItem(position).isChecked = true
 
-                srl_nav.setTargetView((presenter as NavPresenter).navFragmentList[mPosition].rv_nav)
+                val navPresenter = presenter as NavPresenter
+                srl_nav.setTargetView(navPresenter.navFragmentList[mPosition].rv_nav)
+                setToolbarExpanded(this@NavActivity, navPresenter, position)
             }
 
             override fun onPageScrollStateChanged(state: Int) {

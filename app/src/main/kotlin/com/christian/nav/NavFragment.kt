@@ -127,19 +127,13 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     lateinit var bean: Bean
 
     private fun initRv(bean: Bean) {
-        v.cv_nav_frag.visibility = View.GONE
         registerForContextMenu(v.rv_nav)
         this@NavFragment.bean = bean
 
         when (navId) {
             VIEW_HOME -> {
-
             }
             VIEW_GOSPEL -> {
-                makeViewBlur(v.bv_tabs_nav, navActivity.cl_nav, navActivity.window)
-                for (tabTitle in (presenter as NavPresenter).tabTitleList) {
-                    v.tl_nav.newTab().setText(tabTitle).let { v.tl_nav.addTab(it) }
-                }
             }
             VIEW_DISCIPLE -> {
             }

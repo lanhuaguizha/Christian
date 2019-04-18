@@ -2,10 +2,8 @@ package com.christian.data
 
 sealed class Bean
 
-data class GospelBean(val gospels: List<Gospels>
-) : Bean()
-
-data class Gospels @JvmOverloads constructor(
+data class GospelBean(val gospels: List<Gospels>) : Bean()
+data class Gospels(
         var title: String = "",
         var subtitle: String = "",
         var gospelDetails: List<GospelDetails> = arrayListOf(),
@@ -13,9 +11,24 @@ data class Gospels @JvmOverloads constructor(
         var author: String = ""
 )
 
-data class GospelDetailBean(val gospelDetails: List<GospelDetails>)
+data class DiscipleBean(
+        val messages: List<Message>
+) : Bean()
 
-data class GospelDetails(val content: String, val image: String)
+data class Message(
+        val id: String,
+        var text: String = "",
+        var name: String = "",
+        var photoUrl: String = "",
+        var imageUrl: String = "")
+
+data class GospelDetailBean(
+        val gospelDetails: List<GospelDetails>
+) : Bean()
+
+data class GospelDetails(
+        val content: String,
+        val image: String)
 
 data class MeBean(
         val id: Int = 0,

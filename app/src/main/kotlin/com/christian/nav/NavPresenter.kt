@@ -221,7 +221,28 @@ fun makeViewBlur(view: BlurView, parent: ViewGroup, window: Window) {
 /**
  * utils to expand a toolbar
  */
-fun setToolbarExpanded(context: Context, expanded: Boolean) {
+fun setToolbarExpanded(context: Context, presenter: NavPresenter, position: Int) {
+    val navActivity = context as NavActivity
+    when (position) {
+        VIEW_HOME -> {
+            setToolbarExpanded(context, false)
+        }
+        VIEW_GOSPEL -> {
+            for (tabTitle in (presenter as NavPresenter).tabTitleList) {
+                navActivity.tl_nav.newTab().setText(tabTitle).let { navActivity.tl_nav.addTab(it) }
+                setToolbarExpanded(context, true)
+            }
+        }
+        VIEW_DISCIPLE -> {
+            setToolbarExpanded(context, false)
+        }
+        VIEW_ME -> {
+            setToolbarExpanded(context, false)
+        }
+    }
+}
+
+private fun setToolbarExpanded(context: Context, expanded: Boolean) {
     val navActivity = context as NavActivity
     when (expanded) {
         true -> {
@@ -236,12 +257,12 @@ fun setToolbarExpanded(context: Context, expanded: Boolean) {
 
 fun isToolbarExpanded(context: Context): Boolean {
     val navActivity = context as NavActivity
-    return navActivity.tl_nav_1.visibility == View.VISIBLE
+    return navActivity.tl_nav.visibility == View.VISIBLE
 }
 
 private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, view: View, expandedView: View) {
     val animator: ValueAnimator = if (expanded) {
-        navActivity.tl_nav_1.visibility = View.VISIBLE
+//        navActivity.tl_nav.visibility = View.VISIBLE
         ValueAnimator.ofFloat(view.bottom.toFloat(), view.bottom.toFloat() + expandedView.bottom.toFloat())
     } else {
         navActivity.info { "nav activity's abl_nav's height is ${navActivity.abl_nav.measuredHeight}" }
@@ -260,9 +281,9 @@ private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, view:
 
         override fun onAnimationEnd(animation: Animator) {
             if (expanded) {
-                navActivity.tl_nav_1.visibility = View.VISIBLE
+                navActivity.tl_nav.visibility = View.VISIBLE
             } else {
-                navActivity.tl_nav_1.visibility = View.GONE
+                navActivity.tl_nav.visibility = View.GONE
             }
         }
 
