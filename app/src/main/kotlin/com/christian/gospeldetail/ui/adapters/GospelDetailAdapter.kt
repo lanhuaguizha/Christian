@@ -119,7 +119,6 @@ abstract class GospelDetailAdapter(private var gospelRef: DocumentReference, val
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        navActivity.hidePb()
         snapshot?.let { holder.bind(it) }
     }
 

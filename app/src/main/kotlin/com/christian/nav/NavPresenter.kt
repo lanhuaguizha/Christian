@@ -39,6 +39,7 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
     lateinit var tabTitleList: ArrayList<String>
     private val navList = GospelBean(listOf(Gospels()))
     var navFragmentList = ArrayList<NavFragment>()
+    var navFragmentList2 = ArrayList<NavFragment>()
 
     private var navActivity: NavActivity
 
@@ -81,6 +82,7 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
             // called from a activity
             true -> {
                 navFragmentList.clear()
+                navFragmentList2.clear()
                 when (whichActivity) {
                     NAV_ACTIVITY -> {
                         val homeFragment = NavFragment()
@@ -99,12 +101,11 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
                         meFragment.navId = 3
                         navFragmentList.add(meFragment)
 
-                        for (i in 4..30) {
+                        for (i in 0..26) {
                             val navChildFragment = NavFragment()
-                            navChildFragment.navId = i
+                            navChildFragment.navId = i + 4
                             navChildFragment.childFragment = true
-//                            navFragmentList2.add(navChildFragment)
-                            navFragmentList.add(navChildFragment)
+                            navFragmentList2.add(navChildFragment)
                         }
                     }
                     GOSPEL_DETAIL_ACTIVITY -> {
