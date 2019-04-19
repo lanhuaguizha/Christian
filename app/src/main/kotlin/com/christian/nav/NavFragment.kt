@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.debug
+import org.jetbrains.anko.info
 
 
 open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
@@ -42,7 +43,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
 
     open lateinit var firestore: FirebaseFirestore
     open lateinit var query: Query
-
     override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
     private lateinit var ctx: Context
@@ -50,6 +50,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     private lateinit var v: View
     var navId = -1
     lateinit var gospelId: String
+    var childFragment: Boolean = false
 
     init {
         debug { "look at init times" }
@@ -98,27 +99,38 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         fun stopListening() {
             navAdapter.stopListening()
         }
+
+        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        fun resolveMemoryLeak() {
+            navActivity.navFragmentPagerAdapter.cleanFragmentList()
+        }
     }
 
     override fun initView(bean: Bean) {
         debug { "nav fragment is $this and navId is $navId --initView" }
         initSrl()
+        if (navId == VIEW_GOSPEL && !childFragment) {
+            info { "navId$navId" }
+            initTb()
+        } else {
+            v.vp1_nav.visibility = View.GONE
+            v.rv_nav.visibility = View.VISIBLE
+        }
         initRv(bean)
+    }
+
+    open fun initTb() {
+        v.vp1_nav.visibility = View.VISIBLE
+        v.rv_nav.visibility = View.GONE
+        val adapter = NavFragmentPagerAdapter((presenter as NavPresenter).navFragmentList2, childFragmentManager, (presenter as NavPresenter).tabTitleList)
+        v.vp1_nav.adapter = adapter//给ViewPager设置适配器
+        navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
     }
 
     private fun initSrl() {
         when (navId == initFragmentIndex) {
             true -> navActivity.srl_nav.setTargetView(v.rv_nav)
         }
-//        val headerView = ProgressLayout(navActivity)
-//        headerView.setColorSchemeColors(R.color.colorAccent, R.color.colorAccentRed, R.color.colorPrimary)
-//        v.srl_nav.setHeaderView(headerView)
-
-//        v.srl_nav.setOnRefreshListener(object : RefreshListenerAdapter() {
-//            override fun onRefresh(refreshLayout: TwinklingRefreshLayout) {
-//                refreshLayout.finishRefreshing()
-//            }
-//        })
     }
 
     var isPageTop: Boolean = true

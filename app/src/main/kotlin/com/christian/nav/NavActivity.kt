@@ -127,8 +127,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         search_back_button.setOnClickListener { slCollapse() }
     }
 
+    lateinit var navFragmentPagerAdapter: NavFragmentPagerAdapter
+
     open fun initVp(navFragmentList: ArrayList<NavFragment>) {
-        val navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragmentList, supportFragmentManager)
+        navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragmentList, supportFragmentManager, (presenter as NavPresenter).tabTitleList)
 
         vp_nav.offscreenPageLimit = 3
         vp_nav.adapter = navFragmentPagerAdapter

@@ -37,38 +37,9 @@ import java.io.InputStreamReader
 class NavPresenter(private var navId: Int, override var view: NavContract.INavActivity) : NavContract.IPresenter {
 
     lateinit var tabTitleList: ArrayList<String>
-//    var tabTitleList = listOf(
-//            "马太福音",
-//            "马可福音",
-//            "路加福音",
-//            "约翰福音",
-//            "使徒行传",
-//            "罗马书",
-//            "哥林多前书",
-//            "哥林多后书",
-//            "加拉太书",
-//            "以弗所书",
-//            "腓立比书",
-//            "歌罗西书",
-//            "帖撒罗尼迦前书",
-//            "帖撒罗尼迦后书",
-//            "提摩太前书",
-//            "提摩太后书",
-//            "提多书",
-//            "腓利门书",
-//            "希伯来书",
-//            "雅各书",
-//            "彼得前书",
-//            "彼得后书",
-//            "约翰一书",
-//            "约翰二书",
-//            "约翰三书",
-//            "犹太书",
-//            "启示录"
-//    )
-
     private val navList = GospelBean(listOf(Gospels()))
     var navFragmentList = ArrayList<NavFragment>()
+    var navFragmentList2 = ArrayList<NavFragment>()
 
     private var navActivity: NavActivity
 
@@ -111,6 +82,7 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
             // called from a activity
             true -> {
                 navFragmentList.clear()
+                navFragmentList2.clear()
                 when (whichActivity) {
                     NAV_ACTIVITY -> {
                         val homeFragment = NavFragment()
@@ -128,6 +100,13 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
                         val meFragment = NavFragment()
                         meFragment.navId = 3
                         navFragmentList.add(meFragment)
+
+                        for (i in 0..26) {
+                            val navChildFragment = NavFragment()
+                            navChildFragment.navId = i
+                            navChildFragment.childFragment = true
+                            navFragmentList2.add(navChildFragment)
+                        }
                     }
                     GOSPEL_DETAIL_ACTIVITY -> {
                         val gospelDetailFragment = GospelDetailFragment()

@@ -6,9 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.design.widget.CoordinatorLayout
         android:id="@+id/cl_nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,10 +35,10 @@
                 android:id="@+id/tl_nav"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/action_bar_height"
-                app:tabMode="scrollable"
                 android:theme="@style/AppTheme.AppBarOverlay"
                 android:visibility="gone"
-                app:tabIndicatorColor="@color/white" />
+                app:tabIndicatorColor="@color/white"
+                app:tabMode="scrollable" />
         </android.support.design.widget.AppBarLayout>
 
         <com.christian.view.CustomViewPager
