@@ -130,7 +130,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     lateinit var navFragmentPagerAdapter: NavFragmentPagerAdapter
 
     open fun initVp(navFragmentList: ArrayList<NavFragment>) {
-        navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragmentList.filter { it.navId < 4 }.toMutableList(), supportFragmentManager, (presenter as NavPresenter).tabTitleList)
+        navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragmentList.filter { it.navId < 4 }, supportFragmentManager, (presenter as NavPresenter).tabTitleList)
 
         vp_nav.offscreenPageLimit = 3
         vp_nav.adapter = navFragmentPagerAdapter

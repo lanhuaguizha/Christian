@@ -91,7 +91,7 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
                         gospelFragment.navId = 1
                         navFragmentList.add(gospelFragment)
 
-                        val discipleFragment = DiscipleFragment()
+                        val discipleFragment = NavFragment()
                         discipleFragment.navId = 2
                         navFragmentList.add(discipleFragment)
 

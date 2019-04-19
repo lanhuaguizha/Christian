@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.info
+import java.lang.ref.WeakReference
 
 
 open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
@@ -99,11 +100,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         fun stopListening() {
             navAdapter.stopListening()
         }
-
-        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        fun resolveMemoryLeak() {
-            navActivity.navFragmentPagerAdapter.cleanFragmentList()
-        }
     }
 
     override fun initView(bean: Bean) {
@@ -122,8 +118,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     open fun initTb() {
         v.vp1_nav.visibility = View.VISIBLE
         v.rv_nav.visibility = View.GONE
-        val adapter = NavFragmentPagerAdapter((presenter as NavPresenter).navFragmentList.filter { it.navId >= 4 }.toMutableList(), childFragmentManager, (presenter as NavPresenter).tabTitleList)
-        v.vp1_nav.adapter = adapter//给ViewPager设置适配器
+        val adapter = NavFragmentPagerAdapter((presenter as NavPresenter).navFragmentList.filter { it.navId >= 4 }, childFragmentManager, (presenter as NavPresenter).tabTitleList)
+        v.vp1_nav.adapter = WeakReference<NavFragmentPagerAdapter>(adapter).get()
         navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
     }
 
