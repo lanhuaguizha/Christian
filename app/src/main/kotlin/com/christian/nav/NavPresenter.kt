@@ -275,11 +275,11 @@ private fun setToolbarExpanded(context: Context, expanded: Boolean) {
     when (expanded) {
         true -> {
             if (!isToolbarExpanded(context))
-                expandedAnimation(navActivity, true, navActivity.tb_nav)
+                expandedAnimation(navActivity, true)
         }
         false -> {
             if (isToolbarExpanded(context))
-                expandedAnimation(navActivity, false, navActivity.tb_nav)
+                expandedAnimation(navActivity, false)
         }
     }
 
@@ -290,19 +290,11 @@ fun isToolbarExpanded(context: Context): Boolean {
     return navActivity.tl_nav.visibility == View.VISIBLE
 }
 
-private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, view: View) {
+private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean) {
     val animator: ValueAnimator = if (expanded) {
-        if (navActivity.verticalOffset == 0) {
-            ValueAnimator.ofFloat(view.bottom.toFloat(), view.bottom.toFloat() * 2)
-        } else {
-            ValueAnimator.ofFloat(0f, view.bottom.toFloat())
-        }
+        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() + navActivity.tb_nav.height)
     } else {
-        if (navActivity.verticalOffset == 0) {
-            ValueAnimator.ofFloat(view.bottom.toFloat() * 2, view.bottom.toFloat())
-        } else {
-            ValueAnimator.ofFloat(view.bottom.toFloat(), 0f)
-        }
+        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.tb_nav.height)
     }
     animator.duration = navActivity.resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
     animator.interpolator = LinearInterpolator()
