@@ -3,6 +3,7 @@ package com.christian.nav
 import com.christian.BaseContract
 import com.christian.data.Bean
 import com.christian.data.Gospels
+import org.jetbrains.anko.AnkoLogger
 import java.util.ArrayList
 
 /**
@@ -50,7 +51,7 @@ class NavContract {
         fun deinitView()
     }
 
-    interface INavFragment : BaseContract.IView<IPresenter> {
+    interface INavFragment : AnkoLogger {
 
         fun initView(bean: Bean)
 

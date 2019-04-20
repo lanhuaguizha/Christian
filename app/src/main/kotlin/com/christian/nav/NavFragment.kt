@@ -45,7 +45,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
 
     open lateinit var firestore: FirebaseFirestore
     open lateinit var query: Query
-    override lateinit var presenter: NavContract.IPresenter
     private lateinit var navActivity: NavActivity
     private lateinit var ctx: Context
     private lateinit var navAdapter: NavItemPresenter<*>
@@ -78,7 +77,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         // Get ${LIMIT} gospels
         query = firestore.collection("gospels")
 
-        presenter = WeakReference<NavContract.IPresenter>(navActivity.presenter).get() ?: navActivity.presenter
         lifecycle.addObserver(NavFragmentLifecycleObserver())
         return v
     }
@@ -135,7 +133,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     open fun initTb() {
         v.vp1_nav.visibility = View.VISIBLE
         v.rv_nav.visibility = View.GONE
-        val adapter = NavFragmentPagerAdapter((WeakReference<NavContract.IPresenter>(navActivity.presenter).get() as NavPresenter).navFragmentList2, childFragmentManager, (presenter as NavPresenter).tabTitleList)
+        val adapter = NavFragmentPagerAdapter((WeakReference<NavContract.IPresenter>(navActivity.presenter).get() as NavPresenter).navFragmentList2, childFragmentManager, (WeakReference<NavContract.IPresenter>(navActivity.presenter).get() as NavPresenter).tabTitleList)
         v.vp1_nav.adapter = WeakReference<NavFragmentPagerAdapter>(adapter).get()
         navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
     }
@@ -170,11 +168,11 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         navAdapter = object : NavItemPresenter<Bean>(query, this@NavFragment, bean = this@NavFragment.bean, navId = navId) {
             override fun onDataChanged() {
                 if (itemCount == 0) {
-                    rv_nav.visibility = View.GONE
-                    (activity as NavActivity).pb_nav.visibility = View.GONE
+                    v.rv_nav.visibility = View.GONE
+                    v.pb_nav.visibility = View.VISIBLE
                 } else {
-                    rv_nav.visibility = View.VISIBLE
-                    (activity as NavActivity).pb_nav.visibility = View.GONE
+                    v.rv_nav.visibility = View.VISIBLE
+                    v.pb_nav.visibility = View.GONE
                 }
             }
 
