@@ -133,8 +133,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     open fun initTb() {
         v.vp1_nav.visibility = View.VISIBLE
         v.rv_nav.visibility = View.GONE
-        val adapter = NavFragmentPagerAdapter((WeakReference<NavContract.IPresenter>(navActivity.presenter).get() as NavPresenter).navFragmentList2, childFragmentManager, (WeakReference<NavContract.IPresenter>(navActivity.presenter).get() as NavPresenter).tabTitleList)
-        v.vp1_nav.adapter = WeakReference<NavFragmentPagerAdapter>(adapter).get()
+        val adapter = WeakReference<NavFragmentPagerAdapter>(NavFragmentPagerAdapter((navActivity.presenter as NavPresenter).navFragmentList2, childFragmentManager, (navActivity.presenter as NavPresenter).tabTitleList))
+        v.vp1_nav.adapter = adapter.get()
         navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
     }
 
