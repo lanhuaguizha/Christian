@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.view.animation.AnimationUtils
@@ -86,7 +87,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         fun bindNavAdapter() {
             debug { "Lifecycle.Event.ON_CREATE" }
-            presenter.init(whichActivity = null, navFragment = this@NavFragment)
+            WeakReference<NavContract.IPresenter>(navActivity.presenter).get()?.init(whichActivity = null, navFragment = this@NavFragment)
         }
 
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -112,13 +113,29 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             v.vp1_nav.visibility = View.GONE
             v.rv_nav.visibility = View.VISIBLE
         }
+        initVp1()
         initRv(bean)
+    }
+
+    private fun initVp1() {
+        v.vp1_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                navActivity.srl_nav.setTargetView(v.rv_nav)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+
+        })
     }
 
     open fun initTb() {
         v.vp1_nav.visibility = View.VISIBLE
         v.rv_nav.visibility = View.GONE
-        val adapter = NavFragmentPagerAdapter((presenter as NavPresenter).navFragmentList2, childFragmentManager, (presenter as NavPresenter).tabTitleList)
+        val adapter = NavFragmentPagerAdapter((WeakReference<NavContract.IPresenter>(navActivity.presenter).get() as NavPresenter).navFragmentList2, childFragmentManager, (presenter as NavPresenter).tabTitleList)
         v.vp1_nav.adapter = WeakReference<NavFragmentPagerAdapter>(adapter).get()
         navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
     }
