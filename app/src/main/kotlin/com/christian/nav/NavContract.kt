@@ -52,7 +52,7 @@ class NavContract {
 
     interface INavFragment : AnkoLogger {
 
-        fun initView(bean: Bean)
+        fun initView()
 
         fun showSrl()
 

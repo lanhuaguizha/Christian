@@ -12,11 +12,15 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.Bean
+import com.christian.data.GospelBean
+import com.christian.data.Gospels
 import com.christian.data.MeBean
 import com.christian.gospeldetail.NavDetailActivity
 import com.christian.navitem.NavItemPresenter
@@ -75,32 +79,34 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         firestore = FirebaseFirestore.getInstance()
         // Get ${LIMIT} gospels
         query = firestore.collection("gospels")
-
         lifecycle.addObserver(NavFragmentLifecycleObserver())
+
+        // onCreateView and onDestroyView start and stop cause 27 child fragments needs it when destroy view at default limit
+        if (navId != VIEW_ME) {
+            navAdapter.startListening()
+        }
         return v
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // 统一detaiil页面，因为detail页面的解绑在其他页面做了
+        try {
+            navAdapter.stopListening()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     inner class NavFragmentLifecycleObserver : LifecycleObserver {
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         fun bindNavAdapter() {
             debug { "Lifecycle.Event.ON_CREATE" }
-            navActivity.presenter.init(whichActivity = null, navFragment = this@NavFragment)
-        }
-
-        @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-        fun startListening() {
-            if (navId != VIEW_ME) {
-                navAdapter.startListening()
-            }
-        }
-
-        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        fun stopListening() {
-            navAdapter.stopListening()
+            initView()
         }
     }
 
-    override fun initView(bean: Bean) {
+    override fun initView() {
         debug { "nav fragment is $this and navId is $navId --initView" }
         initSrl()
         if (navId == VIEW_GOSPEL) {
@@ -110,7 +116,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             v.vp1_nav.visibility = View.GONE
             v.rv_nav.visibility = View.VISIBLE
         }
-        initRv(bean)
+        initRv()
     }
 
     open fun initGospelTb() {
@@ -152,8 +158,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     var isPageBottom: Boolean = true
     lateinit var bean: Bean
 
-    private fun initRv(bean: Bean) {
-        this@NavFragment.bean = bean
+    private fun initRv() {
+        this@NavFragment.bean = GospelBean(listOf(Gospels()))
 
         when (navId) {
             VIEW_HOME -> {

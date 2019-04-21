@@ -36,7 +36,6 @@ import java.io.InputStreamReader
 class NavPresenter(private var navId: Int, override var view: NavContract.INavActivity) : NavContract.IPresenter {
 
     lateinit var tabTitleList: ArrayList<String>
-    private val navList = GospelBean(listOf(Gospels()))
     var navFragmentList = ArrayList<NavFragment>()
 
     private var navActivity: NavActivity
@@ -112,7 +111,6 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
             }
             // called from a fragment
             false -> {
-                navFragment?.initView(navList)
             }
         }
     }
