@@ -35,7 +35,6 @@ import java.io.InputStreamReader
  */
 class NavPresenter(private var navId: Int, override var view: NavContract.INavActivity) : NavContract.IPresenter {
 
-    lateinit var tabTitleList: ArrayList<String>
     var navFragmentList = ArrayList<NavFragment>()
 
     private var navActivity: NavActivity
@@ -46,35 +45,6 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
     }
 
     override fun init(whichActivity: Int?, navFragment: NavFragment?) {
-        tabTitleList = arrayListOf(
-                navActivity.getString(R.string._Mat),
-                navActivity.getString(R.string._Mak),
-                navActivity.getString(R.string._Luk),
-                navActivity.getString(R.string._Jhn),
-                navActivity.getString(R.string._Act),
-                navActivity.getString(R.string._Rom),
-                navActivity.getString(R.string._1Co),
-                navActivity.getString(R.string._2Co),
-                navActivity.getString(R.string._Gal),
-                navActivity.getString(R.string._Eph),
-                navActivity.getString(R.string._Phl),
-                navActivity.getString(R.string._Col),
-                navActivity.getString(R.string._1Ts),
-                navActivity.getString(R.string._2Ts),
-                navActivity.getString(R.string._1Ti),
-                navActivity.getString(R.string._2Ti),
-                navActivity.getString(R.string._Tit),
-                navActivity.getString(R.string._Mon),
-                navActivity.getString(R.string._Heb),
-                navActivity.getString(R.string._Jas),
-                navActivity.getString(R.string._1Pe),
-                navActivity.getString(R.string._2Pe),
-                navActivity.getString(R.string._1Jn),
-                navActivity.getString(R.string._2Jn),
-                navActivity.getString(R.string._3Jn),
-                navActivity.getString(R.string._Jud),
-                navActivity.getString(R.string._Rev)
-        )
         when (navFragment == null && whichActivity != null) {
             // called from a activity
             true -> {

@@ -115,9 +115,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     open fun initTb() {
         sb_nav.visibility = View.VISIBLE
-        for (tabTitle in (presenter as NavPresenter).tabTitleList) {
-            tl_nav.newTab().setText(tabTitle).let { tl_nav.addTab(it) }
-        }
     }
 
     private fun initSb() {

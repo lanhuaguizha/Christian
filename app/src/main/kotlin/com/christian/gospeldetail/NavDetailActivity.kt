@@ -10,7 +10,6 @@ import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.nav.*
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import org.jetbrains.anko.debug
 import java.util.*

@@ -9,7 +9,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -34,7 +34,6 @@ import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.debug
-import org.jetbrains.anko.info
 
 
 open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
@@ -110,8 +109,9 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         debug { "nav fragment is $this and navId is $navId --initView" }
         initSrl()
         if (navId == VIEW_GOSPEL) {
-            info { "navId$navId" }
-            initGospelTb()
+            v.vp1_nav.visibility = View.VISIBLE
+            v.rv_nav.visibility = View.GONE
+            initTl()
         } else {
             v.vp1_nav.visibility = View.GONE
             v.rv_nav.visibility = View.VISIBLE
@@ -119,18 +119,42 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         initRv()
     }
 
-    open fun initGospelTb() {
-        val navFragmentList = ArrayList<NavFragment>()
-        navFragmentList.clear()
-        for (i in 0..26) {
-            val navChildFragment = NavFragment()
-            navChildFragment.navId = i + 4
-            navFragmentList.add(navChildFragment)
+    open fun initTl() {
+        val tabTitleList = arrayListOf(
+                navActivity.getString(R.string._Mat),
+                navActivity.getString(R.string._Mak),
+                navActivity.getString(R.string._Luk),
+                navActivity.getString(R.string._Jhn),
+                navActivity.getString(R.string._Act),
+                navActivity.getString(R.string._Rom),
+                navActivity.getString(R.string._1Co),
+                navActivity.getString(R.string._2Co),
+                navActivity.getString(R.string._Gal),
+                navActivity.getString(R.string._Eph),
+                navActivity.getString(R.string._Phl),
+                navActivity.getString(R.string._Col),
+                navActivity.getString(R.string._1Ts),
+                navActivity.getString(R.string._2Ts),
+                navActivity.getString(R.string._1Ti),
+                navActivity.getString(R.string._2Ti),
+                navActivity.getString(R.string._Tit),
+                navActivity.getString(R.string._Mon),
+                navActivity.getString(R.string._Heb),
+                navActivity.getString(R.string._Jas),
+                navActivity.getString(R.string._1Pe),
+                navActivity.getString(R.string._2Pe),
+                navActivity.getString(R.string._1Jn),
+                navActivity.getString(R.string._2Jn),
+                navActivity.getString(R.string._3Jn),
+                navActivity.getString(R.string._Jud),
+                navActivity.getString(R.string._Rev)
+        )
+
+        for (tabTitle in tabTitleList) {
+            navActivity.tl_nav.newTab().setText(tabTitle).let { navActivity.tl_nav.addTab(it) }
         }
 
-        v.vp1_nav.visibility = View.VISIBLE
-        v.rv_nav.visibility = View.GONE
-        v.vp1_nav.adapter = NavChildFragmentPagerAdapter(navFragmentList, childFragmentManager, (navActivity.presenter as NavPresenter).tabTitleList)
+        v.vp1_nav.adapter = NavChildFragmentPagerAdapter(childFragmentManager, tabTitleList)
         navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
 
         v.vp1_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -279,14 +303,16 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         refWatcher.watch(this)
     }
 
-    class NavChildFragmentPagerAdapter(private val navFragmentList: List<NavFragment>, fm: FragmentManager, private val tabTitleList: ArrayList<String>) : FragmentPagerAdapter(fm) {
+    class NavChildFragmentPagerAdapter(fm: FragmentManager, private val tabTitleList: ArrayList<String>) : FragmentStatePagerAdapter(fm) {
 
         override fun getItem(position: Int): Fragment {
-            return navFragmentList[position]
+            val navFragment = NavFragment()
+            navFragment.navId = position + 4
+            return navFragment
         }
 
         override fun getCount(): Int {
-            return navFragmentList.size
+            return tabTitleList.size
         }
 
         override fun getPageTitle(position: Int): CharSequence {
