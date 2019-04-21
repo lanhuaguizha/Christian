@@ -13,8 +13,6 @@ import com.christian.data.MeBean
 import com.christian.gospeldetail.NavDetailActivity
 import com.christian.nav.*
 import com.christian.navitem.me.MeItemView
-import com.christian.util.ChristianUtil
-import com.christian.view.ContextMenuRecyclerView
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.nav_item_view_small.*
@@ -225,7 +223,6 @@ abstract class NavItemPresenter<out Bean>(private var query: Query, private val 
 //                    holder.containerView.context.startActivity(i)
 //                }
                 holder.containerView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View ->
-                    mRvNav?.showContextMenuForChild(holder.containerView, holder.containerView.measuredWidth.toFloat() - ChristianUtil.dpToPx(200), ChristianUtil.dpToPx(4).toFloat())
 //                    navItemView.showPopupMenu(v)
                 }
 
@@ -304,13 +301,6 @@ abstract class NavItemPresenter<out Bean>(private var query: Query, private val 
         }
         mPosition = holder.adapterPosition
     }
-
-    private var mRvNav: ContextMenuRecyclerView? = null
-
-    fun setRv(rv_nav: ContextMenuRecyclerView?) {
-        mRvNav = rv_nav
-    }
-
 }
 
 const val VIEW_TYPE_NORMAL = 0

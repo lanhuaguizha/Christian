@@ -20,7 +20,6 @@ import com.christian.data.Bean
 import com.christian.data.MeBean
 import com.christian.gospeldetail.NavDetailActivity
 import com.christian.navitem.NavItemPresenter
-import com.christian.view.ContextMenuRecyclerView
 import com.christian.view.ItemDecoration
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -154,7 +153,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     lateinit var bean: Bean
 
     private fun initRv(bean: Bean) {
-        registerForContextMenu(v.rv_nav)
         this@NavFragment.bean = bean
 
         when (navId) {
@@ -191,7 +189,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         // set Query
         if (navId != VIEW_ME) // 增加了复杂性，需要想办法统一Me
             navAdapter.setQuery(query) // onStop的时候注销了snapshotListener，onResume的时候一定要开启
-        navAdapter.setRv(v.rv_nav)
         v.rv_nav.adapter = navAdapter
         v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
@@ -262,20 +259,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         recyclerView.layoutAnimation = animation
         recyclerView.adapter?.notifyDataSetChanged()
         recyclerView.scheduleLayoutAnimation()
-    }
-
-    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo)
-        navActivity.menuInflater.inflate(R.menu.menu_share, menu)
-    }
-
-    override fun onContextItemSelected(item: MenuItem): Boolean {
-        val info = item.menuInfo as ContextMenuRecyclerView.ContextMenuInfo
-        val position = info.position
-        val data = info.itemView.tag
-//        val message = getString(R.string.app_name, item.title, position, data)
-//        AlertDialog.Builder(context!!).setMessage(message).show()
-        return true
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
