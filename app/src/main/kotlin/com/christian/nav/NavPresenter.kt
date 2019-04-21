@@ -286,10 +286,6 @@ fun enableSwipeBack(position: Int, positionOffset: Float, activity: NavDetailAct
 }
 
 fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: AppBarLayout, verticalOffset: Int) {
-
-//    navActivity.info { "verticalOffset$verticalOffset" }
-    val navFragment = (navActivity.presenter as NavPresenter).navFragmentList[navActivity.mPosition]
-
     if (verticalOffset == -appBarLayout.height) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             navActivity.abl_nav.elevation = 0f
@@ -308,7 +304,7 @@ fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: 
 }
 
 fun controlOverScroll(navActivity: NavActivity, appBarLayout: AppBarLayout, verticalOffset: Int) {
-    val navFragment = (navActivity.presenter as NavPresenter).navFragmentList[navActivity.mPosition]
+    val navFragment = navActivity.navFragment
     if (verticalOffset == 0 && navFragment.isPageBottom) {
         navActivity.srl_nav.setEnableOverScroll(false)
         navActivity.srl_nav.setEnableLoadmore(false)

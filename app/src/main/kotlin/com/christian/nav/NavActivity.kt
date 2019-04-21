@@ -56,13 +56,12 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 //        outState?.putParcelableArrayList(NAV_FRAGMENT_LIST, (presenter as NavPresenter).navFragmentList)
     }
 
-    internal var mPosition: Int = 0
     /**
      * presenter will be initialized when the NavPresenter is initialized
      */
     override lateinit var presenter: NavContract.IPresenter
     var verticalOffset = -1
-    private lateinit var navFragment: NavFragment
+    lateinit var navFragment: NavFragment
     private val providers = Arrays.asList(
 //                    AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.PhoneBuilder().build()
@@ -87,7 +86,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         initBv()
         initBnv()
 
-
 //        abl_nav.postDelayed({
 //            if (isToolbarExpanded(this)) {
 //                setToolbarExpanded(this, false)
@@ -109,8 +107,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     fun showFab() {
-        if (mPosition != 2) // mPosition !=2 should be removed
-            (presenter as NavPresenter).navFragmentList[mPosition].show()
+//        if (mPosition != 2) // mPosition !=2 should be removed
+        navFragment.show()
     }
 
     open fun initTb() {
@@ -124,41 +122,44 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         search_back_button.setOnClickListener { slCollapse() }
     }
 
-    open fun initVp(navFragmentList: ArrayList<NavFragment>) {
-        val navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragmentList, supportFragmentManager)
+    private lateinit var navFragmentPagerAdapter: NavFragmentPagerAdapter
 
+    open fun initVp(navFragmentList: ArrayList<NavFragment>) {
+        navFragmentPagerAdapter = NavFragmentPagerAdapter(supportFragmentManager)
         vp_nav.offscreenPageLimit = 3
         vp_nav.adapter = navFragmentPagerAdapter
+        vp_nav.addOnPageChangeListener(onPageChangeListener)
+        navFragment = navFragmentPagerAdapter.getItem(initFragmentIndex) as NavFragment
+    }
 
-        vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                debug { "onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
-            }
+    private val onPageChangeListener = object : ViewPager.OnPageChangeListener {
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            debug { "onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
+        }
 
-            override fun onPageSelected(position: Int) {
-                debug { "onPageSelected$position" }
-                mPosition = position
-                debug { "position$position" }
-                bnv_nav.menu.getItem(position).isChecked = true
+        override fun onPageSelected(position: Int) {
+            debug { "onPageSelected$position" }
+            debug { "position$position" }
+            bnv_nav.menu.getItem(position).isChecked = true
 
-                val navPresenter = presenter as NavPresenter
-                srl_nav.setTargetView(navPresenter.navFragmentList[mPosition].rv_nav)
-                setToolbarExpanded(this@NavActivity, navPresenter, position)
-            }
+            val navPresenter = presenter as NavPresenter
+            navFragment = navFragmentPagerAdapter.currentFragment
+            srl_nav.setTargetView(navFragment.rv_nav)
+            setToolbarExpanded(this@NavActivity, navPresenter, position)
+        }
 
-            override fun onPageScrollStateChanged(state: Int) {
-                debug { "onPageScrollStateChanged, state$state" }
-                if (state == 2) {
-                    fab_nav.hide()
-                } else if (state == 0) {
+        override fun onPageScrollStateChanged(state: Int) {
+            debug { "onPageScrollStateChanged, state$state" }
+            if (state == 2) {
+                fab_nav.hide()
+            } else if (state == 0) {
 //                    fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
 //                    if (showOrHideLogicExecute) {
 //                        showFAB()
 //                    }
-                }
             }
+        }
 
-        })
     }
 
     open fun initFab() {
@@ -178,10 +179,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     @SuppressLint("RestrictedApi")
     fun showFAB() {
 //        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
-        when (mPosition) {
-//            3 -> fab_nav.show()
-//            else -> fab_nav.hide()
-        }
         fab_nav.setOnClickListener {
 
             // Create and launch sign-in intent
@@ -202,6 +199,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         disableShiftMode(bnv_nav)
 
 //        vp_nav.currentItem = initFragmentIndex
+//        onPageChangeListener.onPageSelected(initFragmentIndex)
 
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
             val itemPosition = (presenter as NavPresenter).generateNavId(it.itemId)
@@ -211,13 +209,12 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
 
         bnv_nav.setOnNavigationItemReselectedListener {
-            scrollToTop()
+            scrollRvToTop()
         }
     }
 
-    fun scrollToTop() {
-        if ((presenter as NavPresenter).navFragmentList[mPosition].rv_nav != null)
-            (presenter as NavPresenter).navFragmentList[mPosition].rv_nav.smoothScrollToPosition(dip(0)) // 为了滚到顶
+    fun scrollRvToTop() {
+        navFragment.rv_nav.smoothScrollToPosition(dip(0)) // 为了滚到顶
         abl_nav.setExpanded(true, true)
     }
 

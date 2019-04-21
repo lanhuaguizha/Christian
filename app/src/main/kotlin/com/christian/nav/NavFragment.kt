@@ -1,8 +1,5 @@
 package com.christian.nav
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -32,11 +29,13 @@ import com.google.firebase.firestore.Query
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.debug
 
 
 open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
+
     override fun onGospelSelected(gospel: DocumentSnapshot) {
         // Go to the details page for the selected restaurant
         gospelId = gospel.id
@@ -50,7 +49,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     private lateinit var navActivity: NavActivity
     private lateinit var ctx: Context
     private lateinit var navAdapter: NavItemPresenter<*>
-    private lateinit var v: View
+    lateinit var v: View
     var navId = -1
     lateinit var gospelId: String
 
@@ -78,7 +77,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         firestore = FirebaseFirestore.getInstance()
         // Get ${LIMIT} gospels
         query = firestore.collection("gospels")
-        lifecycle.addObserver(NavFragmentLifecycleObserver())
+
+        initView()
 
         // onCreateView and onDestroyView start and stop cause 27 child fragments needs it when destroy view at default limit
         if (navId != VIEW_ME) {
@@ -97,17 +97,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         }
     }
 
-    inner class NavFragmentLifecycleObserver : LifecycleObserver {
-        @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-        fun bindNavAdapter() {
-            debug { "Lifecycle.Event.ON_CREATE" }
-            initView()
-        }
-    }
-
     override fun initView() {
         debug { "nav fragment is $this and navId is $navId --initView" }
-        initSrl()
         if (navId == VIEW_GOSPEL) {
             v.vp1_nav.visibility = View.VISIBLE
             v.rv_nav.visibility = View.GONE
@@ -117,7 +108,12 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             v.rv_nav.visibility = View.VISIBLE
         }
         initRv()
+        initSrl()
     }
+
+    private lateinit var navFragment: NavFragment
+
+    private var pageSelectedPosition: Int = -1
 
     open fun initTl() {
         val tabTitleList = arrayListOf(
@@ -154,7 +150,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             navActivity.tl_nav.newTab().setText(tabTitle).let { navActivity.tl_nav.addTab(it) }
         }
 
-        v.vp1_nav.adapter = NavChildFragmentPagerAdapter(childFragmentManager, tabTitleList)
+        val navChildFragmentPagerAdapter = NavChildFragmentPagerAdapter(childFragmentManager, tabTitleList)
+        v.vp1_nav.adapter = navChildFragmentPagerAdapter
         navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
 
         v.vp1_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -162,13 +159,16 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             }
 
             override fun onPageSelected(position: Int) {
-                navActivity.srl_nav.setTargetView(v.rv_nav)
+                pageSelectedPosition = position
+                navFragment = navChildFragmentPagerAdapter.currentFragment
+                navActivity.srl_nav.setTargetView(navFragment.rv_nav)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
             }
 
         })
+
     }
 
     private fun initSrl() {
@@ -305,6 +305,8 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
 
     class NavChildFragmentPagerAdapter(fm: FragmentManager, private val tabTitleList: ArrayList<String>) : FragmentStatePagerAdapter(fm) {
 
+        lateinit var currentFragment : NavFragment
+
         override fun getItem(position: Int): Fragment {
             val navFragment = NavFragment()
             navFragment.navId = position + 4
@@ -317,6 +319,11 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
 
         override fun getPageTitle(position: Int): CharSequence {
             return tabTitleList[position]
+        }
+
+        override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
+            currentFragment = `object` as NavFragment
+            super.setPrimaryItem(container, position, `object`)
         }
     }
 }

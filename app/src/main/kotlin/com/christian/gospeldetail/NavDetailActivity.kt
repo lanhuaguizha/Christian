@@ -42,7 +42,7 @@ private fun NavActivity.initFABE() {
 
     // set FAB animate to hide's behavior
     // set listener
-    fab_nav.setOnClickListener { scrollToTop() }
+    fab_nav.setOnClickListener { scrollRvToTop() }
 }
 
 //private fun NavActivity.startNavE(navId: String) {
