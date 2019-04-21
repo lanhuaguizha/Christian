@@ -17,7 +17,7 @@
     {
       "name": "历史记录",
       "url": "ic_history_black_24dp",
-      "desc": "阅读过的文章"
+      "desc": "已阅读的文章"
     },
     {
       "name": "我的文章",
@@ -26,6 +26,26 @@
     },
     {
       "name": "设置",
+      "url": "R.drawable.ic_settings_black_24dp",
+      "desc": "开源声明、关于我们、听众来信、写信给我们"
+    },
+    {
+      "name": "开源声明",
+      "url": "R.drawable.ic_settings_black_24dp",
+      "desc": "开源声明、关于我们、听众来信、写信给我们"
+    },
+    {
+      "name": "关于我们",
+      "url": "R.drawable.ic_settings_black_24dp",
+      "desc": "开源声明、关于我们、听众来信、写信给我们"
+    },
+    {
+      "name": "听众来信",
+      "url": "R.drawable.ic_settings_black_24dp",
+      "desc": "开源声明、关于我们、听众来信、写信给我们"
+    },
+    {
+      "name": "写信给我们",
       "url": "R.drawable.ic_settings_black_24dp",
       "desc": "开源声明、关于我们、听众来信、写信给我们"
     }

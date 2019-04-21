@@ -14,7 +14,6 @@ import android.widget.TextView
 import com.christian.R
 import com.christian.data.GospelBean
 import com.christian.data.Gospels
-import com.christian.disciple.DiscipleFragment
 import com.christian.gospeldetail.NavDetailActivity
 import com.christian.gospeldetail.ui.main.GospelDetailFragment
 import com.christian.gospeldetail.ui.main.GospelReviewFragment
@@ -39,7 +38,6 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
     lateinit var tabTitleList: ArrayList<String>
     private val navList = GospelBean(listOf(Gospels()))
     var navFragmentList = ArrayList<NavFragment>()
-    var navFragmentList2 = ArrayList<NavFragment>()
 
     private var navActivity: NavActivity
 
@@ -82,7 +80,6 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
             // called from a activity
             true -> {
                 navFragmentList.clear()
-                navFragmentList2.clear()
                 when (whichActivity) {
                     NAV_ACTIVITY -> {
                         val homeFragment = NavFragment()
@@ -100,13 +97,6 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
                         val meFragment = NavFragment()
                         meFragment.navId = 3
                         navFragmentList.add(meFragment)
-
-                        for (i in 0..26) {
-                            val navChildFragment = NavFragment()
-                            navChildFragment.navId = i + 4
-                            navChildFragment.childFragment = true
-                            navFragmentList2.add(navChildFragment)
-                        }
                     }
                     GOSPEL_DETAIL_ACTIVITY -> {
                         val gospelDetailFragment = GospelDetailFragment()
@@ -156,13 +146,22 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
 
 }
 
-// nav contains views
+// navId values
 const val VIEW_HOME = 0
 const val VIEW_GOSPEL = 1
 const val VIEW_DISCIPLE = 2
 const val VIEW_ME = 3
 const val VIEW_GOSPEL_DETAIL = 4
 const val VIEW_GOSPEL_REVIEW = 5
+const val VIEW_ME_DETAIL = 6
+const val VIEW_ME_HISTORY = 7
+const val VIEW_ME_STAR = 8
+const val VIEW_ME_SETTING = 9
+const val VIEW_ME_OPEN_SOURCE = 10
+const val VIEW_ME_ABOUT_US = 11
+const val VIEW_ME_MAILS_FROM = 12
+const val VIEW_ME_MAILS_TO = 13
+
 
 const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
 const val initFragmentIndex = 0

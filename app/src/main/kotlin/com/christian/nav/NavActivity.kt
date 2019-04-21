@@ -128,7 +128,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun initVp(navFragmentList: ArrayList<NavFragment>) {
-        val navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragmentList, supportFragmentManager, (presenter as NavPresenter).tabTitleList)
+        val navFragmentPagerAdapter = NavFragmentPagerAdapter(navFragmentList, supportFragmentManager)
 
         vp_nav.offscreenPageLimit = 3
         vp_nav.adapter = navFragmentPagerAdapter

@@ -8,6 +8,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.RecyclerView
 import android.view.*
@@ -30,7 +32,6 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.info
-import java.lang.ref.WeakReference
 
 
 open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
@@ -50,7 +51,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     private lateinit var v: View
     var navId = -1
     lateinit var gospelId: String
-    var childFragment: Boolean = false
 
     init {
         debug { "look at init times" }
@@ -62,6 +62,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
     override fun onAttach(context: Context) {
         super.onAttach(context)
         navActivity = context as NavActivity
+
         ctx = context
         debug { "onAttach" }
     }
@@ -84,7 +85,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
         fun bindNavAdapter() {
             debug { "Lifecycle.Event.ON_CREATE" }
-            WeakReference<NavContract.IPresenter>(navActivity.presenter).get()?.init(whichActivity = null, navFragment = this@NavFragment)
+            navActivity.presenter.init(whichActivity = null, navFragment = this@NavFragment)
         }
 
         @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -94,34 +95,39 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             }
         }
 
-        @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-        fun stopChildListening() {
-            if (childFragment)
-                navAdapter.stopListening()
-        }
-
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         fun stopListening() {
-            if (!childFragment)
-                navAdapter.stopListening()
+            navAdapter.stopListening()
         }
     }
 
     override fun initView(bean: Bean) {
         debug { "nav fragment is $this and navId is $navId --initView" }
         initSrl()
-        if (navId == VIEW_GOSPEL && !childFragment) {
+        if (navId == VIEW_GOSPEL) {
             info { "navId$navId" }
-            initTb()
+            initGospelTb()
         } else {
             v.vp1_nav.visibility = View.GONE
             v.rv_nav.visibility = View.VISIBLE
         }
-        initVp1()
         initRv(bean)
     }
 
-    private fun initVp1() {
+    open fun initGospelTb() {
+        val navFragmentList = ArrayList<NavFragment>()
+        navFragmentList.clear()
+        for (i in 0..26) {
+            val navChildFragment = NavFragment()
+            navChildFragment.navId = i + 4
+            navFragmentList.add(navChildFragment)
+        }
+
+        v.vp1_nav.visibility = View.VISIBLE
+        v.rv_nav.visibility = View.GONE
+        v.vp1_nav.adapter = NavChildFragmentPagerAdapter(navFragmentList, childFragmentManager, (navActivity.presenter as NavPresenter).tabTitleList)
+        navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
+
         v.vp1_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
@@ -134,14 +140,6 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
             }
 
         })
-    }
-
-    open fun initTb() {
-        v.vp1_nav.visibility = View.VISIBLE
-        v.rv_nav.visibility = View.GONE
-        val adapter = WeakReference<NavFragmentPagerAdapter>(NavFragmentPagerAdapter((navActivity.presenter as NavPresenter).navFragmentList2, childFragmentManager, (navActivity.presenter as NavPresenter).tabTitleList))
-        v.vp1_nav.adapter = adapter.get()
-        navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
     }
 
     private fun initSrl() {
@@ -290,6 +288,21 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         // handling memory leaks
         val refWatcher = ChristianApplication.getRefWatcher(ctx)
         refWatcher.watch(this)
+    }
+
+    class NavChildFragmentPagerAdapter(private val navFragmentList: List<NavFragment>, fm: FragmentManager, private val tabTitleList: ArrayList<String>) : FragmentPagerAdapter(fm) {
+
+        override fun getItem(position: Int): Fragment {
+            return navFragmentList[position]
+        }
+
+        override fun getCount(): Int {
+            return navFragmentList.size
+        }
+
+        override fun getPageTitle(position: Int): CharSequence {
+            return tabTitleList[position]
+        }
     }
 }
 

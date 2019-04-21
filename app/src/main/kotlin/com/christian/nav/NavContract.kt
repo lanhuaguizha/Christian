@@ -4,7 +4,6 @@ import com.christian.BaseContract
 import com.christian.data.Bean
 import com.christian.data.Gospels
 import org.jetbrains.anko.AnkoLogger
-import java.util.ArrayList
 
 /**
  * Contract of Nav View & Presenter.
@@ -93,6 +92,5 @@ class NavContract {
         fun updateNav(gospels: List<Gospels>)
 
         fun readNav()
-
     }
 }
