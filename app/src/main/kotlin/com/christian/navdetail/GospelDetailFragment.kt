@@ -1,4 +1,4 @@
-package com.christian.gospeldetail.ui.main
+package com.christian.navdetail
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.christian.R
-import com.christian.gospeldetail.ui.adapters.GospelDetailAdapter
+import com.christian.navdetailitem.GospelDetailAdapter
 import com.christian.nav.NavActivity
 import com.christian.nav.NavFragment
 import com.christian.view.GospelDetailItemDecoration

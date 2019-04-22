@@ -2,7 +2,6 @@ package com.christian.navitem
 
 import android.content.Intent
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import android.widget.Switch
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.MeBean
-import com.christian.gospeldetail.NavDetailActivity
+import com.christian.navdetail.NavDetailActivity
 import com.christian.nav.*
 import com.christian.navitem.me.MeItemView
 import com.firebase.ui.auth.AuthUI

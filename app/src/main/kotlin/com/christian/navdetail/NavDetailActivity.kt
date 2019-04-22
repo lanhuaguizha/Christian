@@ -1,15 +1,15 @@
-package com.christian.gospeldetail
+package com.christian.navdetail
 
 import android.os.Bundle
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
-import androidx.viewpager.widget.ViewPager
 import androidx.customview.widget.ViewDragHelper.INVALID_POINTER
 import android.view.*
+import androidx.recyclerview.widget.RecyclerView
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.nav.*
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import org.jetbrains.anko.debug
 import java.util.*
@@ -35,14 +35,10 @@ private fun NavActivity.initSrlForbidden() {
 //    srl_nav.background = ResourcesCompat.getDrawable(resources, R.color.default_background_nav, theme)
 //}
 
-private fun NavActivity.initFABE() {
-    // set FAB image
+private fun NavActivity.initFABGospelDetail(navDetailActivity: NavDetailActivity, rv_nav: RecyclerView) {
     fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_upward_black_24dp, theme))
-//    fab_nav.show()
-
-    // set FAB animate to hide's behavior
-    // set listener
-    fab_nav.setOnClickListener { scrollRvToTop() }
+    fab_nav.show()
+    fab_nav.setOnClickListener { scrollRvToTop(navDetailActivity, rv_nav) }
 }
 
 //private fun NavActivity.startNavE(navId: String) {
@@ -176,11 +172,11 @@ class NavDetailActivity : NavActivity() {
 //        adapter.bean = bean
 //        runLayoutAnimationE(rv_nav)
 //        fab_nav.post {
-//            initFABE()
+//            initFABGospelDetail()
 //        }
 //    }
     override fun initFab() {
-        initFABE()
+        initFABGospelDetail(this@NavDetailActivity, navFragment.rv_nav)
     }
 
     var menu: Menu? = null

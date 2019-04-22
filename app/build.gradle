@@ -150,8 +150,6 @@ dependencies {
 //    implementation 'skin.support:skin-support-constraint-layout:3.1.1'
 //    // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
 
-    // RecyclerView load more
-    implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
 }
 
 androidExtensions {

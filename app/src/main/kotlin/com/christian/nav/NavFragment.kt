@@ -3,12 +3,6 @@ package com.christian.nav
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.viewpager.widget.ViewPager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,9 +13,10 @@ import com.christian.data.Bean
 import com.christian.data.GospelBean
 import com.christian.data.Gospels
 import com.christian.data.MeBean
-import com.christian.gospeldetail.NavDetailActivity
+import com.christian.navdetail.NavDetailActivity
 import com.christian.navitem.NavItemPresenter
 import com.christian.view.ItemDecoration
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -71,11 +66,8 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         debug { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState ---onCreateView" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
-        // Enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true)
-        // Firestore
         firestore = FirebaseFirestore.getInstance()
-        // Get ${LIMIT} gospels
         query = firestore.collection("gospels")
 
         initView()
@@ -108,7 +100,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             v.rv_nav.visibility = View.VISIBLE
         }
         initRv()
-        initSrl()
     }
 
     private lateinit var navFragment: NavFragment
@@ -161,7 +152,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             override fun onPageSelected(position: Int) {
                 pageSelectedPosition = position
                 navFragment = navChildFragmentPagerAdapter.currentFragment
-                navActivity.srl_nav.setTargetView(navFragment.rv_nav)
+//                navActivity.srl_nav.setTargetView(navFragment.rv_nav)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -171,15 +162,9 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     }
 
-    private fun initSrl() {
-        when (navId == initFragmentIndex) {
-            true -> navActivity.srl_nav.setTargetView(v.rv_nav)
-        }
-    }
-
     var isPageTop: Boolean = true
 
-    var isPageBottom: Boolean = true
+    var isPageBottom: Boolean = false
     lateinit var bean: Bean
 
     private fun initRv() {
@@ -305,7 +290,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     class NavChildFragmentPagerAdapter(fm: androidx.fragment.app.FragmentManager, private val tabTitleList: ArrayList<String>) : androidx.fragment.app.FragmentStatePagerAdapter(fm) {
 
-        lateinit var currentFragment : NavFragment
+        lateinit var currentFragment: NavFragment
 
         override fun getItem(position: Int): androidx.fragment.app.Fragment {
             val navFragment = NavFragment()

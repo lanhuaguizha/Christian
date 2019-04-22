@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".gospeldetail.NavDetailActivity"
+            android:name=".navdetail.NavDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
             android:label=""
             android:launchMode="singleTop"

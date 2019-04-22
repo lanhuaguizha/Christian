@@ -1,4 +1,4 @@
-package com.christian.gospeldetail
+package com.christian.navdetail
 
 import com.christian.BaseContract
 

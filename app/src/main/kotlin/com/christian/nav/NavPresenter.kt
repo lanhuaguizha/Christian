@@ -11,12 +11,12 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.christian.R
-import com.christian.data.GospelBean
 import com.christian.data.Gospels
-import com.christian.gospeldetail.NavDetailActivity
-import com.christian.gospeldetail.ui.main.GospelDetailFragment
-import com.christian.gospeldetail.ui.main.GospelReviewFragment
+import com.christian.navdetail.NavDetailActivity
+import com.christian.navdetail.GospelDetailFragment
+import com.christian.navdetail.GospelReviewFragment
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import eightbitlab.com.blurview.BlurView
@@ -298,19 +298,24 @@ fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: 
 
     controlOverScroll(navActivity, appBarLayout, verticalOffset)
     // TwinklingRefreshLayout
-    if (navActivity.srl_nav != null) {
-        navActivity.srl_nav.setEnableRefresh(false)
-    }
+//    if (navActivity.srl_nav != null) {
+//        navActivity.srl_nav.setEnableRefresh(false)
+//    }
 }
 
 fun controlOverScroll(navActivity: NavActivity, appBarLayout: AppBarLayout, verticalOffset: Int) {
-    val navFragment = navActivity.navFragment
-    if (verticalOffset == 0 && navFragment.isPageBottom) {
-        navActivity.srl_nav.setEnableOverScroll(false)
-        navActivity.srl_nav.setEnableLoadmore(false)
-    } else if (verticalOffset == -appBarLayout.height && navFragment.isPageTop) {
-        navActivity.srl_nav.setEnableOverScroll(false)
-    } else if (verticalOffset == 0 || verticalOffset == -appBarLayout.height) {
-        navActivity.srl_nav.setEnableOverScroll(true)
-    }
+//    val navFragment = navActivity.navFragment
+//    if (verticalOffset == 0 && navFragment.isPageBottom) {
+//        navActivity.srl_nav.setEnableOverScroll(false)
+//        navActivity.srl_nav.setEnableLoadmore(false)
+//    } else if (verticalOffset == -appBarLayout.height && navFragment.isPageTop) {
+//        navActivity.srl_nav.setEnableOverScroll(false)
+//    } else if (verticalOffset == 0 || verticalOffset == -appBarLayout.height) {
+//        navActivity.srl_nav.setEnableOverScroll(true)
+//    }
+}
+
+fun scrollRvToTop(navActivity: NavActivity, recyclerView: RecyclerView) {
+    recyclerView.smoothScrollToPosition(navActivity.dip(0)) // 为了滚到顶
+    navActivity.abl_nav.setExpanded(true, true)
 }

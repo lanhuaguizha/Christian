@@ -12,6 +12,6 @@
         android:layout_height="match_parent"
         android:scrollbarSize="@dimen/search_bottom_margin"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:context="com.christian.gospeldetail.NavDetailActivity"
+        tools:context="com.christian.navdetail.NavDetailActivity"
         tools:listitem="@layout/list_item_gospel_detail" />
 </androidx.constraintlayout.widget.ConstraintLayout>
