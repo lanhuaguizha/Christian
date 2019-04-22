@@ -1,9 +1,9 @@
 package com.christian.view
 
 import android.content.Context
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.FloatingActionButton
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import android.util.AttributeSet
 import android.view.View
 import com.christian.R
@@ -12,7 +12,7 @@ import com.christian.R
  * Created by Christian on 2017/12/9
  */
 @Suppress("DEPRECATION")
-@CoordinatorLayout.DefaultBehavior(AnimationFloatingActionButton.Behavior::class)
+@androidx.coordinatorlayout.widget.CoordinatorLayout.DefaultBehavior(AnimationFloatingActionButton.Behavior::class)
 class AnimationFloatingActionButton(context: Context?, attrs: AttributeSet?) : FloatingActionButton(context, attrs) {
 
     // true will always has animation
@@ -23,13 +23,13 @@ class AnimationFloatingActionButton(context: Context?, attrs: AttributeSet?) : F
     /**
      * In order to achieve the FloatingActionButton distance from the BottomNavigationView.
      */
-    class Behavior : CoordinatorLayout.Behavior<View>() {
+    class Behavior : androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior<View>() {
 
-        override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+        override fun layoutDependsOn(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, dependency: View): Boolean {
             return dependency is BottomNavigationView
         }
 
-        override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+        override fun onDependentViewChanged(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, dependency: View): Boolean {
             val marginBottom = parent.context.resources.getDimension(R.dimen.fab_margin_bottom)
             marginBottom.let { child.translationY = it }
             return false

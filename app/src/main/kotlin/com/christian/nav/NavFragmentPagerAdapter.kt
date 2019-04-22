@@ -1,15 +1,15 @@
 package com.christian.nav
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import android.view.ViewGroup
 
-class NavFragmentPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class NavFragmentPagerAdapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
     lateinit var currentFragment : NavFragment
 
-    override fun getItem(position: Int): Fragment {
+    override fun getItem(position: Int): androidx.fragment.app.Fragment {
         val navFragment = NavFragment()
         navFragment.navId = position
         return navFragment

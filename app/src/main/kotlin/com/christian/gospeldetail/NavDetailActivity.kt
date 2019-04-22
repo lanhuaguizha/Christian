@@ -1,10 +1,10 @@
 package com.christian.gospeldetail
 
 import android.os.Bundle
-import android.support.design.widget.CoordinatorLayout
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v4.view.ViewPager
-import android.support.v4.widget.ViewDragHelper.INVALID_POINTER
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.res.ResourcesCompat
+import androidx.viewpager.widget.ViewPager
+import androidx.customview.widget.ViewDragHelper.INVALID_POINTER
 import android.view.*
 import com.christian.ChristianApplication
 import com.christian.R
@@ -90,7 +90,7 @@ class NavDetailActivity : NavActivity() {
 
     override fun initBv() {
         super.initBv()
-        val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
+        val params = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
         params.gravity = Gravity.BOTTOM
         params.behavior = BottomNavigationViewBehaviorDetail(this, null)
         bv_nav.layoutParams = params
@@ -102,7 +102,7 @@ class NavDetailActivity : NavActivity() {
 
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
         super.initVp(navFragmentList)
-        vp_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        vp_nav.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 debug { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }

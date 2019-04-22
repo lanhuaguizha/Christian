@@ -10,7 +10,7 @@
     android:focusable="true"
     tools:showIn="@layout/me_frag">
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/settings_img"
         android:layout_width="32dp"
         android:layout_height="32dp"

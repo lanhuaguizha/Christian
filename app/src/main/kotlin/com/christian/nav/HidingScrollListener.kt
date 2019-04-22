@@ -1,14 +1,14 @@
 package com.christian.nav
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import kotlinx.android.synthetic.main.nav_fragment.*
 
-abstract class HidingScrollListener(private val navFragment: NavFragment) : RecyclerView.OnScrollListener() {
+abstract class HidingScrollListener(private val navFragment: NavFragment) : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
     private var scrolledDistance = 0 //移动的中距离
     private var controlsVisible = true //显示或隐藏
 
-    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+    override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
         Log.i("rv", "-1 " + navFragment.rv_nav.canScrollVertically(-1))
         if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {//移动总距离大于规定距离 并且是显示状态就隐藏

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context="com.christian.util.BottomNavigationActivity">
 
-    <android.support.design.widget.CoordinatorLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -27,9 +27,9 @@
             android:layout_margin="@dimen/fab_margin"
             android:tint="@color/white"
             app:srcCompat="@drawable/ic_edit_black_24dp" />
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <android.support.design.widget.BottomNavigationView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -5,12 +5,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.internal.BottomNavigationItemView
-import android.support.design.internal.BottomNavigationMenuView
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.CoordinatorLayout
-import android.support.v4.view.ViewPager
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
@@ -51,7 +51,7 @@ fun disableShiftMode(view: BottomNavigationView) {
 open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     @SuppressLint("MissingSuperCall")
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
 //        super.onSaveInstanceState(outState)
 //        outState?.putParcelableArrayList(NAV_FRAGMENT_LIST, (presenter as NavPresenter).navFragmentList)
     }
@@ -132,7 +132,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         navFragment = navFragmentPagerAdapter.getItem(initFragmentIndex) as NavFragment
     }
 
-    private val onPageChangeListener = object : ViewPager.OnPageChangeListener {
+    private val onPageChangeListener = object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             debug { "onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
         }
@@ -170,7 +170,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         //set background, if your root layout doesn't have one
         makeViewBlur(bv_nav, cl_nav, window)
         // set behavior
-        val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
+        val params = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
         params.gravity = Gravity.BOTTOM
         params.behavior = BottomNavigationViewBehavior(this, null)
         bv_nav.layoutParams = params
@@ -198,7 +198,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     private fun initBnv() {
         disableShiftMode(bnv_nav)
 
-//        vp_nav.currentItem = initFragmentIndex
+        vp_nav.currentItem = initFragmentIndex
 //        onPageChangeListener.onPageSelected(initFragmentIndex)
 
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
@@ -279,18 +279,18 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     /**
      * Immersive reading, swipe hidden.
      */
-    class BottomNavigationViewBehavior(context: Context?, attrs: AttributeSet?) : CoordinatorLayout.Behavior<View>(context, attrs) {
-        override fun onLayoutChild(parent: CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
-            (child.layoutParams as CoordinatorLayout.LayoutParams).topMargin = parent.measuredHeight.minus(child.measuredHeight)
+    class BottomNavigationViewBehavior(context: Context?, attrs: AttributeSet?) : androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior<View>(context, attrs) {
+        override fun onLayoutChild(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
+            (child.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams).topMargin = parent.measuredHeight.minus(child.measuredHeight)
             return super.onLayoutChild(parent, child, layoutDirection)
         }
 
-        override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+        override fun layoutDependsOn(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, dependency: View): Boolean {
             return dependency is AppBarLayout
         }
 
-        override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
-            val top = ((dependency.layoutParams as CoordinatorLayout.LayoutParams).behavior as AppBarLayout.Behavior).topAndBottomOffset
+        override fun onDependentViewChanged(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, dependency: View): Boolean {
+            val top = ((dependency.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams).behavior as AppBarLayout.Behavior).topAndBottomOffset
             Log.i("dd", top.toString())
             //因为BottomNavigation的滑动与ToolBar是反向的，所以取-top值
             child.translationY = (-top).toFloat()
@@ -301,17 +301,17 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     /**
      * Locate nav detail FAB
      */
-    class BottomNavigationViewBehaviorDetail(context: Context?, attrs: AttributeSet?) : CoordinatorLayout.Behavior<View>(context, attrs) {
-        override fun onLayoutChild(parent: CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
-            (child.layoutParams as CoordinatorLayout.LayoutParams).topMargin = parent.measuredHeight.minus(child.measuredHeight)
+    class BottomNavigationViewBehaviorDetail(context: Context?, attrs: AttributeSet?) : androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior<View>(context, attrs) {
+        override fun onLayoutChild(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
+            (child.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams).topMargin = parent.measuredHeight.minus(child.measuredHeight)
             return super.onLayoutChild(parent, child, layoutDirection)
         }
 
-        override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+        override fun layoutDependsOn(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, dependency: View): Boolean {
             return dependency is AppBarLayout
         }
 
-        override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+        override fun onDependentViewChanged(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, dependency: View): Boolean {
             child.translationY = 2000f
             return false
         }

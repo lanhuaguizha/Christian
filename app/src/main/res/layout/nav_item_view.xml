@@ -11,7 +11,7 @@
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/card_corner_radius">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_nav_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_subtitle_nav_item"
             tool:text="「从前引导你们、传神之道给你们的人，你们要想念他们，效法他们的信心，留心看他们为人的结局。」（希伯来书十三章七节）本书收集一些历代" />
 
-        <android.support.v7.widget.AppCompatImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ib_nav_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,5 +101,5 @@
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintTop_toTopOf="@+id/tv_title_nav_item"
             app:srcCompat="@drawable/ic_more_vert_black_24dp" />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.christian.view.FloatingCardView>

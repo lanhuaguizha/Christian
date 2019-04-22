@@ -1,6 +1,6 @@
 package com.christian.gospeldetail.ui.adapters
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +20,7 @@ import kotlin.collections.get
 /**
  * Adapter for the RecyclerView in GospelDetailFragment
  */
-abstract class GospelDetailAdapter(private var gospelRef: DocumentReference, val navActivity: NavActivity) : RecyclerView.Adapter<GospelDetailAdapter.ViewHolder>(), EventListener<DocumentSnapshot>, AnkoLogger {
+abstract class GospelDetailAdapter(private var gospelRef: DocumentReference, val navActivity: NavActivity) : androidx.recyclerview.widget.RecyclerView.Adapter<GospelDetailAdapter.ViewHolder>(), EventListener<DocumentSnapshot>, AnkoLogger {
 
     private var registration: ListenerRegistration? = null
     private val snapshots = ArrayList<DocumentSnapshot>()
@@ -122,7 +122,7 @@ abstract class GospelDetailAdapter(private var gospelRef: DocumentReference, val
         snapshot?.let { holder.bind(it) }
     }
 
-    class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    class ViewHolder(override val containerView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(containerView), LayoutContainer {
         fun bind(snapshot: DocumentSnapshot) {
 
             val subtitle = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[adapterPosition] as HashMap<*, *>)["subtitle"]

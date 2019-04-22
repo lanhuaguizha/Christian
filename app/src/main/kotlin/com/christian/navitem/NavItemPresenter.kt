@@ -1,8 +1,8 @@
 package com.christian.navitem
 
 import android.content.Intent
-import android.support.v7.widget.AppCompatImageButton
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +22,7 @@ import org.jetbrains.anko.warn
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
  */
-abstract class NavItemPresenter<out Bean>(private var query: Query, private val listener: OnGospelSelectedListener, var bean: com.christian.data.Bean, private val navId: Int) : NavItemContract.IPresenter, RecyclerView.Adapter<NavItemView>(), EventListener<QuerySnapshot> {
+abstract class NavItemPresenter<out Bean>(private var query: Query, private val listener: OnGospelSelectedListener, var bean: com.christian.data.Bean, private val navId: Int) : NavItemContract.IPresenter, androidx.recyclerview.widget.RecyclerView.Adapter<NavItemView>(), EventListener<QuerySnapshot> {
     private val snapshots = ArrayList<DocumentSnapshot>()
     private var registration: ListenerRegistration? = null
 

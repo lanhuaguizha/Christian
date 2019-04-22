@@ -1,6 +1,6 @@
 package com.christian.navitem
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
@@ -18,7 +18,7 @@ import java.util.*
  * NavItemView/NavItemHolder is view logic of nav items.
  */
 
-open class NavItemView(override var presenter: NavItemContract.IPresenter, final override val containerView: View, private val navActivity: NavActivity) : NavItemContract.IView, RecyclerView.ViewHolder(containerView), LayoutContainer {
+open class NavItemView(override var presenter: NavItemContract.IPresenter, final override val containerView: View, private val navActivity: NavActivity) : NavItemContract.IView, androidx.recyclerview.widget.RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     override fun onCreateView(parent: ViewGroup, viewType: Int, itemView: View): NavItemView {
         initView()

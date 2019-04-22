@@ -1,13 +1,13 @@
 package com.christian.view
 
 import android.content.Context
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
 
-class CustomViewPager(context: Context, attrs: AttributeSet?) : ViewPager(context, attrs), AnkoLogger {
+class CustomViewPager(context: Context, attrs: AttributeSet?) : androidx.viewpager.widget.ViewPager(context, attrs), AnkoLogger {
 
     private var mDisallowIntercept: Boolean = false
 

@@ -3,12 +3,12 @@ package com.christian.nav
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.ViewPager
-import android.support.v7.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.ViewPager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +34,7 @@ import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.debug
 
 
-open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
+open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
 
     override fun onGospelSelected(gospel: DocumentSnapshot) {
         // Go to the details page for the selected restaurant
@@ -154,7 +154,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         v.vp1_nav.adapter = navChildFragmentPagerAdapter
         navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
 
-        v.vp1_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        v.vp1_nav.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
 
@@ -284,7 +284,7 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         navActivity.showFAB()
     }
 
-    private fun runLayoutAnimation(recyclerView: RecyclerView) {
+    private fun runLayoutAnimation(recyclerView: androidx.recyclerview.widget.RecyclerView) {
         val animation = AnimationUtils.loadLayoutAnimation(recyclerView.context, R.anim.layout_animation_from_right)
         recyclerView.layoutAnimation = animation
         recyclerView.adapter?.notifyDataSetChanged()
@@ -303,11 +303,11 @@ open class NavFragment : Fragment(), NavContract.INavFragment, NavItemPresenter.
         refWatcher.watch(this)
     }
 
-    class NavChildFragmentPagerAdapter(fm: FragmentManager, private val tabTitleList: ArrayList<String>) : FragmentStatePagerAdapter(fm) {
+    class NavChildFragmentPagerAdapter(fm: androidx.fragment.app.FragmentManager, private val tabTitleList: ArrayList<String>) : androidx.fragment.app.FragmentStatePagerAdapter(fm) {
 
         lateinit var currentFragment : NavFragment
 
-        override fun getItem(position: Int): Fragment {
+        override fun getItem(position: Int): androidx.fragment.app.Fragment {
             val navFragment = NavFragment()
             navFragment.navId = position + 4
             return navFragment
