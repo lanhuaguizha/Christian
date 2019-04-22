@@ -198,7 +198,7 @@ fun makeViewBlur(view: BlurView, parent: ViewGroup, window: Window) {
 /**
  * utils to expand a toolbar
  */
-fun setToolbarExpanded(context: Context, presenter: NavPresenter, position: Int) {
+fun setToolbarExpanded(context: Context, position: Int) {
     val navActivity = context as NavActivity
     when (position) {
         VIEW_HOME -> {

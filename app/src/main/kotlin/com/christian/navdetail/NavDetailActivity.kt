@@ -1,15 +1,16 @@
 package com.christian.navdetail
 
 import android.os.Bundle
+import android.view.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.customview.widget.ViewDragHelper.INVALID_POINTER
-import android.view.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.nav.*
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import org.jetbrains.anko.debug
 import java.util.*
@@ -82,6 +83,13 @@ class NavDetailActivity : NavActivity() {
 
     override fun initTb() {
         initTbWithTitle(intent?.extras?.getString(toolbarTitle) ?: nullString)
+        val tabTitleList = arrayListOf(
+                "热门",
+                "时间"
+        )
+        for (tabTitle in tabTitleList) {
+            tl_nav.newTab().setText(tabTitle).let { tl_nav.addTab(it) }
+        }
     }
 
     override fun initBv() {
@@ -97,7 +105,9 @@ class NavDetailActivity : NavActivity() {
     private var pagePositionOffset: Float = 0f
 
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
-        super.initVp(navFragmentList)
+        val navDetailFragmentPagerAdapter = NavDetailFragmentPagerAdapter(supportFragmentManager)
+        vp_nav.adapter = navDetailFragmentPagerAdapter
+        navFragment = navDetailFragmentPagerAdapter.getItem(initFragmentIndex) as NavFragment
         vp_nav.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
@@ -110,7 +120,7 @@ class NavDetailActivity : NavActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                debug { "initVp: onPageSelected$position" }
+                setToolbarExpanded(this@NavDetailActivity, position)
             }
 
         })
@@ -176,7 +186,7 @@ class NavDetailActivity : NavActivity() {
 //        }
 //    }
     override fun initFab() {
-        initFABGospelDetail(this@NavDetailActivity, navFragment.rv_nav)
+//        initFABGospelDetail(this@NavDetailActivity, navFragment.rv_nav)
     }
 
     var menu: Menu? = null
@@ -211,4 +221,26 @@ class NavDetailActivity : NavActivity() {
         refWatcher.watch(this)
     }
 
+    class NavDetailFragmentPagerAdapter(fm: FragmentManager) : NavActivity.NavFragmentPagerAdapter(fm) {
+        override fun getItem(position: Int): Fragment {
+            when (position) {
+                0 -> {
+                    val gospelDetailFragment = GospelDetailFragment()
+                    gospelDetailFragment.navId = 31
+                    return gospelDetailFragment
+                }
+                1, 2 -> {
+                    val gospelReviewFragment = GospelReviewFragment()
+                    gospelReviewFragment.navId = position + 31
+                    return gospelReviewFragment
+                }
+            }
+            return super.getItem(position)
+        }
+
+        override fun getCount(): Int {
+            return 3
+        }
+
+    }
 }

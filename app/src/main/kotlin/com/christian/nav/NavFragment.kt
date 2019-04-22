@@ -24,7 +24,6 @@ import com.google.firebase.firestore.Query
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.debug
 
