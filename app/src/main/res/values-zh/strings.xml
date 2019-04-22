@@ -188,4 +188,9 @@
     <string name="_3Jn">约翰三书</string>
     <string name="_Jud">犹太书</string>
     <string name="_Rev">启示录</string>
+
+    <!--tab layout gospel detail-->
+    <string name="_Hot_Review">热门评论</string>
+    <string name="_Newest_Review">最新评论</string>
+
 </resources>

@@ -1,6 +1,5 @@
 package com.christian.navdetail
 
-import android.os.Bundle
 import android.view.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.customview.widget.ViewDragHelper.INVALID_POINTER
@@ -10,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.nav.*
+import com.google.android.material.tabs.TabLayout.MODE_FIXED
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import org.jetbrains.anko.debug
@@ -70,26 +70,21 @@ class NavDetailActivity : NavActivity() {
 //        startNavE("0")
 //    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // determine size of view pager
-        presenter.init(whichActivity = GOSPEL_DETAIL_ACTIVITY)
-    }
-
-    override fun initView(navFragmentList: ArrayList<NavFragment>) {
-        super.initView(navFragmentList)
-        initVp(navFragmentList)
-    }
+//    override fun initView(navFragmentList: ArrayList<NavFragment>) {
+//        super.initView(navFragmentList)
+//        initVp(navFragmentList)
+//    }
 
     override fun initTb() {
         initTbWithTitle(intent?.extras?.getString(toolbarTitle) ?: nullString)
         val tabTitleList = arrayListOf(
-                "热门",
-                "时间"
+                getString(R.string._Hot_Review),
+                getString(R.string._Newest_Review)
         )
         for (tabTitle in tabTitleList) {
             tl_nav.newTab().setText(tabTitle).let { tl_nav.addTab(it) }
         }
+        tl_nav.tabMode = MODE_FIXED
     }
 
     override fun initBv() {
@@ -229,7 +224,7 @@ class NavDetailActivity : NavActivity() {
                     gospelDetailFragment.navId = 31
                     return gospelDetailFragment
                 }
-                1, 2 -> {
+                1 -> {
                     val gospelReviewFragment = GospelReviewFragment()
                     gospelReviewFragment.navId = position + 31
                     return gospelReviewFragment
@@ -239,7 +234,7 @@ class NavDetailActivity : NavActivity() {
         }
 
         override fun getCount(): Int {
-            return 3
+            return 2
         }
 
     }

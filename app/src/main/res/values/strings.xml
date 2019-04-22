@@ -171,7 +171,7 @@
     <string name="cause_crash">Cause Crash</string>
     <string name="invite_menu_label">Invite</string>
 
-    <!--tab layout-->
+    <!--tab layout gospel-->
     <string name="_Mat">Mat</string>
     <string name="_Mak">Mak</string>
     <string name="_Luk">Luk</string>
@@ -199,4 +199,9 @@
     <string name="_3Jn">3Jn</string>
     <string name="_Jud">Jud</string>
     <string name="_Rev">Rev</string>
+
+    <!--tab layout gospel detail-->
+    <string name="_Hot_Review">Hot Review</string>
+    <string name="_Newest_Review">Newest Review</string>
+
 </resources>
