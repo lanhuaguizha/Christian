@@ -1,4 +1,4 @@
-package com.christian.me
+package com.christian.nav.me
 
 import android.content.Intent
 import android.os.Bundle

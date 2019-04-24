@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.nav.*
+import com.christian.navdetail.gospel.GospelDetailFragment
+import com.christian.navdetail.gospel.GospelReviewFragment
 import com.google.android.material.tabs.TabLayout.MODE_FIXED
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.sb_nav.*

@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.christian.R
 import com.christian.data.Gospels
 import com.christian.navdetail.NavDetailActivity
-import com.christian.navdetail.GospelDetailFragment
-import com.christian.navdetail.GospelReviewFragment
+import com.christian.navdetail.gospel.GospelDetailFragment
+import com.christian.navdetail.gospel.GospelReviewFragment
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import eightbitlab.com.blurview.BlurView
