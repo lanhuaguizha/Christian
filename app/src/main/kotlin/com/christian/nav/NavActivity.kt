@@ -9,7 +9,6 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.christian.ChristianApplication
 import com.christian.R
@@ -128,10 +127,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 bnv_nav.menu.getItem(position).isChecked = true
 
                 val navPresenter = presenter as NavPresenter
-                navFragment = navFragmentPagerAdapter.currentFragment
-//                if (position != VIEW_GOSPEL)
-//                srl_nav.setTargetView(navFragment.rv_nav)
-                    setToolbarExpanded(this@NavActivity, position)
+                navFragment = navFragmentPagerAdapter.instantiateItem(vp_nav, position) as NavFragment
+                setToolbarExpanded(this@NavActivity, position)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -147,7 +144,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             }
 
         })
-        navFragment = navFragmentPagerAdapter.getItem(initFragmentIndex) as NavFragment
+        navFragment = navFragmentPagerAdapter.instantiateItem(vp_nav, initFragmentIndex) as NavFragment
     }
 
     open fun initFab() {
@@ -185,10 +182,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     private fun initBnv() {
         disableShiftMode(bnv_nav)
-        vp_nav.post {
-            vp_nav.currentItem = VIEW_DISCIPLE
-            vp_nav.currentItem = VIEW_HOME
-        }
+//        vp_nav.post {
+//            vp_nav.currentItem = VIEW_DISCIPLE
+//            vp_nav.currentItem = VIEW_HOME
+//        }
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
             val itemPosition = (presenter as NavPresenter).generateNavId(it.itemId)
             debug { "generateNavId$itemPosition" }
@@ -326,9 +323,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open class NavFragmentPagerAdapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {
-
-        lateinit var currentFragment: NavFragment
-
         override fun getItem(position: Int): androidx.fragment.app.Fragment {
             val navFragment = NavFragment()
             navFragment.navId = position
@@ -338,11 +332,5 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         override fun getCount(): Int {
             return 4
         }
-
-        override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
-            currentFragment = `object` as NavFragment
-            super.setPrimaryItem(container, position, `object`)
-        }
-
     }
 }

@@ -104,13 +104,14 @@ class NavDetailActivity : NavActivity() {
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
         val navDetailFragmentPagerAdapter = NavDetailFragmentPagerAdapter(supportFragmentManager)
         vp_nav.adapter = navDetailFragmentPagerAdapter
-        navFragment = navDetailFragmentPagerAdapter.getItem(initFragmentIndex) as NavFragment
+        navFragment = navDetailFragmentPagerAdapter.instantiateItem(vp_nav, initFragmentIndex) as NavFragment
         vp_nav.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 debug { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
                 pagePosition = position
                 pagePositionOffset = positionOffset
+                navFragment = navDetailFragmentPagerAdapter.instantiateItem(vp_nav, position) as NavFragment
             }
 
             override fun onPageScrollStateChanged(state: Int) {
