@@ -25,16 +25,6 @@ class NavContract {
         fun initView(navFragmentList: ArrayList<NavFragment>)
 
         /**
-         * Start the loading animation before inserting the data.
-         */
-        fun showPb()
-
-        /**
-         * Stop the loading animation after inserting the data.
-         */
-        fun hidePb()
-
-        /**
          * Hide before each display to meet the material design specification.
          */
         fun showFab(drawableId: Int)

@@ -197,15 +197,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
     }
 
-    override fun showPb() {
-        pb_nav.visibility = View.VISIBLE
-    }
-
-    override fun hidePb() {
-        pb_nav.visibility = View.GONE
-    }
-
-
     override fun showFab(drawableId: Int) {
 
 //        if (!fab_nav.isGone) {

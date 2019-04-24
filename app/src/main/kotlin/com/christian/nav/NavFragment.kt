@@ -95,10 +95,12 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         if (navId == VIEW_GOSPEL) {
             v.vp1_nav.visibility = View.VISIBLE
             v.rv_nav.visibility = View.GONE
+            v.pb_nav.visibility  = View.GONE
             initTl()
         } else {
             v.vp1_nav.visibility = View.GONE
             v.rv_nav.visibility = View.VISIBLE
+            v.pb_nav.visibility  = View.VISIBLE
         }
         initRv()
     }
