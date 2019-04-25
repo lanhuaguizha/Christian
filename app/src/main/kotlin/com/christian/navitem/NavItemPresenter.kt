@@ -285,6 +285,9 @@ abstract class NavItemPresenter<out Bean>(private var query: Query, private val 
             "ic_crop_free_black_24dp" -> R.drawable.ic_crop_free_black_24dp
             "ic_wallpaper_black_24dp" -> R.drawable.ic_wallpaper_black_24dp
             "R.drawable.ic_settings_black_24dp" -> R.drawable.ic_settings_black_24dp
+            "R.drawable.ic_assignment_black_24dp" -> R.drawable.ic_assignment_black_24dp
+            "R.drawable.ic_contact_mail_black_24dp" -> R.drawable.ic_contact_mail_black_24dp
+            "R.drawable.ic_contact_phone_black_24dp" -> R.drawable.ic_contact_phone_black_24dp
             else -> {
                 return 0
             }

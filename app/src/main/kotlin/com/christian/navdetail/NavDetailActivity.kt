@@ -101,6 +101,9 @@ class NavDetailActivity : NavActivity() {
 
     private var pagePositionOffset: Float = 0f
 
+    override fun initBnv() {
+    }
+
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
         val navDetailFragmentPagerAdapter = NavDetailFragmentPagerAdapter(supportFragmentManager)
         vp_nav.adapter = navDetailFragmentPagerAdapter

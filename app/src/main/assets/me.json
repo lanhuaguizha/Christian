@@ -12,7 +12,7 @@
     {
       "name": "夜间模式",
       "url": "ic_brightness_medium_black_24dp",
-      "desc": "黑暗模式"
+      "desc": "黑暗模式，自动根据日落打开"
     },
     {
       "name": "历史记录",
@@ -20,34 +20,29 @@
       "desc": "已阅读的文章"
     },
     {
-      "name": "我的文章",
+      "name": "收藏文章",
       "url": "ic_library_books_black_24dp",
       "desc": "已收藏的文章"
     },
     {
       "name": "设置",
       "url": "R.drawable.ic_settings_black_24dp",
-      "desc": "开源声明、关于我们、听众来信、写信给我们"
+      "desc": "清空缓存"
+    },
+    {
+      "name": "来信与写信",
+      "url": "R.drawable.ic_contact_mail_black_24dp",
+      "desc": "信徒来信和写信给我们"
     },
     {
       "name": "开源声明",
-      "url": "R.drawable.ic_settings_black_24dp",
-      "desc": "开源声明、关于我们、听众来信、写信给我们"
+      "url": "R.drawable.ic_assignment_black_24dp",
+      "desc": "使用的开源软件声明和本应用开源软件声明"
     },
     {
       "name": "关于我们",
-      "url": "R.drawable.ic_settings_black_24dp",
-      "desc": "开源声明、关于我们、听众来信、写信给我们"
-    },
-    {
-      "name": "听众来信",
-      "url": "R.drawable.ic_settings_black_24dp",
-      "desc": "开源声明、关于我们、听众来信、写信给我们"
-    },
-    {
-      "name": "写信给我们",
-      "url": "R.drawable.ic_settings_black_24dp",
-      "desc": "开源声明、关于我们、听众来信、写信给我们"
+      "url": "R.drawable.ic_contact_phone_black_24dp",
+      "desc": "我们是基督徒，信奉三位一体"
     }
   ]
 }

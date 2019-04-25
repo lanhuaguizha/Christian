@@ -180,7 +180,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 //        }
     }
 
-    private fun initBnv() {
+    open fun initBnv() {
         disableShiftMode(bnv_nav)
 //        vp_nav.post {
 //            vp_nav.currentItem = VIEW_DISCIPLE

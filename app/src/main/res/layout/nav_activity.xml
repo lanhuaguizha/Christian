@@ -38,6 +38,7 @@
 
     <com.christian.view.CustomViewPager
         android:id="@+id/vp_nav"
+        android:background="@color/default_background_nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
