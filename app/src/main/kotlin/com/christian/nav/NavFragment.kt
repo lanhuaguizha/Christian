@@ -32,6 +32,9 @@ import org.jetbrains.anko.debug
 
 open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
 
+    override fun onSaveInstanceState(outState: Bundle) {
+    }
+
     override fun onGospelSelected(gospel: DocumentSnapshot) {
         // Go to the details page for the selected restaurant
         gospelId = gospel.id
@@ -59,13 +62,11 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     override fun onAttach(context: Context) {
         super.onAttach(context)
         navActivity = context as NavActivity
-
         ctx = context
         debug { "onAttach" }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        debug { "nav fragment is onCreateView, savedInstanceState, $savedInstanceState ---onCreateView" }
         v = inflater.inflate(R.layout.nav_fragment, container, false)
         FirebaseFirestore.setLoggingEnabled(true)
         firestore = FirebaseFirestore.getInstance()
@@ -95,12 +96,12 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         if (navId == VIEW_GOSPEL) {
             v.vp1_nav.visibility = View.VISIBLE
             v.rv_nav.visibility = View.GONE
-            v.pb_nav.visibility  = View.GONE
+            v.pb_nav.visibility = View.GONE
             initTl()
         } else {
             v.vp1_nav.visibility = View.GONE
             v.rv_nav.visibility = View.VISIBLE
-            v.pb_nav.visibility  = View.VISIBLE
+            v.pb_nav.visibility = View.VISIBLE
         }
         initRv()
     }
@@ -212,14 +213,14 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
 
             override fun onHide() {
-                hide()
+                hideFab()
                 isPageTop = false
                 isPageBottom = false
                 controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
             }
 
             override fun onShow() {
-                show()
+                showFab()
                 isPageTop = false
                 isPageBottom = false
                 controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
@@ -241,7 +242,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 //        v.rv_nav.addOnScrollListener(indexScrollListener)
     }
 
-    fun show() {
+    override fun showFab() {
 //        navActivity.showFAB()
 //        if (navId == 1 && cv_nav_frag.visibility == View.GONE) {
 //            cv_nav_frag.visibility = View.VISIBLE
@@ -250,20 +251,13 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 //        }
     }
 
-    fun hide() {
+    override fun hideFab() {
 //        navActivity.fab_nav.hide()
 //        if (navId == 1 && cv_nav_frag.visibility == View.VISIBLE) {
 //            val fadeOut = AnimationUtils.loadAnimation(context, R.anim.abc_fade_out)
 //            cv_nav_frag.startAnimation(fadeOut)
 //            cv_nav_frag.visibility = View.GONE
 //        }
-    }
-
-    override fun showSrl() {
-    }
-
-    override fun hideSrl() {
-//        v.srl_nav.isRefreshing = false
     }
 
     override fun invalidateRv(bean: Bean) {
@@ -277,11 +271,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         recyclerView.layoutAnimation = animation
         recyclerView.adapter?.notifyDataSetChanged()
         recyclerView.scheduleLayoutAnimation()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-//        outState.putShort(NAV_ID, navId.toShort())
-//        super.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {

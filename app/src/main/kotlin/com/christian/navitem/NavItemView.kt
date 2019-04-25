@@ -11,7 +11,7 @@ import com.christian.nav.NavActivity
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentSnapshot
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.nav_item_view.*
+import kotlinx.android.synthetic.main.nav_item_gospel.*
 import java.util.*
 
 /**

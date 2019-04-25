@@ -7,7 +7,7 @@ import com.christian.R
 import com.christian.nav.NavActivity
 import com.christian.navitem.*
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.nav_item_view_button.view.*
+import kotlinx.android.synthetic.main.nav_item_me_button.view.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.leftPadding
 import org.jetbrains.anko.rightPadding
@@ -20,16 +20,16 @@ class MeItemView(presenter: NavItemContract.IPresenter, containerView: View, nav
 
     override fun onCreateView(parent: ViewGroup, viewType: Int, itemView: View): NavItemView {
         debug { "onCreateView" }
-        var meItemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false)
+        var meItemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_gospel, parent, false)
         when (viewType) {
             VIEW_TYPE_PORTRAIT -> {
-                meItemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_potrait, parent, false)
+                meItemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me_potrait, parent, false)
             }
             VIEW_TYPE_SMALL -> {
-                meItemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_small, parent, false)
+                meItemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me, parent, false)
             }
             VIEW_TYPE_BUTTON -> {
-                meItemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view_button, parent, false)
+                meItemView = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me_button, parent, false)
                 debug { "left${meItemView.login_nav_item.leftPadding}top${meItemView.login_nav_item.topPadding}right${meItemView.login_nav_item.rightPadding}" }
                 meItemView.login_nav_item.setOnClickListener {
                     presenter.createUser()

@@ -2,9 +2,9 @@ package com.christian.nav
 
 import android.animation.Animator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
-import com.google.android.material.appbar.AppBarLayout
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +19,11 @@ import com.christian.navdetail.gospel.GospelDetailFragment
 import com.christian.navdetail.gospel.GospelReviewFragment
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.debug
@@ -316,6 +321,18 @@ fun controlOverScroll(navActivity: NavActivity, appBarLayout: AppBarLayout, vert
 }
 
 fun scrollRvToTop(navActivity: NavActivity, recyclerView: RecyclerView) {
-    recyclerView.smoothScrollToPosition(navActivity.dip(0)) // 为了滚到顶
+    recyclerView.smoothScrollToPosition(0) // 为了滚到顶
     navActivity.abl_nav.setExpanded(true, true)
+}
+
+@SuppressLint("RestrictedApi")
+fun disableShiftMode(view: BottomNavigationView) {
+    val menuView = view.getChildAt(0) as BottomNavigationMenuView
+    menuView.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
+    for (i in 0 until menuView.childCount) {
+        val item = menuView.getChildAt(i) as BottomNavigationItemView
+        item.setShifting(false)
+        item.setChecked(item.itemData.isChecked)
+    }
+
 }

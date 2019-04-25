@@ -14,7 +14,7 @@ import com.christian.nav.*
 import com.christian.navitem.me.MeItemView
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.firestore.*
-import kotlinx.android.synthetic.main.nav_item_view_small.*
+import kotlinx.android.synthetic.main.nav_item_me.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.warn
 
@@ -168,7 +168,7 @@ abstract class NavItemPresenter<out Bean>(private var query: Query, private val 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NavItemView {
         navActivity = parent.context as NavActivity
         debug { "navActivity$navActivity" }
-        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_view, parent, false)
+        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_gospel, parent, false)
         navItemView = NavItemView(this, itemView, navActivity)
 
         /**

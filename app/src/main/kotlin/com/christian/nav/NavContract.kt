@@ -44,9 +44,9 @@ class NavContract {
 
         fun initView()
 
-        fun showSrl()
+        fun showFab()
 
-        fun hideSrl()
+        fun hideFab()
 
         /**
          * You have to show the view in init view and invalidate view in the callback.

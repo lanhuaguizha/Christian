@@ -17,9 +17,6 @@ import com.christian.swipe.SwipeBackActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
@@ -29,19 +26,6 @@ import kotlinx.android.synthetic.main.search_bar_expanded.*
 import org.jetbrains.anko.debug
 import java.util.*
 
-
-@SuppressLint("RestrictedApi")
-fun disableShiftMode(view: BottomNavigationView) {
-    val menuView = view.getChildAt(0) as BottomNavigationMenuView
-    menuView.labelVisibilityMode = 1
-    for (i in 0 until menuView.childCount) {
-        val item = menuView.getChildAt(i) as BottomNavigationItemView
-        item.setShifting(false)
-        item.setChecked(item.itemData.isChecked)
-    }
-
-}
-
 /**
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
  * implementation of NavContract.View.
@@ -50,8 +34,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     @SuppressLint("MissingSuperCall")
     override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState?.putParcelableArrayList(NAV_FRAGMENT_LIST, (presenter as NavPresenter).navFragmentList)
     }
 
     /**
@@ -60,6 +42,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     override lateinit var presenter: NavContract.IPresenter
     var verticalOffset = -1
     lateinit var navFragment: NavFragment
+    private lateinit var navFragmentPagerAdapter: NavFragmentPagerAdapter
+
     private val providers = Arrays.asList(
 //                    AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.PhoneBuilder().build()
@@ -67,6 +51,32 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 //                    AuthUI.IdpConfig.FacebookBuilder().build(),
 //                    AuthUI.IdpConfig.TwitterBuilder().build())
     )
+    private val viewPagerOnPageChangeListener = object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            debug { "onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
+        }
+
+        override fun onPageSelected(position: Int) {
+            debug { "onPageSelected$position" }
+            debug { "position$position" }
+            bnv_nav.menu.getItem(position).isChecked = true
+
+            navFragment = navFragmentPagerAdapter.instantiateItem(vp_nav, position) as NavFragment
+            setToolbarExpanded(this@NavActivity, position)
+        }
+
+        override fun onPageScrollStateChanged(state: Int) {
+            debug { "onPageScrollStateChanged, state$state" }
+            if (state == 2) {
+                fab_nav.hide()
+            } else if (state == 0) {
+//                    fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
+//                    if (showOrHideLogicExecute) {
+//                        showFAB()
+//                    }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,11 +105,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         })
     }
 
-    fun showFab() {
-//        if (mPosition != 2) // mPosition !=2 should be removed
-        navFragment.show()
-    }
-
     open fun initTb() {
         sb_nav.visibility = View.VISIBLE
     }
@@ -111,40 +116,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         search_back_button.setOnClickListener { slCollapse() }
     }
 
-
     open fun initVp(navFragmentList: ArrayList<NavFragment>) {
-        val navFragmentPagerAdapter = NavFragmentPagerAdapter(supportFragmentManager)
+        navFragmentPagerAdapter = NavFragmentPagerAdapter(supportFragmentManager)
         vp_nav.offscreenPageLimit = 3
         vp_nav.adapter = navFragmentPagerAdapter
-        vp_nav.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                debug { "onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
-            }
-
-            override fun onPageSelected(position: Int) {
-                debug { "onPageSelected$position" }
-                debug { "position$position" }
-                bnv_nav.menu.getItem(position).isChecked = true
-
-                val navPresenter = presenter as NavPresenter
-                navFragment = navFragmentPagerAdapter.instantiateItem(vp_nav, position) as NavFragment
-                setToolbarExpanded(this@NavActivity, position)
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-                debug { "onPageScrollStateChanged, state$state" }
-                if (state == 2) {
-                    fab_nav.hide()
-                } else if (state == 0) {
-//                    fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
-//                    if (showOrHideLogicExecute) {
-//                        showFAB()
-//                    }
-                }
-            }
-
-        })
-        navFragment = navFragmentPagerAdapter.instantiateItem(vp_nav, initFragmentIndex) as NavFragment
+        vp_nav.addOnPageChangeListener(viewPagerOnPageChangeListener)
     }
 
     open fun initFab() {
@@ -152,9 +128,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun initBv() {
-        //set background, if your root layout doesn't have one
+
         makeViewBlur(bv_nav, cl_nav, window)
-        // set behavior
+
         val params = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
         params.gravity = Gravity.BOTTOM
         params.behavior = BottomNavigationViewBehavior(this, null)
@@ -186,6 +162,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 //            vp_nav.currentItem = VIEW_DISCIPLE
 //            vp_nav.currentItem = VIEW_HOME
 //        }
+        viewPagerOnPageChangeListener.onPageSelected(initFragmentIndex)
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
             val itemPosition = (presenter as NavPresenter).generateNavId(it.itemId)
             debug { "generateNavId$itemPosition" }
