@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.paging.PagedList
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.Bean
@@ -17,6 +18,7 @@ import com.christian.data.MeBean
 import com.christian.navdetail.NavDetailActivity
 import com.christian.navitem.NavItemPresenter
 import com.christian.view.ItemDecoration
+import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -70,25 +72,22 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         v = inflater.inflate(R.layout.nav_fragment, container, false)
         FirebaseFirestore.setLoggingEnabled(true)
         firestore = FirebaseFirestore.getInstance()
-        query = firestore.collection("gospels")
+
+        when (navId) {
+            VIEW_HOME -> {
+            }
+            VIEW_GOSPEL -> {
+                query = firestore.collection("gospels")
+            }
+            VIEW_DISCIPLE -> {
+            }
+            VIEW_ME -> {
+                query = firestore.collection("mes")
+            }
+        }
 
         initView()
-
-        // onCreateView and onDestroyView start and stop cause 27 child fragments needs it when destroy view at default limit
-        if (navId != VIEW_ME) {
-            navAdapter.startListening()
-        }
         return v
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        // 统一detaiil页面，因为detail页面的解绑在其他页面做了
-        try {
-            navAdapter.stopListening()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
 
     override fun initView() {
@@ -172,6 +171,17 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     lateinit var bean: Bean
 
     private fun initRv() {
+        query.orderBy("subtitle", Query.Direction.ASCENDING)
+        val config = PagedList.Config.Builder()
+                .setEnablePlaceholders(false)
+                .setPrefetchDistance(10)
+                .setPageSize(20)
+                .build()
+        val options = FirestorePagingOptions.Builder<Bean>()
+                .setLifecycleOwner(this@NavFragment)
+                .setQuery(query, config, Bean::class.java)
+                .build()
+
         this@NavFragment.bean = GospelBean(listOf(Gospels()))
 
         when (navId) {
