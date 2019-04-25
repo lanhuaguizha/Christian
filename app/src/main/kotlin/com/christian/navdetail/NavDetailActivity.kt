@@ -41,7 +41,7 @@ private fun NavActivity.initSrlForbidden() {
 private fun NavActivity.initFABGospelDetail(navDetailActivity: NavDetailActivity, rv_nav: RecyclerView) {
     fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_upward_black_24dp, theme))
     fab_nav.show()
-    fab_nav.setOnClickListener { scrollRvToTop(navDetailActivity, rv_nav) }
+    fab_nav.setOnClickListener { scrollRvToTop(navDetailActivity) }
 }
 
 //private fun NavActivity.startNavE(navId: String) {
@@ -107,14 +107,12 @@ class NavDetailActivity : NavActivity() {
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
         val navDetailFragmentPagerAdapter = NavDetailFragmentPagerAdapter(supportFragmentManager)
         vp_nav.adapter = navDetailFragmentPagerAdapter
-        navFragment = navDetailFragmentPagerAdapter.instantiateItem(vp_nav, initFragmentIndex) as NavFragment
         vp_nav.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 debug { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
                 pagePosition = position
                 pagePositionOffset = positionOffset
-                navFragment = navDetailFragmentPagerAdapter.instantiateItem(vp_nav, position) as NavFragment
             }
 
             override fun onPageScrollStateChanged(state: Int) {

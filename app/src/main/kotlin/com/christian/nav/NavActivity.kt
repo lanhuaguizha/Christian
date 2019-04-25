@@ -42,8 +42,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
      */
     override lateinit var presenter: NavContract.IPresenter
     var verticalOffset = -1
-    lateinit var navFragment: NavFragment
-    private lateinit var navFragmentPagerAdapter: NavFragmentPagerAdapter
+    lateinit var navFragmentPagerAdapter: NavFragmentPagerAdapter
 
     private val providers = Arrays.asList(
 //                    AuthUI.IdpConfig.EmailBuilder().build(),
@@ -54,21 +53,15 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     )
     private val viewPagerOnPageChangeListener = object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            debug { "onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
         }
 
         override fun onPageSelected(position: Int) {
-            debug { "onPageSelected$position" }
-            debug { "position$position" }
             bnv_nav.menu.getItem(position).isChecked = true
 
-            navFragment = navFragmentPagerAdapter.currentFragment
-//            navFragment = navFragmentPagerAdapter.instantiateItem(vp_nav, position) as NavFragment
             setToolbarExpanded(this@NavActivity, position)
         }
 
         override fun onPageScrollStateChanged(state: Int) {
-            debug { "onPageScrollStateChanged, state$state" }
             if (state == 2) {
                 fab_nav.hide()
             } else if (state == 0) {
@@ -172,7 +165,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             true
         }
         bnv_nav.setOnNavigationItemReselectedListener {
-            scrollRvToTop(this@NavActivity, navFragmentPagerAdapter.currentFragment.rv_nav)
+            scrollRvToTop(this@NavActivity)
 //            scrollRvToTop(this@NavActivity, navFragment.rv_nav)
         }
     }

@@ -26,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.singleLine
@@ -320,8 +321,8 @@ fun controlOverScroll(navActivity: NavActivity, appBarLayout: AppBarLayout, vert
 //    }
 }
 
-fun scrollRvToTop(navActivity: NavActivity, recyclerView: RecyclerView) {
-    recyclerView.smoothScrollToPosition(0) // 为了滚到顶
+fun scrollRvToTop(navActivity: NavActivity) {
+    navActivity.navFragmentPagerAdapter.currentFragment.rv_nav.smoothScrollToPosition(0) // 为了滚到顶
     navActivity.abl_nav.setExpanded(true, true)
 }
 
