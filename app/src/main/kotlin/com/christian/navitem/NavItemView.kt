@@ -1,32 +1,28 @@
 package com.christian.navitem
 
-import androidx.recyclerview.widget.RecyclerView
+import android.content.Intent
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.Gospels
-import com.christian.nav.NavActivity
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.DocumentSnapshot
+import com.christian.data.MeBean
+import com.christian.nav.toolbarTitle
+import com.christian.navdetail.NavDetailActivity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_gospel.*
-import java.util.*
 
 /**
  * NavItemView/NavItemHolder is view logic of nav items.
  */
 
-open class NavItemView(override var presenter: NavItemContract.IPresenter, final override val containerView: View, private val navActivity: NavActivity) : NavItemContract.IView, androidx.recyclerview.widget.RecyclerView.ViewHolder(containerView), LayoutContainer {
+open class NavItemView(final override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-    override fun onCreateView(parent: ViewGroup, viewType: Int, itemView: View): NavItemView {
-        initView()
-        return NavItemView(presenter, itemView, navActivity)
-    }
-
-    override fun updateUserUI(currentUser: FirebaseUser?) {
-    }
+//    override fun onCreateView(parent: ViewGroup, viewType: Int, itemView: View): NavItemView {
+//        initView()
+//        return NavItemView(presenter, itemView, navActivity)
+//    }
 
     init {
         containerView.setOnClickListener {
@@ -66,7 +62,7 @@ open class NavItemView(override var presenter: NavItemContract.IPresenter, final
 
     }
 
-    override fun initView() {
+    fun initView() {
 //        cv_nav_item.radius = 0f
 //        cv_nav_item.foreground = null
 //        tv_subtitle_nav_item.visibility = View.GONE
@@ -76,10 +72,7 @@ open class NavItemView(override var presenter: NavItemContract.IPresenter, final
 //        tv_detail_nav_item.maxLines = Integer.MAX_VALUE
     }
 
-    override fun deinitView() {
-    }
-
-    override fun animateItemView(itemView: View) {
+    fun animateItemView(itemView: View) {
 
         val animation = AnimationUtils.loadAnimation(itemView.context, R.anim.up_from_bottom)
 
@@ -91,17 +84,28 @@ open class NavItemView(override var presenter: NavItemContract.IPresenter, final
         itemView.clearAnimation()
     }
 
-    fun bind(snapshot: DocumentSnapshot, listener: NavItemPresenter.OnGospelSelectedListener) {
-        containerView.postDelayed({
-            val gospels = snapshot.toObject(Gospels::class.java)
-        }, 3000)
-        Glide.with(containerView.context).load(R.drawable.the_virgin).into(iv_nav_item)
-        tv_title_nav_item.text = snapshot.data?.get("title").toString()
-        tv_subtitle_nav_item.text = snapshot.data?.get("subtitle").toString()
-        tv_detail_nav_item.text = ((snapshot.data?.get("detail") as java.util.ArrayList<*>)[0] as HashMap<*, *>)["content"].toString()
-        containerView.setOnClickListener {
-            listener.onGospelSelected(snapshot)
+    fun bind(gospels: Gospels) {
+        tv_title_nav_item.text = gospels.title
+        tv_subtitle_nav_item.text = gospels.subtitle
+        if (gospels.gospelDetails.isNotEmpty()) {
+            Glide.with(containerView.context).load(gospels.gospelDetails[0].image).into(iv_nav_item)
+            tv_detail_nav_item.text = gospels.gospelDetails[0].content
         }
-        tv_title_nav_item.setOnClickListener { listener.onGospelSelected(snapshot) }
+        containerView.setOnClickListener {
+            startGospelDetailActivity(gospels)
+        }
+        tv_title_nav_item.setOnClickListener {
+            //            gospelId = gospels.id
+            startGospelDetailActivity(gospels)
+        }
+    }
+
+    private fun startGospelDetailActivity(gospels: Gospels) {
+        val intent = Intent(containerView.context, NavDetailActivity::class.java)
+        intent.putExtra(toolbarTitle, gospels.title)
+        containerView.context.startActivity(intent)
+    }
+
+    fun bind(snapshot: MeBean) {
     }
 }

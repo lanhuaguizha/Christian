@@ -1,7 +1,6 @@
 package com.christian.nav
 
 import com.christian.BaseContract
-import com.christian.data.Bean
 import com.christian.data.Gospels
 import org.jetbrains.anko.AnkoLogger
 
@@ -47,11 +46,6 @@ class NavContract {
         fun showFab()
 
         fun hideFab()
-
-        /**
-         * You have to show the view in init view and invalidate view in the callback.
-         */
-        fun invalidateRv(bean: Bean)
     }
 
     /**

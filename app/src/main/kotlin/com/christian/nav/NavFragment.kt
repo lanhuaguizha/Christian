@@ -1,55 +1,50 @@
 package com.christian.nav
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.paging.PagedList
 import com.christian.ChristianApplication
 import com.christian.R
-import com.christian.data.Bean
-import com.christian.data.GospelBean
 import com.christian.data.Gospels
 import com.christian.data.MeBean
-import com.christian.navdetail.NavDetailActivity
-import com.christian.navitem.NavItemPresenter
+import com.christian.navitem.NavItemView
 import com.christian.view.ItemDecoration
+import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.DocumentSnapshot
+import com.firebase.ui.firestore.paging.LoadingState
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
-import com.google.gson.Gson
-import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.debug
 
 
-open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragment, NavItemPresenter.OnGospelSelectedListener {
+open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragment {
 
     override fun onSaveInstanceState(outState: Bundle) {
     }
-
-    override fun onGospelSelected(gospel: DocumentSnapshot) {
-        // Go to the details page for the selected restaurant
-        gospelId = gospel.id
-        val intent = Intent(this@NavFragment.navActivity, NavDetailActivity::class.java)
-        intent.putExtra(toolbarTitle, gospel.data?.get("subtitle").toString())
-        startActivity(intent)
-    }
+//
+//    override fun onGospelSelected(gospel: DocumentSnapshot) {
+//        // Go to the details page for the selected restaurant
+//        gospelId = gospel.id
+//        val intent = Intent(this@NavFragment.navActivity, NavDetailActivity::class.java)
+//        intent.putExtra(toolbarTitle, gospel.data?.get("subtitle").toString())
+//        startActivity(intent)
+//    }
 
     open lateinit var firestore: FirebaseFirestore
     open lateinit var query: Query
     private lateinit var navActivity: NavActivity
     private lateinit var ctx: Context
-    private lateinit var navAdapter: NavItemPresenter<*>
+    //    private lateinit var navAdapter: NavItemPresenter<*>
     lateinit var v: View
     var navId = -1
     lateinit var gospelId: String
@@ -73,6 +68,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         FirebaseFirestore.setLoggingEnabled(true)
         firestore = FirebaseFirestore.getInstance()
 
+        query = firestore.collection("gospels")
         when (navId) {
             VIEW_HOME -> {
             }
@@ -95,12 +91,10 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         if (navId == VIEW_GOSPEL) {
             v.vp1_nav.visibility = View.VISIBLE
             v.rv_nav.visibility = View.GONE
-            v.pb_nav.visibility = View.GONE
             initTl()
         } else {
             v.vp1_nav.visibility = View.GONE
             v.rv_nav.visibility = View.VISIBLE
-            v.pb_nav.visibility = View.VISIBLE
         }
         initRv()
     }
@@ -155,7 +149,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             override fun onPageSelected(position: Int) {
                 pageSelectedPosition = position
                 navFragment = navChildFragmentPagerAdapter.currentFragment
-//                navActivity.srl_nav.setTargetView(navFragment.rv_nav)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -168,7 +161,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     var isPageTop: Boolean = true
 
     var isPageBottom: Boolean = false
-    lateinit var bean: Bean
 
     private fun initRv() {
         query.orderBy("subtitle", Query.Direction.ASCENDING)
@@ -177,48 +169,114 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 .setPrefetchDistance(10)
                 .setPageSize(20)
                 .build()
-        val options = FirestorePagingOptions.Builder<Bean>()
-                .setLifecycleOwner(this@NavFragment)
-                .setQuery(query, config, Bean::class.java)
-                .build()
-
-        this@NavFragment.bean = GospelBean(listOf(Gospels()))
 
         when (navId) {
-            VIEW_HOME -> {
-            }
-            VIEW_GOSPEL -> {
+//            VIEW_HOME -> {
+//            }
+            VIEW_HOME, VIEW_GOSPEL -> {
+                val options = FirestorePagingOptions.Builder<Gospels>()
+                        .setLifecycleOwner(this@NavFragment)
+                        .setQuery(query, config, Gospels::class.java)
+                        .build()
+                val adapter = object : FirestorePagingAdapter<Gospels, NavItemView>(options) {
+                    @NonNull
+                    override fun onCreateViewHolder(@NonNull parent: ViewGroup,
+                                                    viewType: Int): NavItemView {
+                        val view = LayoutInflater.from(parent.context)
+                                .inflate(R.layout.nav_item_gospel, parent, false)
+                        return NavItemView(view)
+                    }
+
+                    override fun onBindViewHolder(@NonNull holder: NavItemView,
+                                                  position: Int,
+                                                  @NonNull model: Gospels) {
+                        holder.bind(model)
+                    }
+
+                    override fun onLoadingStateChanged(@NonNull state: LoadingState) {
+                        when (state) {
+                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> paging_loading.setVisibility(View.VISIBLE)
+                            LoadingState.LOADED -> {
+                                paging_loading.visibility = View.GONE
+                                rv_nav.scheduleLayoutAnimation()
+                            }
+                            LoadingState.FINISHED -> {
+                                paging_loading.visibility = View.GONE
+                                showToast("Reached end of data set.")
+                            }
+                            LoadingState.ERROR -> {
+                                showToast("An error occurred.")
+                                retry()
+                            }
+                        }
+                    }
+                }
+                v.rv_nav.adapter = adapter
+
             }
             VIEW_DISCIPLE -> {
             }
             VIEW_ME -> {
-                this@NavFragment.bean = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
-                unregisterForContextMenu(v.rv_nav)
-            }
-        }
-        navAdapter = object : NavItemPresenter<Bean>(query, this@NavFragment, bean = this@NavFragment.bean, navId = navId) {
-            override fun onDataChanged() {
-                if (itemCount == 0) {
-                    v.rv_nav.visibility = View.GONE
-                    v.pb_nav.visibility = View.VISIBLE
-                } else {
-                    v.rv_nav.visibility = View.VISIBLE
-                    v.pb_nav.visibility = View.GONE
+                val options = FirestorePagingOptions.Builder<MeBean>()
+                        .setLifecycleOwner(this@NavFragment)
+                        .setQuery(query, config, MeBean::class.java)
+                        .build()
+                val adapter = object : FirestorePagingAdapter<MeBean, NavItemView>(options) {
+                    @NonNull
+                    override fun onCreateViewHolder(@NonNull parent: ViewGroup,
+                                                    viewType: Int): NavItemView {
+                        val view = LayoutInflater.from(parent.context)
+                                .inflate(R.layout.nav_item_me, parent, false)
+                        return NavItemView(view)
+                    }
+
+                    override fun onBindViewHolder(@NonNull holder: NavItemView,
+                                                  position: Int,
+                                                  @NonNull model: MeBean) {
+                        holder.bind(model)
+                    }
+
+                    override fun onLoadingStateChanged(@NonNull state: LoadingState) {
+                        when (state) {
+                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> paging_loading.setVisibility(View.VISIBLE)
+                            LoadingState.LOADED -> paging_loading.setVisibility(View.GONE)
+                            LoadingState.FINISHED -> {
+                                paging_loading.visibility = View.GONE
+                                showToast("Reached end of data set.")
+                            }
+                            LoadingState.ERROR -> {
+                                showToast("An error occurred.")
+                                retry()
+                            }
+                        }
+                    }
                 }
-            }
+//                this@NavFragment.bean = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
+                v.rv_nav.adapter = adapter
 
-            override fun onError(e: FirebaseFirestoreException) {
-                // Show a snackbar on errors
-                Snackbar.make(cl_gospel_detail,
-                        "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
             }
-
         }
 
-        // set Query
-        if (navId != VIEW_ME) // 增加了复杂性，需要想办法统一Me
-            navAdapter.setQuery(query) // onStop的时候注销了snapshotListener，onResume的时候一定要开启
-        v.rv_nav.adapter = navAdapter
+
+//        navAdapter = object : NavItemPresenter<Bean>(query, this@NavFragment, bean = this@NavFragment.bean, navId = navId) {
+//            override fun onDataChanged() {
+//                if (itemCount == 0) {
+//                    v.rv_nav.visibility = View.GONE
+//                    v.pb_nav.visibility = View.VISIBLE
+//                } else {
+//                    v.rv_nav.visibility = View.VISIBLE
+//                    v.pb_nav.visibility = View.GONE
+//                }
+//            }
+//
+//            override fun onError(e: FirebaseFirestoreException) {
+//                // Show a snackbar on errors
+//                Snackbar.make(cl_gospel_detail,
+//                        "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
+//            }
+//
+//        }
+
         v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
 
@@ -247,9 +305,13 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             }
         })
 
-//        val indexScrollListener = IndexScrollListener()
-//        indexScrollListener.register(v.fs_nav)
-//        v.rv_nav.addOnScrollListener(indexScrollListener)
+        val controller =
+                AnimationUtils.loadLayoutAnimation(navActivity, R.anim.layout_animation_from_right)
+        v.rv_nav.layoutAnimation = controller
+    }
+
+    fun showToast(message: String) {
+        Toast.makeText(navActivity, message, Toast.LENGTH_SHORT).show();
     }
 
     override fun showFab() {
@@ -270,18 +332,13 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 //        }
     }
 
-    override fun invalidateRv(bean: Bean) {
-        navAdapter.bean = bean
-        runLayoutAnimation(v.rv_nav)
-        navActivity.showFAB()
-    }
-
-    private fun runLayoutAnimation(recyclerView: androidx.recyclerview.widget.RecyclerView) {
-        val animation = AnimationUtils.loadLayoutAnimation(recyclerView.context, R.anim.layout_animation_from_right)
-        recyclerView.layoutAnimation = animation
-        recyclerView.adapter?.notifyDataSetChanged()
-        recyclerView.scheduleLayoutAnimation()
-    }
+//
+//    private fun runLayoutAnimation(recyclerView: androidx.recyclerview.widget.RecyclerView) {
+//        val animation = AnimationUtils.loadLayoutAnimation(recyclerView.context, R.anim.layout_animation_from_right)
+//        recyclerView.layoutAnimation = animation
+//        recyclerView.adapter?.notifyDataSetChanged()
+//        recyclerView.scheduleLayoutAnimation()
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
