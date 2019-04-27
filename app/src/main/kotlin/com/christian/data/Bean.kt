@@ -15,7 +15,7 @@ data class GospelDetails(
 
 data class Disciple(
         val id: String = "",
-        val name: String
+        val name: String = ""
 )
 
 data class Message(

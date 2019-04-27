@@ -3,21 +3,20 @@ package com.christian.navitem
 import android.content.Intent
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Switch
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.Disciple
 import com.christian.data.Gospel
 import com.christian.data.MeBean
-import com.christian.data.Setting
+import com.christian.nav.applyMarqueeEffect
 import com.christian.nav.toolbarTitle
 import com.christian.navdetail.NavDetailActivity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_gospel.*
 import kotlinx.android.synthetic.main.nav_item_me.*
-import kotlinx.android.synthetic.main.notification_template_custom_big.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 /**
  * NavItemView/NavItemHolder is view logic of nav items.
@@ -105,8 +104,8 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
     }
 
     private var isOn = false
-    fun bind(setting: Setting) {
-       /* when (adapterPosition) {
+    fun bind(meBean: MeBean) {
+        when (adapterPosition) {
             1 -> {
                 containerView.setOnClickListener {
                     if (isOn) {
@@ -128,9 +127,9 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
                     containerView.context.startActivity(i)
                 }
             }
-        }*/
+        }
 
-       /* if (adapterPosition == 0) {
+        if (adapterPosition == 0) {
             tv_nav_item_small.text = meBean.name
             applyMarqueeEffect(tv2_nav_item_small)
             tv2_nav_item_small.text = meBean.nickName
@@ -141,11 +140,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
             tv2_nav_item_small.text = meBean.settings[adapterPosition - 1].desc
             val url = meBean.settings[adapterPosition - 1].url
             Glide.with(containerView.context).load(url).into(iv_nav_item_small)
-        }*/
-
-        tv_nav_item_small.text = setting.name
-        tv2_nav_item_small.text = setting.desc
-        Glide.with(containerView.context).load(setting.url).into(iv_nav_item_small)
+        }
     }
 
     private fun getTitle(meBean: MeBean, pos: Int): String {

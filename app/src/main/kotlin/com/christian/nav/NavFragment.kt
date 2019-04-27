@@ -14,14 +14,16 @@ import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.Disciple
 import com.christian.data.Gospel
-import com.christian.data.Setting
+import com.christian.data.MeBean
 import com.christian.navitem.NavItemView
 import com.christian.view.ItemDecoration
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.firebase.ui.firestore.paging.LoadingState
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
@@ -240,47 +242,47 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             }
             VIEW_ME -> {
                 val query = FirebaseFirestore.getInstance().collection("mes")
-                val options = FirestorePagingOptions.Builder<Setting>()
+                val options = FirestorePagingOptions.Builder<MeBean>()
                         .setLifecycleOwner(this@NavFragment)
-                        .setQuery(query, config, Setting::class.java)
+                        .setQuery(query, config, MeBean::class.java)
                         .build()
-                val adapter = object : FirestorePagingAdapter<Setting, NavItemView>(options) {
+                val adapter = object : FirestorePagingAdapter<MeBean, NavItemView>(options) {
 
-                    //                    override fun getItemViewType(position: Int): Int {
-//                        return when (position) {
-//                            0 -> VIEW_TYPE_PORTRAIT
-//                            mModel.settings.size + 1 -> VIEW_TYPE_BUTTON
-//                            else -> VIEW_TYPE_SMALL
-//                        }
-//                    }
-//
+                    override fun getItemViewType(position: Int): Int {
+                        return when (position) {
+                            0 -> VIEW_TYPE_PORTRAIT
+                            mModel.settings.size + 1 -> VIEW_TYPE_BUTTON
+                            else -> VIEW_TYPE_SMALL
+                        }
+                    }
+
                     @NonNull
                     override fun onCreateViewHolder(@NonNull parent: ViewGroup, viewType: Int): NavItemView {
-                        val view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me, parent, false)
-//                        when (viewType) {
-//                            VIEW_TYPE_PORTRAIT -> {
-//                                view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me_potrait, parent, false)
-//                                return NavItemView(view)
-//                            }
-//                            VIEW_TYPE_SMALL -> {
-//                                view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me, parent, false)
-//                                return NavItemView(view)
-//                            }
-//                            VIEW_TYPE_BUTTON -> {
-//                                view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me_button, parent, false)
-//                                return NavItemView(view)
-//                            }
-//                        }
+                        var view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me, parent, false)
+                        when (viewType) {
+                            VIEW_TYPE_PORTRAIT -> {
+                                view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me_potrait, parent, false)
+                                return NavItemView(view)
+                            }
+                            VIEW_TYPE_SMALL -> {
+                                view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me, parent, false)
+                                return NavItemView(view)
+                            }
+                            VIEW_TYPE_BUTTON -> {
+                                view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me_button, parent, false)
+                                return NavItemView(view)
+                            }
+                        }
                         return NavItemView(view)
                     }
 
-//                    private var mModel: MeBean = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
+                    private var mModel: MeBean = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
 
                     override fun onBindViewHolder(@NonNull holder: NavItemView,
                                                   position: Int,
-                                                  @NonNull model: Setting) {
+                                                  @NonNull model: MeBean) {
 //                        mModel = model
-                        holder.bind(model)
+                        holder.bind(mModel)
                     }
 
                     override fun onLoadingStateChanged(@NonNull state: LoadingState) {
