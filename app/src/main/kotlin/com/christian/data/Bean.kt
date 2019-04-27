@@ -1,66 +1,22 @@
 package com.christian.data
 
-import android.os.Parcel
-import android.os.Parcelable
-
-data class Gospels(
+data class Gospel(
         var title: String = "",
         var subtitle: String = "",
-        var gospelDetails: List<GospelDetails> = arrayListOf(),
+        var detail: List<GospelDetails> = arrayListOf(),
         var date: String = "",
         var author: String = ""
-) : Parcelable {
-    constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            ArrayList<GospelDetails>().apply { source.readList(this, GospelDetails::class.java.classLoader) },
-            source.readString(),
-            source.readString()
-    )
-
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeString(title)
-        writeString(subtitle)
-        writeList(gospelDetails)
-        writeString(date)
-        writeString(author)
-    }
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<Gospels> = object : Parcelable.Creator<Gospels> {
-            override fun createFromParcel(source: Parcel): Gospels = Gospels(source)
-            override fun newArray(size: Int): Array<Gospels?> = arrayOfNulls(size)
-        }
-    }
-}
+)
 
 data class GospelDetails(
-        val content: String,
-        val image: String
-) : Parcelable {
-    constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString()
-    )
+        val content: String = "",
+        val image: String = ""
+)
 
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeString(content)
-        writeString(image)
-    }
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<GospelDetails> = object : Parcelable.Creator<GospelDetails> {
-            override fun createFromParcel(source: Parcel): GospelDetails = GospelDetails(source)
-            override fun newArray(size: Int): Array<GospelDetails?> = arrayOfNulls(size)
-        }
-    }
-}
+data class Disciple(
+        val id: String = "",
+        val name: String
+)
 
 data class Message(
         val id: String,
@@ -75,10 +31,10 @@ data class MeBean(
         val name: String = "",
         val nickName: String = "",
         val address: Address = Address(),
-        val settings: List<Settings> = arrayListOf()
+        val settings: List<Setting> = arrayListOf()
 )
 
-data class Settings(
+data class Setting(
         val name: String = "",
         val url: String = "",
         val desc: String = ""

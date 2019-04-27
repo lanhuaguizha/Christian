@@ -61,7 +61,7 @@ class NavDetailActivity : NavActivity() {
         const val KEY_GOSPEL_ID = "key_gospel_id" // gospels集合ID
     }
 
-//    override fun initView(bean: List<Gospels>) {
+//    override fun initView(bean: List<Gospel>) {
 //        debug { "bean$bean" }
 //        initAbl()
 //        initTbWithTitle(intent.extras.getString("title"))
@@ -155,7 +155,7 @@ class NavDetailActivity : NavActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    //    override fun initRv(bean: List<Gospels>) {
+    //    override fun initRv(bean: List<Gospel>) {
 //        adapter = NavItemPresenter(bean, false)
 //        rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.activity_horizontal_margin_0).toInt()))
 //        rv_nav.layoutManager = LinearLayoutManager(this)
@@ -177,7 +177,7 @@ class NavDetailActivity : NavActivity() {
 //        })
 //    }
 
-    //    override fun invalidateRv(bean: List<Gospels>) {
+    //    override fun invalidateRv(bean: List<Gospel>) {
 //        adapter.bean = bean
 //        runLayoutAnimationE(rv_nav)
 //        fab_nav.post {

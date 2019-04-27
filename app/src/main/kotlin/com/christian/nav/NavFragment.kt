@@ -12,8 +12,9 @@ import androidx.annotation.NonNull
 import androidx.paging.PagedList
 import com.christian.ChristianApplication
 import com.christian.R
-import com.christian.data.Gospels
-import com.christian.data.MeBean
+import com.christian.data.Disciple
+import com.christian.data.Gospel
+import com.christian.data.Setting
 import com.christian.navitem.NavItemView
 import com.christian.view.ItemDecoration
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
@@ -40,8 +41,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 //        startActivity(intent)
 //    }
 
-    open lateinit var firestore: FirebaseFirestore
-    open lateinit var query: Query
     private lateinit var navActivity: NavActivity
     private lateinit var ctx: Context
     //    private lateinit var navAdapter: NavItemPresenter<*>
@@ -66,22 +65,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         v = inflater.inflate(R.layout.nav_fragment, container, false)
         FirebaseFirestore.setLoggingEnabled(true)
-        firestore = FirebaseFirestore.getInstance()
-
-        query = firestore.collection("gospels")
-        when (navId) {
-            VIEW_HOME -> {
-            }
-            VIEW_GOSPEL -> {
-                query = firestore.collection("gospels")
-            }
-            VIEW_DISCIPLE -> {
-            }
-            VIEW_ME -> {
-                query = firestore.collection("mes")
-            }
-        }
-
         initView()
         return v
     }
@@ -163,7 +146,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     var isPageBottom: Boolean = false
 
     private fun initRv() {
-        query.orderBy("subtitle", Query.Direction.ASCENDING)
         val config = PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setPrefetchDistance(10)
@@ -171,14 +153,14 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 .build()
 
         when (navId) {
-//            VIEW_HOME -> {
-//            }
-            VIEW_HOME, VIEW_GOSPEL -> {
-                val options = FirestorePagingOptions.Builder<Gospels>()
+            VIEW_HOME -> {
+                val query = FirebaseFirestore.getInstance().collection("gospels")
+                query.orderBy("subtitle", Query.Direction.ASCENDING)
+                val options = FirestorePagingOptions.Builder<Gospel>()
                         .setLifecycleOwner(this@NavFragment)
-                        .setQuery(query, config, Gospels::class.java)
+                        .setQuery(query, config, Gospel::class.java)
                         .build()
-                val adapter = object : FirestorePagingAdapter<Gospels, NavItemView>(options) {
+                val adapter = object : FirestorePagingAdapter<Gospel, NavItemView>(options) {
                     @NonNull
                     override fun onCreateViewHolder(@NonNull parent: ViewGroup,
                                                     viewType: Int): NavItemView {
@@ -189,13 +171,13 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
                     override fun onBindViewHolder(@NonNull holder: NavItemView,
                                                   position: Int,
-                                                  @NonNull model: Gospels) {
+                                                  @NonNull model: Gospel) {
                         holder.bind(model)
                     }
 
                     override fun onLoadingStateChanged(@NonNull state: LoadingState) {
                         when (state) {
-                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> paging_loading.setVisibility(View.VISIBLE)
+                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> paging_loading.visibility = View.VISIBLE
                             LoadingState.LOADED -> {
                                 paging_loading.visibility = View.GONE
                                 rv_nav.scheduleLayoutAnimation()
@@ -212,34 +194,37 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                     }
                 }
                 v.rv_nav.adapter = adapter
-
+            }
+            VIEW_GOSPEL -> {
             }
             VIEW_DISCIPLE -> {
-            }
-            VIEW_ME -> {
-                val options = FirestorePagingOptions.Builder<MeBean>()
+                val query = FirebaseFirestore.getInstance().collection("disciples")
+                val options = FirestorePagingOptions.Builder<Disciple>()
                         .setLifecycleOwner(this@NavFragment)
-                        .setQuery(query, config, MeBean::class.java)
+                        .setQuery(query, config, Disciple::class.java)
                         .build()
-                val adapter = object : FirestorePagingAdapter<MeBean, NavItemView>(options) {
+                val adapter = object : FirestorePagingAdapter<Disciple, NavItemView>(options) {
                     @NonNull
                     override fun onCreateViewHolder(@NonNull parent: ViewGroup,
                                                     viewType: Int): NavItemView {
                         val view = LayoutInflater.from(parent.context)
-                                .inflate(R.layout.nav_item_me, parent, false)
+                                .inflate(R.layout.nav_item_gospel, parent, false)
                         return NavItemView(view)
                     }
 
                     override fun onBindViewHolder(@NonNull holder: NavItemView,
                                                   position: Int,
-                                                  @NonNull model: MeBean) {
+                                                  @NonNull model: Disciple) {
                         holder.bind(model)
                     }
 
                     override fun onLoadingStateChanged(@NonNull state: LoadingState) {
                         when (state) {
-                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> paging_loading.setVisibility(View.VISIBLE)
-                            LoadingState.LOADED -> paging_loading.setVisibility(View.GONE)
+                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> paging_loading.visibility = View.VISIBLE
+                            LoadingState.LOADED -> {
+                                paging_loading.visibility = View.GONE
+                                rv_nav.scheduleLayoutAnimation()
+                            }
                             LoadingState.FINISHED -> {
                                 paging_loading.visibility = View.GONE
                                 showToast("Reached end of data set.")
@@ -251,7 +236,68 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                         }
                     }
                 }
-//                this@NavFragment.bean = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
+                v.rv_nav.adapter = adapter
+            }
+            VIEW_ME -> {
+                val query = FirebaseFirestore.getInstance().collection("mes")
+                val options = FirestorePagingOptions.Builder<Setting>()
+                        .setLifecycleOwner(this@NavFragment)
+                        .setQuery(query, config, Setting::class.java)
+                        .build()
+                val adapter = object : FirestorePagingAdapter<Setting, NavItemView>(options) {
+
+                    //                    override fun getItemViewType(position: Int): Int {
+//                        return when (position) {
+//                            0 -> VIEW_TYPE_PORTRAIT
+//                            mModel.settings.size + 1 -> VIEW_TYPE_BUTTON
+//                            else -> VIEW_TYPE_SMALL
+//                        }
+//                    }
+//
+                    @NonNull
+                    override fun onCreateViewHolder(@NonNull parent: ViewGroup, viewType: Int): NavItemView {
+                        val view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me, parent, false)
+//                        when (viewType) {
+//                            VIEW_TYPE_PORTRAIT -> {
+//                                view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me_potrait, parent, false)
+//                                return NavItemView(view)
+//                            }
+//                            VIEW_TYPE_SMALL -> {
+//                                view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me, parent, false)
+//                                return NavItemView(view)
+//                            }
+//                            VIEW_TYPE_BUTTON -> {
+//                                view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me_button, parent, false)
+//                                return NavItemView(view)
+//                            }
+//                        }
+                        return NavItemView(view)
+                    }
+
+//                    private var mModel: MeBean = Gson().fromJson<MeBean>(getJson("me.json", ctx), MeBean::class.java)
+
+                    override fun onBindViewHolder(@NonNull holder: NavItemView,
+                                                  position: Int,
+                                                  @NonNull model: Setting) {
+//                        mModel = model
+                        holder.bind(model)
+                    }
+
+                    override fun onLoadingStateChanged(@NonNull state: LoadingState) {
+                        when (state) {
+                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> paging_loading.visibility = View.VISIBLE
+                            LoadingState.LOADED -> paging_loading.visibility = View.GONE
+                            LoadingState.FINISHED -> {
+                                paging_loading.visibility = View.GONE
+                                showToast("Reached end of data set.")
+                            }
+                            LoadingState.ERROR -> {
+                                showToast("An error occurred.")
+                                retry()
+                            }
+                        }
+                    }
+                }
                 v.rv_nav.adapter = adapter
 
             }

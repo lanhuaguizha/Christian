@@ -11,9 +11,8 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.christian.R
-import com.christian.data.Gospels
+import com.christian.data.Gospel
 import com.christian.navdetail.NavDetailActivity
 import com.christian.navdetail.gospel.GospelDetailFragment
 import com.christian.navdetail.gospel.GospelReviewFragment
@@ -37,7 +36,7 @@ import java.io.InputStreamReader
 /**
  * This contains all the NAV business logic, and the MVP control center. We'll write the code here first.
  * Hold references to View and Model, implementation of View is NavActivity, implementation of Model
- * is Gospels
+ * is Gospel
  */
 class NavPresenter(private var navId: Int, override var view: NavContract.INavActivity) : NavContract.IPresenter {
 
@@ -94,7 +93,7 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
     override fun deleteNav(navId: String) {
     }
 
-    override fun updateNav(gospels: List<Gospels>) {
+    override fun updateNav(gospels: List<Gospel>) {
     }
 
     override fun readNav() {
@@ -135,6 +134,11 @@ const val VIEW_ME_OPEN_SOURCE = 10
 const val VIEW_ME_ABOUT_US = 11
 const val VIEW_ME_MAILS_FROM = 12
 const val VIEW_ME_MAILS_TO = 13
+
+const val VIEW_TYPE_NORMAL = 0
+const val VIEW_TYPE_PORTRAIT = 1
+const val VIEW_TYPE_SMALL = 2
+const val VIEW_TYPE_BUTTON = 3
 
 
 const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏

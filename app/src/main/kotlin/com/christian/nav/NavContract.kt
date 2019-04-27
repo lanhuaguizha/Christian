@@ -1,7 +1,7 @@
 package com.christian.nav
 
 import com.christian.BaseContract
-import com.christian.data.Gospels
+import com.christian.data.Gospel
 import org.jetbrains.anko.AnkoLogger
 
 /**
@@ -73,7 +73,7 @@ class NavContract {
          */
         fun deleteNav(navId: String)
 
-        fun updateNav(gospels: List<Gospels>)
+        fun updateNav(gospels: List<Gospel>)
 
         fun readNav()
     }

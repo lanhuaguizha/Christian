@@ -1,6 +1,5 @@
 package com.christian.view;
 
-import com.christian.data.GospelBean;
 import com.google.gson.Gson;
 
 import java.util.List;

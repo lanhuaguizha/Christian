@@ -278,7 +278,7 @@ public class DiscipleFragment extends NavFragment implements
         // Initialize Firebase Remote Config.
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
-        // Define Firebase Remote Config Settings.
+        // Define Firebase Remote Config Setting.
         FirebaseRemoteConfigSettings firebaseRemoteConfigSettings =
                 new FirebaseRemoteConfigSettings.Builder()
                         .setDeveloperModeEnabled(true)

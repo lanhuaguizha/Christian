@@ -27,7 +27,7 @@
     <string name="read_history">Read History</string>
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Strings related to Settings -->
+    <!-- Strings related to Setting -->
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
@@ -154,7 +154,7 @@
     <string name="title_activity_content_fragment">ContentFragment</string>
     <string name="double_click_exit">Press again to exit</string>
 
-    <!--Gospels initialize-->
+    <!--Gospel initialize-->
     <string name="subtitle">约翰福音</string>
     <string name="title">叫一切信他的，不至灭亡，反得永生。</string>
     <string name="detail">神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。</string>

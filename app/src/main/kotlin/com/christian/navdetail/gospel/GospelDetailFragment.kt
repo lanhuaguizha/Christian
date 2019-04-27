@@ -29,7 +29,7 @@ class GospelDetailFragment : NavFragment() {
 
     private lateinit var viewModel: GospelDetailViewModel
 
-    override lateinit var firestore: FirebaseFirestore
+    lateinit var firestore: FirebaseFirestore
 
     private lateinit var gospelRef: DocumentReference
 
