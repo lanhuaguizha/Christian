@@ -26,7 +26,7 @@ data class Message(
         var imageUrl: String = "")
 
 data class MeBean(
-        val id: Int = 0,
+        val id: String = "",
         val url: String = "",
         val name: String = "",
         val nickName: String = "",

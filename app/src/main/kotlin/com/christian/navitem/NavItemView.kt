@@ -10,6 +10,7 @@ import com.christian.R
 import com.christian.data.Disciple
 import com.christian.data.Gospel
 import com.christian.data.MeBean
+import com.christian.data.Setting
 import com.christian.nav.applyMarqueeEffect
 import com.christian.nav.toolbarTitle
 import com.christian.navdetail.NavDetailActivity
@@ -104,8 +105,8 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
     }
 
     private var isOn = false
-    fun bind(meBean: MeBean) {
-        when (adapterPosition) {
+    fun bind(setting: Setting) {
+        /*when (adapterPosition) {
             1 -> {
                 containerView.setOnClickListener {
                     if (isOn) {
@@ -123,27 +124,20 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
             else -> {
                 containerView.setOnClickListener {
                     val i = Intent(containerView.context, NavDetailActivity::class.java)
-                    i.putExtra(toolbarTitle, getTitle(meBean, adapterPosition))
+                    i.putExtra(toolbarTitle, getTitle(setting, adapterPosition))
                     containerView.context.startActivity(i)
                 }
             }
-        }
+        }*/
 
-        if (adapterPosition == 0) {
-            tv_nav_item_small.text = meBean.name
-            applyMarqueeEffect(tv2_nav_item_small)
-            tv2_nav_item_small.text = meBean.nickName
-            Glide.with(containerView.context).load(meBean.url).into(iv_nav_item_small)
-        } else if (adapterPosition in 1..adapterPosition && meBean.settings.isNotEmpty()) {
-            if (adapterPosition == 1) switch_nav_item_small.visibility = View.VISIBLE
-            tv_nav_item_small.text = meBean.settings[adapterPosition - 1].name
-            tv2_nav_item_small.text = meBean.settings[adapterPosition - 1].desc
-            val url = meBean.settings[adapterPosition - 1].url
-            Glide.with(containerView.context).load(url).into(iv_nav_item_small)
-        }
+        if (adapterPosition == 0) switch_nav_item_small.visibility = View.VISIBLE
+        tv_nav_item_small.text = setting.name
+        tv2_nav_item_small.text = setting.desc
+        val url = setting.url
+        Glide.with(containerView.context).load(url).into(iv_nav_item_small)
     }
 
-    private fun getTitle(meBean: MeBean, pos: Int): String {
+    private fun getTitle(setting: Setting, pos: Int): String {
 
 //        return when (navId) {
 //            VIEW_HOME, VIEW_GOSPEL, VIEW_DISCIPLE -> {
@@ -153,7 +147,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
         return when (pos) {
             0 -> "我的"
             in 1..4 -> {
-                meBean.settings[pos - 1].name
+                setting.name
             }
             else -> ""
         }

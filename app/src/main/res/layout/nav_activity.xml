@@ -26,6 +26,12 @@
             <include layout="@layout/sb_nav" />
         </androidx.appcompat.widget.Toolbar>
 
+        <include
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/nav_item_me_portrait"/>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_nav"
             android:layout_width="match_parent"
