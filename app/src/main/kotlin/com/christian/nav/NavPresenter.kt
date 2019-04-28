@@ -221,7 +221,7 @@ fun setToolbarExpanded(context: Context, position: Int) {
             setPortraitExpanded(context, false)
             var time = 0L
             if (isPortraitExpanded(context)) {
-                time = 201L
+                time = 200L
             }
             navActivity.tl_nav.postDelayed({
                 setToolbarExpanded(context, true)
@@ -235,7 +235,7 @@ fun setToolbarExpanded(context: Context, position: Int) {
             setToolbarExpanded(context, false)
             var time = 0L
             if (isToolbarExpanded(context)) {
-                time = 201L
+                time = 200L
             }
             navActivity.tl_nav.postDelayed({
                 setPortraitExpanded(context, true)
