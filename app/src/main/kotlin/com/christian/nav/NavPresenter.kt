@@ -219,7 +219,13 @@ fun setToolbarExpanded(context: Context, position: Int) {
         }
         VIEW_GOSPEL -> {
             setPortraitExpanded(context, false)
-            setToolbarExpanded(context, true)
+            var time = 0L
+            if (isPortraitExpanded(context)) {
+                time = 201L
+            }
+            navActivity.tl_nav.postDelayed({
+                setToolbarExpanded(context, true)
+            }, time)
         }
         VIEW_DISCIPLE -> {
             setToolbarExpanded(context, false)
@@ -227,7 +233,13 @@ fun setToolbarExpanded(context: Context, position: Int) {
         }
         VIEW_ME -> {
             setToolbarExpanded(context, false)
-            setPortraitExpanded(context, true)
+            var time = 0L
+            if (isToolbarExpanded(context)) {
+                time = 201L
+            }
+            navActivity.tl_nav.postDelayed({
+                setPortraitExpanded(context, true)
+            }, time)
         }
     }
 }
