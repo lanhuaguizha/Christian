@@ -215,15 +215,19 @@ fun setToolbarExpanded(context: Context, position: Int) {
     when (position) {
         VIEW_HOME -> {
             setToolbarExpanded(context, false)
+            setPortraitExpanded(context, false)
         }
         VIEW_GOSPEL -> {
+            setPortraitExpanded(context, false)
             setToolbarExpanded(context, true)
         }
         VIEW_DISCIPLE -> {
             setToolbarExpanded(context, false)
+            setPortraitExpanded(context, false)
         }
         VIEW_ME -> {
             setToolbarExpanded(context, false)
+            setPortraitExpanded(context, true)
         }
     }
 }
@@ -243,9 +247,29 @@ private fun setToolbarExpanded(context: Context, expanded: Boolean) {
 
 }
 
+private fun setPortraitExpanded(context: Context, expanded: Boolean) {
+    val navActivity = context as NavActivity
+    when (expanded) {
+        true -> {
+            if (!isPortraitExpanded(context))
+                expandedAnimationPortrait(navActivity, true)
+        }
+        false -> {
+            if (isPortraitExpanded(context))
+                expandedAnimationPortrait(navActivity, false)
+        }
+    }
+
+}
+
 fun isToolbarExpanded(context: Context): Boolean {
     val navActivity = context as NavActivity
     return navActivity.tl_nav.visibility == View.VISIBLE
+}
+
+fun isPortraitExpanded(context: Context): Boolean {
+    val navActivity = context as NavActivity
+    return navActivity.portrait_nav.visibility == View.VISIBLE
 }
 
 private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean) {
@@ -270,6 +294,40 @@ private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean) {
                 navActivity.tl_nav.visibility = View.VISIBLE
             } else {
                 navActivity.tl_nav.visibility = View.GONE
+            }
+        }
+
+        override fun onAnimationCancel(animation: Animator) {
+        }
+
+        override fun onAnimationStart(animation: Animator) {
+        }
+
+    })
+}
+
+private fun expandedAnimationPortrait(navActivity: NavActivity, expanded: Boolean) {
+    val animator: ValueAnimator = if (expanded) {
+        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() + navActivity.dip(180))
+    } else {
+        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(180))
+    }
+    animator.duration = navActivity.resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+    animator.interpolator = LinearInterpolator()
+    animator.addUpdateListener {
+        val floatValue = it.animatedValue as Float
+        navActivity.abl_nav.bottom = floatValue.toInt()
+    }
+    animator.start()
+    animator.addListener(object : Animator.AnimatorListener {
+        override fun onAnimationRepeat(animation: Animator) {
+        }
+
+        override fun onAnimationEnd(animation: Animator) {
+            if (expanded) {
+                navActivity.portrait_nav.visibility = View.VISIBLE
+            } else {
+                navActivity.portrait_nav.visibility = View.GONE
             }
         }
 
