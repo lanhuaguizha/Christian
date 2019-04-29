@@ -326,9 +326,9 @@ private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean) {
 
 private fun expandedAnimationPortrait(navActivity: NavActivity, expanded: Boolean) {
     val animator: ValueAnimator = if (expanded) {
-        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() + navActivity.dip(180))
+        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() + navActivity.dip(168))
     } else {
-        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(180))
+        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(168))
     }
     animator.duration = 300
     animator.interpolator = LinearInterpolator()
