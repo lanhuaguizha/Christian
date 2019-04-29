@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import com.christian.R
@@ -221,7 +222,7 @@ fun setToolbarExpanded(context: Context, position: Int) {
             setPortraitExpanded(context, false)
             var time = 0L
             if (isPortraitExpanded(context)) {
-                time = 200L
+                time = 600
             }
             navActivity.tl_nav.postDelayed({
                 setToolbarExpanded(context, true)
@@ -235,7 +236,7 @@ fun setToolbarExpanded(context: Context, position: Int) {
             setToolbarExpanded(context, false)
             var time = 0L
             if (isToolbarExpanded(context)) {
-                time = 200L
+                time = 200
             }
             navActivity.tl_nav.postDelayed({
                 setPortraitExpanded(context, true)
@@ -324,7 +325,7 @@ private fun expandedAnimationPortrait(navActivity: NavActivity, expanded: Boolea
     } else {
         ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(180))
     }
-    animator.duration = navActivity.resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+    animator.duration = 600
     animator.interpolator = LinearInterpolator()
     animator.addUpdateListener {
         val floatValue = it.animatedValue as Float
