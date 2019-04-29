@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
+import org.jetbrains.anko.info
 import org.jetbrains.anko.singleLine
 import java.io.BufferedReader
 import java.io.IOException
@@ -141,6 +142,7 @@ const val VIEW_TYPE_PORTRAIT = 1
 const val VIEW_TYPE_SMALL = 2
 const val VIEW_TYPE_BUTTON = 3
 
+const val MESSAGE_SET_TOOLBAR_EXPANDED = 20190429
 
 const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
 const val initFragmentIndex = 0
@@ -213,6 +215,9 @@ fun makeViewBlur(view: BlurView, parent: ViewGroup, window: Window) {
  */
 fun setToolbarExpanded(context: Context, position: Int) {
     val navActivity = context as NavActivity
+    navActivity.info {
+        "setToolbarExpanded$position"
+    }
     when (position) {
         VIEW_HOME -> {
             setToolbarExpanded(context, false)

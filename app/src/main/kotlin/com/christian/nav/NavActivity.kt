@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
@@ -23,6 +25,8 @@ import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.search_bar_expanded.*
 import org.jetbrains.anko.debug
+import org.jetbrains.anko.info
+import java.lang.ref.WeakReference
 import java.util.*
 
 /**
@@ -31,10 +35,25 @@ import java.util.*
  */
 open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
+    companion object {
+        class StaticHandler(navActivity: NavActivity) : Handler() {
+            private val navActivityWeakReference = WeakReference<NavActivity>(navActivity)
+            override fun handleMessage(msg: Message?) {
+                when (msg?.what) {
+                    MESSAGE_SET_TOOLBAR_EXPANDED -> {
+                        navActivityWeakReference.get()?.info { "setToolbarExpanded--${msg.arg1}" }
+                        navActivityWeakReference.get()?.let { setToolbarExpanded(it, msg.arg1) }
+                    }
+                }
+            }
+        }
+    }
+
     @SuppressLint("MissingSuperCall")
     override fun onSaveInstanceState(outState: Bundle) {
     }
 
+    private lateinit var mStaticHandler: StaticHandler
     /**
      * presenter will be initialized when the NavPresenter is initialized
      */
@@ -56,7 +75,13 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         override fun onPageSelected(position: Int) {
             bnv_nav.menu.getItem(position).isChecked = true
 
-            setToolbarExpanded(this@NavActivity, position)
+            mStaticHandler.removeMessages(MESSAGE_SET_TOOLBAR_EXPANDED)
+            val msg = Message()
+            msg.what = MESSAGE_SET_TOOLBAR_EXPANDED
+            msg.arg1 = position
+            info { "setToolbarExpanded---$position" }
+            mStaticHandler.sendMessageDelayed(msg, 300)
+//            setToolbarExpanded(this@NavActivity, position)
         }
 
         override fun onPageScrollStateChanged(state: Int) {
@@ -72,6 +97,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        mStaticHandler = StaticHandler(this@NavActivity)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.nav_activity)
         NavPresenter(initFragmentIndex, this)
