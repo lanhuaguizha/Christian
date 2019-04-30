@@ -227,7 +227,7 @@ fun setToolbarExpanded(context: Context, position: Int) {
             setPortraitExpanded(context, false)
             var time = 0L
             if (isPortraitExpanded(context)) {
-                time = 600
+                time = 300
             }
             navActivity.tl_nav.postDelayed({
                 setToolbarExpanded(context, true)
@@ -241,7 +241,7 @@ fun setToolbarExpanded(context: Context, position: Int) {
             setToolbarExpanded(context, false)
             var time = 0L
             if (isToolbarExpanded(context)) {
-                time = 200
+                time = 100
             }
             navActivity.tl_nav.postDelayed({
                 setPortraitExpanded(context, true)
@@ -296,7 +296,7 @@ private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean) {
     } else {
         ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.tb_nav.height)
     }
-    animator.duration = navActivity.resources.getInteger(android.R.integer.config_shortAnimTime).toLong()
+    animator.duration = 100
     animator.interpolator = LinearInterpolator()
     animator.addUpdateListener {
         val floatValue = it.animatedValue as Float
@@ -326,11 +326,11 @@ private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean) {
 
 private fun expandedAnimationPortrait(navActivity: NavActivity, expanded: Boolean) {
     val animator: ValueAnimator = if (expanded) {
-        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() + navActivity.dip(180))
+        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() + navActivity.dip(168))
     } else {
-        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(180))
+        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(168))
     }
-    animator.duration = 600
+    animator.duration = 300
     animator.interpolator = LinearInterpolator()
     animator.addUpdateListener {
         val floatValue = it.animatedValue as Float

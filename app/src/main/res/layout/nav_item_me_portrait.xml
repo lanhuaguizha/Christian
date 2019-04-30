@@ -31,7 +31,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/the_avatars"
             android:cropToPadding="false"
-            android:src="@drawable/me"
+            app:srcCompat="@drawable/ic_account_box_black_24dp"
             android:scaleType="centerCrop" />
     </androidx.cardview.widget.CardView>
 
