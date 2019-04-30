@@ -12,24 +12,19 @@ import androidx.annotation.NonNull
 import androidx.paging.PagedList
 import com.christian.ChristianApplication
 import com.christian.R
-import com.christian.data.Disciple
 import com.christian.data.Gospel
-import com.christian.data.MeBean
 import com.christian.data.Setting
 import com.christian.navitem.NavItemView
 import com.christian.view.ItemDecoration
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.firebase.ui.firestore.paging.LoadingState
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import org.jetbrains.anko.debug
-
 
 open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragment {
 
@@ -65,11 +60,42 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         debug { "onAttach" }
     }
 
+    private var isInitView = false
+    private var isVisibled = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         v = inflater.inflate(R.layout.nav_fragment, container, false)
         FirebaseFirestore.setLoggingEnabled(true)
-        initView()
+
+        isInitView = true
+        isCanLoadData()
+
         return v
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+
+        //isVisibleToUser这个boolean值表示:该Fragment的UI 用户是否可见，获取该标志记录下来
+        if (isVisibleToUser) {
+            isVisibled = true
+            isCanLoadData()
+        } else {
+            isVisibled = false
+        }
+    }
+
+    private fun isCanLoadData() {
+        //所以条件是view初始化完成并且对用户可见
+        if (isInitView && isVisibled) {
+            initView()
+
+//            lazyLoad()
+
+            //防止重复加载数据
+            isInitView = false
+            isVisibled = false
+        }
     }
 
     override fun initView() {
@@ -226,7 +252,10 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                     override fun onLoadingStateChanged(@NonNull state: LoadingState) {
                         when (state) {
                             LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> paging_loading.visibility = View.VISIBLE
-                            LoadingState.LOADED -> paging_loading.visibility = View.GONE
+                            LoadingState.LOADED -> {
+                                paging_loading.visibility = View.GONE
+                                rv_nav.scheduleLayoutAnimation()
+                            }
                             LoadingState.FINISHED -> {
                                 paging_loading.visibility = View.GONE
                                 showToast("Reached end of data set.")

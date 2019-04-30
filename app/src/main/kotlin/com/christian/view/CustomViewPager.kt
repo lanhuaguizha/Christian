@@ -9,6 +9,11 @@ import org.jetbrains.anko.debug
 
 class CustomViewPager(context: Context, attrs: AttributeSet?) : androidx.viewpager.widget.ViewPager(context, attrs), AnkoLogger {
 
+    // Remove switching animation
+//    override fun setCurrentItem(item: Int) {
+//        super.setCurrentItem(item, false)
+//    }
+
     private var mDisallowIntercept: Boolean = false
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
