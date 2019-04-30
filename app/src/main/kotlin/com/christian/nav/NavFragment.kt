@@ -10,12 +10,15 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.RecyclerView
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.Gospel
 import com.christian.data.Setting
 import com.christian.navitem.NavItemView
 import com.christian.view.ItemDecoration
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.firebase.ui.firestore.paging.LoadingState
@@ -206,13 +209,13 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
                     override fun onLoadingStateChanged(@NonNull state: LoadingState) {
                         when (state) {
-                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> paging_loading.visibility = View.VISIBLE
+                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> pb_nav.visibility = View.VISIBLE
                             LoadingState.LOADED -> {
-                                paging_loading.visibility = View.GONE
+                                pb_nav.visibility = View.GONE
                                 rv_nav.scheduleLayoutAnimation()
                             }
                             LoadingState.FINISHED -> {
-                                paging_loading.visibility = View.GONE
+                                pb_nav.visibility = View.GONE
                                 showToast("Reached end of data set.")
                             }
                             LoadingState.ERROR -> {
@@ -229,46 +232,8 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             VIEW_DISCIPLE -> {
             }
             VIEW_ME -> {
-                val query = FirebaseFirestore.getInstance().collection("mes")
-                query.orderBy("id", Query.Direction.ASCENDING)
-                val options = FirestorePagingOptions.Builder<Setting>()
-                        .setLifecycleOwner(this@NavFragment)
-                        .setQuery(query, config, Setting::class.java)
-                        .build()
-                val adapter = object : FirestorePagingAdapter<Setting, NavItemView>(options) {
-
-                    @NonNull
-                    override fun onCreateViewHolder(@NonNull parent: ViewGroup, viewType: Int): NavItemView {
-                        val view = LayoutInflater.from(parent.context).inflate(R.layout.nav_item_me, parent, false)
-                        return NavItemView(view)
-                    }
-
-                    override fun onBindViewHolder(@NonNull holder: NavItemView,
-                                                  position: Int,
-                                                  @NonNull model: Setting) {
-                        holder.bind(model)
-                    }
-
-                    override fun onLoadingStateChanged(@NonNull state: LoadingState) {
-                        when (state) {
-                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> paging_loading.visibility = View.VISIBLE
-                            LoadingState.LOADED -> {
-                                paging_loading.visibility = View.GONE
-                                rv_nav.scheduleLayoutAnimation()
-                            }
-                            LoadingState.FINISHED -> {
-                                paging_loading.visibility = View.GONE
-                                showToast("Reached end of data set.")
-                            }
-                            LoadingState.ERROR -> {
-                                showToast("An error occurred.")
-                                retry()
-                            }
-                        }
-                    }
-                }
+                val adapter = firestoreRecyclerAdapter()
                 v.rv_nav.adapter = adapter
-
             }
         }
 
@@ -323,6 +288,31 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         val controller =
                 AnimationUtils.loadLayoutAnimation(navActivity, R.anim.layout_animation_from_right)
         v.rv_nav.layoutAnimation = controller
+    }
+
+    private fun firestoreRecyclerAdapter(): RecyclerView.Adapter<NavItemView> {
+        pb_nav.visibility = View.GONE
+        val query = FirebaseFirestore.getInstance().collection("mes").orderBy("id", Query.Direction.ASCENDING)
+        val options = FirestoreRecyclerOptions.Builder<Setting>()
+                .setQuery(query, Setting::class.java)
+                .setLifecycleOwner(navActivity)
+                .build()
+
+        return object : FirestoreRecyclerAdapter<Setting, NavItemView>(options) {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NavItemView {
+                return NavItemView(LayoutInflater.from(parent.context)
+                        .inflate(R.layout.nav_item_me, parent, false))
+            }
+
+            override fun onBindViewHolder(holder: NavItemView, position: Int, model: Setting) {
+                holder.bind(model)
+            }
+
+            override fun onDataChanged() {
+                // If there are no chat messages, show a view that invites the user to add a message.
+//                mEmptyListMessage.setVisibility(if (itemCount == 0) View.VISIBLE else View.GONE)
+            }
+        }
     }
 
     fun showToast(message: String) {
