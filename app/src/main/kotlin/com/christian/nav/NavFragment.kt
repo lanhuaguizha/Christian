@@ -22,6 +22,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.firebase.ui.firestore.paging.LoadingState
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -177,6 +178,14 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     var isPageBottom: Boolean = false
 
+    private lateinit var adapter: FirestorePagingAdapter<Gospel, NavItemView>
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (navId == VIEW_HOME)
+            adapter.stopListening()
+    }
+
     private fun initRv() {
         val config = PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
@@ -189,10 +198,10 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 val query = FirebaseFirestore.getInstance().collection("gospels")
                 query.orderBy("subtitle", Query.Direction.ASCENDING)
                 val options = FirestorePagingOptions.Builder<Gospel>()
-                        .setLifecycleOwner(this@NavFragment)
+//                        .setLifecycleOwner(this@NavFragment)
                         .setQuery(query, config, Gospel::class.java)
                         .build()
-                val adapter = object : FirestorePagingAdapter<Gospel, NavItemView>(options) {
+                adapter = object : FirestorePagingAdapter<Gospel, NavItemView>(options) {
                     @NonNull
                     override fun onCreateViewHolder(@NonNull parent: ViewGroup,
                                                     viewType: Int): NavItemView {
@@ -216,15 +225,18 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                             }
                             LoadingState.FINISHED -> {
                                 pb_nav.visibility = View.GONE
-                                showToast("Reached end of data set.")
+                                Snackbar.make(navActivity.cl2__nav, "Reached end of data set.", Snackbar.LENGTH_SHORT).show()
+//                                showToast("Reached end of data set.")
                             }
                             LoadingState.ERROR -> {
-                                showToast("An error occurred.")
+                                Snackbar.make(navActivity.cl2__nav, "An error occurred.", Snackbar.LENGTH_SHORT).show()
+//                                showToast("An error occurred.")
                                 retry()
                             }
                         }
                     }
                 }
+                adapter.startListening()
                 v.rv_nav.adapter = adapter
             }
             VIEW_GOSPEL -> {

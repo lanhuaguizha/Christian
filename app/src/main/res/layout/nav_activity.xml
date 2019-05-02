@@ -37,18 +37,24 @@
 
         <include
             android:id="@+id/portrait_nav"
-            android:visibility="gone"
+            layout="@layout/nav_item_me_portrait"
             android:layout_width="match_parent"
             android:layout_height="168dp"
-            layout="@layout/nav_item_me_portrait"/>
+            android:visibility="gone" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.christian.view.CustomViewPager
-        android:id="@+id/vp_nav"
-        android:background="@color/default_background_nav"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl2__nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:background="@color/default_background_nav"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.christian.view.CustomViewPager
+            android:id="@+id/vp_nav"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.christian.view.AnimationFloatingActionButton
         android:id="@+id/fab_nav"
