@@ -13,6 +13,23 @@
         android:layout_height="wrap_content"
         app:expanded="true">
 
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/ctl_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+            app:titleEnabled="false">
+
+            <include
+                android:id="@+id/portrait_nav"
+                layout="@layout/nav_item_me_portrait"
+                android:layout_width="match_parent"
+                android:layout_height="168dp"
+                android:visibility="gone" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_nav"
             android:layout_width="match_parent"
@@ -34,13 +51,6 @@
             android:visibility="gone"
             app:tabIndicatorColor="@color/white"
             app:tabMode="scrollable" />
-
-        <include
-            android:id="@+id/portrait_nav"
-            layout="@layout/nav_item_me_portrait"
-            android:layout_width="match_parent"
-            android:layout_height="168dp"
-            android:visibility="gone" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

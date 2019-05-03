@@ -9,7 +9,6 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import com.christian.R
@@ -213,32 +212,36 @@ fun makeViewBlur(view: BlurView, parent: ViewGroup, window: Window) {
 /**
  * utils to expand a toolbar
  */
-fun setToolbarExpanded(context: Context, position: Int) {
+fun setTabLayoutExpanded(context: Context, position: Int) {
     val navActivity = context as NavActivity
     navActivity.info {
-        "setToolbarExpanded$position"
+        "setTabLayoutExpanded$position"
     }
     when (position) {
         VIEW_HOME -> {
-            setToolbarExpanded(context, false)
+            setToolbarVisible(navActivity, true)
+            setTabLayoutExpanded(context, false)
             setPortraitExpanded(context, false)
         }
         VIEW_GOSPEL -> {
+            setToolbarVisible(navActivity, true)
             setPortraitExpanded(context, false)
             var time = 0L
             if (isPortraitExpanded(context)) {
                 time = 300
             }
             navActivity.tl_nav.postDelayed({
-                setToolbarExpanded(context, true)
+                setTabLayoutExpanded(context, true)
             }, time)
         }
         VIEW_DISCIPLE -> {
-            setToolbarExpanded(context, false)
+            setToolbarVisible(navActivity, true)
+            setTabLayoutExpanded(context, false)
             setPortraitExpanded(context, false)
         }
         VIEW_ME -> {
-            setToolbarExpanded(context, false)
+            setToolbarVisible(navActivity, false)
+            setTabLayoutExpanded(context, false)
             var time = 0L
             if (isToolbarExpanded(context)) {
                 time = 100
@@ -250,7 +253,7 @@ fun setToolbarExpanded(context: Context, position: Int) {
     }
 }
 
-private fun setToolbarExpanded(context: Context, expanded: Boolean) {
+private fun setTabLayoutExpanded(context: Context, expanded: Boolean) {
     val navActivity = context as NavActivity
     when (expanded) {
         true -> {
@@ -418,4 +421,53 @@ fun disableShiftMode(view: BottomNavigationView) {
         item.setChecked(item.itemData.isChecked)
     }
 
+}
+
+fun setToolbarVisible(navActivity: NavActivity, expanded: Boolean) {
+    when (expanded) {
+        true -> {
+            navActivity.tb_nav.visibility = View.VISIBLE
+            navActivity.abl_nav.addOnOffsetChangedListener(navActivity.appBarLayoutOnOffsetChangedListener)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                navActivity.abl_nav.elevation = navActivity.dip(4).toFloat()
+            }
+//            val anim = AnimationUtils.loadAnimation(navActivity, R.anim.abc_fade_in)
+//            if (navActivity.tb_nav.visibility == View.GONE)
+//                navActivity.tb_nav.startAnimation(anim)
+//            anim.setAnimationListener(object : Animation.AnimationListener {
+//                override fun onAnimationRepeat(animation: Animation?) {
+//                }
+//
+//                override fun onAnimationEnd(animation: Animation?) {
+//                    navActivity.tb_nav.visibility = View.VISIBLE
+//                }
+//
+//                override fun onAnimationStart(animation: Animation?) {
+//                }
+//
+//            })
+        }
+        false -> {
+            navActivity.tb_nav.visibility = View.GONE
+            navActivity.abl_nav.removeOnOffsetChangedListener(navActivity.appBarLayoutOnOffsetChangedListener)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                navActivity.abl_nav.elevation = navActivity.dip(0).toFloat()
+            }
+//            val anim = AnimationUtils.loadAnimation(navActivity, R.anim.abc_fade_out)
+//            if (navActivity.tb_nav.visibility == View.VISIBLE)
+//                navActivity.tb_nav.startAnimation(anim)
+//            anim.setAnimationListener(object : Animation.AnimationListener {
+//                override fun onAnimationRepeat(animation: Animation?) {
+//                }
+//
+//                override fun onAnimationEnd(animation: Animation?) {
+//                    navActivity.tb_nav.visibility = View.GONE
+//                }
+//
+//                override fun onAnimationStart(animation: Animation?) {
+//                }
+//
+//            })
+        }
+    }
 }

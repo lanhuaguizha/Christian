@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.Gospel
@@ -28,6 +29,7 @@ import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
+import kotlinx.android.synthetic.main.nav_item_me_portrait.*
 import org.jetbrains.anko.debug
 
 open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragment {
@@ -104,6 +106,11 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     override fun initView() {
         debug { "nav fragment is $this and navId is $navId --initView" }
+        when (navId) {
+            VIEW_ME -> {
+                initPortrait()
+            }
+        }
         if (navId == VIEW_GOSPEL) {
             v.vp1_nav.visibility = View.VISIBLE
             v.rv_nav.visibility = View.GONE
@@ -113,6 +120,10 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             v.rv_nav.visibility = View.VISIBLE
         }
         initRv()
+    }
+
+    private fun initPortrait() {
+        Glide.with(navActivity).load(R.drawable.me).into(navActivity.iv_nav_item_small)
     }
 
     private lateinit var navFragment: NavFragment

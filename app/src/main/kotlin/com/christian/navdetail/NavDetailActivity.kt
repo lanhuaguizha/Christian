@@ -119,7 +119,7 @@ class NavDetailActivity : NavActivity() {
             }
 
             override fun onPageSelected(position: Int) {
-                setToolbarExpanded(this@NavDetailActivity, position)
+                setTabLayoutExpanded(this@NavDetailActivity, position)
             }
 
         })

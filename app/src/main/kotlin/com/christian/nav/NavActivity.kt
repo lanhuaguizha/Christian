@@ -41,8 +41,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             override fun handleMessage(msg: Message?) {
                 when (msg?.what) {
                     MESSAGE_SET_TOOLBAR_EXPANDED -> {
-                        navActivityWeakReference.get()?.info { "setToolbarExpanded--${msg.arg1}" }
-                        navActivityWeakReference.get()?.let { setToolbarExpanded(it, msg.arg1) }
+                        navActivityWeakReference.get()?.info { "setTabLayoutExpanded--${msg.arg1}" }
+                        navActivityWeakReference.get()?.let { setTabLayoutExpanded(it, msg.arg1) }
                     }
                 }
             }
@@ -79,9 +79,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             val msg = Message()
             msg.what = MESSAGE_SET_TOOLBAR_EXPANDED
             msg.arg1 = position
-            info { "setToolbarExpanded---$position" }
+            info { "setTabLayoutExpanded---$position" }
             mStaticHandler.sendMessageDelayed(msg, 300)
-//            setToolbarExpanded(this@NavActivity, position)
+//            setTabLayoutExpanded(this@NavActivity, position)
         }
 
         override fun onPageScrollStateChanged(state: Int) {
@@ -106,7 +106,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun initView(navFragmentList: ArrayList<NavFragment>) {
-        initAbl()
         initTb()
         initSb()
         initVp(navFragmentList)
@@ -116,13 +115,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun deinitView() {
-    }
-
-    private fun initAbl() {
-        abl_nav.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout: AppBarLayout, verticalOffset: Int ->
-            appBarLayoutOnOffsetChangedListener(this@NavActivity, appBarLayout, verticalOffset)
-            this@NavActivity.verticalOffset = verticalOffset
-        })
     }
 
     open fun initTb() {
@@ -182,7 +174,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 //            vp_nav.currentItem = VIEW_DISCIPLE
 //            vp_nav.currentItem = VIEW_HOME
 //        }
-//        viewPagerOnPageChangeListener.onPageSelected(initFragmentIndex)
+        viewPagerOnPageChangeListener.onPageSelected(initFragmentIndex)
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
             val itemPosition = (presenter as NavPresenter).generateNavId(it.itemId)
             debug { "generateNavId$itemPosition" }
@@ -329,5 +321,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             currentFragment = `object` as NavFragment
             super.setPrimaryItem(container, position, `object`)
         }
+    }
+
+    val appBarLayoutOnOffsetChangedListener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+        appBarLayoutOnOffsetChangedListener(this@NavActivity, appBarLayout, verticalOffset)
+        this@NavActivity.verticalOffset = verticalOffset
     }
 }
