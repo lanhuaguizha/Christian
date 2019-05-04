@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.christian.ChristianApplication
 import com.christian.R
@@ -106,6 +107,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     override fun initView() {
         debug { "nav fragment is $this and navId is $navId --initView" }
+        initTl()
         when (navId) {
             VIEW_ME -> {
                 initPortrait()
@@ -113,13 +115,18 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         }
         if (navId == VIEW_GOSPEL) {
             v.vp1_nav.visibility = View.VISIBLE
-            v.rv_nav.visibility = View.GONE
-            initTl()
+            v.srl_nav.visibility = View.GONE
+            v.pb_nav.visibility = View.GONE
+            initVp(tabTitleList)
         } else {
             v.vp1_nav.visibility = View.GONE
-            v.rv_nav.visibility = View.VISIBLE
+            v.srl_nav.visibility = View.VISIBLE
+            initSrl()
         }
         initRv()
+    }
+
+    private fun initSrl() {
     }
 
     private fun initPortrait() {
@@ -130,8 +137,10 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     private var pageSelectedPosition: Int = -1
 
+    private lateinit var tabTitleList: ArrayList<String>
+
     open fun initTl() {
-        val tabTitleList = arrayListOf(
+        tabTitleList = arrayListOf(
                 navActivity.getString(R.string._Mat),
                 navActivity.getString(R.string._Mak),
                 navActivity.getString(R.string._Luk),
@@ -164,12 +173,14 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         for (tabTitle in tabTitleList) {
             navActivity.tl_nav.newTab().setText(tabTitle).let { navActivity.tl_nav.addTab(it) }
         }
+    }
 
+    private fun initVp(tabTitleList: ArrayList<String>) {
         val navChildFragmentPagerAdapter = NavChildFragmentPagerAdapter(childFragmentManager, tabTitleList)
         v.vp1_nav.adapter = navChildFragmentPagerAdapter
         navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
 
-        v.vp1_nav.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+        v.vp1_nav.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
 
@@ -182,7 +193,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             }
 
         })
-
     }
 
     var isPageTop: Boolean = true
@@ -229,19 +239,17 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
                     override fun onLoadingStateChanged(@NonNull state: LoadingState) {
                         when (state) {
-                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> pb_nav.visibility = View.VISIBLE
+//                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> pb_nav.visibility = View.VISIBLE
                             LoadingState.LOADED -> {
-                                pb_nav.visibility = View.GONE
+                                v.pb_nav.visibility = View.GONE
                                 rv_nav.scheduleLayoutAnimation()
                             }
                             LoadingState.FINISHED -> {
-                                pb_nav.visibility = View.GONE
-                                Snackbar.make(navActivity.cl2__nav, "Reached end of data set.", Snackbar.LENGTH_SHORT).show()
+//                                pb_nav.visibility = View.GONE
 //                                showToast("Reached end of data set.")
                             }
                             LoadingState.ERROR -> {
-                                Snackbar.make(navActivity.cl2__nav, "An error occurred.", Snackbar.LENGTH_SHORT).show()
-//                                showToast("An error occurred.")
+                                showToast("An error occurred.")
                                 retry()
                             }
                         }
@@ -259,27 +267,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 v.rv_nav.adapter = adapter
             }
         }
-
-
-//        navAdapter = object : NavItemPresenter<Bean>(query, this@NavFragment, bean = this@NavFragment.bean, navId = navId) {
-//            override fun onDataChanged() {
-//                if (itemCount == 0) {
-//                    v.rv_nav.visibility = View.GONE
-//                    v.pb_nav.visibility = View.VISIBLE
-//                } else {
-//                    v.rv_nav.visibility = View.VISIBLE
-//                    v.pb_nav.visibility = View.GONE
-//                }
-//            }
-//
-//            override fun onError(e: FirebaseFirestoreException) {
-//                // Show a snackbar on errors
-//                Snackbar.make(cl_gospel_detail,
-//                        "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
-//            }
-//
-//        }
-
         v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
 
@@ -314,7 +301,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     }
 
     private fun firestoreRecyclerAdapter(): RecyclerView.Adapter<NavItemView> {
-        pb_nav.visibility = View.GONE
         val query = FirebaseFirestore.getInstance().collection("mes").orderBy("id", Query.Direction.ASCENDING)
         val options = FirestoreRecyclerOptions.Builder<Setting>()
                 .setQuery(query, Setting::class.java)
@@ -334,6 +320,11 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             override fun onDataChanged() {
                 // If there are no chat messages, show a view that invites the user to add a message.
 //                mEmptyListMessage.setVisibility(if (itemCount == 0) View.VISIBLE else View.GONE)
+                if (itemCount == 0) {
+
+                } else {
+                    pb_nav.visibility = View.GONE
+                }
             }
         }
     }

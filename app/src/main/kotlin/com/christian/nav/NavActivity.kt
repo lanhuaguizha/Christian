@@ -80,7 +80,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             msg.what = MESSAGE_SET_TOOLBAR_EXPANDED
             msg.arg1 = position
             info { "setTabLayoutExpanded---$position" }
-            mStaticHandler.sendMessageDelayed(msg, 300)
+            mStaticHandler.sendMessageDelayed(msg, 0)
 //            setTabLayoutExpanded(this@NavActivity, position)
         }
 

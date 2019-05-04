@@ -9,6 +9,8 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
 import com.christian.R
@@ -431,21 +433,21 @@ fun setToolbarVisible(navActivity: NavActivity, expanded: Boolean) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 navActivity.abl_nav.elevation = navActivity.dip(4).toFloat()
             }
-//            val anim = AnimationUtils.loadAnimation(navActivity, R.anim.abc_fade_in)
-//            if (navActivity.tb_nav.visibility == View.GONE)
-//                navActivity.tb_nav.startAnimation(anim)
-//            anim.setAnimationListener(object : Animation.AnimationListener {
-//                override fun onAnimationRepeat(animation: Animation?) {
-//                }
-//
-//                override fun onAnimationEnd(animation: Animation?) {
-//                    navActivity.tb_nav.visibility = View.VISIBLE
-//                }
-//
-//                override fun onAnimationStart(animation: Animation?) {
-//                }
-//
-//            })
+            val anim = AnimationUtils.loadAnimation(navActivity, R.anim.abc_slide_in_top)
+            if (navActivity.tb_nav.visibility == View.GONE)
+                navActivity.tb_nav.startAnimation(anim)
+            anim.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationRepeat(animation: Animation?) {
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    navActivity.tb_nav.visibility = View.VISIBLE
+                }
+
+                override fun onAnimationStart(animation: Animation?) {
+                }
+
+            })
         }
         false -> {
             navActivity.tb_nav.visibility = View.GONE
@@ -453,21 +455,21 @@ fun setToolbarVisible(navActivity: NavActivity, expanded: Boolean) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 navActivity.abl_nav.elevation = navActivity.dip(0).toFloat()
             }
-//            val anim = AnimationUtils.loadAnimation(navActivity, R.anim.abc_fade_out)
-//            if (navActivity.tb_nav.visibility == View.VISIBLE)
-//                navActivity.tb_nav.startAnimation(anim)
-//            anim.setAnimationListener(object : Animation.AnimationListener {
-//                override fun onAnimationRepeat(animation: Animation?) {
-//                }
-//
-//                override fun onAnimationEnd(animation: Animation?) {
-//                    navActivity.tb_nav.visibility = View.GONE
-//                }
-//
-//                override fun onAnimationStart(animation: Animation?) {
-//                }
-//
-//            })
+            val anim = AnimationUtils.loadAnimation(navActivity, R.anim.abc_slide_out_top)
+            if (navActivity.tb_nav.visibility == View.VISIBLE)
+                navActivity.tb_nav.startAnimation(anim)
+            anim.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationRepeat(animation: Animation?) {
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    navActivity.tb_nav.visibility = View.GONE
+                }
+
+                override fun onAnimationStart(animation: Animation?) {
+                }
+
+            })
         }
     }
 }
