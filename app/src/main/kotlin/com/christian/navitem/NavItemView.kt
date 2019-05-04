@@ -3,15 +3,12 @@ package com.christian.navitem
 import android.content.Intent
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Switch
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.Disciple
 import com.christian.data.Gospel
-import com.christian.data.MeBean
 import com.christian.data.Setting
-import com.christian.nav.applyMarqueeEffect
 import com.christian.nav.toolbarTitle
 import com.christian.navdetail.NavDetailActivity
 import kotlinx.android.extensions.LayoutContainer
@@ -88,6 +85,9 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
         if (gospel.detail.isNotEmpty()) {
             Glide.with(containerView.context).load(gospel.detail[0].image).into(iv_nav_item)
             tv_detail_nav_item.text = gospel.detail[0].content
+        } else {
+            Glide.with(containerView.context).load("").into(iv_nav_item)
+            tv_detail_nav_item.text = ""
         }
         containerView.setOnClickListener {
             startGospelDetailActivity(gospel)

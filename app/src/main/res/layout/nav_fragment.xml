@@ -9,32 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/srl_nav"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_nav"
+        android:overScrollMode="never"
+        android:layoutAnimation="@anim/layout_animation_from_right"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.scwang.smartrefresh.layout.header.BezierRadarHeader
-            app:srlPrimaryColor="@color/colorPrimary"
-            app:srlAccentColor="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_nav"
-            android:overScrollMode="never"
-            android:layoutAnimation="@anim/layout_animation_from_right"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbarSize="@dimen/search_bottom_margin"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-        <com.scwang.smartrefresh.layout.footer.BallPulseFooter
-            app:srlAnimatingColor="@color/colorPrimary"
-            app:srlNormalColor="@color/colorPrimary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        android:layout_height="match_parent"
+        android:scrollbarSize="@dimen/search_bottom_margin"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <ProgressBar
         android:id="@+id/pb_nav"

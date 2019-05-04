@@ -163,9 +163,6 @@ dependencies {
 //    // skin-support-cardview CardView 控件支持[可选]
 //    implementation 'skin.support:skin-support-constraint-layout:3.1.1'
 //    // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-7'
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-7'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 }
 
 androidExtensions {
