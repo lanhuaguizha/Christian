@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import kotlinx.android.synthetic.main.nav_item_me_portrait.*
 import org.jetbrains.anko.debug
+import org.jetbrains.anko.info
 
 open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragment {
 
@@ -106,8 +107,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     override fun initView() {
         debug { "nav fragment is $this and navId is $navId --initView" }
-        if (!isTabTitleListFull)
-            initTl()
         when (navId) {
             VIEW_ME -> {
                 initPortrait()
@@ -117,6 +116,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             v.vp1_nav.visibility = View.VISIBLE
             v.rv_nav.visibility = View.GONE
             v.pb_nav.visibility = View.GONE
+            initTl()
             initVp(tabTitleList)
         } else {
             v.vp1_nav.visibility = View.GONE
@@ -138,8 +138,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     private var pageSelectedPosition: Int = -1
 
     private lateinit var tabTitleList: ArrayList<String>
-
-    private var isTabTitleListFull: Boolean = false
 
     open fun initTl() {
         tabTitleList = arrayListOf(
@@ -211,11 +209,10 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 navActivity.getString(R.string._Jud),
                 navActivity.getString(R.string._Rev)
         )
-
         for (tabTitle in tabTitleList) {
             navActivity.tl_nav.newTab().setText(tabTitle).let { navActivity.tl_nav.addTab(it) }
         }
-        isTabTitleListFull = true
+        info { "圣经初始化" }
     }
 
     private fun initVp(tabTitleList: ArrayList<String>) {
