@@ -89,20 +89,9 @@ class NavDetailActivity : NavActivity() {
         tl_nav.tabMode = MODE_FIXED
     }
 
-    override fun initBv() {
-        super.initBv()
-        val params = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
-        params.gravity = Gravity.BOTTOM
-        params.behavior = BottomNavigationViewBehaviorDetail(this, null)
-        bv_nav.layoutParams = params
-    }
-
     private var pagePosition: Int = 0
 
     private var pagePositionOffset: Float = 0f
-
-    override fun initBnv() {
-    }
 
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
         val navDetailFragmentPagerAdapter = NavDetailFragmentPagerAdapter(supportFragmentManager)

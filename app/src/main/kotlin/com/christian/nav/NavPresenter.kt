@@ -428,7 +428,7 @@ fun disableShiftMode(view: BottomNavigationView) {
 fun setToolbarVisible(navActivity: NavActivity, expanded: Boolean) {
     when (expanded) {
         true -> {
-            navActivity.tb_nav.visibility = View.VISIBLE
+//            navActivity.tb_nav.visibility = View.VISIBLE
             navActivity.abl_nav.addOnOffsetChangedListener(navActivity.appBarLayoutOnOffsetChangedListener)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 navActivity.abl_nav.elevation = navActivity.dip(4).toFloat()
@@ -445,6 +445,7 @@ fun setToolbarVisible(navActivity: NavActivity, expanded: Boolean) {
                 }
 
                 override fun onAnimationStart(animation: Animation?) {
+                    navActivity.tb_nav.visibility = View.VISIBLE
                 }
 
             })
@@ -455,21 +456,21 @@ fun setToolbarVisible(navActivity: NavActivity, expanded: Boolean) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 navActivity.abl_nav.elevation = navActivity.dip(0).toFloat()
             }
-            val anim = AnimationUtils.loadAnimation(navActivity, R.anim.abc_slide_out_top)
-            if (navActivity.tb_nav.visibility == View.VISIBLE)
-                navActivity.tb_nav.startAnimation(anim)
-            anim.setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationRepeat(animation: Animation?) {
-                }
-
-                override fun onAnimationEnd(animation: Animation?) {
-                    navActivity.tb_nav.visibility = View.GONE
-                }
-
-                override fun onAnimationStart(animation: Animation?) {
-                }
-
-            })
+//            val anim = AnimationUtils.loadAnimation(navActivity, R.anim.abc_slide_out_top)
+//            if (navActivity.tb_nav.visibility == View.VISIBLE)
+//                navActivity.tb_nav.startAnimation(anim)
+//            anim.setAnimationListener(object : Animation.AnimationListener {
+//                override fun onAnimationRepeat(animation: Animation?) {
+//                }
+//
+//                override fun onAnimationEnd(animation: Animation?) {
+//                    navActivity.tb_nav.visibility = View.GONE
+//                }
+//
+//                override fun onAnimationStart(animation: Animation?) {
+//                }
+//
+//            })
         }
     }
 }
