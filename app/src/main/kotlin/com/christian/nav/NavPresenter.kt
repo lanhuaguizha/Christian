@@ -221,12 +221,12 @@ fun setTabLayoutExpanded(context: Context, position: Int) {
     }
     when (position) {
         VIEW_HOME -> {
-            setToolbarVisible(navActivity, true)
+            setToolbarExpanded(navActivity, true)
             setTabLayoutExpanded(context, false)
             setPortraitExpanded(context, false)
         }
         VIEW_GOSPEL -> {
-            setToolbarVisible(navActivity, true)
+            setToolbarExpanded(navActivity, true)
             setPortraitExpanded(context, false)
             var time = 0L
             if (isPortraitExpanded(context)) {
@@ -237,15 +237,15 @@ fun setTabLayoutExpanded(context: Context, position: Int) {
             }, time)
         }
         VIEW_DISCIPLE -> {
-            setToolbarVisible(navActivity, true)
+            setToolbarExpanded(navActivity, true)
             setTabLayoutExpanded(context, false)
             setPortraitExpanded(context, false)
         }
         VIEW_ME -> {
-            setToolbarVisible(navActivity, false)
+            setToolbarExpanded(navActivity, false)
             setTabLayoutExpanded(context, false)
             var time = 0L
-            if (isToolbarExpanded(context)) {
+            if (isTabLayoutExpanded(context)) {
                 time = 100
             }
             navActivity.tl_nav.postDelayed({
@@ -259,11 +259,11 @@ private fun setTabLayoutExpanded(context: Context, expanded: Boolean) {
     val navActivity = context as NavActivity
     when (expanded) {
         true -> {
-            if (!isToolbarExpanded(context))
+            if (!isTabLayoutExpanded(context))
                 expandedAnimation(navActivity, true)
         }
         false -> {
-            if (isToolbarExpanded(context))
+            if (isTabLayoutExpanded(context))
                 expandedAnimation(navActivity, false)
         }
     }
@@ -285,7 +285,7 @@ private fun setPortraitExpanded(context: Context, expanded: Boolean) {
 
 }
 
-fun isToolbarExpanded(context: Context): Boolean {
+fun isTabLayoutExpanded(context: Context): Boolean {
     val navActivity = context as NavActivity
     return navActivity.tl_nav.visibility == View.VISIBLE
 }
@@ -473,4 +473,66 @@ fun setToolbarVisible(navActivity: NavActivity, expanded: Boolean) {
 //            })
         }
     }
+}
+
+private fun setToolbarExpanded(context: Context, expanded: Boolean) {
+    val navActivity = context as NavActivity
+    when (expanded) {
+        true -> {
+            if (!isToolbarExpanded(context))
+                expandedAnimationToolbar(navActivity, true)
+        }
+        false -> {
+            if (isToolbarExpanded(context))
+                expandedAnimationToolbar(navActivity, false)
+        }
+    }
+
+}
+
+fun isToolbarExpanded(context: Context): Boolean {
+    val navActivity = context as NavActivity
+    return navActivity.tb_nav.visibility == View.VISIBLE
+}
+
+private fun expandedAnimationToolbar(navActivity: NavActivity, expanded: Boolean) {
+    val animator: ValueAnimator = if (expanded) {
+        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() + navActivity.dip(56))
+    } else {
+        ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(56))
+    }
+    animator.duration = 0
+    animator.interpolator = LinearInterpolator()
+    animator.addUpdateListener {
+        val floatValue = it.animatedValue as Float
+        navActivity.abl_nav.bottom = floatValue.toInt()
+    }
+    animator.start()
+    animator.addListener(object : Animator.AnimatorListener {
+        override fun onAnimationRepeat(animation: Animator) {
+        }
+
+        override fun onAnimationEnd(animation: Animator) {
+            if (expanded) {
+                navActivity.tb_nav.visibility = View.VISIBLE
+                navActivity.tb_nav.postDelayed({
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        navActivity.abl_nav.elevation = navActivity.dip(4).toFloat()
+                    }
+                }, 0)
+            } else {
+                navActivity.tb_nav.visibility = View.GONE
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    navActivity.abl_nav.elevation = navActivity.dip(0).toFloat()
+                }
+            }
+        }
+
+        override fun onAnimationCancel(animation: Animator) {
+        }
+
+        override fun onAnimationStart(animation: Animator) {
+        }
+
+    })
 }
