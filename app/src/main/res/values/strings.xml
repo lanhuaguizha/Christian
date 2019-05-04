@@ -172,6 +172,46 @@
     <string name="invite_menu_label">Invite</string>
 
     <!--tab layout gospel-->
+    <string name="_Gen">Gen</string>
+    <string name="_Exo">Exo</string>
+    <string name="_Lev">Lev</string>
+    <string name="_Num">Num</string>
+    <string name="_Deu">Deu</string>
+    <string name="_Jos">Jos</string>
+    <string name="_Jug">Jug</string>
+    <string name="_Rut">Rut</string>
+    <string name="_1Sa">1Sa</string>
+    <string name="_2Sa">2Sa</string>
+    <string name="_1Ki">1Ki</string>
+    <string name="_2Ki">2Ki</string>
+    <string name="_1Ch">1Ch</string>
+    <string name="_2Ch">2Ch</string>
+    <string name="_Ezr">Ezr</string>
+    <string name="_Neh">Neh</string>
+    <string name="_Est">Est</string>
+    <string name="_Job">Job</string>
+    <string name="_Psm">Psm</string>
+    <string name="_Pro">Pro</string>
+    <string name="_Ecc">Ecc</string>
+    <string name="_Son">Son</string>
+    <string name="_Isa">Isa</string>
+    <string name="_Jer">Jer</string>
+    <string name="_Lam">Lam</string>
+    <string name="_Eze">Eze</string>
+    <string name="_Dan">Dan</string>
+    <string name="_Hos">Hos</string>
+    <string name="_Joe">Joe</string>
+    <string name="_Amo">Amo</string>
+    <string name="_Oba">Oba</string>
+    <string name="_Jon">Jon</string>
+    <string name="_Mic">Mic</string>
+    <string name="_Nah">Nah</string>
+    <string name="_Hab">Hab</string>
+    <string name="_Zep">Zep</string>
+    <string name="_Hag">Hag</string>
+    <string name="_Zec">Zec</string>
+    <string name="_Mal">Mal</string>
+
     <string name="_Mat">Mat</string>
     <string name="_Mak">Mak</string>
     <string name="_Luk">Luk</string>

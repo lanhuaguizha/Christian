@@ -24,7 +24,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.firebase.ui.firestore.paging.LoadingState
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -107,7 +106,8 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     override fun initView() {
         debug { "nav fragment is $this and navId is $navId --initView" }
-        initTl()
+        if (!isTabTitleListFull)
+            initTl()
         when (navId) {
             VIEW_ME -> {
                 initPortrait()
@@ -139,8 +139,50 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     private lateinit var tabTitleList: ArrayList<String>
 
+    private var isTabTitleListFull: Boolean = false
+
     open fun initTl() {
         tabTitleList = arrayListOf(
+                navActivity.getString(R.string._Gen),
+                navActivity.getString(R.string._Exo),
+                navActivity.getString(R.string._Lev),
+                navActivity.getString(R.string._Num),
+                navActivity.getString(R.string._Deu),
+                navActivity.getString(R.string._Jos),
+                navActivity.getString(R.string._Jug),
+                navActivity.getString(R.string._Rut),
+                navActivity.getString(R.string._1Sa),
+                navActivity.getString(R.string._2Sa),
+                navActivity.getString(R.string._1Ki),
+                navActivity.getString(R.string._2Ki),
+                navActivity.getString(R.string._1Ch),
+                navActivity.getString(R.string._2Ch),
+                navActivity.getString(R.string._Ezr),
+                navActivity.getString(R.string._Neh),
+                navActivity.getString(R.string._Est),
+                navActivity.getString(R.string._Job),
+                navActivity.getString(R.string._Psm),
+                navActivity.getString(R.string._Pro),
+                navActivity.getString(R.string._Ecc),
+                navActivity.getString(R.string._Son),
+                navActivity.getString(R.string._Isa),
+                navActivity.getString(R.string._Jer),
+                navActivity.getString(R.string._Lam),
+                navActivity.getString(R.string._Eze),
+                navActivity.getString(R.string._Dan),
+                navActivity.getString(R.string._Hos),
+                navActivity.getString(R.string._Joe),
+                navActivity.getString(R.string._Amo),
+                navActivity.getString(R.string._Oba),
+                navActivity.getString(R.string._Jon),
+                navActivity.getString(R.string._Mic),
+                navActivity.getString(R.string._Nah),
+                navActivity.getString(R.string._Hab),
+                navActivity.getString(R.string._Zep),
+                navActivity.getString(R.string._Hag),
+                navActivity.getString(R.string._Zec),
+                navActivity.getString(R.string._Mal),
+
                 navActivity.getString(R.string._Mat),
                 navActivity.getString(R.string._Mak),
                 navActivity.getString(R.string._Luk),
@@ -173,6 +215,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         for (tabTitle in tabTitleList) {
             navActivity.tl_nav.newTab().setText(tabTitle).let { navActivity.tl_nav.addTab(it) }
         }
+        isTabTitleListFull = true
     }
 
     private fun initVp(tabTitleList: ArrayList<String>) {

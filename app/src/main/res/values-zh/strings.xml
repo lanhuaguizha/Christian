@@ -161,6 +161,46 @@
     <string name="the_avatars">The avatars</string>
 
     <!--tab layout-->
+    <string name="_Gen">创世纪</string>
+    <string name="_Exo">出埃及记</string>
+    <string name="_Lev">利未记</string>
+    <string name="_Num">民数记</string>
+    <string name="_Deu">申命记</string>
+    <string name="_Jos">约书亚记</string>
+    <string name="_Jug">士师记</string>
+    <string name="_Rut">路得记</string>
+    <string name="_1Sa">撒母耳记上</string>
+    <string name="_2Sa">撒母耳记下</string>
+    <string name="_1Ki">列王记上</string>
+    <string name="_2Ki">列王记下</string>
+    <string name="_1Ch">历代志上</string>
+    <string name="_2Ch">历代志下</string>
+    <string name="_Ezr">以斯拉记</string>
+    <string name="_Neh">尼希米记</string>
+    <string name="_Est">以斯帖记</string>
+    <string name="_Job">约伯记</string>
+    <string name="_Psm">诗篇</string>
+    <string name="_Pro">箴言</string>
+    <string name="_Ecc">传道书</string>
+    <string name="_Son">雅歌</string>
+    <string name="_Isa">以赛亚书</string>
+    <string name="_Jer">耶利米书</string>
+    <string name="_Lam">耶利米哀歌</string>
+    <string name="_Eze">以西结书</string>
+    <string name="_Dan">但以理书</string>
+    <string name="_Hos">何西阿书</string>
+    <string name="_Joe">约珥书</string>
+    <string name="_Amo">阿摩司书</string>
+    <string name="_Oba">俄巴底亚书</string>
+    <string name="_Jon">约拿书</string>
+    <string name="_Mic">弥迦书</string>
+    <string name="_Nah">那鸿书</string>
+    <string name="_Hab">哈巴谷书</string>
+    <string name="_Zep">西番雅书</string>
+    <string name="_Hag">哈该书</string>
+    <string name="_Zec">撒迦利亚书</string>
+    <string name="_Mal">玛拉基书</string>
+
     <string name="_Mat">马太福音</string>
     <string name="_Mak">马可福音</string>
     <string name="_Luk">路加福音</string>
