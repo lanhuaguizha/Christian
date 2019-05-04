@@ -11,6 +11,7 @@
         android:id="@+id/abl_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:elevation="4dp"
         app:expanded="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -23,6 +24,7 @@
             app:titleEnabled="false">
 
             <include
+                app:layout_collapseMode="parallax"
                 android:id="@+id/portrait_nav"
                 layout="@layout/nav_item_me_portrait"
                 android:layout_width="match_parent"

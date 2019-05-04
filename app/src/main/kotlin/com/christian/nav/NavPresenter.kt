@@ -381,7 +381,7 @@ fun enableSwipeBack(position: Int, positionOffset: Float, activity: NavDetailAct
 fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: AppBarLayout, verticalOffset: Int) {
     if (verticalOffset == -appBarLayout.height) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            navActivity.abl_nav.elevation = 0f
+//            navActivity.abl_nav.elevation = 0f
         }
     } else {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
