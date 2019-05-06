@@ -381,7 +381,7 @@ fun enableSwipeBack(position: Int, positionOffset: Float, activity: NavDetailAct
 fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: AppBarLayout, verticalOffset: Int) {
     if (verticalOffset == -appBarLayout.height) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            navActivity.abl_nav.elevation = 0f
+            navActivity.abl_nav.elevation = 0f
         }
     } else {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -514,6 +514,7 @@ private fun expandedAnimationToolbar(navActivity: NavActivity, expanded: Boolean
 
         override fun onAnimationEnd(animation: Animator) {
             if (expanded) {
+                navActivity.abl_nav.addOnOffsetChangedListener(navActivity.appBarLayoutOnOffsetChangedListener)
                 navActivity.tb_nav.visibility = View.VISIBLE
                 navActivity.tb_nav.postDelayed({
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -521,6 +522,7 @@ private fun expandedAnimationToolbar(navActivity: NavActivity, expanded: Boolean
                     }
                 }, 0)
             } else {
+                navActivity.abl_nav.removeOnOffsetChangedListener(navActivity.appBarLayoutOnOffsetChangedListener)
                 navActivity.tb_nav.visibility = View.GONE
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     navActivity.abl_nav.elevation = navActivity.dip(0).toFloat()
