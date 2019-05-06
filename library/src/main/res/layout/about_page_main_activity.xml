@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleTextAppearance="@style/AboutPage.Header.ToolbarTitleExpanded"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap">
 
             <LinearLayout
                 android:id="@+id/header_content_layout"

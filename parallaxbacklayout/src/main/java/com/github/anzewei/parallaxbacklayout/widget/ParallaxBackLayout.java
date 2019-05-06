@@ -131,6 +131,7 @@ public class ParallaxBackLayout extends FrameLayout {
     public ParallaxBackLayout(Context context) {
         super(context);
         mDragHelper = ViewDragHelper.create(this, new ViewDragCallback());
+        mDragHelper.setSensitivity(context, 0.618f);
         setEdgeFlag(EDGE_LEFT);
     }
 

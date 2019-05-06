@@ -157,7 +157,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
             0 -> {
                 containerView.context.getString(R.string.me)
             }
-            in 1..4 -> {
+            in 1..5 -> {
                 setting.name
             }
             else -> ""

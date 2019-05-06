@@ -10,7 +10,6 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.paging.PagedList
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.christian.ChristianApplication
@@ -239,12 +238,15 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     var isPageBottom: Boolean = false
 
-    private lateinit var adapter: FirestorePagingAdapter<Gospel, NavItemView>
+    private lateinit var gospelAdapter: FirestorePagingAdapter<Gospel, NavItemView>
+    private lateinit var meAdapter: FirestoreRecyclerAdapter<Setting, NavItemView>
 
     override fun onDestroyView() {
         super.onDestroyView()
         if (navId == VIEW_HOME)
-            adapter.stopListening()
+            gospelAdapter.stopListening()
+        if (navId == VIEW_ME)
+            meAdapter.stopListening()
     }
 
     private fun initRv() {
@@ -262,7 +264,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 //                        .setLifecycleOwner(this@NavFragment)
                         .setQuery(query, config, Gospel::class.java)
                         .build()
-                adapter = object : FirestorePagingAdapter<Gospel, NavItemView>(options) {
+                gospelAdapter = object : FirestorePagingAdapter<Gospel, NavItemView>(options) {
                     @NonNull
                     override fun onCreateViewHolder(@NonNull parent: ViewGroup,
                                                     viewType: Int): NavItemView {
@@ -295,16 +297,17 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                         }
                     }
                 }
-                adapter.startListening()
-                v.rv_nav.adapter = adapter
+                gospelAdapter.startListening()
+                v.rv_nav.adapter = gospelAdapter
             }
             VIEW_GOSPEL -> {
             }
             VIEW_DISCIPLE -> {
             }
             VIEW_ME -> {
-                val adapter = firestoreRecyclerAdapter()
-                v.rv_nav.adapter = adapter
+                meAdapter = firestoreRecyclerAdapter()
+                meAdapter.startListening()
+                v.rv_nav.adapter = meAdapter
             }
         }
         v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
@@ -340,11 +343,11 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         v.rv_nav.layoutAnimation = controller
     }
 
-    private fun firestoreRecyclerAdapter(): RecyclerView.Adapter<NavItemView> {
+    private fun firestoreRecyclerAdapter(): FirestoreRecyclerAdapter<Setting, NavItemView> {
         val query = FirebaseFirestore.getInstance().collection("mes").orderBy("id", Query.Direction.ASCENDING)
         val options = FirestoreRecyclerOptions.Builder<Setting>()
                 .setQuery(query, Setting::class.java)
-                .setLifecycleOwner(navActivity)
+//                .setLifecycleOwner(navActivity)
                 .build()
 
         return object : FirestoreRecyclerAdapter<Setting, NavItemView>(options) {
@@ -395,7 +398,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 //    private fun runLayoutAnimation(recyclerView: androidx.recyclerview.widget.RecyclerView) {
 //        val animation = AnimationUtils.loadLayoutAnimation(recyclerView.context, R.anim.layout_animation_from_right)
 //        recyclerView.layoutAnimation = animation
-//        recyclerView.adapter?.notifyDataSetChanged()
+//        recyclerView.gospelAdapter?.notifyDataSetChanged()
 //        recyclerView.scheduleLayoutAnimation()
 //    }
 

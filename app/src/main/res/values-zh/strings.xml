@@ -233,5 +233,6 @@
     <string name="_Hot_Review">热门评论</string>
     <string name="_Newest_Review">最新评论</string>
     <string name="me">我的</string>
+    <string name="developer">开发者</string>
 
 </resources>

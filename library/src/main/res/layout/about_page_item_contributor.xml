@@ -8,6 +8,7 @@
         style="@style/AboutPage.ContributorAvatar"
         android:id="@+id/avatar"
         tools:ignore="ContentDescription"
+        android:layout_centerVertical="true"
         tools:src="#000000"/>
 
     <TextView
