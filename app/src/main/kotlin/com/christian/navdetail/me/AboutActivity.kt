@@ -20,7 +20,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
 //        items.add(Card(getString(R.string.card_content)))
 
         items.add(Category(getString(R.string.developer)))
-        items.add(Contributor(R.mipmap.ic_launcher, "lanhuaguizha", "Developer & designer", "https://github.com/lanhuaguizha"))
+        items.add(Contributor(R.drawable.me, "lanhuaguizha", "Developer & designer", "https://github.com/lanhuaguizha"))
 //        items.add(Contributor(R.mipmap.ic_launcher, "黑猫酱", "Developer", "https://drakeet.me"))
 //        items.add(Contributor(R.mipmap.ic_launcher, "小艾大人", "Developer"))
 
