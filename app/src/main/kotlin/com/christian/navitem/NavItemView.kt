@@ -3,6 +3,7 @@ package com.christian.navitem
 import android.content.Intent
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Switch
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.christian.R
@@ -11,6 +12,7 @@ import com.christian.data.Gospel
 import com.christian.data.Setting
 import com.christian.nav.toolbarTitle
 import com.christian.navdetail.NavDetailActivity
+import com.christian.navdetail.me.AboutActivity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_gospel.*
 import kotlinx.android.synthetic.main.nav_item_me.*
@@ -106,8 +108,8 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
 
     private var isOn = false
     fun bind(setting: Setting) {
-        /*when (adapterPosition) {
-            1 -> {
+        when (adapterPosition) {
+            0 -> {
                 containerView.setOnClickListener {
                     if (isOn) {
                         containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = false
@@ -121,6 +123,13 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
                     }
                 }
             }
+            5 -> {
+                containerView.setOnClickListener {
+                    val i = Intent(containerView.context, AboutActivity::class.java)
+                    i.putExtra(toolbarTitle, getTitle(setting, adapterPosition))
+                    containerView.context.startActivity(i)
+                }
+            }
             else -> {
                 containerView.setOnClickListener {
                     val i = Intent(containerView.context, NavDetailActivity::class.java)
@@ -128,7 +137,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
                     containerView.context.startActivity(i)
                 }
             }
-        }*/
+        }
 
         if (adapterPosition == 0) switch_nav_item_small.visibility = View.VISIBLE
         tv_nav_item_small.text = setting.name
@@ -145,7 +154,9 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
 //            }
 //            VIEW_ME -> {
         return when (pos) {
-            0 -> "我的"
+            0 -> {
+                containerView.context.getString(R.string.me)
+            }
             in 1..4 -> {
                 setting.name
             }

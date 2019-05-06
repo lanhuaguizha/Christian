@@ -67,6 +67,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.christian.nav.NavActivity" />
         </activity>
+        <activity android:name=".navdetail.me.AboutActivity" />
     </application>
 
 </manifest>
