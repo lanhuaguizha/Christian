@@ -33,6 +33,7 @@ import me.drakeet.multitype.MultiTypeAdapter;
 /**
  * @author drakeet
  */
+@ParallaxBack(edge = ParallaxBack.Edge.LEFT, layout = ParallaxBack.Layout.PARALLAX, edgeMode = ParallaxBack.EdgeMode.FULLSCREEN)
 public abstract class AbsAboutActivity extends AppCompatActivity {
 //public abstract class AbsAboutActivity extends SwipeBackActivity {
 
@@ -110,6 +111,13 @@ public abstract class AbsAboutActivity extends AppCompatActivity {
     parallaxBackLayout.setShadowDrawable(AppCompatResources.getDrawable(this, R.drawable.bga_sbl_shadow));
     parallaxBackLayout.setScrollThresHold(0.2f);
     parallaxBackLayout.setVelocity(Integer.MAX_VALUE);
+  }
+
+  @Override
+  public void onBackPressed() {
+    ParallaxBackLayout layout = ParallaxHelper.getParallaxBackLayout(this, false);
+    if (layout == null || !layout.scrollToFinishActivity(0))
+    super.onBackPressed();
   }
 
   @Override @SuppressWarnings("deprecation")

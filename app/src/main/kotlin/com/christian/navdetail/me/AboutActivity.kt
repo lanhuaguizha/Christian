@@ -7,6 +7,8 @@ import android.widget.TextView
 import android.widget.Toast
 import com.christian.BuildConfig
 import com.christian.R
+import com.christian.nav.nullString
+import com.christian.nav.toolbarTitle
 import me.drakeet.support.about.*
 import me.drakeet.support.about.provided.PicassoImageLoader
 
@@ -75,7 +77,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
         icon.setImageResource(R.mipmap.ic_launcher)
-        slogan.setText(getString(R.string.app_name))
-        version.setText("v" + BuildConfig.VERSION_NAME)
+        slogan.text = intent?.extras?.getString(toolbarTitle) ?: nullString
+        version.text = "v " + BuildConfig.VERSION_NAME
     }
 }
