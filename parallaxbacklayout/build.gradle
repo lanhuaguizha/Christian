@@ -45,7 +45,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-rc01'
 }
 //apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
 //apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

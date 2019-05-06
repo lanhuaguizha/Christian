@@ -24,13 +24,13 @@ android {
 }
 
 dependencies {
-  implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
+  implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
   testImplementation 'junit:junit:4.12'
   androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-beta02', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-  implementation 'com.squareup.okhttp3:okhttp:3.12.1'
-  implementation 'me.drakeet.multitype:multitype:4.0.0-alpha2'
+  implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+  implementation 'me.drakeet.multitype:multitype:4.0.0-alpha3'
   compileOnly 'com.google.code.gson:gson:2.8.5'
   compileOnly 'com.squareup.moshi:moshi:1.7.0'
   compileOnly project(':library')

@@ -1,6 +1,5 @@
 package me.drakeet.support.about;
 
-import com.christian.swipe.SwipeBackActivity
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -16,10 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.github.anzewei.parallaxbacklayout.ParallaxBack;
+import com.github.anzewei.parallaxbacklayout.ParallaxHelper;
+import com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +83,7 @@ public abstract class AbsAboutActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    initSbl();
     setContentView(R.layout.about_page_main_activity);
     toolbar = findViewById(R.id.toolbar);
     ImageView icon = findViewById(R.id.icon);
@@ -96,6 +102,14 @@ public abstract class AbsAboutActivity extends AppCompatActivity {
     }
     onApplyPresetAttrs();
     recyclerView = findViewById(R.id.list);
+  }
+
+  private void initSbl() {
+    ParallaxBackLayout parallaxBackLayout = ParallaxHelper.getParallaxBackLayout(this);
+    parallaxBackLayout.setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, new CupertinoParallaxTransform());
+    parallaxBackLayout.setShadowDrawable(AppCompatResources.getDrawable(this, R.drawable.bga_sbl_shadow));
+    parallaxBackLayout.setScrollThresHold(0.2f);
+    parallaxBackLayout.setVelocity(Integer.MAX_VALUE);
   }
 
   @Override @SuppressWarnings("deprecation")
