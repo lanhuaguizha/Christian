@@ -172,6 +172,9 @@ dependencies {
     implementation project(':library')
     implementation project(':extension')
     implementation 'me.drakeet.multitype:multitype:4.0.0-alpha2'
+
+    // Markdown
+    implementation "ru.noties.markwon:core:3.0.1"
 }
 
 androidExtensions {
