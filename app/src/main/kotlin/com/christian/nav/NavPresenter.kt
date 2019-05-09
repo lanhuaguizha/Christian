@@ -13,6 +13,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
+import androidx.annotation.NonNull
 import com.christian.R
 import com.christian.data.Gospel
 import com.christian.navdetail.NavDetailActivity
@@ -25,6 +26,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
@@ -537,4 +541,14 @@ private fun expandedAnimationToolbar(navActivity: NavActivity, expanded: Boolean
         }
 
     })
+}
+
+fun getDocumentReference(@NonNull collectionPath: String, @NonNull documentPath: String): DocumentReference {
+    val firestore = FirebaseFirestore.getInstance()
+    return firestore.collection(collectionPath).document(documentPath)
+}
+
+fun getQuery(@NonNull collectionPath: String, @NonNull field: String, @NonNull direction: Query.Direction): Query {
+    val firestore = FirebaseFirestore.getInstance()
+    return firestore.collection(collectionPath).orderBy(field, direction)
 }

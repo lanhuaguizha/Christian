@@ -23,6 +23,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.firebase.ui.firestore.paging.LoadingState
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -281,17 +282,19 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
                     override fun onLoadingStateChanged(@NonNull state: LoadingState) {
                         when (state) {
-//                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> pb_nav.visibility = View.VISIBLE
+                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> pb_nav.visibility = View.VISIBLE
                             LoadingState.LOADED -> {
                                 v.pb_nav.visibility = View.GONE
                                 rv_nav.scheduleLayoutAnimation()
                             }
                             LoadingState.FINISHED -> {
-//                                pb_nav.visibility = View.GONE
-//                                showToast("Reached end of data set.")
+                                pb_nav.visibility = View.GONE
+//                                Snackbar.make(navActivity.cl_nav, R.string.finished, Snackbar.LENGTH_SHORT).show()
+                                showToast(getString(R.string.finished))
                             }
                             LoadingState.ERROR -> {
-                                showToast("An error occurred.")
+//                                Snackbar.make(navActivity.cl_nav, R.string.error, Snackbar.LENGTH_SHORT).show()
+                                showToast(getString(R.string.error))
                                 retry()
                             }
                         }

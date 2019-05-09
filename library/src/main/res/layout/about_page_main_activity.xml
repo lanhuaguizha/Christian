@@ -21,6 +21,9 @@
             app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap">
 
             <LinearLayout
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
                 android:id="@+id/header_content_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -61,7 +64,6 @@
         android:layout_height="match_parent"
         android:paddingBottom="32dp"
         android:clipToPadding="false"
-        android:descendantFocusability="blocksDescendants"
         app:layoutManager="LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 

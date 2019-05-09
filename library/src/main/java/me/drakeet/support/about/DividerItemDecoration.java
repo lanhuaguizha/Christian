@@ -1,10 +1,13 @@
 package me.drakeet.support.about;
 
 import android.graphics.Rect;
+import android.os.Build;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
+import java.util.Objects;
+
 import me.drakeet.multitype.MultiTypeAdapter;
 
 /**
@@ -31,6 +34,7 @@ class DividerItemDecoration extends RecyclerView.ItemDecoration {
       outRect.set(0, 0, 0, 0);
       return;
     }
+
     List<?> items = adapter.getItems();
     int position = parent.getChildAdapterPosition(view);
     boolean should = false;
@@ -43,6 +47,11 @@ class DividerItemDecoration extends RecyclerView.ItemDecoration {
       outRect.set(0, 0, 0, 1);
     } else {
       outRect.set(0, 0, 0, 0);
+    }
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      if (parent.getChildAdapterPosition(view) == Objects.requireNonNull(parent.getAdapter()).getItemCount() - 1)
+        outRect.bottom = 252;
     }
   }
 }

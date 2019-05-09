@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/AboutPage.Item.Card"
     android:orientation="vertical"
+    android:focusable="true"
+    android:clickable="true"
     tools:ignore="ContentDescription, RtlHardcoded">
 
     <LinearLayout

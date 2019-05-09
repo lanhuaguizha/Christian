@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.christian.R
-import com.christian.navdetailitem.GospelDetailAdapter
+import com.christian.navdetailitem.gospel.GospelDetailAdapter
 import com.christian.nav.NavActivity
 import com.christian.nav.NavFragment
 import com.christian.view.GospelDetailItemDecoration
