@@ -35,4 +35,6 @@ dependencies {
   compileOnly 'com.github.bumptech.glide:glide:4.9.0'
   testImplementation 'junit:junit:4.12'
   implementation project(':parallaxbacklayout')
+  // Markdown
+  implementation "ru.noties.markwon:core:3.0.1"
 }

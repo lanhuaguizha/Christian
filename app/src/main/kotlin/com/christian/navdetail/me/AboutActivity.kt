@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.christian.BuildConfig
 import com.christian.R
+import com.christian.data.MeBean
 import com.christian.nav.getDocumentReference
 import com.christian.nav.nullString
 import com.christian.nav.toolbarTitle
@@ -22,6 +23,7 @@ import org.jetbrains.anko.warn
 
 class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnContributorClickedListener, EventListener<DocumentSnapshot>, AnkoLogger {
 
+    private lateinit var meBean: MeBean
     private lateinit var meRef: DocumentReference
     private var registration: ListenerRegistration? = null
     private val snapshots = ArrayList<DocumentSnapshot>()
@@ -53,6 +55,14 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         }
 
         snapshot = documentSnapshots
+        meBean = snapshot?.toObject(MeBean::class.java) ?: MeBean()
+
+        for (me in meBean.detail) {
+            if (me.type == "category")
+                items.add(Category(me.category))
+            if (me.type == "card")
+                items.add(Card(me.card))
+        }
         // Dispatch the event
         debug { "onEvent:numChanges:$documentSnapshots.documentChanges.size" }
 //        for (change in documentSnapshots.documentChanges) {
@@ -81,6 +91,8 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
     }
 
     override fun onItemsCreated(items: MutableList<Any>) {
+
+
         items.add(Category("介绍与帮助"))
         items.add(Card(getString(R.string.large_text)))
 //        items.add(Card(getString(R.string.card_content)))

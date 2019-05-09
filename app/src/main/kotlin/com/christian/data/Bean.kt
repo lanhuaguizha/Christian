@@ -27,11 +27,18 @@ data class Message(
 
 data class MeBean(
         val id: String = "",
-        val url: String = "",
         val name: String = "",
-        val nickName: String = "",
-        val address: Address = Address(),
-        val settings: List<Setting> = arrayListOf()
+        val desc: String = "",
+        var detail: List<MeDetails> = arrayListOf()
+)
+
+data class MeDetails(
+        val category: String = "",
+        val type: String = "",
+        val card: String = "",
+        val desc: String = "",
+        val name: String = "",
+        val url: String = ""
 )
 
 data class Setting(
