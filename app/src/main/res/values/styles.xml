@@ -27,6 +27,19 @@
 
         <!--set the right in/out animation of Activity,you can change this to yours-->
         <item name="android:windowAnimationStyle">@style/Animation_Right</item>
+        <item name="my_custom_attr">@color/default_background_nav</item>
+        <item name="my_custom_attr2">@color/white</item>
+    </style>
+
+    <style name="ChristianDark" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--set the right in/out animation of Activity,you can change this to yours-->
+        <item name="android:windowAnimationStyle">@style/Animation_Right</item>
+        <item name="my_custom_attr">@color/text_color_primary</item>
+        <item name="my_custom_attr2">@color/background_material_dark</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

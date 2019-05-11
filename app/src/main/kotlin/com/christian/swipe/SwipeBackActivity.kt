@@ -1,24 +1,20 @@
 package com.christian.swipe
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.content.res.AppCompatResources
+import com.afollestad.aesthetic.AestheticActivity
 import com.christian.R
 import com.github.anzewei.parallaxbacklayout.ParallaxBack
-import com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
-import com.github.anzewei.parallaxbacklayout.ViewDragHelper
-import android.view.ViewGroup
-import org.jetbrains.anko.appcompat.v7.Appcompat
-import org.jetbrains.anko.dip
+import com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout
 
 
 /**
  * The activity base class, swipe back logic here.
  */
 @ParallaxBack(edge = ParallaxBack.Edge.LEFT, layout = ParallaxBack.Layout.PARALLAX, edgeMode = ParallaxBack.EdgeMode.FULLSCREEN)
-abstract class SwipeBackActivity : AppCompatActivity() {
+abstract class SwipeBackActivity : AestheticActivity() {
 
     init {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
