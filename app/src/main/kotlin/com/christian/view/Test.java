@@ -1,158 +1,117 @@
 package com.christian.view;
 
-import com.google.gson.Gson;
+import com.christian.data.Switch;
 
 import java.util.List;
 
 public class Test {
-    /**
-     * name : 陶永强
-     * url : R.drawable.the_virgin
-     * id : 0
-     * nickName : 个性签名：基督徒软件开发者，致力于打造全球最优体验的传福音软件
-     * address : {"street":"张江高科","city":"上海","country":"中国"}
-     * settings : [{"name":"夜间模式","url":"ic_brightness_medium_black_24dp","desc":"黑暗模式"},{"name":"历史记录","url":"ic_history_black_24dp","desc":"阅读过的文章"},{"name":"我的文章","url":"ic_library_books_black_24dp","desc":"已收藏的文章"},{"name":"设置","url":"R.drawable.ic_settings_black_24dp","desc":"开源声明、关于我们、听众来信、写信给我们"}]
-     */
 
-    private String name;
-    private String url;
-    private int id;
-    private String nickName;
-    private AddressBean address;
-    private List<SettingsBean> settings;
-
-    public static Test objectFromData(String str) {
-
-        return new Gson().fromJson(str, Test.class);
+    enum SwitchCategory { //开关分类信息
+        NET, // 网络切换
+        UI, // UI
+        LOG // LOG
     }
 
-    public String getName() {
-        return name;
+    enum SwitchName {
+        // "name" property for "net" and "log" category
+        Launcher, LocalLife, MicroHelper, PPTVTerminalManager, SnisService, UserCenter, PushService,
+        // "name" property for "ui" category
+        边界动效, 落焦动效, 呼吸动效, 首页视频窗视图状态, 信源小窗视图状态, 媒体中心缩略图, 状态栏天气动画, 天气模板动态背景, 一键设置5s快速屏保时间
     }
 
-    public void setName(String name) {
-        this.name = name;
+    enum SwitchType {
+        开关型, 列表型, 输入型, 输出型
     }
 
-    public String getUrl() {
-        return url;
+    enum SwitchValue {
+        // "value" property for "net" category
+        现网, 测网, 预发布, PMS现网, PASSPORT现网, GBS现网,
+        // "value" property for "ui" category
+        开, 关, 图片, 落焦播放, 显示播放, 视频, 缩略图,
+        // "value" property for "log" category
+        V, D, I, W, E
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public static void main(String[] args) {
+        String json = "";
+        Switch s = Switch.objectFromData(json);
+//        Switch s = new Switch();
+
+        Switch.SwitchBean logSwitch = s.getLog();
+        System.out.println(logSwitch.getName());
+        System.out.println(logSwitch.getType());
+        System.out.println(logSwitch.getValue());
+
+        Switch.SwitchBean netSwitch = s.getNet();
+        System.out.println(netSwitch.getName());
+        System.out.println(netSwitch.getType());
+        System.out.println(netSwitch.getValue());
+
+        List<Switch.SwitchBean> uiSwitchList = s.getUi();
+        System.out.println(uiSwitchList.get(0));
     }
 
-    public int getId() {
-        return id;
+        /*
+         *
+         {
+  "net": {
+    "name": "SwitchName.Launcher.ordinal()",
+    "type": "SwitchType.列表型.ordinal()",
+    "value": "SwitchValue.测网.ordinal()"
+  },
+  "ui": [
+    {
+      "name": "SwitchName.边界动效.ordinal()",
+      "type": "SwitchType.开关型.ordinal()",
+      "value": "SwitchValue.开.ordinal()"
+    },
+    {
+      "name": "SwitchName.落焦动效.ordinal()",
+      "type": "SwitchType.开关型.ordinal()",
+      "value": "SwitchValue.开.ordinal()"
+    },
+    {
+      "name": "SwitchName.呼吸动效.ordinal()",
+      "type": "SwitchType.开关型.ordinal()",
+      "value": "SwitchValue.开.ordinal()"
+    },
+    {
+      "name": "SwitchName.首页视频窗视图状态.ordinal()",
+      "type": "SwitchType.列表型.ordinal()",
+      "value": "SwitchValue.落焦播放.ordinal()"
+    },
+    {
+      "name": "SwitchName.信源小窗视图状态.ordinal()",
+      "type": "SwitchType.列表型.ordinal()",
+      "value": "SwitchValue.开.ordinal()"
+    },
+    {
+      "name": "SwitchName.媒体中心缩略图.ordinal()",
+      "type": "SwitchType.列表型.ordinal()",
+      "value": "SwitchValue.视频.ordinal()"
+    },
+    {
+      "name": "SwitchName.状态栏天气动画.ordinal()",
+      "type": "SwitchType.开关型.ordinal()",
+      "value": "SwitchValue.开.ordinal()"
+    },
+    {
+      "name": "SwitchName.天气模板动态背景.ordinal()",
+      "type": "SwitchType.开关型.ordinal()",
+      "value": "SwitchValue.开.ordinal()"
+    },
+    {
+      "name": "SwitchName.一键设置5s快速屏保时间.ordinal()",
+      "type": "SwitchType.开关型.ordinal()",
+      "value": "SwitchValue.开.ordinal()"
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public AddressBean getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressBean address) {
-        this.address = address;
-    }
-
-    public List<SettingsBean> getSettings() {
-        return settings;
-    }
-
-    public void setSettings(List<SettingsBean> settings) {
-        this.settings = settings;
-    }
-
-    public static class AddressBean {
-        /**
-         * street : 张江高科
-         * city : 上海
-         * country : 中国
+  ],
+  "log": {
+    "name": "SwitchName.Launcher.ordinal()",
+    "type": "SwitchType.列表型.ordinal()",
+    "value": "SwitchValue.E.ordinal()"
+  }
+}
+         *
          */
-
-        private String street;
-        private String city;
-        private String country;
-
-        public static AddressBean objectFromData(String str) {
-
-            return new Gson().fromJson(str, AddressBean.class);
-        }
-
-        public String getStreet() {
-            return street;
-        }
-
-        public void setStreet(String street) {
-            this.street = street;
-        }
-
-        public String getCity() {
-            return city;
-        }
-
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        public String getCountry() {
-            return country;
-        }
-
-        public void setCountry(String country) {
-            this.country = country;
-        }
-    }
-
-    public static class SettingsBean {
-        /**
-         * name : 夜间模式
-         * url : ic_brightness_medium_black_24dp
-         * desc : 黑暗模式
-         */
-
-        private String name;
-        private String url;
-        private String desc;
-
-        public static SettingsBean objectFromData(String str) {
-
-            return new Gson().fromJson(str, SettingsBean.class);
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getDesc() {
-            return desc;
-        }
-
-        public void setDesc(String desc) {
-            this.desc = desc;
-        }
-    }
 }
