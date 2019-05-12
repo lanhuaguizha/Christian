@@ -117,8 +117,83 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     override fun deinitView() {
     }
 
+    internal lateinit var tabTitleList: ArrayList<String>
     open fun initTb() {
         sb_nav.visibility = View.VISIBLE
+
+        tabTitleList = arrayListOf(
+                getString(R.string._Gen),
+                getString(R.string._Exo),
+                getString(R.string._Lev),
+                getString(R.string._Num),
+                getString(R.string._Deu),
+                getString(R.string._Jos),
+                getString(R.string._Jug),
+                getString(R.string._Rut),
+                getString(R.string._1Sa),
+                getString(R.string._2Sa),
+                getString(R.string._1Ki),
+                getString(R.string._2Ki),
+                getString(R.string._1Ch),
+                getString(R.string._2Ch),
+                getString(R.string._Ezr),
+                getString(R.string._Neh),
+                getString(R.string._Est),
+                getString(R.string._Job),
+                getString(R.string._Psm),
+                getString(R.string._Pro),
+                getString(R.string._Ecc),
+                getString(R.string._Son),
+                getString(R.string._Isa),
+                getString(R.string._Jer),
+                getString(R.string._Lam),
+                getString(R.string._Eze),
+                getString(R.string._Dan),
+                getString(R.string._Hos),
+                getString(R.string._Joe),
+                getString(R.string._Amo),
+                getString(R.string._Oba),
+                getString(R.string._Jon),
+                getString(R.string._Mic),
+                getString(R.string._Nah),
+                getString(R.string._Hab),
+                getString(R.string._Zep),
+                getString(R.string._Hag),
+                getString(R.string._Zec),
+                getString(R.string._Mal),
+
+                getString(R.string._Mat),
+                getString(R.string._Mak),
+                getString(R.string._Luk),
+                getString(R.string._Jhn),
+                getString(R.string._Act),
+                getString(R.string._Rom),
+                getString(R.string._1Co),
+                getString(R.string._2Co),
+                getString(R.string._Gal),
+                getString(R.string._Eph),
+                getString(R.string._Phl),
+                getString(R.string._Col),
+                getString(R.string._1Ts),
+                getString(R.string._2Ts),
+                getString(R.string._1Ti),
+                getString(R.string._2Ti),
+                getString(R.string._Tit),
+                getString(R.string._Mon),
+                getString(R.string._Heb),
+                getString(R.string._Jas),
+                getString(R.string._1Pe),
+                getString(R.string._2Pe),
+                getString(R.string._1Jn),
+                getString(R.string._2Jn),
+                getString(R.string._3Jn),
+                getString(R.string._Jud),
+                getString(R.string._Rev)
+        )
+        for (tabTitle in tabTitleList) {
+            tl_nav.newTab().setText(tabTitle).let { tl_nav.addTab(it) }
+        }
+        info { "圣经初始化" }
     }
 
     private fun initSb() {

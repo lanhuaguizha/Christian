@@ -116,8 +116,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             v.vp1_nav.visibility = View.VISIBLE
             v.rv_nav.visibility = View.GONE
             v.pb_nav.visibility = View.GONE
-            initTl()
-            initVp(tabTitleList)
+            initVp(navActivity.tabTitleList)
         } else {
             v.vp1_nav.visibility = View.GONE
             v.rv_nav.visibility = View.VISIBLE
@@ -136,84 +135,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     private lateinit var navFragment: NavFragment
 
     private var pageSelectedPosition: Int = -1
-
-    private lateinit var tabTitleList: ArrayList<String>
-
-    open fun initTl() {
-        tabTitleList = arrayListOf(
-                navActivity.getString(R.string._Gen),
-                navActivity.getString(R.string._Exo),
-                navActivity.getString(R.string._Lev),
-                navActivity.getString(R.string._Num),
-                navActivity.getString(R.string._Deu),
-                navActivity.getString(R.string._Jos),
-                navActivity.getString(R.string._Jug),
-                navActivity.getString(R.string._Rut),
-                navActivity.getString(R.string._1Sa),
-                navActivity.getString(R.string._2Sa),
-                navActivity.getString(R.string._1Ki),
-                navActivity.getString(R.string._2Ki),
-                navActivity.getString(R.string._1Ch),
-                navActivity.getString(R.string._2Ch),
-                navActivity.getString(R.string._Ezr),
-                navActivity.getString(R.string._Neh),
-                navActivity.getString(R.string._Est),
-                navActivity.getString(R.string._Job),
-                navActivity.getString(R.string._Psm),
-                navActivity.getString(R.string._Pro),
-                navActivity.getString(R.string._Ecc),
-                navActivity.getString(R.string._Son),
-                navActivity.getString(R.string._Isa),
-                navActivity.getString(R.string._Jer),
-                navActivity.getString(R.string._Lam),
-                navActivity.getString(R.string._Eze),
-                navActivity.getString(R.string._Dan),
-                navActivity.getString(R.string._Hos),
-                navActivity.getString(R.string._Joe),
-                navActivity.getString(R.string._Amo),
-                navActivity.getString(R.string._Oba),
-                navActivity.getString(R.string._Jon),
-                navActivity.getString(R.string._Mic),
-                navActivity.getString(R.string._Nah),
-                navActivity.getString(R.string._Hab),
-                navActivity.getString(R.string._Zep),
-                navActivity.getString(R.string._Hag),
-                navActivity.getString(R.string._Zec),
-                navActivity.getString(R.string._Mal),
-
-                navActivity.getString(R.string._Mat),
-                navActivity.getString(R.string._Mak),
-                navActivity.getString(R.string._Luk),
-                navActivity.getString(R.string._Jhn),
-                navActivity.getString(R.string._Act),
-                navActivity.getString(R.string._Rom),
-                navActivity.getString(R.string._1Co),
-                navActivity.getString(R.string._2Co),
-                navActivity.getString(R.string._Gal),
-                navActivity.getString(R.string._Eph),
-                navActivity.getString(R.string._Phl),
-                navActivity.getString(R.string._Col),
-                navActivity.getString(R.string._1Ts),
-                navActivity.getString(R.string._2Ts),
-                navActivity.getString(R.string._1Ti),
-                navActivity.getString(R.string._2Ti),
-                navActivity.getString(R.string._Tit),
-                navActivity.getString(R.string._Mon),
-                navActivity.getString(R.string._Heb),
-                navActivity.getString(R.string._Jas),
-                navActivity.getString(R.string._1Pe),
-                navActivity.getString(R.string._2Pe),
-                navActivity.getString(R.string._1Jn),
-                navActivity.getString(R.string._2Jn),
-                navActivity.getString(R.string._3Jn),
-                navActivity.getString(R.string._Jud),
-                navActivity.getString(R.string._Rev)
-        )
-        for (tabTitle in tabTitleList) {
-            navActivity.tl_nav.newTab().setText(tabTitle).let { navActivity.tl_nav.addTab(it) }
-        }
-        info { "圣经初始化" }
-    }
 
     private fun initVp(tabTitleList: ArrayList<String>) {
         val navChildFragmentPagerAdapter = NavChildFragmentPagerAdapter(childFragmentManager, tabTitleList)

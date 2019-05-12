@@ -48,6 +48,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_nav"
+            android:tag=":aesthetic_ignore"
             android:layout_width="match_parent"
             android:layout_height="@dimen/action_bar_height"
             android:theme="@style/AppTheme.AppBarOverlay"
