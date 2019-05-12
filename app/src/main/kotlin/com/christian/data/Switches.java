@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Switch implements Parcelable {
+public class Switches implements Parcelable {
 
 
     /**
@@ -21,9 +21,9 @@ public class Switch implements Parcelable {
     private SwitchBean log;
     private List<SwitchBean> ui;
 
-    public static Switch objectFromData(String str) {
+    public static Switches objectFromData(String str) {
 
-        return new Gson().fromJson(str, Switch.class);
+        return new Gson().fromJson(str, Switches.class);
     }
 
     public SwitchBean getNet() {
@@ -122,6 +122,12 @@ public class Switch implements Parcelable {
                 return new SwitchBean[size];
             }
         };
+
+        public void readFromParcel(Parcel in) {
+            this.name = in.readString();
+            this.type = in.readString();
+            this.value = in.readString();
+        }
     }
 
     @Override
@@ -136,25 +142,32 @@ public class Switch implements Parcelable {
         dest.writeList(this.ui);
     }
 
-    public Switch() {
+    public Switches() {
     }
 
-    protected Switch(Parcel in) {
+    protected Switches(Parcel in) {
         this.net = in.readParcelable(SwitchBean.class.getClassLoader());
         this.log = in.readParcelable(SwitchBean.class.getClassLoader());
         this.ui = new ArrayList<SwitchBean>();
         in.readList(this.ui, SwitchBean.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Switch> CREATOR = new Parcelable.Creator<Switch>() {
+    public void readFromParcel(Parcel in) {
+        this.net = in.readParcelable(SwitchBean.class.getClassLoader());
+        this.log = in.readParcelable(SwitchBean.class.getClassLoader());
+        this.ui = new ArrayList<SwitchBean>();
+        in.readList(this.ui, SwitchBean.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Switches> CREATOR = new Parcelable.Creator<Switches>() {
         @Override
-        public Switch createFromParcel(Parcel source) {
-            return new Switch(source);
+        public Switches createFromParcel(Parcel source) {
+            return new Switches(source);
         }
 
         @Override
-        public Switch[] newArray(int size) {
-            return new Switch[size];
+        public Switches[] newArray(int size) {
+            return new Switches[size];
         }
     };
 }

@@ -1,6 +1,6 @@
 package com.christian.view;
 
-import com.christian.data.Switch;
+import com.christian.data.Switches;
 
 import java.util.List;
 
@@ -34,20 +34,20 @@ public class Test {
 
     public static void main(String[] args) {
         String json = "";
-        Switch s = Switch.objectFromData(json);
-//        Switch s = new Switch();
+        Switches s = Switches.objectFromData(json);
+//        Switches s = new Switches();
 
-        Switch.SwitchBean logSwitch = s.getLog();
+        Switches.SwitchBean logSwitch = s.getLog();
         System.out.println(logSwitch.getName());
         System.out.println(logSwitch.getType());
         System.out.println(logSwitch.getValue());
 
-        Switch.SwitchBean netSwitch = s.getNet();
+        Switches.SwitchBean netSwitch = s.getNet();
         System.out.println(netSwitch.getName());
         System.out.println(netSwitch.getType());
         System.out.println(netSwitch.getValue());
 
-        List<Switch.SwitchBean> uiSwitchList = s.getUi();
+        List<Switches.SwitchBean> uiSwitchList = s.getUi();
         System.out.println(uiSwitchList.get(0));
     }
 

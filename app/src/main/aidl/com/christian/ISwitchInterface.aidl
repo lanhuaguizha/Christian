@@ -1,10 +1,10 @@
 package com.christian;
 
-import com.christian.data.Switch;
+import com.christian.data.Switches;
 
 interface ISwitchInterface {
 
-    Switch getSwitch();
+    Switches getSwitches();
 
-    void setSwitch(inout Switch switch);
+    void setSwitch(inout Switches ss);
 }
