@@ -225,33 +225,33 @@ fun setTabLayoutExpanded(context: Context, position: Int) {
     }
     when (position) {
         VIEW_HOME -> {
-            setTabLayoutExpanded(context, false)
-            setPortraitExpanded(context, false)
+            setToolbarExpanded(navActivity, true)
+            setTabLayoutExpanded(context, false, 0)
+            setPortraitExpanded(context, false, 0)
 
             val time = getDelayTime(context)
 
             navActivity.tl_nav.postDelayed({
-                setToolbarExpanded(navActivity, true)
             }, time)
         }
         VIEW_GOSPEL -> {
+            setToolbarExpanded(navActivity, true)
             setPortraitExpanded(context, false, 0L)
 
             val time = getDelayTime(context)
 
             navActivity.tl_nav.postDelayed({
-                setToolbarExpanded(navActivity, true)
                 setTabLayoutExpanded(context, true)
             }, time)
         }
         VIEW_DISCIPLE -> {
-            setTabLayoutExpanded(context, false)
-            setPortraitExpanded(context, false)
+            setToolbarExpanded(navActivity, true)
+            setTabLayoutExpanded(context, false, 0)
+            setPortraitExpanded(context, false, 0)
 
             val time = getDelayTime(context)
 
             navActivity.tl_nav.postDelayed({
-                setToolbarExpanded(navActivity, true)
             }, time)
         }
         VIEW_ME -> {
@@ -269,11 +269,11 @@ fun setTabLayoutExpanded(context: Context, position: Int) {
 
 private fun getDelayTime(context: Context): Long {
     var time = 0L
-    if (isPortraitExpanded(context)) {
-        time = 150
-    } else if (isTabLayoutExpanded(context)) {
-        time = 50
-    }
+//    if (isPortraitExpanded(context)) {
+//        time = 150
+//    } else if (isTabLayoutExpanded(context)) {
+//        time = 50
+//    }
     return time
 }
 
