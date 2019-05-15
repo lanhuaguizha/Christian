@@ -225,33 +225,41 @@ fun setTabLayoutExpanded(context: Context, position: Int) {
     }
     when (position) {
         VIEW_HOME -> {
-            setToolbarExpanded(navActivity, true)
             setTabLayoutExpanded(context, false)
             setPortraitExpanded(context, false)
+
+            val time = getDelayTime(context)
+
+            navActivity.tl_nav.postDelayed({
+                setToolbarExpanded(navActivity, true)
+            }, time)
         }
         VIEW_GOSPEL -> {
-            setToolbarExpanded(navActivity, true)
-            setPortraitExpanded(context, false)
-            var time = 0L
-            if (isPortraitExpanded(context)) {
-                time = 300
-            }
+            setPortraitExpanded(context, false, 0L)
+
+            val time = getDelayTime(context)
+
             navActivity.tl_nav.postDelayed({
+                setToolbarExpanded(navActivity, true)
                 setTabLayoutExpanded(context, true)
             }, time)
         }
         VIEW_DISCIPLE -> {
-            setToolbarExpanded(navActivity, true)
             setTabLayoutExpanded(context, false)
             setPortraitExpanded(context, false)
+
+            val time = getDelayTime(context)
+
+            navActivity.tl_nav.postDelayed({
+                setToolbarExpanded(navActivity, true)
+            }, time)
         }
         VIEW_ME -> {
+            setTabLayoutExpanded(context, false, 0L)
             setToolbarExpanded(navActivity, false)
-            setTabLayoutExpanded(context, false)
-            var time = 0L
-            if (isTabLayoutExpanded(context)) {
-                time = 100
-            }
+
+            val time = getDelayTime(context)
+
             navActivity.tl_nav.postDelayed({
                 setPortraitExpanded(context, true)
             }, time)
@@ -259,31 +267,41 @@ fun setTabLayoutExpanded(context: Context, position: Int) {
     }
 }
 
-private fun setTabLayoutExpanded(context: Context, expanded: Boolean) {
+private fun getDelayTime(context: Context): Long {
+    var time = 0L
+    if (isPortraitExpanded(context)) {
+        time = 150
+    } else if (isTabLayoutExpanded(context)) {
+        time = 50
+    }
+    return time
+}
+
+private fun setTabLayoutExpanded(context: Context, expanded: Boolean, duration: Long = 50) {
     val navActivity = context as NavActivity
     when (expanded) {
         true -> {
             if (!isTabLayoutExpanded(context))
-                expandedAnimation(navActivity, true)
+                expandedAnimation(navActivity, true, duration)
         }
         false -> {
             if (isTabLayoutExpanded(context))
-                expandedAnimation(navActivity, false)
+                expandedAnimation(navActivity, false, duration)
         }
     }
 
 }
 
-private fun setPortraitExpanded(context: Context, expanded: Boolean) {
+private fun setPortraitExpanded(context: Context, expanded: Boolean, duration: Long = 150) {
     val navActivity = context as NavActivity
     when (expanded) {
         true -> {
             if (!isPortraitExpanded(context))
-                expandedAnimationPortrait(navActivity, true)
+                expandedAnimationPortrait(navActivity, true, duration)
         }
         false -> {
             if (isPortraitExpanded(context))
-                expandedAnimationPortrait(navActivity, false)
+                expandedAnimationPortrait(navActivity, false, duration)
         }
     }
 
@@ -299,13 +317,13 @@ fun isPortraitExpanded(context: Context): Boolean {
     return navActivity.portrait_nav.visibility == View.VISIBLE
 }
 
-private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean) {
+private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, duration: Long = 50) {
     val animator: ValueAnimator = if (expanded) {
         ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() + navActivity.dip(56))
     } else {
         ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(56))
     }
-    animator.duration = 100
+    animator.duration = duration
     animator.interpolator = LinearInterpolator()
     animator.addUpdateListener {
         val floatValue = it.animatedValue as Float
@@ -333,13 +351,13 @@ private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean) {
     })
 }
 
-private fun expandedAnimationPortrait(navActivity: NavActivity, expanded: Boolean) {
+private fun expandedAnimationPortrait(navActivity: NavActivity, expanded: Boolean, duration: Long = 150) {
     val animator: ValueAnimator = if (expanded) {
         ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() + navActivity.dip(168))
     } else {
         ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(168))
     }
-    animator.duration = 300
+    animator.duration = duration
     animator.interpolator = LinearInterpolator()
     animator.addUpdateListener {
         val floatValue = it.animatedValue as Float
@@ -552,3 +570,4 @@ fun getQuery(@NonNull collectionPath: String, @NonNull field: String, @NonNull d
     val firestore = FirebaseFirestore.getInstance()
     return firestore.collection(collectionPath).orderBy(field, direction)
 }
+
