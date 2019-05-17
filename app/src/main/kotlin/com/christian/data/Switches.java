@@ -10,56 +10,35 @@ import java.util.List;
 
 public class Switches implements Parcelable {
 
-
-    /**
-     * net : {"name":"SwitchName.Launcher.ordinal()","type":"SwitchType.列表型.ordinal()","value":"SwitchValue.测网.ordinal()"}
-     * ui : [{"name":"SwitchName.边界动效.ordinal()","type":"SwitchType.开关型.ordinal()","value":"SwitchValue.开.ordinal()"},{"name":"SwitchName.落焦动效.ordinal()","type":"SwitchType.开关型.ordinal()","value":"SwitchValue.开.ordinal()"},{"name":"SwitchName.呼吸动效.ordinal()","type":"SwitchType.开关型.ordinal()","value":"SwitchValue.开.ordinal()"},{"name":"SwitchName.首页视频窗视图状态.ordinal()","type":"SwitchType.列表型.ordinal()","value":"SwitchValue.落焦播放.ordinal()"},{"name":"SwitchName.信源小窗视图状态.ordinal()","type":"SwitchType.列表型.ordinal()","value":"SwitchValue.开.ordinal()"},{"name":"SwitchName.媒体中心缩略图.ordinal()","type":"SwitchType.列表型.ordinal()","value":"SwitchValue.视频.ordinal()"},{"name":"SwitchName.状态栏天气动画.ordinal()","type":"SwitchType.开关型.ordinal()","value":"SwitchValue.开.ordinal()"},{"name":"SwitchName.天气模板动态背景.ordinal()","type":"SwitchType.开关型.ordinal()","value":"SwitchValue.开.ordinal()"},{"name":"SwitchName.一键设置5s快速屏保时间.ordinal()","type":"SwitchType.开关型.ordinal()","value":"SwitchValue.开.ordinal()"}]
-     * log : {"name":"SwitchName.Launcher.ordinal()","type":"SwitchType.列表型.ordinal()","value":"SwitchValue.E.ordinal()"}
-     */
-
-    private SwitchBean net;
-    private SwitchBean log;
-    private List<SwitchBean> ui;
+    private List<SwitchBean> switchBeanList;
 
     public static Switches objectFromData(String str) {
 
         return new Gson().fromJson(str, Switches.class);
     }
 
-    public SwitchBean getNet() {
-        return net;
+    public List<SwitchBean> getSwitchBeanList() {
+        return switchBeanList;
     }
 
-    public void setNet(SwitchBean net) {
-        this.net = net;
-    }
-
-    public SwitchBean getLog() {
-        return log;
-    }
-
-    public void setLog(SwitchBean log) {
-        this.log = log;
-    }
-
-    public List<SwitchBean> getUi() {
-        return ui;
-    }
-
-    public void setUi(List<SwitchBean> ui) {
-        this.ui = ui;
+    public void setSwitchBeanList(List<SwitchBean> switchBeanList) {
+        this.switchBeanList = switchBeanList;
     }
 
     public static class SwitchBean implements Parcelable {
-        /**
-         * name : SwitchName.Launcher.ordinal()
-         * type : SwitchType.列表型.ordinal()
-         * value : SwitchValue.测网.ordinal()
-         */
 
         private String name;
         private String type;
         private String value;
+        private String category;
+
+        public String getCategory() {
+            return category;
+        }
+
+        public void setCategory(String category) {
+            this.category = category;
+        }
 
         public static SwitchBean objectFromData(String str) {
 
@@ -100,6 +79,7 @@ public class Switches implements Parcelable {
             dest.writeString(this.name);
             dest.writeString(this.type);
             dest.writeString(this.value);
+            dest.writeString(this.category);
         }
 
         public SwitchBean() {
@@ -109,6 +89,7 @@ public class Switches implements Parcelable {
             this.name = in.readString();
             this.type = in.readString();
             this.value = in.readString();
+            this.category = in.readString();
         }
 
         public static final Creator<SwitchBean> CREATOR = new Creator<SwitchBean>() {
@@ -127,6 +108,7 @@ public class Switches implements Parcelable {
             this.name = in.readString();
             this.type = in.readString();
             this.value = in.readString();
+            this.category = in.readString();
         }
     }
 
@@ -137,26 +119,20 @@ public class Switches implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(this.net, flags);
-        dest.writeParcelable(this.log, flags);
-        dest.writeList(this.ui);
+        dest.writeList(this.switchBeanList);
     }
 
     public Switches() {
     }
 
     protected Switches(Parcel in) {
-        this.net = in.readParcelable(SwitchBean.class.getClassLoader());
-        this.log = in.readParcelable(SwitchBean.class.getClassLoader());
-        this.ui = new ArrayList<SwitchBean>();
-        in.readList(this.ui, SwitchBean.class.getClassLoader());
+        this.switchBeanList = new ArrayList<SwitchBean>();
+        in.readList(this.switchBeanList, SwitchBean.class.getClassLoader());
     }
 
     public void readFromParcel(Parcel in) {
-        this.net = in.readParcelable(SwitchBean.class.getClassLoader());
-        this.log = in.readParcelable(SwitchBean.class.getClassLoader());
-        this.ui = new ArrayList<SwitchBean>();
-        in.readList(this.ui, SwitchBean.class.getClassLoader());
+        this.switchBeanList = new ArrayList<SwitchBean>();
+        in.readList(this.switchBeanList, SwitchBean.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<Switches> CREATOR = new Parcelable.Creator<Switches>() {

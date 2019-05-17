@@ -1,10 +1,14 @@
 package com.christian.view;
 
+import android.os.Build;
+
 import com.christian.data.Switches;
 
 import java.util.List;
 
 public class Test {
+
+    private static List<Switches.SwitchBean> switchBeanList;
 
     enum SwitchCategory { //开关分类信息
         NET, // 网络切换
@@ -20,7 +24,7 @@ public class Test {
     }
 
     enum SwitchType {
-        开关型, 列表型, 输入型, 输出型
+        列表型, 输入型, 输出型;
     }
 
     enum SwitchValue {
@@ -34,83 +38,36 @@ public class Test {
 
     public static void main(String[] args) {
         String json = "";
-        Switches s = Switches.objectFromData(json);
-//        Switches s = new Switches();
+        Switches switches = Switches.objectFromData(json);
+         switchBeanList = switches.getSwitchBeanList();
 
-        Switches.SwitchBean logSwitch = s.getLog();
-        System.out.println(logSwitch.getName());
-        System.out.println(logSwitch.getType());
-        System.out.println(logSwitch.getValue());
+        if (switchBeanList.get(0).getValue().isEmpty()) {
+            // 先前逻辑
+        } else if (switchBeanList.get(0).getValue().equals(SwitchValue.现网.name())) {
+            // 切现网
+        }
+    }
 
-        Switches.SwitchBean netSwitch = s.getNet();
-        System.out.println(netSwitch.getName());
-        System.out.println(netSwitch.getType());
-        System.out.println(netSwitch.getValue());
-
-        List<Switches.SwitchBean> uiSwitchList = s.getUi();
-        System.out.println(uiSwitchList.get(0));
+    void setSwitch(String categoryName, String switchName, String switchValue) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            switchBeanList.stream()
+                    .filter(category -> category.equals(categoryName) )
+                    .filter(name -> name.equals(switchName))
+                    .forEach(value -> value.setValue(switchValue));
+        }
     }
 
         /*
          *
          {
-  "net": {
-    "name": "SwitchName.Launcher.ordinal()",
-    "type": "SwitchType.列表型.ordinal()",
-    "value": "SwitchValue.测网.ordinal()"
-  },
-  "ui": [
+  "switches": [
     {
       "name": "SwitchName.边界动效.ordinal()",
       "type": "SwitchType.开关型.ordinal()",
-      "value": "SwitchValue.开.ordinal()"
-    },
-    {
-      "name": "SwitchName.落焦动效.ordinal()",
-      "type": "SwitchType.开关型.ordinal()",
-      "value": "SwitchValue.开.ordinal()"
-    },
-    {
-      "name": "SwitchName.呼吸动效.ordinal()",
-      "type": "SwitchType.开关型.ordinal()",
-      "value": "SwitchValue.开.ordinal()"
-    },
-    {
-      "name": "SwitchName.首页视频窗视图状态.ordinal()",
-      "type": "SwitchType.列表型.ordinal()",
-      "value": "SwitchValue.落焦播放.ordinal()"
-    },
-    {
-      "name": "SwitchName.信源小窗视图状态.ordinal()",
-      "type": "SwitchType.列表型.ordinal()",
-      "value": "SwitchValue.开.ordinal()"
-    },
-    {
-      "name": "SwitchName.媒体中心缩略图.ordinal()",
-      "type": "SwitchType.列表型.ordinal()",
-      "value": "SwitchValue.视频.ordinal()"
-    },
-    {
-      "name": "SwitchName.状态栏天气动画.ordinal()",
-      "type": "SwitchType.开关型.ordinal()",
-      "value": "SwitchValue.开.ordinal()"
-    },
-    {
-      "name": "SwitchName.天气模板动态背景.ordinal()",
-      "type": "SwitchType.开关型.ordinal()",
-      "value": "SwitchValue.开.ordinal()"
-    },
-    {
-      "name": "SwitchName.一键设置5s快速屏保时间.ordinal()",
-      "type": "SwitchType.开关型.ordinal()",
-      "value": "SwitchValue.开.ordinal()"
+      "value": "SwitchValue.开.ordinal()",
+      "category": "net"
     }
-  ],
-  "log": {
-    "name": "SwitchName.Launcher.ordinal()",
-    "type": "SwitchType.列表型.ordinal()",
-    "value": "SwitchValue.E.ordinal()"
-  }
+  ]
 }
          *
          */
