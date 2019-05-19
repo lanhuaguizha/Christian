@@ -288,8 +288,8 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 // If there are no chat messages, show a view that invites the user to add a message.
 //                mEmptyListMessage.setVisibility(if (itemCount == 0) View.VISIBLE else View.GONE)
                 if (itemCount == 0) {
-
                 } else {
+                    rv_nav.scheduleLayoutAnimation()
                     pb_nav.visibility = View.GONE
                 }
             }
