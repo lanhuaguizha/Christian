@@ -323,7 +323,7 @@ private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, durat
     } else {
         ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(56))
     }
-    animator.duration = duration
+    animator.duration = 0
     animator.interpolator = LinearInterpolator()
     animator.addUpdateListener {
         val floatValue = it.animatedValue as Float
@@ -357,7 +357,7 @@ private fun expandedAnimationPortrait(navActivity: NavActivity, expanded: Boolea
     } else {
         ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(168))
     }
-    animator.duration = duration
+    animator.duration = 0
     animator.interpolator = LinearInterpolator()
     animator.addUpdateListener {
         val floatValue = it.animatedValue as Float

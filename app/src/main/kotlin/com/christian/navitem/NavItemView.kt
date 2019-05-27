@@ -116,26 +116,26 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
                     if (isOn) {
                         containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = false
                         // 恢复应用默认皮肤
-                        Aesthetic.config {
-                            activityTheme(R.style.Christian)
-                            isDark(false)
-                            textColorPrimary(res = R.color.text_color_primary)
-                            textColorSecondary(res = R.color.text_color_secondary)
-                            attribute(R.attr.my_custom_attr, res = R.color.default_background_nav)
-                            attribute(R.attr.my_custom_attr2, res = R.color.white)
-                        }
+//                        Aesthetic.config {
+//                            activityTheme(R.style.Christian)
+//                            isDark(false)
+//                            textColorPrimary(res = R.color.text_color_primary)
+//                            textColorSecondary(res = R.color.text_color_secondary)
+//                            attribute(R.attr.my_custom_attr, res = R.color.default_background_nav)
+//                            attribute(R.attr.my_custom_attr2, res = R.color.white)
+//                        }
                         isOn = false
                     } else {
                         containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = true
                         // 夜间模式
-                        Aesthetic.config {
-                            activityTheme(R.style.ChristianDark)
-                            isDark(true)
-                            textColorPrimary(res = android.R.color.primary_text_dark)
-                            textColorSecondary(res = android.R.color.secondary_text_dark)
-                            attribute(R.attr.my_custom_attr, res = R.color.text_color_primary)
-                            attribute(R.attr.my_custom_attr2, res = R.color.background_material_dark)
-                        }
+//                        Aesthetic.config {
+//                            activityTheme(R.style.ChristianDark)
+//                            isDark(true)
+//                            textColorPrimary(res = android.R.color.primary_text_dark)
+//                            textColorSecondary(res = android.R.color.secondary_text_dark)
+//                            attribute(R.attr.my_custom_attr, res = R.color.text_color_primary)
+//                            attribute(R.attr.my_custom_attr2, res = R.color.background_material_dark)
+//                        }
                         isOn = true
                     }
                 }
