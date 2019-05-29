@@ -12,7 +12,6 @@ import androidx.annotation.NonNull
 import androidx.paging.PagedList
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
-import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.Gospel
 import com.christian.data.Setting
@@ -23,7 +22,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.firebase.ui.firestore.paging.LoadingState
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -31,7 +29,6 @@ import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import kotlinx.android.synthetic.main.nav_item_me_portrait.*
 import org.jetbrains.anko.debug
-import org.jetbrains.anko.info
 
 open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragment {
 
@@ -326,13 +323,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 //        recyclerView.scheduleLayoutAnimation()
 //    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        // handling memory leaks
-        val refWatcher = ChristianApplication.getRefWatcher(ctx)
-        refWatcher.watch(this)
-    }
-
     class NavChildFragmentPagerAdapter(fm: androidx.fragment.app.FragmentManager, private val tabTitleList: ArrayList<String>) : androidx.fragment.app.FragmentStatePagerAdapter(fm) {
 
         lateinit var currentFragment: NavFragment
@@ -393,4 +383,5 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         abstract fun onBottom()
     }
 }
+
 

@@ -1,12 +1,14 @@
 package com.christian.navdetail
 
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.customview.widget.ViewDragHelper.INVALID_POINTER
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.nav.*
 import com.christian.navdetail.gospel.GospelDetailFragment
@@ -204,9 +206,6 @@ class NavDetailActivity : NavActivity() {
         navPresenter.navFragmentList.clear()
 
         menu?.close()
-
-        val refWatcher = ChristianApplication.getRefWatcher(this)
-        refWatcher.watch(this)
     }
 
     class NavDetailFragmentPagerAdapter(fm: FragmentManager) : NavActivity.NavFragmentPagerAdapter(fm) {

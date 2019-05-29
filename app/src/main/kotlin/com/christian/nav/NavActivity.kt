@@ -13,7 +13,6 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
 import com.firebase.ui.auth.AuthUI
@@ -350,12 +349,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             child.translationY = 2000f
             return false
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        val refWatcher = ChristianApplication.getRefWatcher(this)
-        refWatcher.watch(this)
     }
 
     // presenter solve login in and login out logic
