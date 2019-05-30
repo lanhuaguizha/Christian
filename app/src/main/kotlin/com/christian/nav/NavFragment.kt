@@ -164,7 +164,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         super.onDestroyView()
         if (navId == VIEW_HOME)
             gospelAdapter.stopListening()
-        if (navId == VIEW_ME)
+        if (navId == VIEW_ME && ::meAdapter.isInitialized)
             meAdapter.stopListening()
     }
 
@@ -383,5 +383,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         abstract fun onBottom()
     }
 }
+
 
 
