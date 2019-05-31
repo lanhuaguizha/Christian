@@ -9,7 +9,8 @@
     android:background="?selectableItemBackgroundBorderless">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/portrait"
+        android:visibility="gone"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="@dimen/card_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -36,11 +37,12 @@
 
     <TextView
         android:id="@+id/name"
+        android:visibility="gone"
         style="@android:style/TextAppearance.Large"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toEndOf="@+id/portrait"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -53,6 +55,7 @@
         android:text="Yongqiang Tao" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/intro"
         style="@android:style/TextAppearance.Medium"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,8 +81,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in"
+        android:background="@android:color/transparent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -88,24 +92,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:theme="@style/Christian.Button.White"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="@string/register"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/white"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:layout_constraintBottom_toBottomOf="@+id/sign_in"
-        app:layout_constraintEnd_toEndOf="@+id/name"
-        app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintStart_toEndOf="@+id/sign_in" />
 </androidx.constraintlayout.widget.ConstraintLayout>

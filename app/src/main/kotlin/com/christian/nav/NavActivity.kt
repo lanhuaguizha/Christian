@@ -366,6 +366,17 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
+                if (user != null) {
+                    sign_in.visibility = View.GONE
+                    portrait.visibility = View.VISIBLE
+                    name.visibility = View.VISIBLE
+                    intro.visibility = View.VISIBLE
+                } else {
+                    sign_in.visibility = View.VISIBLE
+                    portrait.visibility = View.GONE
+                    name.visibility = View.GONE
+                    intro.visibility = View.GONE
+                }
                 // ...
             } else {
                 // Sign in failed. If response is null the user canceled the

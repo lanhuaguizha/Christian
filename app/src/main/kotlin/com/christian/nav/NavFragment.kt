@@ -206,7 +206,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                                 rv_nav.scheduleLayoutAnimation()
                             }
                             LoadingState.FINISHED -> {
-                                pb_nav.visibility = View.GONE
 //                                Snackbar.make(navActivity.cl_nav, R.string.finished, Snackbar.LENGTH_SHORT).show()
                                 showToast(getString(R.string.finished))
                             }
