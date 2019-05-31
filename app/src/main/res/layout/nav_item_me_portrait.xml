@@ -6,7 +6,7 @@
     android:clickable="true"
     android:focusable="true"
     android:theme="@style/AppTheme.AppBarOverlay"
-    android:foreground="?selectableItemBackgroundBorderless">
+    android:background="?selectableItemBackgroundBorderless">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -35,7 +35,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/tv_nav_item_small"
+        android:id="@+id/name"
         style="@android:style/TextAppearance.Large"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,10 +53,10 @@
         android:text="Yongqiang Tao" />
 
     <TextView
-        android:id="@+id/tv2_nav_item_small"
+        android:id="@+id/intro"
         style="@android:style/TextAppearance.Medium"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_nav_item_small"
+        app:layout_constraintStart_toStartOf="@+id/name"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
         android:gravity="top"
         android:maxLines="2"
         android:textColor="@color/white"
-        android:text="个性签名：基督徒软件开发者，致力于打造全球最优体验的传福音软件" />
+        android:text="个性签名：基督徒软件开发者，致力于打造全球最优体验的传福音软件 个性签名：基督徒软件开发者，致力于打造全球最优体验的传福音软件 个性签名：基督徒软件开发者，致力于打造全球最优体验的传福音软件" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -79,7 +79,7 @@
         android:orientation="horizontal" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button4"
+        android:id="@+id/sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -92,7 +92,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -104,8 +104,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/white"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:layout_constraintBottom_toBottomOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="@+id/tv_nav_item_small"
+        app:layout_constraintBottom_toBottomOf="@+id/sign_in"
+        app:layout_constraintEnd_toEndOf="@+id/name"
         app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintStart_toEndOf="@+id/button4" />
+        app:layout_constraintStart_toEndOf="@+id/sign_in" />
 </androidx.constraintlayout.widget.ConstraintLayout>

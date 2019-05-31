@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
 import com.firebase.ui.auth.AuthUI
@@ -21,6 +20,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
+import kotlinx.android.synthetic.main.nav_item_me_portrait.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.search_bar_expanded.*
 import org.jetbrains.anko.debug
@@ -106,6 +106,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     override fun initView(navFragmentList: ArrayList<NavFragment>) {
         initTb()
+        initPortrait()
         initSb()
         initVp(navFragmentList)
         initFab()
@@ -193,6 +194,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             tl_nav.newTab().setText(tabTitle).let { tl_nav.addTab(it) }
         }
         info { "圣经初始化" }
+    }
+
+    private fun initPortrait() {
+        applyMarqueeEffect(intro)
     }
 
     private fun initSb() {
