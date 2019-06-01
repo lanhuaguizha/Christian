@@ -439,7 +439,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
 
-    private fun snackbar(s: String): Snackbar {
+    fun snackbar(s: String): Snackbar {
         val snackbar = Snackbar.make(cl_nav, s, Snackbar.LENGTH_SHORT)
         val snackbarView = snackbar.view
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -449,8 +449,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         val params = snackbarView.layoutParams as CoordinatorLayout.LayoutParams
         params.anchorId = R.id.bnv_nav
         params.width = CoordinatorLayout.LayoutParams.MATCH_PARENT
-        params.gravity = Gravity.CENTER_HORIZONTAL
-        params.anchorGravity = Gravity.TOP
+        params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL// 相对锚点的位置
+        params.anchorGravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL // 锚点的位置
         snackbarView.layoutParams = params
 
         return snackbar

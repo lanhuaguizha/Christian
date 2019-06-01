@@ -206,12 +206,12 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                                 rv_nav.scheduleLayoutAnimation()
                             }
                             LoadingState.FINISHED -> {
-//                                Snackbar.make(navActivity.cl_nav, R.string.finished, Snackbar.LENGTH_SHORT).show()
-                                showToast(getString(R.string.finished))
+                                navActivity.snackbar(getString(R.string.finished)).show()
+//                                showToast()
                             }
                             LoadingState.ERROR -> {
-//                                Snackbar.make(navActivity.cl_nav, R.string.error, Snackbar.LENGTH_SHORT).show()
-                                showToast(getString(R.string.error))
+                                navActivity.snackbar(getString(R.string.error)).show()
+//                                showToast()
                                 retry()
                             }
                         }
