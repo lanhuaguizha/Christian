@@ -27,13 +27,6 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
 
     init {
 //        containerView.login_nav_item.setOnClickListener {
-//            // Create and launch sign-in intent
-//            (presenter as NavItemPresenter).ctx.startActivityForResult(
-//                    AuthUI.getInstance()
-//                            .createSignInIntentBuilder()
-//                            .setAvailableProviders(providers)
-//                            .build(),
-//                    NavActivity.RC_SIGN_IN)
 //        }
 
 //        when (adapterPosition) {

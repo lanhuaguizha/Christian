@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -12,11 +13,13 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
@@ -24,6 +27,7 @@ import kotlinx.android.synthetic.main.nav_item_me_portrait.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.search_bar_expanded.*
 import org.jetbrains.anko.debug
+import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
 import java.lang.ref.WeakReference
 import java.util.*
@@ -60,13 +64,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     var verticalOffset = -1
     lateinit var navFragmentPagerAdapter: NavFragmentPagerAdapter
 
-    private val providers = Arrays.asList(
-//                    AuthUI.IdpConfig.EmailBuilder().build(),
-            AuthUI.IdpConfig.PhoneBuilder().build()
-//                    AuthUI.IdpConfig.GoogleBuilder().build(),
-//                    AuthUI.IdpConfig.FacebookBuilder().build(),
-//                    AuthUI.IdpConfig.TwitterBuilder().build())
-    )
     private val viewPagerOnPageChangeListener = object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
         }
@@ -85,7 +82,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         override fun onPageScrollStateChanged(state: Int) {
             if (state == 2) {
-                fab_nav.hide()
+//                fab_nav.hide()
             } else if (state == 0) {
 //                    fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
 //                    if (showOrHideLogicExecute) {
@@ -199,7 +196,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     private fun initPortrait() {
         applyMarqueeEffect(intro)
         sign_in.setOnClickListener {
-            info { "sign_in.setOnClickListener" }
+            signIn()
         }
     }
 
@@ -235,14 +232,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     fun showFAB() {
 //        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.setOnClickListener {
-
-            // Create and launch sign-in intent
-            startActivityForResult(
-                    AuthUI.getInstance()
-                            .createSignInIntentBuilder()
-                            .setAvailableProviders(providers)
-                            .build(),
-                    RC_SIGN_IN)
         }
 //        if (fab_nav.visibility != View.VISIBLE) {
 //            debug { "initFAB View.VISIBLE" }
@@ -362,7 +351,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     // presenter solve login in and login out logic
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-//        presenter.createUser()
+
+        val snackbar = snackbar("sign in, user: ${FirebaseAuth.getInstance().currentUser}")
+        snackbar.show()
+
+
         if (requestCode == RC_SIGN_IN) {
             val response = IdpResponse.fromResultIntent(data)
 
@@ -421,5 +414,45 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     val appBarLayoutOnOffsetChangedListener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
         appBarLayoutOnOffsetChangedListener(this@NavActivity, appBarLayout, verticalOffset)
         this@NavActivity.verticalOffset = verticalOffset
+    }
+
+    /**
+     * Me Page登录方法，会在onActivityResult返回结果
+     */
+    private fun signIn() {
+        // Choose authentication providers
+        val providers = arrayListOf(
+                AuthUI.IdpConfig.EmailBuilder().build(),
+                AuthUI.IdpConfig.PhoneBuilder().build(),
+                AuthUI.IdpConfig.GoogleBuilder().build()
+//                AuthUI.IdpConfig.FacebookBuilder().build(),
+//                AuthUI.IdpConfig.TwitterBuilder().build()
+        )
+
+        // Create and launch sign-in intent
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN)
+    }
+
+
+    private fun snackbar(s: String): Snackbar {
+        val snackbar = Snackbar.make(cl_nav, s, Snackbar.LENGTH_SHORT)
+        val snackbarView = snackbar.view
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            snackbarView.elevation = dip(3).toFloat()
+        }
+
+        val params = snackbarView.layoutParams as CoordinatorLayout.LayoutParams
+        params.anchorId = R.id.bnv_nav
+        params.width = CoordinatorLayout.LayoutParams.MATCH_PARENT
+        params.gravity = Gravity.CENTER_HORIZONTAL
+        params.anchorGravity = Gravity.TOP
+        snackbarView.layoutParams = params
+
+        return snackbar
     }
 }
