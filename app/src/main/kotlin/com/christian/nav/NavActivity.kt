@@ -198,6 +198,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     private fun initPortrait() {
         applyMarqueeEffect(intro)
+        sign_in.setOnClickListener {
+            info { "sign_in.setOnClickListener" }
+        }
     }
 
     private fun initSb() {
@@ -371,11 +374,19 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                     portrait.visibility = View.VISIBLE
                     name.visibility = View.VISIBLE
                     intro.visibility = View.VISIBLE
+
+                    portrait_layout.isClickable = true
+                    portrait_layout.isFocusable = true
+                    portrait_layout.isFocusableInTouchMode = true
                 } else {
                     sign_in.visibility = View.VISIBLE
                     portrait.visibility = View.GONE
                     name.visibility = View.GONE
                     intro.visibility = View.GONE
+
+                    portrait_layout.isClickable = false
+                    portrait_layout.isFocusable = false
+                    portrait_layout.isFocusableInTouchMode = false
                 }
                 // ...
             } else {
