@@ -14,6 +14,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
 import com.firebase.ui.auth.AuthUI
@@ -198,6 +199,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         sign_in.setOnClickListener {
             signIn()
         }
+        sign_out.setOnClickListener {
+            //            FirebaseAuth.getInstance().signOut()
+        }
     }
 
     private fun initSb() {
@@ -352,34 +356,38 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        val snackbar = snackbar("sign in, user: ${FirebaseAuth.getInstance().currentUser}")
-        snackbar.show()
-
-
         if (requestCode == RC_SIGN_IN) {
             val response = IdpResponse.fromResultIntent(data)
+            info { "response: ${response?.idpToken}" }
 
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
+                info { "user: $user" }
                 if (user != null) {
                     sign_in.visibility = View.GONE
+                    sign_out.visibility = View.VISIBLE
                     portrait.visibility = View.VISIBLE
                     name.visibility = View.VISIBLE
                     intro.visibility = View.VISIBLE
+                    name.text = user.displayName
+                    intro.text = user.email
+                    Glide.with(this).load(user.photoUrl).into(iv_nav_item_small)
+                    info { "user.photoUrl: ${user.photoUrl}, user.displayName: ${user.displayName}, user.email: ${user.email}" }
 
-                    portrait_layout.isClickable = true
-                    portrait_layout.isFocusable = true
-                    portrait_layout.isFocusableInTouchMode = true
+                    portrait_nav.isClickable = true
+                    portrait_nav.isFocusable = true
+                    portrait_nav.isFocusableInTouchMode = true
                 } else {
                     sign_in.visibility = View.VISIBLE
+                    sign_out.visibility = View.GONE
                     portrait.visibility = View.GONE
                     name.visibility = View.GONE
                     intro.visibility = View.GONE
 
-                    portrait_layout.isClickable = false
-                    portrait_layout.isFocusable = false
-                    portrait_layout.isFocusableInTouchMode = false
+                    portrait_nav.isClickable = false
+                    portrait_nav.isFocusable = false
+                    portrait_nav.isFocusableInTouchMode = false
                 }
                 // ...
             } else {
@@ -387,6 +395,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 // ...
+                val snackbar = snackbar("sign in filed.")
+                snackbar.show()
             }
         }
     }
