@@ -1,9 +1,6 @@
 package com.christian.navdetail
 
-import android.view.Menu
-import android.view.MenuItem
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import androidx.core.content.res.ResourcesCompat
 import androidx.customview.widget.ViewDragHelper.INVALID_POINTER
 import androidx.fragment.app.Fragment
@@ -14,7 +11,9 @@ import com.christian.nav.*
 import com.christian.navdetail.gospel.GospelDetailFragment
 import com.christian.navdetail.gospel.GospelReviewFragment
 import com.google.android.material.tabs.TabLayout.MODE_FIXED
+import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import org.jetbrains.anko.debug
 import java.util.*
@@ -95,8 +94,10 @@ class NavDetailActivity : NavActivity() {
 
     private var pagePositionOffset: Float = 0f
 
+    private lateinit var navDetailFragmentPagerAdapter: NavDetailFragmentPagerAdapter
+
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
-        val navDetailFragmentPagerAdapter = NavDetailFragmentPagerAdapter(supportFragmentManager)
+        navDetailFragmentPagerAdapter = NavDetailFragmentPagerAdapter(supportFragmentManager)
         vp_nav.adapter = navDetailFragmentPagerAdapter
         vp_nav.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
 
@@ -229,5 +230,22 @@ class NavDetailActivity : NavActivity() {
             return 2
         }
 
+        override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
+            when (position) {
+                0 -> {
+                    currentFragment = `object` as GospelDetailFragment
+                }
+                1 -> {
+                    currentFragment = `object` as GospelReviewFragment
+                }
+            }
+            super.setPrimaryItem(container, position, `object`)
+        }
+    }
+
+    override fun scrollRvToTop(navActivity: NavActivity) {
+        if (::navDetailFragmentPagerAdapter.isInitialized)
+            navDetailFragmentPagerAdapter.currentFragment.rv_gospel_detail.smoothScrollToPosition(0) // 为了滚到顶
+        navActivity.abl_nav.setExpanded(true, true)
     }
 }

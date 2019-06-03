@@ -430,11 +430,6 @@ fun controlOverScroll(navActivity: NavActivity, appBarLayout: AppBarLayout, vert
 //    }
 }
 
-fun scrollRvToTop(navActivity: NavActivity) {
-    navActivity.navFragmentPagerAdapter.currentFragment.rv_nav.smoothScrollToPosition(0) // 为了滚到顶
-    navActivity.abl_nav.setExpanded(true, true)
-}
-
 @SuppressLint("RestrictedApi")
 fun disableShiftMode(view: BottomNavigationView) {
     val menuView = view.getChildAt(0) as BottomNavigationMenuView

@@ -29,14 +29,6 @@ class NavContract {
         fun showFab(drawableId: Int)
 
         fun hideFab()
-
-        /**
-         * Activity has these views,
-         * ConstraintLayout, CoordinatorLayout, AppBarLayout, Toolbar, SearchEditTextLayout,
-         * ConstraintLayout, SwipeRefreshLayout, RecyclerView, FastScroller,
-         * AnimationFloatingActionButton, BlurView, BottomNavigationView, ProgressBar
-         */
-        fun deinitView()
     }
 
     interface INavFragment : AnkoLogger {

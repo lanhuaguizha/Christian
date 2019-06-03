@@ -24,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_item_me_portrait.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import kotlinx.android.synthetic.main.search_bar_expanded.*
@@ -103,6 +104,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun initView(navFragmentList: ArrayList<NavFragment>) {
+        initAbl()
         initTb()
         initPortrait()
         initSb()
@@ -112,7 +114,12 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         initBnv()
     }
 
-    override fun deinitView() {
+    fun initAbl() {
+        tb_nav.setOnClickListener(object : DoubleClickListener() {
+            override fun onDoubleClick(v: View) {
+                scrollRvToTop(this@NavActivity)
+            }
+        })
     }
 
     internal lateinit var tabTitleList: ArrayList<String>
@@ -469,5 +476,30 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         snackbarView.layoutParams = params
 
         return snackbar
+    }
+
+    open fun scrollRvToTop(navActivity: NavActivity) {
+        if (::navFragmentPagerAdapter.isInitialized)
+            navActivity.navFragmentPagerAdapter.currentFragment.rv_nav.smoothScrollToPosition(0) // 为了滚到顶
+        navActivity.abl_nav.setExpanded(true, true)
+    }
+
+
+    abstract class DoubleClickListener : View.OnClickListener {
+
+        companion object {
+            const val DOUBLE_TIME = 1000
+            var lastClickTime = 0L
+        }
+
+        override fun onClick(v: View) {
+            val currentTimeMillis = System.currentTimeMillis()
+            if (currentTimeMillis - lastClickTime < DOUBLE_TIME) {
+                onDoubleClick(v)
+            }
+            lastClickTime = currentTimeMillis
+        }
+
+        abstract fun onDoubleClick(v: View)
     }
 }

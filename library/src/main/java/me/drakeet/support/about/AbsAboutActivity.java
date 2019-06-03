@@ -109,16 +109,16 @@ public abstract class AbsAboutActivity extends AppCompatActivity {
     ParallaxBackLayout parallaxBackLayout = ParallaxHelper.getParallaxBackLayout(this);
     parallaxBackLayout.setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, new CupertinoParallaxTransform());
     parallaxBackLayout.setShadowDrawable(AppCompatResources.getDrawable(this, R.drawable.bga_sbl_shadow));
-    parallaxBackLayout.setScrollThresHold(0.2f);
-    parallaxBackLayout.setVelocity(Integer.MAX_VALUE);
+    parallaxBackLayout.setScrollThresHold(1/3f);
+    parallaxBackLayout.setVelocity(1000);
   }
 
-  @Override
-  public void onBackPressed() {
-    ParallaxBackLayout layout = ParallaxHelper.getParallaxBackLayout(this, false);
-    if (layout == null || !layout.scrollToFinishActivity(0))
-    super.onBackPressed();
-  }
+//  @Override
+//  public void onBackPressed() {
+//    ParallaxBackLayout layout = ParallaxHelper.getParallaxBackLayout(this, false);
+//    if (layout == null || !layout.scrollToFinishActivity(0))
+//    super.onBackPressed();
+//  }
 
   @Override @SuppressWarnings("deprecation")
   protected void onPostCreate(@Nullable Bundle savedInstanceState) {

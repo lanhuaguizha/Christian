@@ -29,8 +29,8 @@ abstract class SwipeBackActivity : AestheticActivity() {
         val parallaxBackLayout = ParallaxHelper.getParallaxBackLayout(this, true)
         parallaxBackLayout.setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, CupertinoParallaxTransform())
         parallaxBackLayout.setShadowDrawable(AppCompatResources.getDrawable(this@SwipeBackActivity, R.drawable.bga_sbl_shadow))
-        parallaxBackLayout.setScrollThresHold(0.2f)
-        parallaxBackLayout.setVelocity(Int.MAX_VALUE)
+        parallaxBackLayout.setScrollThresHold(1/3f)
+        parallaxBackLayout.setVelocity(1000)
     }
 
 //    override fun onBackPressed() {
