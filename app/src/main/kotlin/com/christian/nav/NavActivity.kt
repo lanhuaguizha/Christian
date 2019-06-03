@@ -200,7 +200,12 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             signIn()
         }
         sign_out.setOnClickListener {
-            //            FirebaseAuth.getInstance().signOut()
+            val user = FirebaseAuth.getInstance().currentUser
+            user?.delete()?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    snackbar("User account deleted")
+                }
+            }
         }
     }
 
