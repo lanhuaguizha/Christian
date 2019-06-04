@@ -27,12 +27,6 @@
         android:title="收藏"
         app:showAsAction="never" />
     <item
-        android:id="@+id/menu_collection"
-        android:orderInCategory="1"
-        android:title="字体大小"
-        app:showAsAction="never" />
-
-    <item
         android:orderInCategory="1"
         android:title="朗读"
         app:showAsAction="never" />

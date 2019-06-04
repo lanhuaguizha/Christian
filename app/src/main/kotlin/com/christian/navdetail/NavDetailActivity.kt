@@ -200,7 +200,7 @@ class NavDetailActivity : NavActivity() {
             R.id.menu_download -> {
                 true
             }
-            R.id.menu_collection -> true
+//            R.id.menu_collection -> true
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -81,6 +81,22 @@ public abstract class AbsAboutActivity extends AppCompatActivity {
     super.setContentView(view, params);
   }
 
+
+  public  abstract class DoubleClickListener implements View.OnClickListener {
+    private static final long DOUBLE_TIME = 1000;
+    private long lastClickTime = 0;
+
+    @Override
+    public void onClick(View v) {
+      long currentTimeMillis = System.currentTimeMillis();
+      if (currentTimeMillis - lastClickTime < DOUBLE_TIME) {
+        onDoubleClick(v);
+      }
+      lastClickTime = currentTimeMillis;
+    }
+    public abstract void onDoubleClick(View v);
+  }
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -103,6 +119,14 @@ public abstract class AbsAboutActivity extends AppCompatActivity {
     }
     onApplyPresetAttrs();
     recyclerView = findViewById(R.id.list);
+
+
+    toolbar.setOnClickListener(new DoubleClickListener() {
+      @Override
+      public void onDoubleClick(View v) {
+        recyclerView.smoothScrollToPosition(0);
+      }
+    });
   }
 
   private void initSbl() {
