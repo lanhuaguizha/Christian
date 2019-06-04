@@ -1,4 +1,4 @@
-package com.christian.navdetail.gospel
+package com.christian.navdetail
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -10,6 +10,7 @@ import com.christian.R
 import com.christian.navdetailitem.gospel.GospelDetailAdapter
 import com.christian.nav.NavActivity
 import com.christian.nav.NavFragment
+import com.christian.navdetail.gospel.GospelDetailViewModel
 import com.christian.view.GospelDetailItemDecoration
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,10 +22,10 @@ import kotlinx.android.synthetic.main.gospel_detail_fragment.view.*
  * MVVM-databinding架构开发
  * 福音详情页
  */
-class GospelDetailFragment : NavFragment() {
+class NavDetailFragment : NavFragment() {
 
     companion object {
-        fun newInstance() = GospelDetailFragment()
+        fun newInstance() = NavDetailFragment()
     }
 
     private lateinit var viewModel: GospelDetailViewModel
@@ -45,7 +46,7 @@ class GospelDetailFragment : NavFragment() {
         firestore = FirebaseFirestore.getInstance()
         // Get ${LIMIT} gospels
         gospelRef = firestore.collection("gospels").document("2019.3.15 10:31")
-        gospelDetailAdapter = object : GospelDetailAdapter(gospelRef, this@GospelDetailFragment.activity as NavActivity) {
+        gospelDetailAdapter = object : GospelDetailAdapter(gospelRef, this@NavDetailFragment.activity as NavActivity) {
             override fun onDataChanged() {
                 // Show/hide content if the query returns empty.
                 if (itemCount == 0) {

@@ -17,7 +17,7 @@ import androidx.annotation.NonNull
 import com.christian.R
 import com.christian.data.Gospel
 import com.christian.navdetail.NavDetailActivity
-import com.christian.navdetail.gospel.GospelDetailFragment
+import com.christian.navdetail.NavDetailFragment
 import com.christian.navdetail.gospel.GospelReviewFragment
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
@@ -31,7 +31,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_fragment.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
@@ -80,7 +79,7 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
                         navFragmentList.add(meFragment)
                     }
                     GOSPEL_DETAIL_ACTIVITY -> {
-                        val gospelDetailFragment = GospelDetailFragment()
+                        val gospelDetailFragment = NavDetailFragment()
                         gospelDetailFragment.navId = 4
                         navFragmentList.add(gospelDetailFragment)
 

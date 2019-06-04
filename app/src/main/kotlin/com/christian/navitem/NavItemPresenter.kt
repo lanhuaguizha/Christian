@@ -10,7 +10,7 @@ import org.jetbrains.anko.AnkoLogger
 /**
  * NavItemPresenter/Adapter is business logic of nav items.
  */
-abstract class NavItemPresenter : NavItemContract.IPresenter, AnkoLogger {
+abstract class NavItemPresenter : AnkoLogger {
 
 
     /* private fun applyViewHolderAnimation(holder: NavItemView) {

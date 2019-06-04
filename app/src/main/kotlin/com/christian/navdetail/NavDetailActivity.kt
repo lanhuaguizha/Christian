@@ -8,12 +8,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.christian.R
 import com.christian.nav.*
-import com.christian.navdetail.gospel.GospelDetailFragment
-import com.christian.navdetail.gospel.GospelReviewFragment
 import com.google.android.material.tabs.TabLayout.MODE_FIXED
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.sb_nav.*
 import org.jetbrains.anko.debug
 import java.util.*
@@ -88,6 +85,14 @@ class NavDetailActivity : NavActivity() {
             tl_nav.newTab().setText(tabTitle).let { tl_nav.addTab(it) }
         }
         tl_nav.tabMode = MODE_FIXED
+    }
+
+    override fun initBv() {
+        super.initBv()
+        val params = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
+        params.gravity = Gravity.BOTTOM
+        params.behavior = BottomNavigationViewBehaviorDetail(this, null)
+        bv_nav.layoutParams = params
     }
 
     private var pagePosition: Int = 0
@@ -213,31 +218,31 @@ class NavDetailActivity : NavActivity() {
         override fun getItem(position: Int): Fragment {
             when (position) {
                 0 -> {
-                    val gospelDetailFragment = GospelDetailFragment()
+                    val gospelDetailFragment = NavDetailFragment()
                     gospelDetailFragment.navId = 31
                     return gospelDetailFragment
                 }
-                1 -> {
-                    val gospelReviewFragment = GospelReviewFragment()
-                    gospelReviewFragment.navId = position + 31
-                    return gospelReviewFragment
-                }
+//                1 -> {
+//                    val gospelReviewFragment = GospelReviewFragment()
+//                    gospelReviewFragment.navId = position + 31
+//                    return gospelReviewFragment
+//                }
             }
             return super.getItem(position)
         }
 
         override fun getCount(): Int {
-            return 2
+            return 1
         }
 
         override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
             when (position) {
                 0 -> {
-                    currentFragment = `object` as GospelDetailFragment
+                    currentFragment = `object` as NavDetailFragment
                 }
-                1 -> {
-                    currentFragment = `object` as GospelReviewFragment
-                }
+//                1 -> {
+//                    currentFragment = `object` as GospelReviewFragment
+//                }
             }
             super.setPrimaryItem(container, position, `object`)
         }

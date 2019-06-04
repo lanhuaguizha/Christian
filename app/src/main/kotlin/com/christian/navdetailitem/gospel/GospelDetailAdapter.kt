@@ -17,7 +17,7 @@ import kotlin.collections.ArrayList
 import kotlin.collections.get
 
 /**
- * Adapter for the RecyclerView in GospelDetailFragment
+ * Adapter for the RecyclerView in NavDetailFragment
  */
 abstract class GospelDetailAdapter(private var gospelRef: DocumentReference, val navActivity: NavActivity) : androidx.recyclerview.widget.RecyclerView.Adapter<GospelDetailAdapter.ViewHolder>(), EventListener<DocumentSnapshot>, AnkoLogger {
 
