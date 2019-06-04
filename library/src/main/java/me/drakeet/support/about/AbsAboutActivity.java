@@ -109,7 +109,7 @@ public abstract class AbsAboutActivity extends AppCompatActivity {
     ParallaxBackLayout parallaxBackLayout = ParallaxHelper.getParallaxBackLayout(this);
     parallaxBackLayout.setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, new CupertinoParallaxTransform());
     parallaxBackLayout.setShadowDrawable(AppCompatResources.getDrawable(this, R.drawable.bga_sbl_shadow));
-    parallaxBackLayout.setScrollThresHold(1/3f);
+    parallaxBackLayout.setScrollThresHold(0.2f);
     parallaxBackLayout.setVelocity(Integer.MAX_VALUE);
   }
 
