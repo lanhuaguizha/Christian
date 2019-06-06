@@ -7,7 +7,7 @@
     style="@style/AboutPage.Item.Card">
 
     <TextView
-        android:lineSpacingMultiplier="1.2"
+        android:lineSpacingMultiplier="1.4"
         style="@style/AboutPage.CardContent"
         android:id="@+id/content"
         tools:text="content"/>
