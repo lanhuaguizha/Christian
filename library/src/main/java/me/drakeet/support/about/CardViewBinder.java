@@ -33,7 +33,7 @@ public class CardViewBinder extends ItemViewBinder<Card, CardViewBinder.ViewHold
         // obtain an instance of Markwon
         final Markwon markwon = Markwon.create(mContext);
         // set markdown
-        markwon.setMarkdown(holder.content, card.content.toString());
+        markwon.setMarkdown(holder.content, card.content.toString().replace("\\n", "\n"));
 //    holder.content.setText(card.content);
     }
 

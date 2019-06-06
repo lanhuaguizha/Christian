@@ -57,6 +57,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         snapshot = documentSnapshots
         meBean = snapshot?.toObject(MeBean::class.java) ?: MeBean()
 
+        items.clear()
         for (me in meBean.detail) {
             if (me.type == "category")
                 items.add(Category(me.category))
@@ -148,6 +149,6 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         icon.setImageResource(R.mipmap.ic_launcher)
         slogan.text = getString(R.string.app_name)
         title = intent?.extras?.getString(toolbarTitle) ?: nullString
-        version.text = BuildConfig.VERSION_NAME
+        version.text = getString(R.string.version)
     }
 }
