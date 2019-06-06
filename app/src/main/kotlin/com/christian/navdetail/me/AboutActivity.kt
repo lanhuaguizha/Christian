@@ -60,7 +60,8 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         snapshot = documentSnapshots
         meBean = snapshot?.toObject(MeBean::class.java) ?: MeBean()
 
-        items.clear()
+        if (!items.isEmpty())
+            items.clear()
         for (me in meBean.detail) {
             if (me.type == "category")
                 items.add(Category(me.category))
@@ -68,8 +69,6 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
                 items.add(Card(me.card))
         }
         (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(lastPosition, lastOffset)
-        adapter.notifyDataSetChanged()
-        recyclerView.visibility = View.VISIBLE
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +86,6 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
     }
 
     override fun onItemsCreated(items: MutableList<Any>) {
-        recyclerView.visibility = View.INVISIBLE
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
