@@ -44,6 +44,11 @@ public abstract class AbsAboutActivity extends AppCompatActivity {
   private List<Object> items;
   private MultiTypeAdapter adapter;
   private TextView slogan, version;
+
+  public RecyclerView getRecyclerView() {
+    return recyclerView;
+  }
+
   private RecyclerView recyclerView;
   private @Nullable ImageLoader imageLoader;
   private boolean initialized;

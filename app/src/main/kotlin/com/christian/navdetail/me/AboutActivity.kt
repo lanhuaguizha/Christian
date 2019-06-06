@@ -5,7 +5,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.christian.BuildConfig
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.nav.getDocumentReference
@@ -43,6 +44,9 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         adapter.notifyDataSetChanged()
     }
 
+    private var lastPosition = 0//位置
+    private var lastOffset = 0//偏移量
+
     override fun onEvent(documentSnapshots: DocumentSnapshot?, e: FirebaseFirestoreException?) {
         if (e != null) {
             warn { "onEvent:error$e" }
@@ -64,6 +68,8 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
             if (me.type == "card")
                 items.add(Card(me.card))
         }
+        recyclerView.visibility = View.VISIBLE
+        (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(lastPosition, lastOffset)
         // Dispatch the event
         debug { "onEvent:numChanges:$documentSnapshots.documentChanges.size" }
 //        for (change in documentSnapshots.documentChanges) {
@@ -92,6 +98,25 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
     }
 
     override fun onItemsCreated(items: MutableList<Any>) {
+        recyclerView.visibility = View.INVISIBLE
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val topView = recyclerView.layoutManager?.getChildAt(0) //获取可视的第一个view
+                lastOffset = topView?.top ?: 0//获取与该view的顶部的偏移量
+                lastPosition = topView?.let { recyclerView.layoutManager?.getPosition(it) }
+                        ?: 0  //得到该View的数组位置
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val topView = recyclerView.layoutManager?.getChildAt(0) //获取可视的第一个view
+                lastOffset = topView?.top ?: 0//获取与该view的顶部的偏移量
+                lastPosition = topView?.let { recyclerView.layoutManager?.getPosition(it) }
+                        ?: 0  //得到该View的数组位置
+            }
+        })
 
 
         items.add(Category("介绍与帮助"))
