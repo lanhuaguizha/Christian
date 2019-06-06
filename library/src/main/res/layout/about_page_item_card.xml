@@ -6,8 +6,8 @@
     android:clickable="true"
     style="@style/AboutPage.Item.Card">
 
-    <me.drakeet.support.about.ChangeTextViewSpace
-        android:lineSpacingMultiplier="3"
+    <TextView
+        android:lineSpacingMultiplier="1.2"
         style="@style/AboutPage.CardContent"
         android:id="@+id/content"
         tools:text="content"/>

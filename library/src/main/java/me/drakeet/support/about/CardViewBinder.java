@@ -33,15 +33,13 @@ public class CardViewBinder extends ItemViewBinder<Card, CardViewBinder.ViewHold
         // obtain an instance of Markwon
         final Markwon markwon = Markwon.create(mContext);
         // set markdown
-        ChangeTextViewSpace content = holder.content;
-        content.setSpacing(10);
-        markwon.setMarkdown(content, card.content.toString().replace("\\n", "\n"));
+        markwon.setMarkdown(holder.content, card.content.toString().replace("\\n", "\n"));
 //    holder.content.setText(card.content);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ChangeTextViewSpace content;
+        public TextView content;
 
         public ViewHolder(View itemView) {
             super(itemView);
