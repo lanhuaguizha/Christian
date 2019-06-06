@@ -119,12 +119,12 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         })
 
 
-        items.add(Category("介绍与帮助"))
-        items.add(Card(getString(R.string.large_text)))
+//        items.add(Category("介绍与帮助"))
+//        items.add(Card(getString(R.string.large_text)))
 //        items.add(Card(getString(R.string.card_content)))
 
-        items.add(Category(getString(R.string.developer)))
-        items.add(Contributor(R.drawable.me, "陶永强", "Developer & designer", "https://github.com/lanhuaguizha"))
+//        items.add(Category(getString(R.string.developer)))
+//        items.add(Contributor(R.drawable.me, "陶永强", "Developer & designer", "https://github.com/lanhuaguizha"))
 //        items.add(Contributor(R.mipmap.ic_launcher, "黑猫酱", "Developer", "https://drakeet.me"))
 //        items.add(Contributor(R.mipmap.ic_launcher, "小艾大人", "Developer"))
 
@@ -152,9 +152,9 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         // or
         // RecommendationLoader.getInstance().loadInto(this, items.size())
 
-        items.add(Category("Open Source Licenses"))
-        items.add(License("about-page", "drakeet", License.APACHE_2, "https://github.com/drakeet/about-page"))
-        items.add(License("MultiType", "drakeet", License.APACHE_2, "https://github.com/drakeet/MultiType"))
+//        items.add(Category("Open Source Licenses"))
+//        items.add(License("about-page", "drakeet", License.APACHE_2, "https://github.com/drakeet/about-page"))
+//        items.add(License("MultiType", "drakeet", License.APACHE_2, "https://github.com/drakeet/MultiType"))
     }
 
     override fun onRecommendationClicked(itemView: View, recommendation: Recommendation): Boolean {
