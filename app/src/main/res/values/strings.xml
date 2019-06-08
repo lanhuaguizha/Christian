@@ -247,5 +247,6 @@
     <string name="developer">Developer</string>
     <string name="finished">Reached end of data set.</string>
     <string name="error">An error occurred.</string>
+    <string name="sunrise_sunset">Sunrise%s Sunset%s</string>
 
 </resources>

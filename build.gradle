@@ -9,6 +9,8 @@ buildscript {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         google()
         jcenter()
+        //SunriseSunset
+        maven { url "https://dl.bintray.com/caarmen/maven/" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
@@ -24,6 +26,8 @@ allprojects {
         maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         google()
         jcenter()
+        //SunriseSunset
+        maven { url "https://dl.bintray.com/caarmen/maven/" }
     }
 }
 

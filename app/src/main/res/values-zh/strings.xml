@@ -236,5 +236,6 @@
     <string name="developer">开发者</string>
     <string name="finished">到达数据集的末尾。</string>
     <string name="error">发生错误。</string>
+    <string name="sunrise_sunset">日出%s 日落%s</string>
 
 </resources>

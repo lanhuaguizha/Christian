@@ -1,11 +1,11 @@
 package com.christian.navitem
 
+import android.app.Activity
 import android.content.Intent
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Switch
+import androidx.core.content.edit
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.aesthetic.Aesthetic
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.Disciple
@@ -101,36 +101,10 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
         containerView.context.startActivity(intent)
     }
 
-    private var isOn = false
     fun bind(setting: Setting) {
         when (adapterPosition) {
             0 -> {
                 containerView.setOnClickListener {
-                    if (isOn) {
-                        containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = false
-                        // 恢复应用默认皮肤
-//                        Aesthetic.config {
-//                            activityTheme(R.style.Christian)
-//                            isDark(false)
-//                            textColorPrimary(res = R.color.text_color_primary)
-//                            textColorSecondary(res = R.color.text_color_secondary)
-//                            attribute(R.attr.my_custom_attr, res = R.color.default_background_nav)
-//                            attribute(R.attr.my_custom_attr2, res = R.color.white)
-//                        }
-                        isOn = false
-                    } else {
-                        containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = true
-                        // 夜间模式
-//                        Aesthetic.config {
-//                            activityTheme(R.style.ChristianDark)
-//                            isDark(true)
-//                            textColorPrimary(res = android.R.color.primary_text_dark)
-//                            textColorSecondary(res = android.R.color.secondary_text_dark)
-//                            attribute(R.attr.my_custom_attr, res = R.color.text_color_primary)
-//                            attribute(R.attr.my_custom_attr2, res = R.color.background_material_dark)
-//                        }
-                        isOn = true
-                    }
                 }
             }
             5 -> {
@@ -149,7 +123,13 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
             }
         }
 
-        if (adapterPosition == 0) switch_nav_item_small.visibility = View.VISIBLE
+        if (adapterPosition == 0) {
+            val sharedPreferences = containerView.context.getSharedPreferences("christian", Activity.MODE_PRIVATE)
+            switch_nav_item_small.visibility = View.VISIBLE
+            val sunriseString = sharedPreferences.getString("sunrise", "").substring(11, 19)
+            val sunsetString = sharedPreferences.getString("sunset", "").substring(11, 19)
+            switch_nav_item_small.text = String.format(containerView.context.getString(R.string.sunrise_sunset), sunriseString, sunsetString)
+        }
         tv_nav_item_small.text = setting.name
         tv2_nav_item_small.text = setting.desc
         val url = setting.url

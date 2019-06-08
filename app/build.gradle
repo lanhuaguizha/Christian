@@ -142,7 +142,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-storage:4.3.2'
 
     // LeakCanary
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-2'
     // MultiDex
     implementation 'androidx.multidex:multidex:2.0.1'
 
@@ -172,6 +172,11 @@ dependencies {
 
     // DarkMode
     implementation 'com.afollestad:aesthetic:1.0.0-beta05'
+    // SunriseSunset
+    implementation 'ca.rmen:lib-sunrise-sunset:1.1.1'
+    // request permissions
+    implementation 'ru.superjob:kotlin-permissions:1.0.3' //https://github.com/superjobru/kotlin-permissions
+    implementation 'androidx.core:core-ktx:1.0.2'
 }
 
 androidExtensions {
