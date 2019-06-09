@@ -84,7 +84,7 @@
         android:layout_gravity="bottom"
         android:elevation="@dimen/bottom_navigation_view_elevation"
         android:outlineProvider="bounds"
-        app:blurOverlayColor="@color/colorOverlay"
+        app:blurOverlayColor="?attr/my_custom_attr3"
         tools:targetApi="lollipop">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

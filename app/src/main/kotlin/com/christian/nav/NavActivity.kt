@@ -179,6 +179,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 textColorSecondary(res = R.color.text_color_secondary)
                 attribute(R.attr.my_custom_attr, res = R.color.default_background_nav)
                 attribute(R.attr.my_custom_attr2, res = R.color.white)
+                attribute(R.attr.my_custom_attr3, res = R.color.colorOverlay)
             }
         } else {
             // 夜间模式
@@ -190,6 +191,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 textColorSecondary(res = android.R.color.secondary_text_dark)
                 attribute(R.attr.my_custom_attr, res = R.color.text_color_primary)
                 attribute(R.attr.my_custom_attr2, res = R.color.background_material_dark)
+                attribute(R.attr.my_custom_attr3, res = R.color.fui_transparent)
             }
         }
     }

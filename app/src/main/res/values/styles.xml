@@ -29,6 +29,7 @@
         <item name="android:windowAnimationStyle">@style/Animation_Right</item>
         <item name="my_custom_attr">@color/default_background_nav</item>
         <item name="my_custom_attr2">@color/white</item>
+        <item name="my_custom_attr3">@color/colorOverlay</item>
     </style>
 
     <style name="ChristianDark" parent="Theme.AppCompat.NoActionBar">
@@ -40,6 +41,7 @@
         <item name="android:windowAnimationStyle">@style/Animation_Right</item>
         <item name="my_custom_attr">@color/text_color_primary</item>
         <item name="my_custom_attr2">@color/background_material_dark</item>
+        <item name="my_custom_attr3">@color/fui_transparent</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
