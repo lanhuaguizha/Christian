@@ -237,5 +237,6 @@
     <string name="finished">到达数据集的末尾。</string>
     <string name="error">发生错误。</string>
     <string name="sunrise_sunset">日出%s 日落%s</string>
+    <string name="tips_location_permission_request">夜间模式功能需要开启位置服务获取日落时间</string>
 
 </resources>

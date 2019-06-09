@@ -163,6 +163,9 @@ const val ME_SETTING_DETAIL_ACTIVITY = 3
 
 const val RC_SIGN_IN = 0
 
+var latitude = 0.0
+var longitude = 0.0
+
 // 布局设置竟然不生效？网上解决方案：https://www.cnblogs.com/yuqf/p/5808236.html
 fun applyMarqueeEffect(textView: TextView) {
     textView.ellipsize = TextUtils.TruncateAt.MARQUEE

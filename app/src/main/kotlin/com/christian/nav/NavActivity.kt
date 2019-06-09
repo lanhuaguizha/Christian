@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -23,7 +22,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.edit
 import com.afollestad.aesthetic.Aesthetic
 import com.bumptech.glide.Glide
-import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
 import com.firebase.ui.auth.AuthUI
@@ -142,9 +140,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                     }
                     .onDenied { permissions ->
                         //List of denied permissions
+                        snackbar(getString(R.string.tips_location_permission_request)).show()
                     }
                     .onForeverDenied { permissions ->
                         //List of forever denied permissions
+                        snackbar(getString(R.string.tips_location_permission_request)).show()
                     }
                     .ask()
         } else {
@@ -153,7 +153,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     private fun sunriseSunsetApply() {
-        val ll = getLngAndLat(ChristianApplication.context)
+        val ll = getLngAndLat(this@NavActivity)
         info { ll[0] }
         info { ll[1] }
         val sunriseSunset = ca.rmen.sunrisesunset.SunriseSunset.getSunriseSunset(Calendar.getInstance(), ll[0], ll[1])
@@ -200,8 +200,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
      * 获取经纬度
      */
     private fun getLngAndLat(context: Context): Array<Double> {
-        var latitude = 0.0
-        var longitude = 0.0
+
         locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {  //从gps获取经纬度
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -236,8 +235,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     //从网络获取经纬度
     private fun getLngAndLatWithNetwork(): Array<Double> {
-        var latitude = 0.0
-        var longitude = 0.0
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -628,7 +625,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
 
     fun snackbar(s: String): Snackbar {
-        val snackbar = Snackbar.make(cl_nav, s, Snackbar.LENGTH_SHORT)
+        val snackbar = Snackbar.make(cl_nav, s, Snackbar.LENGTH_LONG)
         val snackbarView = snackbar.view
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             snackbarView.elevation = dip(3).toFloat()
