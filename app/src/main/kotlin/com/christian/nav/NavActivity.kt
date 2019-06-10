@@ -225,12 +225,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 return getLngAndLatWithNetwork()
             }
         } else {    //从网络获取经纬度
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0f, locationListener)
-            val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-            if (location != null) {
-                latitude = location.latitude
-                longitude = location.longitude
-            }
+            return getLngAndLatWithNetwork()
         }
         return arrayOf(latitude, longitude)
     }
@@ -250,7 +245,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 return arrayOf(latitude, longitude)
             }
         }
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0f, locationListener)
+        try {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0f, locationListener)
+        } catch (e: Exception) {
+            return arrayOf(latitude, longitude)
+        }
         val location: Location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
         latitude = location.latitude
         longitude = location.longitude
@@ -279,7 +278,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
     // end--
 
-    fun initAbl() {
+    private fun initAbl() {
         tb_nav.setOnClickListener(object : DoubleClickListener() {
             override fun onDoubleClick(v: View) {
                 scrollRvToTop(this@NavActivity)
@@ -668,8 +667,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         abstract fun onDoubleClick(v: View)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
         locationManager.removeUpdates(locationListener)
     }
 }
