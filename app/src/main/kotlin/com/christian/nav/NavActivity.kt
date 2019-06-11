@@ -121,9 +121,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         initBv()
         initBnv()
         // SunriseSunset sets DarkMode
-        Thread {
-            sunriseSunset()
-        }
+        sunriseSunset()
     }
 
     private fun sunriseSunset() {
@@ -675,8 +673,5 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         super.onDestroy()
         if (::locationManager.isInitialized)
             locationManager.removeUpdates(locationListener)
-        Thread {
-            mainLooper.quit()
-        }
     }
 }
