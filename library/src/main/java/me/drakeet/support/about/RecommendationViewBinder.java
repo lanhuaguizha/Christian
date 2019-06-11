@@ -11,10 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import java.lang.ref.WeakReference;
+
 import me.drakeet.multitype.ItemViewBinder;
 
 /**
@@ -113,7 +118,9 @@ public class RecommendationViewBinder extends ItemViewBinder<Recommendation, Rec
 
     private void openWithMarket(@NonNull Context context, @NonNull String targetPackage, @NonNull String defaultDownloadUrl) {
       try {
-        Intent googlePlayIntent = context.getPackageManager().getLaunchIntentForPackage("com.android.vending");
+        WeakReference<Context> reference = new WeakReference<>(context);
+        if (reference.get() == null) return;
+        Intent googlePlayIntent = reference.get().getPackageManager().getLaunchIntentForPackage("com.android.vending");
         ComponentName comp = new ComponentName("com.android.vending", "com.google.android.finsky.activities.LaunchUrlHandlerActivity");
         // noinspection ConstantConditions
         googlePlayIntent.setComponent(comp);

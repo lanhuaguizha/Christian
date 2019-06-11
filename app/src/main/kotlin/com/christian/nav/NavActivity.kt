@@ -121,7 +121,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         initBv()
         initBnv()
         // SunriseSunset sets DarkMode
-        sunriseSunset()
+        Thread {
+            sunriseSunset()
+        }
     }
 
     private fun sunriseSunset() {
@@ -203,7 +205,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
      */
     private fun getLngAndLat(context: Context): Array<Double> {
 
-        locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val reference = WeakReference<NavActivity>(this@NavActivity)
+
+        locationManager = reference.get()?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {  //从gps获取经纬度
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -667,8 +671,12 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         abstract fun onDoubleClick(v: View)
     }
 
-    override fun onPause() {
-        super.onPause()
-        locationManager.removeUpdates(locationListener)
+    override fun onDestroy() {
+        super.onDestroy()
+        if (::locationManager.isInitialized)
+            locationManager.removeUpdates(locationListener)
+        Thread {
+            mainLooper.quit()
+        }
     }
 }
