@@ -3,8 +3,11 @@ package com.christian.nav
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.content.Context
+import android.location.LocationManager
 import android.os.Build
+import android.os.UserManager
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +15,16 @@ import android.view.Window
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.NonNull
+import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.Gospel
 import com.christian.navdetail.NavDetailActivity
 import com.christian.navdetail.NavDetailFragment
 import com.christian.navdetail.gospel.GospelReviewFragment
+import com.christian.util.ChristianUtil
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import com.google.android.material.appbar.AppBarLayout
@@ -568,3 +574,27 @@ fun getQuery(@NonNull collectionPath: String, @NonNull field: String, @NonNull d
     return firestore.collection(collectionPath).orderBy(field, direction)
 }
 
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+fun userManagerMemoryLeakFix() {
+    val userManager = ChristianApplication.context.getSystemService(Context.USER_SERVICE) as UserManager
+    val clazz = UserManager::class.java
+    val mContext = clazz.getDeclaredField("mContext")
+    mContext.isAccessible = true
+    ChristianUtil.setFinalStatic(mContext, null)
+//    mContext.set(userManager, null)
+}
+
+fun inputMethodManagerMemoryLeakFix() {
+    val inputMethodManager = ChristianApplication.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val clazz = InputMethodManager::class.java
+    val mNextServedView = clazz.getDeclaredField("mNextServedView")
+    mNextServedView.isAccessible = true
+    mNextServedView.set(inputMethodManager, null)
+}
+
+fun locationManagerListenerTransportMemoryLeakFix() {
+    val locationManager = ChristianApplication.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    val mListeners = locationManager.javaClass.getDeclaredField("mListeners")
+    mListeners.isAccessible = true
+    mListeners.set(locationManager, null)
+}

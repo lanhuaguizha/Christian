@@ -168,6 +168,11 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             meAdapter.stopListening()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        inputMethodManagerMemoryLeakFix()
+    }
+
     private fun initRv() {
         val config = PagedList.Config.Builder()
                 .setEnablePlaceholders(false)

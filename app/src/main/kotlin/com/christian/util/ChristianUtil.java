@@ -18,10 +18,31 @@ package com.christian.util;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
+import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.christian.ChristianApplication;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
 public class ChristianUtil {
+
+    // 反射强势访问修改final变量
+    public static void setFinalStatic(Field field, Object newValue) throws Exception {
+        field.setAccessible(true);
+
+        Field modifiersField = Field.class.getDeclaredField("accessFlags");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            field.set(ChristianApplication.context.getSystemService(Context.USER_SERVICE), newValue);
+        }
+//        field.set(null, newValue);
+    }
+
     private static int screenWidth = 0;
     private static int screenHeight = 0;
 

@@ -202,10 +202,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
      * 获取经纬度
      */
     private fun getLngAndLat(context: Context): Array<Double> {
-
-        val reference = WeakReference<NavActivity>(this@NavActivity)
-
-        locationManager = reference.get()?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {  //从gps获取经纬度
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -673,5 +670,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         super.onDestroy()
         if (::locationManager.isInitialized)
             locationManager.removeUpdates(locationListener)
+
+        userManagerMemoryLeakFix()
+        inputMethodManagerMemoryLeakFix()
+        locationManagerListenerTransportMemoryLeakFix()
     }
 }
