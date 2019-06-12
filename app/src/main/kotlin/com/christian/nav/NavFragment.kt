@@ -1,6 +1,7 @@
 package com.christian.nav
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -170,7 +171,11 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     override fun onDestroy() {
         super.onDestroy()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            userManagerMemoryLeakFix()
+        }
         inputMethodManagerMemoryLeakFix()
+        locationManagerListenerTransportMemoryLeakFix()
     }
 
     private fun initRv() {

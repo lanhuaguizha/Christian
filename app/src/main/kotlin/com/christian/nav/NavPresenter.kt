@@ -18,6 +18,7 @@ import android.view.animation.LinearInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.NonNull
+import androidx.annotation.RequiresApi
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.Gospel
@@ -44,6 +45,8 @@ import org.jetbrains.anko.singleLine
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.lang.reflect.Field
+import java.lang.reflect.Modifier
 
 /**
  * This contains all the NAV business logic, and the MVP control center. We'll write the code here first.
@@ -574,14 +577,19 @@ fun getQuery(@NonNull collectionPath: String, @NonNull field: String, @NonNull d
     return firestore.collection(collectionPath).orderBy(field, direction)
 }
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+@RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 fun userManagerMemoryLeakFix() {
     val userManager = ChristianApplication.context.getSystemService(Context.USER_SERVICE) as UserManager
-    val clazz = UserManager::class.java
-    val mContext = clazz.getDeclaredField("mContext")
+    val mContext = userManager.javaClass.getDeclaredField("mContext")
     mContext.isAccessible = true
-    ChristianUtil.setFinalStatic(mContext, null)
-//    mContext.set(userManager, null)
+
+    val modifiersField = Field::class.java.getDeclaredField("accessFlags")
+    modifiersField.isAccessible = true
+    modifiersField.setInt(mContext, mContext.modifiers and Modifier.FINAL.inv())
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        mContext.set(userManager, null)
+    }
 }
 
 fun inputMethodManagerMemoryLeakFix() {
@@ -594,7 +602,14 @@ fun inputMethodManagerMemoryLeakFix() {
 
 fun locationManagerListenerTransportMemoryLeakFix() {
     val locationManager = ChristianApplication.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-    val mListeners = locationManager.javaClass.getDeclaredField("mListeners")
-    mListeners.isAccessible = true
-    mListeners.set(locationManager, null)
+    val mContext = locationManager.javaClass.getDeclaredField("mContext")
+    mContext.isAccessible = true
+
+    val modifiersField = Field::class.java.getDeclaredField("accessFlags")
+    modifiersField.isAccessible = true
+    modifiersField.setInt(mContext, mContext.modifiers and Modifier.FINAL.inv())
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        mContext.set(locationManager, null)
+    }
 }
