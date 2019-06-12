@@ -3,7 +3,6 @@ package com.christian.nav
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.content.Context
 import android.location.LocationManager
 import android.os.Build
@@ -25,7 +24,6 @@ import com.christian.data.Gospel
 import com.christian.navdetail.NavDetailActivity
 import com.christian.navdetail.NavDetailFragment
 import com.christian.navdetail.gospel.GospelReviewFragment
-import com.christian.util.ChristianUtil
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import com.google.android.material.appbar.AppBarLayout
@@ -38,10 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
-import org.jetbrains.anko.debug
-import org.jetbrains.anko.dip
-import org.jetbrains.anko.info
-import org.jetbrains.anko.singleLine
+import org.jetbrains.anko.*
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -578,7 +573,7 @@ fun getQuery(@NonNull collectionPath: String, @NonNull field: String, @NonNull d
 }
 
 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-fun userManagerMemoryLeakFix() {
+fun userManagerMemoryLeakFix(navActivity: NavActivity) {
     val userManager = ChristianApplication.context.getSystemService(Context.USER_SERVICE) as UserManager
     val mContext = userManager.javaClass.getDeclaredField("mContext")
     mContext.isAccessible = true
@@ -587,9 +582,11 @@ fun userManagerMemoryLeakFix() {
     modifiersField.isAccessible = true
     modifiersField.setInt(mContext, mContext.modifiers and Modifier.FINAL.inv())
 
+    navActivity.info { "mContext1, ${mContext.get(userManager)}" }
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
         mContext.set(userManager, null)
     }
+    navActivity.info { "mContext2, ${mContext.get(userManager)}" }
 }
 
 fun inputMethodManagerMemoryLeakFix() {
@@ -600,7 +597,7 @@ fun inputMethodManagerMemoryLeakFix() {
     mNextServedView.set(inputMethodManager, null)
 }
 
-fun locationManagerListenerTransportMemoryLeakFix() {
+fun locationManagerMemoryLeakFix(navActivity: NavActivity) {
     val locationManager = ChristianApplication.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     val mContext = locationManager.javaClass.getDeclaredField("mContext")
     mContext.isAccessible = true
@@ -609,7 +606,9 @@ fun locationManagerListenerTransportMemoryLeakFix() {
     modifiersField.isAccessible = true
     modifiersField.setInt(mContext, mContext.modifiers and Modifier.FINAL.inv())
 
+    navActivity.info { "mContext3, ${mContext.get(locationManager)}" }
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
         mContext.set(locationManager, null)
     }
+    navActivity.info { "mContext4, ${mContext.get(locationManager)}" }
 }

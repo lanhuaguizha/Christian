@@ -672,9 +672,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             locationManager.removeUpdates(locationListener)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            userManagerMemoryLeakFix()
+            userManagerMemoryLeakFix(this@NavActivity)
         }
         inputMethodManagerMemoryLeakFix()
-        locationManagerListenerTransportMemoryLeakFix()
+        locationManagerMemoryLeakFix(this@NavActivity)
     }
 }
