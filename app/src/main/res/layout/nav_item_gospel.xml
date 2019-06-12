@@ -8,7 +8,7 @@
     android:foreground="?selectableItemBackgroundBorderless"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="?attr/my_custom_attr2"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/card_corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout

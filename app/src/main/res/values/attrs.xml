@@ -1,6 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr format="color" name="my_custom_attr"/>
-    <attr format="color" name="my_custom_attr2"/>
-    <attr format="color" name="my_custom_attr3"/>
 </resources>

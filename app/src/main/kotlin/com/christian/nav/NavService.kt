@@ -14,8 +14,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import androidx.core.content.edit
-import com.afollestad.aesthetic.Aesthetic
-import com.christian.R
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.util.*
@@ -65,27 +63,11 @@ class NavService : Service(), AnkoLogger {
         if (System.currentTimeMillis() in sunriseSunset[0].timeInMillis..sunriseSunset[1].timeInMillis) {
             // 恢复应用默认皮肤
             info { "恢复应用默认皮肤" }
-            Aesthetic.config {
-                activityTheme(R.style.Christian)
-                isDark(false)
-                textColorPrimary(res = R.color.text_color_primary)
-                textColorSecondary(res = R.color.text_color_secondary)
-                attribute(R.attr.my_custom_attr, res = R.color.default_background_nav)
-                attribute(R.attr.my_custom_attr2, res = R.color.white)
-                attribute(R.attr.my_custom_attr3, res = R.color.colorOverlay)
-            }
+
         } else {
             // 夜间模式
             info { "夜间模式" }
-            Aesthetic.config {
-                activityTheme(R.style.ChristianDark)
-                isDark(true)
-                textColorPrimary(res = android.R.color.primary_text_dark)
-                textColorSecondary(res = android.R.color.secondary_text_dark)
-                attribute(R.attr.my_custom_attr, res = R.color.text_color_primary)
-                attribute(R.attr.my_custom_attr2, res = R.color.background_material_dark)
-                attribute(R.attr.my_custom_attr3, res = R.color.fui_transparent)
-            }
+
         }
     }
 

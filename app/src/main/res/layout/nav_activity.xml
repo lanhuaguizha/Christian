@@ -48,7 +48,6 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_nav"
-            android:tag=":aesthetic_ignore"
             android:layout_width="match_parent"
             android:layout_height="@dimen/action_bar_height"
             android:theme="@style/AppTheme.AppBarOverlay"
@@ -59,7 +58,7 @@
 
     <com.christian.view.CustomViewPager
         android:id="@+id/vp_nav"
-        android:background="?attr/my_custom_attr"
+        android:background="@color/default_background_nav"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -84,14 +83,13 @@
         android:layout_gravity="bottom"
         android:elevation="@dimen/bottom_navigation_view_elevation"
         android:outlineProvider="bounds"
-        app:blurOverlayColor="?attr/my_custom_attr3"
+        app:blurOverlayColor="@color/colorOverlay"
         tools:targetApi="lollipop">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bnv_nav"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:tag=":aesthetic_ignore"
             android:background="@android:color/transparent"
             app:menu="@menu/navigation" />
     </eightbitlab.com.blurview.BlurView>

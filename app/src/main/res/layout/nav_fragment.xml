@@ -21,7 +21,6 @@
         android:id="@+id/pb_nav"
         style="?android:attr/progressBarStyleHorizontal"
         android:indeterminate="true"
-        android:tag=":aesthetic_ignore"
         android:paddingTop="-4dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
