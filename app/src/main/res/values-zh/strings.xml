@@ -238,5 +238,6 @@
     <string name="error">发生错误。</string>
     <string name="sunrise_sunset">日出%s 日落%s</string>
     <string name="tips_location_permission_request">夜间模式功能需要开启位置服务获取日落时间</string>
+    <string name="no_location_service">没有开启位置服务获取不到日落时间</string>
 
 </resources>

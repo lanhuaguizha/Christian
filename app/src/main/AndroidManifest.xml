@@ -20,6 +20,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Christian">
+
+        <!--activity-->
         <activity
             android:name=".nav.NavActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
@@ -71,6 +73,9 @@
                 android:value="com.christian.nav.NavActivity" />
         </activity>
         <activity android:name=".navdetail.me.AboutActivity" />
+
+        <!--service-->
+        <service android:name=".nav.NavService"/>
     </application>
 
 </manifest>

@@ -1,26 +1,19 @@
 package com.christian.nav
 
-import android.Manifest
+import android.Manifest.permission.*
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.Message
+import android.content.ServiceConnection
+import android.os.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.edit
-import com.afollestad.aesthetic.Aesthetic
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
@@ -120,7 +113,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         initFab()
         initBv()
         initBnv()
-        // SunriseSunset sets DarkMode
+        // 自动夜间模式
         sunriseSunset()
     }
 
@@ -128,154 +121,27 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         getLatitudeLongitudePermissions()
     }
 
-    // start--
     private fun getLatitudeLongitudePermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             KotlinPermissions.with(this) // where this is an FragmentActivity instance
-                    .permissions(Manifest.permission.INTERNET, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                    .permissions(INTERNET, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION)
                     .onAccepted { permissions ->
                         //List of accepted permissions
-                        sunriseSunsetApply()
+                        if (permissions.contains(ACCESS_FINE_LOCATION))
+                            bindNavService()
                     }
                     .onDenied { permissions ->
                         //List of denied permissions
-                        snackbar(getString(R.string.tips_location_permission_request)).show()
                     }
                     .onForeverDenied { permissions ->
                         //List of forever denied permissions
-                        snackbar(getString(R.string.tips_location_permission_request)).show()
                     }
                     .ask()
         } else {
-            sunriseSunsetApply()
+            bindNavService()
         }
     }
-
-    private fun sunriseSunsetApply() {
-        val ll = getLngAndLat(this@NavActivity)
-        info { ll[0] }
-        info { ll[1] }
-        val sunriseSunset = ca.rmen.sunrisesunset.SunriseSunset.getSunriseSunset(Calendar.getInstance(), ll[0], ll[1])
-        val sharedPreferences = getSharedPreferences("christian", Activity.MODE_PRIVATE)
-        sharedPreferences.edit {
-            putString("sunrise", sunriseSunset[0].time.toString())
-            putString("sunset", sunriseSunset[1].time.toString())
-        }
-        info { "Sunrise at: " + sunriseSunset[0].time }
-        info { "Sunset at: " + sunriseSunset[1].time }
-        info { "currentTimeMillis: ${Date(System.currentTimeMillis())}" }
-        info { "-----------------" }
-        info { "Sunrise at: " + sunriseSunset[0].timeInMillis }
-        info { "Sunset at: " + sunriseSunset[1].timeInMillis }
-        info { "currentTimeMillis: ${System.currentTimeMillis()}" }
-        if (System.currentTimeMillis() in sunriseSunset[0].timeInMillis..sunriseSunset[1].timeInMillis) {
-            // 恢复应用默认皮肤
-            info { "恢复应用默认皮肤" }
-            Aesthetic.config {
-                activityTheme(R.style.Christian)
-                isDark(false)
-                textColorPrimary(res = R.color.text_color_primary)
-                textColorSecondary(res = R.color.text_color_secondary)
-                attribute(R.attr.my_custom_attr, res = R.color.default_background_nav)
-                attribute(R.attr.my_custom_attr2, res = R.color.white)
-                attribute(R.attr.my_custom_attr3, res = R.color.colorOverlay)
-            }
-        } else {
-            // 夜间模式
-            info { "夜间模式" }
-            Aesthetic.config {
-                activityTheme(R.style.ChristianDark)
-                isDark(true)
-                textColorPrimary(res = android.R.color.primary_text_dark)
-                textColorSecondary(res = android.R.color.secondary_text_dark)
-                attribute(R.attr.my_custom_attr, res = R.color.text_color_primary)
-                attribute(R.attr.my_custom_attr2, res = R.color.background_material_dark)
-                attribute(R.attr.my_custom_attr3, res = R.color.fui_transparent)
-            }
-        }
-    }
-
-    private lateinit var locationManager: LocationManager
-
-    /**
-     * 获取经纬度
-     */
-    private fun getLngAndLat(context: Context): Array<Double> {
-        locationManager = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {  //从gps获取经纬度
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    Activity#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for Activity#requestPermissions for more details.
-                    return arrayOf(latitude, longitude)
-                }
-            }
-            val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-            if (location != null) {
-                latitude = location.latitude
-                longitude = location.longitude
-            } else {//当GPS信号弱没获取到位置的时候又从网络获取
-                return getLngAndLatWithNetwork()
-            }
-        } else {    //从网络获取经纬度
-            return getLngAndLatWithNetwork()
-        }
-        return arrayOf(latitude, longitude)
-    }
-
-    //从网络获取经纬度
-    private fun getLngAndLatWithNetwork(): Array<Double> {
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    Activity#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for Activity#requestPermissions for more details.
-                return arrayOf(latitude, longitude)
-            }
-        }
-        try {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0f, locationListener)
-        } catch (e: Exception) {
-            return arrayOf(latitude, longitude)
-        }
-        val location: Location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-        latitude = location.latitude
-        longitude = location.longitude
-        return arrayOf(latitude, longitude)
-    }
-
-    private var locationListener: LocationListener = object : LocationListener {
-
-        // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
-        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
-
-        }
-
-        // Provider被enable时触发此函数，比如GPS被打开
-        override fun onProviderEnabled(provider: String) {
-
-        }
-
-        // Provider被disable时触发此函数，比如GPS被关闭
-        override fun onProviderDisabled(provider: String) {
-
-        }
-
-        //当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
-        override fun onLocationChanged(location: Location) {}
-    }
-    // end--
 
     private fun initAbl() {
         tb_nav.setOnClickListener(object : DoubleClickListener() {
@@ -668,13 +534,43 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (::locationManager.isInitialized)
-            locationManager.removeUpdates(locationListener)
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             userManagerMemoryLeakFix(this@NavActivity)
         }
         inputMethodManagerMemoryLeakFix()
         locationManagerMemoryLeakFix(this@NavActivity)
+
+        unbindNavService()
     }
+
+    private lateinit var navService: NavService
+    private var isBind: Boolean = false
+    /**
+     * 用于获取NavService
+     */
+    val navServiceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            val navBinder = service as NavService.NavBinder
+            navService = navBinder.navService
+            isBind = true
+        }
+
+        override fun onServiceDisconnected(name: ComponentName) {
+            isBind = false
+        }
+    }
+
+
+    fun bindNavService() {
+        val intent = Intent(this, NavService::class.java)
+        bindService(intent, navServiceConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    fun unbindNavService() {
+        if (isBind) {
+            unbindService(navServiceConnection);
+            isBind = false;
+        }
+    }
+
 }

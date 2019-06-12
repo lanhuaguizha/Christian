@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.view.View
 import android.view.animation.AnimationUtils
-import androidx.core.content.edit
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.christian.R
@@ -125,10 +124,16 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
 
         if (adapterPosition == 0) {
             val sharedPreferences = containerView.context.getSharedPreferences("christian", Activity.MODE_PRIVATE)
+            val string = sharedPreferences.getString("sunrise", "")
+            val string1 = sharedPreferences.getString("sunset", "")
             switch_nav_item_small.visibility = View.VISIBLE
-            val sunriseString = sharedPreferences.getString("sunrise", "").substring(11, 19)
-            val sunsetString = sharedPreferences.getString("sunset", "").substring(11, 19)
-            switch_nav_item_small.text = String.format(containerView.context.getString(R.string.sunrise_sunset), sunriseString, sunsetString)
+            if (string.isNotEmpty() && string.isNotEmpty()) {
+                val sunriseString = string.substring(11, 19)
+                val sunsetString = string1.substring(11, 19)
+                switch_nav_item_small.text = String.format(containerView.context.getString(R.string.sunrise_sunset), sunriseString, sunsetString)
+            } else {
+                switch_nav_item_small.text = containerView.context.getString(R.string.no_location_service)
+            }
         }
         tv_nav_item_small.text = setting.name
         tv2_nav_item_small.text = setting.desc

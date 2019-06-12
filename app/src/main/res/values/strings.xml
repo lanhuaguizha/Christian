@@ -249,5 +249,6 @@
     <string name="error">An error occurred.</string>
     <string name="sunrise_sunset">Sunrise%s Sunset%s</string>
     <string name="tips_location_permission_request">Night mode features need to turn on location service to get sunset time</string>
+    <string name="no_location_service">没有开启位置服务获取不到日落时间</string>
 
 </resources>
