@@ -33,7 +33,7 @@ class NavService : Service(), AnkoLogger {
 
     override fun onUnbind(intent: Intent): Boolean {
         locationManager.removeUpdates(locationListener)
-        stopSelf()
+//        stopSelf()
         return super.onUnbind(intent)
     }
 
