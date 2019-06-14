@@ -119,13 +119,13 @@ class NavService : Service(), AnkoLogger {
         }
         try {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0f, locationListener)
+            val location: Location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+            latitude = location.latitude
+            longitude = location.longitude
+            return arrayOf(latitude, longitude)
         } catch (e: Exception) {
             return arrayOf(latitude, longitude)
         }
-        val location: Location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-        latitude = location.latitude
-        longitude = location.longitude
-        return arrayOf(latitude, longitude)
     }
 
     private var locationListener: LocationListener = object : LocationListener {
