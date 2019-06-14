@@ -142,12 +142,12 @@ public abstract class AbsAboutActivity extends AppCompatActivity {
     parallaxBackLayout.setVelocity(Integer.MAX_VALUE);
   }
 
-//  @Override
-//  public void onBackPressed() {
-//    ParallaxBackLayout layout = ParallaxHelper.getParallaxBackLayout(this, false);
-//    if (layout == null || !layout.scrollToFinishActivity(0))
-//    super.onBackPressed();
-//  }
+  @Override
+  public void onBackPressed() {
+    ParallaxBackLayout layout = ParallaxHelper.getParallaxBackLayout(this, false);
+    if (layout == null || !layout.scrollToFinishActivity(0))
+    super.onBackPressed();
+  }
 
   @Override @SuppressWarnings("deprecation")
   protected void onPostCreate(@Nullable Bundle savedInstanceState) {
@@ -294,3 +294,4 @@ public abstract class AbsAboutActivity extends AppCompatActivity {
     return onContributorClickedListener;
   }
 }
+

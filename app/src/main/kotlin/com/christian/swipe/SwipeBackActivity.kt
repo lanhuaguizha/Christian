@@ -33,9 +33,10 @@ abstract class SwipeBackActivity : AppCompatActivity() {
         parallaxBackLayout.setVelocity(Int.MAX_VALUE)
     }
 
-//    override fun onBackPressed() {
-//        val layout = ParallaxHelper.getParallaxBackLayout(this, false)
-//        if (layout == null || !layout.scrollToFinishActivity(0))
-//            super.onBackPressed()
-//    }
+    override fun onBackPressed() {
+        val layout = ParallaxHelper.getParallaxBackLayout(this, false)
+        if (layout == null || !layout.scrollToFinishActivity(0))
+            super.onBackPressed()
+    }
 }
+
