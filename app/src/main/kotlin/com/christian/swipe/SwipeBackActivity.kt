@@ -29,8 +29,8 @@ abstract class SwipeBackActivity : AppCompatActivity() {
         val parallaxBackLayout = ParallaxHelper.getParallaxBackLayout(this, true)
         parallaxBackLayout.setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, CupertinoParallaxTransform())
         parallaxBackLayout.setShadowDrawable(AppCompatResources.getDrawable(this@SwipeBackActivity, R.drawable.bga_sbl_shadow))
-        parallaxBackLayout.setScrollThresHold(0.2f)
-        parallaxBackLayout.setVelocity(Int.MAX_VALUE)
+        parallaxBackLayout.setScrollThresHold(0.5f)
+        parallaxBackLayout.setVelocity(1500)
     }
 
     override fun onBackPressed() {
