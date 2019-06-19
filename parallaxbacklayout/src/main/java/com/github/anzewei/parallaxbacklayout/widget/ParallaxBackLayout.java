@@ -8,14 +8,13 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
-import androidx.annotation.IntDef;
-import androidx.core.view.ViewCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.widget.FrameLayout;
+
 import com.github.anzewei.parallaxbacklayout.ViewDragHelper;
 import com.github.anzewei.parallaxbacklayout.transform.CoverTransform;
 import com.github.anzewei.parallaxbacklayout.transform.ITransform;
@@ -25,12 +24,19 @@ import com.github.anzewei.parallaxbacklayout.transform.SlideTransform;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import static com.github.anzewei.parallaxbacklayout.ViewDragHelper.*;
+import androidx.annotation.IntDef;
+import androidx.core.view.ViewCompat;
+
+import static com.github.anzewei.parallaxbacklayout.ViewDragHelper.EDGE_BOTTOM;
+import static com.github.anzewei.parallaxbacklayout.ViewDragHelper.EDGE_RIGHT;
+import static com.github.anzewei.parallaxbacklayout.ViewDragHelper.EDGE_TOP;
 
 /**
  * The type Parallax back layout.
  */
 public class ParallaxBackLayout extends FrameLayout {
+
+    private static final String TAG = ParallaxBackLayout.class.getSimpleName();
 
     //region cont
     @IntDef({LAYOUT_COVER, LAYOUT_PARALLAX, LAYOUT_SLIDE, LAYOUT_CUSTOM})
@@ -207,16 +213,22 @@ public class ParallaxBackLayout extends FrameLayout {
 
     @Override
     protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
-        Log.d(VIEW_LOG_TAG, "drawChild");
-        final boolean drawContent = child == mContentView;
-        if (mEnable)
-            drawThumb(canvas, child);
-        boolean ret = super.drawChild(canvas, child, drawingTime);
-        if (mEnable && drawContent
-                && mDragHelper.getViewDragState() != ViewDragHelper.STATE_IDLE) {
-            drawShadow(canvas, child);
+        try {
+            Log.d(VIEW_LOG_TAG, "drawChild");
+            final boolean drawContent = child == mContentView;
+            if (mEnable)
+                drawThumb(canvas, child);
+            boolean ret = super.drawChild(canvas, child, drawingTime);
+            if (mEnable && drawContent
+                    && mDragHelper.getViewDragState() != ViewDragHelper.STATE_IDLE) {
+                drawShadow(canvas, child);
+            }
+            return ret;
+        } catch (Exception e) {
+            e.printStackTrace();
+//            throw new RuntimeException("TODO 2019.6.19");
+            return false;
         }
-        return ret;
     }
     //endregion
 
@@ -566,8 +578,13 @@ public class ParallaxBackLayout extends FrameLayout {
                 }
 //                left = (fling || mScrollPercent > mScrollThreshold)
 //                        ? childWidth + mInsets.left : mInsets.left;
-                left = xvel >= 0 && (fling || mScrollPercent > mScrollThreshold)
+                left = (xvel == 0 || xvel > 3000) && (fling || mScrollPercent > mScrollThreshold)
                         ? childWidth + mInsets.left : mInsets.left;
+
+//                Log.d(TAG, "onViewReleased: " + xvel);
+//                Log.d(TAG, "onViewReleased: " + fling);
+//                Log.d(TAG, "onViewReleased: " + (xvel >= 0 && (fling || mScrollPercent > mScrollThreshold)));
+//                Log.d(TAG, "onViewReleased: " + left);
             }
             if ((mTrackingEdge & EDGE_RIGHT) != 0) {
                 if (Math.abs(xvel) > mFlingVelocity) {

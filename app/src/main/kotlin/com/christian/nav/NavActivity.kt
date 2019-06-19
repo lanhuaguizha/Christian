@@ -534,12 +534,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     override fun onDestroy() {
         super.onDestroy()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            userManagerMemoryLeakFix(this@NavActivity)
-        }
-        inputMethodManagerMemoryLeakFix()
-        locationManagerMemoryLeakFix(this@NavActivity)
-
         unbindNavService()
     }
 
