@@ -10,7 +10,6 @@
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/about_page_header_height"
-        app:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -19,7 +18,7 @@
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleTextAppearance="@style/AboutPage.Header.ToolbarTitleExpanded"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap">
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
             <LinearLayout
                 android:background="?selectableItemBackgroundBorderless"
@@ -34,23 +33,25 @@
 
                 <ImageView
                     style="@style/AboutPage.Header.Icon"
+                    android:adjustViewBounds="true"
                     android:id="@+id/icon"
                     tools:ignore="ContentDescription"
                     tools:src="#000000"/>
-
-                <TextView
-                    style="@style/AboutPage.Header.Slogan"
-                    android:id="@+id/slogan"/>
 
                 <TextView
                     style="@style/AboutPage.Header.Version"
                     android:id="@+id/version"
                     tools:text="Version 1.2.3"/>
 
+                <TextView
+                    style="@style/AboutPage.Header.Slogan"
+                    android:id="@+id/slogan"/>
+
             </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
+                app:elevation="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"/>
