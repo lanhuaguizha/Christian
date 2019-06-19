@@ -1,4 +1,4 @@
-package com.christian.navdetailitem.gospel
+package com.christian.nav.gospel
 
 import android.view.LayoutInflater
 import android.view.View

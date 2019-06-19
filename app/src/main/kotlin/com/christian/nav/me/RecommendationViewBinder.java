@@ -1,4 +1,4 @@
-package me.drakeet.support.about;
+package com.christian.nav.me;
 
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
@@ -21,6 +21,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import java.lang.ref.WeakReference;
 
 import me.drakeet.multitype.ItemViewBinder;
+import me.drakeet.support.about.ImageLoader;
+import me.drakeet.support.about.OnRecommendationClickedListener;
+import me.drakeet.support.about.Recommendation;
 
 /**
  * @author drakeet
@@ -38,7 +41,7 @@ public class RecommendationViewBinder extends ItemViewBinder<Recommendation, Rec
 
   @NonNull @Override
   public ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-    return new ViewHolder(inflater.inflate(R.layout.about_page_item_recommendation, parent, false), activity);
+    return new ViewHolder(inflater.inflate(me.drakeet.support.about.R.layout.about_page_item_recommendation, parent, false), activity);
   }
 
   @Override
@@ -60,20 +63,20 @@ public class RecommendationViewBinder extends ItemViewBinder<Recommendation, Rec
     public ViewHolder(View itemView, @NonNull AbsAboutActivity activity) {
       super(itemView);
       this.activity = activity;
-      icon = itemView.findViewById(R.id.icon);
-      name = itemView.findViewById(R.id.name);
-      packageName = itemView.findViewById(R.id.packageName);
-      sizeView = itemView.findViewById(R.id.size);
-      description = itemView.findViewById(R.id.description);
+      icon = itemView.findViewById(me.drakeet.support.about.R.id.icon);
+      name = itemView.findViewById(me.drakeet.support.about.R.id.name);
+      packageName = itemView.findViewById(me.drakeet.support.about.R.id.packageName);
+      sizeView = itemView.findViewById(me.drakeet.support.about.R.id.size);
+      description = itemView.findViewById(me.drakeet.support.about.R.id.description);
       itemView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-      if (v.getId() == R.id.google_play && bottomSheet != null) {
+      if (v.getId() == me.drakeet.support.about.R.id.google_play && bottomSheet != null) {
         openWithMarket(v.getContext(), recommendation.packageName, recommendation.downloadUrl);
         bottomSheet.dismiss();
-      } else if (v.getId() == R.id.web && bottomSheet != null) {
+      } else if (v.getId() == me.drakeet.support.about.R.id.web && bottomSheet != null) {
         openWithWeb(v.getContext(), recommendation);
         bottomSheet.dismiss();
       } else if (recommendation != null) {
@@ -83,12 +86,12 @@ public class RecommendationViewBinder extends ItemViewBinder<Recommendation, Rec
         }
         if (recommendation.openWithGooglePlay) {
           bottomSheet = new BottomSheetDialog(v.getContext());
-          bottomSheet.setContentView(R.layout.about_page_dialog_market_chooser);
+          bottomSheet.setContentView(me.drakeet.support.about.R.layout.about_page_dialog_market_chooser);
           bottomSheet.show();
           // noinspection ConstantConditions
-          bottomSheet.findViewById(R.id.web).setOnClickListener(this);
+          bottomSheet.findViewById(me.drakeet.support.about.R.id.web).setOnClickListener(this);
           // noinspection ConstantConditions
-          bottomSheet.findViewById(R.id.google_play).setOnClickListener(this);
+          bottomSheet.findViewById(me.drakeet.support.about.R.id.google_play).setOnClickListener(this);
         } else {
           openWithWeb(v.getContext(), recommendation);
         }

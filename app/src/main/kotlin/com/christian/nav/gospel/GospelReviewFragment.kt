@@ -1,4 +1,4 @@
-package com.christian.navdetail.gospel
+package com.christian.nav.gospel
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle

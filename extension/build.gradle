@@ -33,5 +33,5 @@ dependencies {
   implementation 'me.drakeet.multitype:multitype:4.0.0-alpha2'
   compileOnly 'com.google.code.gson:gson:2.8.5'
   compileOnly 'com.squareup.moshi:moshi:1.7.0'
-  compileOnly project(':library')
+  implementation project(':library')
 }

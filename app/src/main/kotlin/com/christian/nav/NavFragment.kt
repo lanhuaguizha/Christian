@@ -1,7 +1,6 @@
 package com.christian.nav
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +15,6 @@ import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.Gospel
 import com.christian.data.Setting
-import com.christian.navitem.NavItemView
 import com.christian.view.ItemDecoration
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions

@@ -1,4 +1,4 @@
-package me.drakeet.support.about;
+package com.christian.nav.me;
 
 import android.graphics.Rect;
 import android.os.Build;
@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 
 import me.drakeet.multitype.MultiTypeAdapter;
+import me.drakeet.support.about.License;
+import me.drakeet.support.about.Recommendation;
 
 /**
  * @author drakeet

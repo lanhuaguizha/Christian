@@ -1,4 +1,4 @@
-package com.christian.navdetail.me
+package com.christian.nav.me
 
 import android.os.Bundle
 import android.view.View

@@ -21,9 +21,9 @@ import androidx.annotation.RequiresApi
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.Gospel
-import com.christian.navdetail.NavDetailActivity
-import com.christian.navdetail.NavDetailFragment
-import com.christian.navdetail.gospel.GospelReviewFragment
+import com.christian.nav.gospel.NavDetailActivity
+import com.christian.nav.gospel.NavDetailFragment
+import com.christian.nav.gospel.GospelReviewFragment
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import com.google.android.material.appbar.AppBarLayout

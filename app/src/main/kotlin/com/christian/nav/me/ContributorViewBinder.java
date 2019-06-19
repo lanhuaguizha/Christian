@@ -1,4 +1,4 @@
-package me.drakeet.support.about;
+package com.christian.nav.me;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import me.drakeet.multitype.ItemViewBinder;
+import me.drakeet.support.about.Contributor;
+import me.drakeet.support.about.OnContributorClickedListener;
 
 import static android.net.Uri.parse;
 
@@ -27,7 +29,7 @@ public class ContributorViewBinder extends ItemViewBinder<Contributor, Contribut
 
   @NonNull @Override
   public ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-    return new ViewHolder(inflater.inflate(R.layout.about_page_item_contributor, parent, false), activity);
+    return new ViewHolder(inflater.inflate(me.drakeet.support.about.R.layout.about_page_item_contributor, parent, false), activity);
   }
 
   @Override
@@ -49,9 +51,9 @@ public class ContributorViewBinder extends ItemViewBinder<Contributor, Contribut
     public ViewHolder(View itemView, @NonNull AbsAboutActivity activity) {
       super(itemView);
       this.activity = activity;
-      avatar = itemView.findViewById(R.id.avatar);
-      name = itemView.findViewById(R.id.name);
-      desc = itemView.findViewById(R.id.desc);
+      avatar = itemView.findViewById(me.drakeet.support.about.R.id.avatar);
+      name = itemView.findViewById(me.drakeet.support.about.R.id.name);
+      desc = itemView.findViewById(me.drakeet.support.about.R.id.desc);
       itemView.setOnClickListener(this);
     }
 

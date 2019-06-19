@@ -30,7 +30,6 @@ abstract class SwipeBackActivity : AppCompatActivity() {
         parallaxBackLayout.setLayoutType(ParallaxBackLayout.LAYOUT_CUSTOM, CupertinoParallaxTransform())
         parallaxBackLayout.setShadowDrawable(AppCompatResources.getDrawable(this@SwipeBackActivity, R.drawable.bga_sbl_shadow))
         parallaxBackLayout.setScrollThresHold(0.5f)
-        parallaxBackLayout.setVelocity(1500)
     }
 
     override fun onBackPressed() {

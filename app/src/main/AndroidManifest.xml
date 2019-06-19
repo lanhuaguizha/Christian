@@ -45,7 +45,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".navdetail.NavDetailActivity"
+            android:name=".nav.gospel.NavDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
             android:label=""
             android:launchMode="singleTop"
@@ -57,7 +57,7 @@
                 android:value=".nav.NavActivity" />
         </activity>
         <activity
-            android:name="com.christian.navdetail.me.SignInActivity"
+            android:name="com.christian.nav.me.SignInActivity"
             android:label="@string/title_activity_login"
             android:parentActivityName=".nav.NavActivity">
             <meta-data
@@ -72,7 +72,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.christian.nav.NavActivity" />
         </activity>
-        <activity android:name=".navdetail.me.AboutActivity" />
+        <activity android:name=".nav.me.AboutActivity" />
 
         <!--service-->
         <service android:name=".nav.NavService"/>

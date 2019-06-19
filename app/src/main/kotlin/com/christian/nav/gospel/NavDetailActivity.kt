@@ -1,4 +1,4 @@
-package com.christian.navdetail
+package com.christian.nav.gospel
 
 import android.view.*
 import androidx.core.content.res.ResourcesCompat

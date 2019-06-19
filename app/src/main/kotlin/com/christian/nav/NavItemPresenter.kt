@@ -1,4 +1,4 @@
-package com.christian.navitem
+package com.christian.nav
 
 /**
  * Created by christian on 19-5-31.

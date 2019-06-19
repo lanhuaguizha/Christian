@@ -1,4 +1,4 @@
-package com.christian.navitem
+package com.christian.nav
 
 import android.app.Activity
 import android.content.Intent
@@ -10,9 +10,8 @@ import com.christian.R
 import com.christian.data.Disciple
 import com.christian.data.Gospel
 import com.christian.data.Setting
-import com.christian.nav.toolbarTitle
-import com.christian.navdetail.NavDetailActivity
-import com.christian.navdetail.me.AboutActivity
+import com.christian.nav.gospel.NavDetailActivity
+import com.christian.nav.me.AboutActivity
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_gospel.*
 import kotlinx.android.synthetic.main.nav_item_me.*

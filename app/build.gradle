@@ -167,7 +167,7 @@ dependencies {
     implementation 'com.squareup.moshi:moshi:1.7.0'
     //implementation 'me.drakeet.support:about:2.3.0-alpha2'
     implementation project(':library')
-    implementation project(':extension')
+//    implementation project(':extension')
     implementation 'me.drakeet.multitype:multitype:4.0.0-alpha2'
 
     // DarkMode
