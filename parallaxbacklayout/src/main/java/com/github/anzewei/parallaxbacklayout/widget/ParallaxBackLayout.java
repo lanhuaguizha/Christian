@@ -578,7 +578,7 @@ public class ParallaxBackLayout extends FrameLayout {
                 }
 //                left = (fling || mScrollPercent > mScrollThreshold)
 //                        ? childWidth + mInsets.left : mInsets.left;
-                left = (xvel == 0 || xvel > 3000) && (fling || mScrollPercent > mScrollThreshold)
+                left = xvel >= 0 && (fling || mScrollPercent > mScrollThreshold)
                         ? childWidth + mInsets.left : mInsets.left;
 
 //                Log.d(TAG, "onViewReleased: " + xvel);
