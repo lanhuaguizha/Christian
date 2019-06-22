@@ -35,7 +35,7 @@
         android:id="@+id/tv2_detail_nav_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Medium"
+        style="@android:style/TextAppearance.Large"
         android:textColor="@android:color/tertiary_text_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

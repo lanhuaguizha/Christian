@@ -40,14 +40,13 @@
                     tools:src="#000000"/>
 
                 <TextView
-                    style="@style/AboutPage.Header.Version"
-                    android:id="@+id/version"
-                    tools:text="Version 1.2.3"/>
-
-                <TextView
                     style="@style/AboutPage.Header.Slogan"
                     android:id="@+id/slogan"/>
 
+                <TextView
+                    style="@style/AboutPage.Header.Version"
+                    android:id="@+id/version"
+                    tools:text="Version 1.2.3"/>
             </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
