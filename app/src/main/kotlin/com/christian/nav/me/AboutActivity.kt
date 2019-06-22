@@ -1,10 +1,12 @@
 package com.christian.nav.me
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.edit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.christian.R
@@ -68,7 +70,10 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
             if (me.type == "card")
                 items.add(Card(me.card))
         }
-        (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(lastPosition, lastOffset)
+        // 恢复位置
+        val sharedPreferences = getSharedPreferences(intent?.extras?.getString(toolbarTitle)
+                ?: nullString, Activity.MODE_PRIVATE)
+        (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(sharedPreferences.getInt("lastPosition", 0), sharedPreferences.getInt("lastOffset", 0))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,6 +107,13 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
                 lastOffset = topView?.top ?: 0//获取与该view的顶部的偏移量
                 lastPosition = topView?.let { recyclerView.layoutManager?.getPosition(it) }
                         ?: 0  //得到该View的数组位置
+
+                val sharedPreferences = getSharedPreferences(intent?.extras?.getString(toolbarTitle)
+                        ?: nullString, Activity.MODE_PRIVATE)
+                sharedPreferences.edit {
+                    putInt("lastPosition", lastPosition)
+                    putInt("lastOffset", lastOffset)
+                }
             }
         })
     }
