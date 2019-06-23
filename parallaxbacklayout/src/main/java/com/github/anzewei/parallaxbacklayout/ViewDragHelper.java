@@ -149,6 +149,10 @@ public class ViewDragHelper {
     private boolean mReleaseInProgress;
 
     private final ViewGroup mParentView;
+    private float mLastX;
+    private float mLastY;
+    private int deltaX;
+    private int deltaY;
 
     public int getEdgeSizeDefault() {
         return mEdgeSizeDefault;
@@ -1062,6 +1066,9 @@ public class ViewDragHelper {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN: {
+                mLastX = ev.getX();
+                mLastY = ev.getY();
+
                 final float x = ev.getX();
                 final float y = ev.getY();
                 final int pointerId = ev.getPointerId(0);
@@ -1105,6 +1112,11 @@ public class ViewDragHelper {
             }
 
             case MotionEvent.ACTION_MOVE: {
+                float curX = ev.getX();
+                float curY = ev.getY();
+                deltaX = (int) (mLastX - curX);
+                deltaY = (int) (mLastY - curY);
+
                 // First to cross a touch slop over a draggable view wins. Also
                 // report edge drags.
                 final int pointerCount = ev.getPointerCount();
@@ -1122,7 +1134,7 @@ public class ViewDragHelper {
                     }
 
                     final View toCapture = findTopChildUnder((int) x, (int) y);
-                    if (toCapture != null && checkTouchSlop(toCapture, dx, dy)
+                    if (toCapture != null && checkTouchSlop(toCapture, dx, dy) && Math.abs(deltaX) > 10 * Math.abs(deltaY)
                             && tryCaptureViewForDrag(toCapture, pointerId)) {
                         break;
                     }
@@ -1139,6 +1151,8 @@ public class ViewDragHelper {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL: {
+                mLastY = 0;
+                mLastX = 0;
                 cancel();
                 break;
             }

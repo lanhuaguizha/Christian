@@ -137,7 +137,6 @@ public class ParallaxBackLayout extends FrameLayout {
     public ParallaxBackLayout(Context context) {
         super(context);
         mDragHelper = ViewDragHelper.create(this, new ViewDragCallback());
-        mDragHelper.setSensitivity(context, 0.618f);
         setEdgeFlag(EDGE_LEFT);
     }
 
@@ -578,7 +577,7 @@ public class ParallaxBackLayout extends FrameLayout {
                 }
 //                left = (fling || mScrollPercent > mScrollThreshold)
 //                        ? childWidth + mInsets.left : mInsets.left;
-                left = (xvel == 0 || xvel > 800) && (fling || mScrollPercent > mScrollThreshold)
+                left = xvel >= 0 && (fling || mScrollPercent > mScrollThreshold)
                         ? childWidth + mInsets.left : mInsets.left;
 
 //                Log.d(TAG, "onViewReleased: " + xvel);
