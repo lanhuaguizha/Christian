@@ -1134,7 +1134,7 @@ public class ViewDragHelper {
                     }
 
                     final View toCapture = findTopChildUnder((int) x, (int) y);
-                    if (toCapture != null && checkTouchSlop(toCapture, dx, dy) && Math.abs(deltaX) > 10 * Math.abs(deltaY)
+                    if (toCapture != null && checkTouchSlop(toCapture, dx, dy) && Math.abs(deltaX) > 2 * Math.abs(deltaY)
                             && tryCaptureViewForDrag(toCapture, pointerId)) {
                         break;
                     }
