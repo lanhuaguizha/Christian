@@ -8,6 +8,7 @@
 
     <TextView
         android:lineSpacingMultiplier="1.4"
+	android:textIsSelectable="true"
         style="@style/AboutPage.CardContent"
         android:id="@+id/content"
         tools:text="content"/>
