@@ -10,7 +10,6 @@
         android:id="@+id/rv_gospel_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context="com.christian.nav.gospel.NavDetailActivity"
         tools:listitem="@layout/list_item_gospel_detail" />
