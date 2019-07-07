@@ -1,2 +1,2 @@
--keep class me.drakeet.support.about.extension.RecommendationResponse
--keep class me.drakeet.support.about.extension.RecommendationLoaderDelegate
+-keep class com.christian.library.extension.RecommendationResponse
+-keep class com.christian.library.extension.RecommendationLoaderDelegate

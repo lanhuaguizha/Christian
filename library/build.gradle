@@ -4,13 +4,13 @@ apply plugin: 'jacoco'
 
 android {
   compileSdkVersion 28
-  resourcePrefix "about_page"
 
   defaultConfig {
-    minSdkVersion 14
+    minSdkVersion 16
     targetSdkVersion 28
-    versionCode 77
-    versionName "2.3.0-alpha2"
+    versionCode 1
+    versionName "1.0.0"
+    vectorDrawables.useSupportLibrary = true
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
@@ -21,9 +21,18 @@ android {
       consumerProguardFile 'proguard-rules.pro'
     }
   }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 dependencies {
+  // kotlin
+  api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  api "org.jetbrains.anko:anko:$anko_version"
+
   androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-beta02', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })

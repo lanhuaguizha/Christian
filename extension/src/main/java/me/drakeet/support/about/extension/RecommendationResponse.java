@@ -1,8 +1,8 @@
-package me.drakeet.support.about.extension;
+package com.christian.library.extension;
 
 import androidx.annotation.Keep;
 import java.util.List;
-import me.drakeet.support.about.Recommendation;
+import com.christian.library.Recommendation;
 
 /**
  * @author drakeet

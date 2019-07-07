@@ -30,7 +30,7 @@
                 android:visibility="gone"
                 app:tabIndicatorColor="@color/white" />
 
-            <include layout="@layout/tb_nav" />
+            <!--<include layout="@layout/tb_nav" />-->
         </com.christian.view.NoFadeAwayAnimationCollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

@@ -1,9 +1,9 @@
-package me.drakeet.support.about.provided;
+package com.christian.library.multitype;
 
 import androidx.annotation.NonNull;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
-import me.drakeet.support.about.ImageLoader;
+import com.christian.library.multitype.ImageLoader;
 
 /**
  * @author drakeet

@@ -1,11 +1,11 @@
-package me.drakeet.support.about.extension;
+package com.christian.library.extension;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.annotation.NonNull;
-import me.drakeet.support.about.AbsAboutActivity;
+import com.christian.library.AbsAboutActivity;
 import okhttp3.Call;
 
 /**

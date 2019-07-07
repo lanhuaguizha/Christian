@@ -1,4 +1,4 @@
-package me.drakeet.support.about;
+package com.christian.library.multitype;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;

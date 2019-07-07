@@ -19,8 +19,6 @@
     <string name="content_empty">The content is empty</string>
     <string name="search_font_family">sans-serif</string>
     <string name="description_search">Search Gospel</string>
-    <string name="description_start_voice_search">Start voice search</string>
-    <string name="action_menu_overflow_description" msgid="2295659037509008453">More options</string>
     <string name="action_menu_back_from_search">stop searching</string>
     <string name="description_clear_search">Clear search</string>
     <string name="description_gospel">Collection Gospel</string>
@@ -134,7 +132,6 @@
     <string name="description_favorite">Favorite</string>
     <string name="title_search">Search</string>
     <string name="search_label">Christian</string>
-    <string name="search_hint">Search Gospel</string>
 
     <!--SettingActivity-->
     <string name="pref_on_preference_click">onPreferenceClick</string>

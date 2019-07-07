@@ -1,10 +1,13 @@
-package me.drakeet.support.about;
+package com.christian.library.multitype;
 
 import androidx.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.christian.library.R;
+
 import me.drakeet.multitype.ItemViewBinder;
 
 /**

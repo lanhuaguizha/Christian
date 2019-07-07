@@ -1,4 +1,4 @@
-package me.drakeet.support.about;
+package com.christian.library.multitype;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.christian.library.R;
 
 import me.drakeet.multitype.ItemViewBinder;
 import ru.noties.markwon.Markwon;

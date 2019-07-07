@@ -6,4 +6,79 @@
     <dimen name="about_page_recommendation_icon_size">48dp</dimen>
     <dimen name="about_page_bottom_sheet_item_height">48dp</dimen>
     <dimen name="about_page_item_category_padding_horizontal">16dp</dimen>
+    <!--searchBarLayout-->
+
+        <!--屏幕适配使用dimens文件用法：-->
+        <!--(120dpi)ldpi 1dp=3/4px-->
+        <!--(160dpi) mdip 1dp = 1px-->
+        <!--(240dpi)hdip 1dp=1.5px-->
+        <!--(320dpi)xhdip 1dp=2xp-->
+        <!--(480dpi)xxhdip 1dp=3px-->
+        <!--(640dpi)xxxdip 1dp=4px-->
+        <!--总结：dp = px / (dpi / 160)      sp = px / (dpi / 160)-->
+        <!--dpi= √（长度像素数² + 宽度像素数²） / 屏幕对角线英寸数-->
+
+        <!--activity-->
+        <dimen name="activity_margin">16dp</dimen>
+
+        <dimen name="activity_padding">16dp</dimen>
+
+        <!--cardView-->
+        <dimen name="card_view_margin">8dp</dimen>
+
+        <dimen name="card_view_padding">8dp</dimen>
+
+
+        <dimen name="app_bar_height">180dp</dimen>
+        <dimen name="fab_margin">16dp</dimen>
+        <dimen name="fab_margin_bottom">-16dp</dimen>
+        <dimen name="text_margin">16dp</dimen>
+        <dimen name="list_item_height">72dp</dimen>
+        <dimen name="card_elevation">2dp</dimen>
+        <dimen name="card_corner_radius">2dp</dimen>
+        <!-- Margin to the left and right of the search box. -->
+        <dimen name="search_margin_horizontal">8dp</dimen>
+        <!-- Margin above the search box. -->
+        <dimen name="search_top_margin">8dp</dimen>
+        <!-- Margin below the search box. -->
+        <dimen name="search_bottom_margin">8dp</dimen>
+        <dimen name="search_collapsed_text_size">14sp</dimen>
+
+        <dimen name="search_box_elevation">3dp</dimen>
+        <dimen name="search_box_icon_size">36dp</dimen>
+        <dimen name="search_box_search_icon_padding">2dp</dimen>
+        <dimen name="search_box_collapsed_text_margin_left">22dp</dimen>
+        <dimen name="search_box_navigation_icon_margin">14dp</dimen>
+        <dimen name="search_box_text_left_margin">15dp</dimen>
+        <dimen name="search_text_size">20sp</dimen>
+        <dimen name="search_box_close_icon_size">56dp</dimen>
+        <dimen name="search_box_close_icon_padding">16dp</dimen>
+        <dimen name="action_bar_height">56dp</dimen>
+        <dimen name="action_bar_height_large">64dp</dimen>
+
+        <!-- Define standard dimensions to comply with Holo-style grids and rhythm. -->
+        <dimen name="margin_tiny">4dp</dimen>
+        <dimen name="margin_small">8dp</dimen>
+        <dimen name="margin_medium">16dp</dimen>
+        <dimen name="margin_large">32dp</dimen>
+        <dimen name="margin_huge">64dp</dimen>
+
+        <!-- Semantic definitions -->
+        <dimen name="horizontal_page_margin">@dimen/margin_medium</dimen>
+        <dimen name="vertical_page_margin">@dimen/margin_medium</dimen>
+        <dimen name="margin_top_card_view">56dp</dimen>
+        <dimen name="activity_horizontal_margin_0">0dp</dimen>
+
+        <dimen name="padding_normal">16dp</dimen>
+        <dimen name="divider_height">1dp</dimen>
+        <dimen name="spacing_normal">8dp</dimen>
+        <dimen name="keyline_2">72dp</dimen>
+
+        <!--Material Design-->
+        <dimen name="bottom_navigation_view_elevation">4dp</dimen>
+        <dimen name="app_bar_elevation">4dp</dimen>
+        <!-- Default screen margins, per the Android Design guidelines. -->
+        <dimen name="activity_horizontal_margin">16dp</dimen>
+        <dimen name="activity_vertical_margin">16dp</dimen>
+
 </resources>

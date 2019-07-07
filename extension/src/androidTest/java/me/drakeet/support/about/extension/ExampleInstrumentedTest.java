@@ -1,4 +1,4 @@
-package me.drakeet.support.about.extension;
+package com.christian.library.extension;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     // Context of the app under test.
     Context appContext = InstrumentationRegistry.getTargetContext();
 
-    assertEquals("me.drakeet.support.about.extension.test", appContext.getPackageName());
+    assertEquals("com.christian.library.extension.test", appContext.getPackageName());
   }
 }

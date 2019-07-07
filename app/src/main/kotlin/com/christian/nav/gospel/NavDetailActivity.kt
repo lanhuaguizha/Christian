@@ -11,12 +11,11 @@ import com.christian.nav.*
 import com.google.android.material.tabs.TabLayout.MODE_FIXED
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.sb_nav.*
 import org.jetbrains.anko.debug
 import java.util.*
 
 private fun NavActivity.initTbWithTitle(title: String) {
-    sb_nav.visibility = View.GONE
+    sbl_nav.visibility = View.GONE
 
     /**
      * set up button

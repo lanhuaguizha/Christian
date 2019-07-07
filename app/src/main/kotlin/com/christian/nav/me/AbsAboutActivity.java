@@ -15,37 +15,31 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.christian.swipe.SwipeBackActivity;
-import com.github.anzewei.parallaxbacklayout.ParallaxBack;
-import com.github.anzewei.parallaxbacklayout.ParallaxHelper;
-import com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import me.drakeet.multitype.MultiTypeAdapter;
-import me.drakeet.support.about.Card;
-import me.drakeet.support.about.CardViewBinder;
-import me.drakeet.support.about.Category;
-import me.drakeet.support.about.CategoryViewBinder;
-import me.drakeet.support.about.Contributor;
-import me.drakeet.support.about.CupertinoParallaxTransform;
-import me.drakeet.support.about.ImageLoader;
-import me.drakeet.support.about.License;
-import me.drakeet.support.about.LicenseViewBinder;
-import me.drakeet.support.about.Line;
-import me.drakeet.support.about.LineViewBinder;
-import me.drakeet.support.about.OnContributorClickedListener;
-import me.drakeet.support.about.OnRecommendationClickedListener;
-import me.drakeet.support.about.Recommendation;
+import com.christian.library.multitype.Card;
+import com.christian.library.multitype.CardViewBinder;
+import com.christian.library.multitype.Category;
+import com.christian.library.multitype.CategoryViewBinder;
+import com.christian.library.multitype.Contributor;
+import com.christian.library.multitype.ImageLoader;
+import com.christian.library.multitype.License;
+import com.christian.library.multitype.LicenseViewBinder;
+import com.christian.library.multitype.Line;
+import com.christian.library.multitype.LineViewBinder;
+import com.christian.library.multitype.OnContributorClickedListener;
+import com.christian.library.multitype.OnRecommendationClickedListener;
+import com.christian.library.multitype.Recommendation;
 
 /**
  * @author drakeet
@@ -127,13 +121,13 @@ public abstract class AbsAboutActivity extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(me.drakeet.support.about.R.layout.about_page_main_activity);
-        toolbar = findViewById(me.drakeet.support.about.R.id.toolbar);
-        ImageView icon = findViewById(me.drakeet.support.about.R.id.icon);
-        slogan = findViewById(me.drakeet.support.about.R.id.slogan);
-        version = findViewById(me.drakeet.support.about.R.id.version);
-        collapsingToolbar = findViewById(me.drakeet.support.about.R.id.collapsing_toolbar);
-        headerContentLayout = findViewById(me.drakeet.support.about.R.id.header_content_layout);
+        setContentView(com.christian.library.R.layout.about_page_main_activity);
+        toolbar = findViewById(com.christian.library.R.id.toolbar);
+        ImageView icon = findViewById(com.christian.library.R.id.icon);
+        slogan = findViewById(com.christian.library.R.id.slogan);
+        version = findViewById(com.christian.library.R.id.version);
+        collapsingToolbar = findViewById(com.christian.library.R.id.collapsing_toolbar);
+        headerContentLayout = findViewById(com.christian.library.R.id.header_content_layout);
         onTitleViewCreated(collapsingToolbar);
         onCreateHeader(icon, slogan, version);
 
@@ -144,7 +138,7 @@ public abstract class AbsAboutActivity extends SwipeBackActivity {
             actionBar.setDisplayShowHomeEnabled(true);
         }
         onApplyPresetAttrs();
-        recyclerView = findViewById(me.drakeet.support.about.R.id.list);
+        recyclerView = findViewById(com.christian.library.R.id.list);
 
 
         toolbar.setOnClickListener(new DoubleClickListener() {
@@ -176,21 +170,21 @@ public abstract class AbsAboutActivity extends SwipeBackActivity {
     }
 
     private void onApplyPresetAttrs() {
-        final TypedArray a = obtainStyledAttributes(me.drakeet.support.about.R.styleable.AbsAboutActivity);
-        Drawable headerBackground = a.getDrawable(me.drakeet.support.about.R.styleable.AbsAboutActivity_aboutPageHeaderBackground);
+        final TypedArray a = obtainStyledAttributes(com.christian.library.R.styleable.AbsAboutActivity);
+        Drawable headerBackground = a.getDrawable(com.christian.library.R.styleable.AbsAboutActivity_aboutPageHeaderBackground);
         if (headerBackground != null) {
             setHeaderBackground(headerBackground);
         }
-        Drawable headerContentScrim = a.getDrawable(me.drakeet.support.about.R.styleable.AbsAboutActivity_aboutPageHeaderContentScrim);
+        Drawable headerContentScrim = a.getDrawable(com.christian.library.R.styleable.AbsAboutActivity_aboutPageHeaderContentScrim);
         if (headerContentScrim != null) {
             setHeaderContentScrim(headerContentScrim);
         }
         @ColorInt
-        int headerTextColor = a.getColor(me.drakeet.support.about.R.styleable.AbsAboutActivity_aboutPageHeaderTextColor, -1);
+        int headerTextColor = a.getColor(com.christian.library.R.styleable.AbsAboutActivity_aboutPageHeaderTextColor, -1);
         if (headerTextColor != -1) {
             setHeaderTextColor(headerTextColor);
         }
-        Drawable navigationIcon = a.getDrawable(me.drakeet.support.about.R.styleable.AbsAboutActivity_aboutPageNavigationIcon);
+        Drawable navigationIcon = a.getDrawable(com.christian.library.R.styleable.AbsAboutActivity_aboutPageNavigationIcon);
         if (navigationIcon != null) {
             setNavigationIcon(navigationIcon);
         }

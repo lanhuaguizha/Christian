@@ -1,4 +1,4 @@
-package me.drakeet.support.about;
+package com.christian.library.multitype;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;

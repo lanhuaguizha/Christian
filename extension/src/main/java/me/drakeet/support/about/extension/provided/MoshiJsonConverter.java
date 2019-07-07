@@ -1,9 +1,9 @@
-package me.drakeet.support.about.extension.provided;
+package com.christian.library.extension.provided;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.squareup.moshi.Moshi;
-import me.drakeet.support.about.extension.JsonConverter;
+import com.christian.library.extension.JsonConverter;
 
 /**
  * @author drakeet

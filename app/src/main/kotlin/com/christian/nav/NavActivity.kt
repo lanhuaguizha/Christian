@@ -27,8 +27,6 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_item_me_portrait.*
-import kotlinx.android.synthetic.main.sb_nav.*
-import kotlinx.android.synthetic.main.search_bar_expanded.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
@@ -108,7 +106,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         initAbl()
         initTb()
         initPortrait()
-        initSb()
         initVp(navFragmentList)
         initFab()
         initBv()
@@ -153,7 +150,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     internal lateinit var tabTitleList: ArrayList<String>
     open fun initTb() {
-        sb_nav.visibility = View.VISIBLE
+        sbl_nav.visibility = View.VISIBLE
 
         tabTitleList = arrayListOf(
                 getString(R.string._Gen),
@@ -245,13 +242,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
     }
 
-    private fun initSb() {
-        sb_nav.setOnClickListener { slExpand() }
-        search_magnifying_glass.setOnClickListener { slExpand() }
-        search_box_start_search.setOnClickListener { slExpand() }
-        search_back_button.setOnClickListener { slCollapse() }
-    }
-
     open fun initVp(navFragmentList: ArrayList<NavFragment>) {
         navFragmentPagerAdapter = NavFragmentPagerAdapter(supportFragmentManager)
         vp_nav.offscreenPageLimit = 3
@@ -338,17 +328,17 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     private fun slExpand() {
-        if (!sb_nav.isExpanded) {
-            sb_nav.expand(true, true)
+        if (!sbl_nav.isExpanded) {
+            sbl_nav.expand(true, true)
         }
     }
 
     private fun slCollapse() {
-        if (sb_nav.isExpanded) {
-            sb_nav.collapse(true)
+        if (sbl_nav.isExpanded) {
+            sbl_nav.collapse(true)
         }
-        if (sb_nav.isFadedOut) {
-            sb_nav.fadeIn()
+        if (sbl_nav.isFadedOut) {
+            sbl_nav.fadeIn()
         }
     }
 

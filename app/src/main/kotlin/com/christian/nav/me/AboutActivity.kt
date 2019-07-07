@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.content.edit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.nav.getDocumentReference
@@ -17,8 +18,8 @@ import com.christian.nav.toolbarTitle
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
-import me.drakeet.support.about.*
-import me.drakeet.support.about.provided.PicassoImageLoader
+import com.christian.library.multitype.*
+import com.christian.library.multitype.PicassoImageLoader
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn
 
@@ -132,7 +133,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
     }
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
-        icon.setImageResource(R.mipmap.ic_launcher)
+        icon.setImageResource(R.drawable.ic_group_add_black_24dp)
         slogan.text = getString(R.string.app_name)
         title = intent?.extras?.getString(toolbarTitle) ?: nullString
         version.text = getString(R.string.version)

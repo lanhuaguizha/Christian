@@ -1,4 +1,4 @@
-package me.drakeet.support.about.extension;
+package com.christian.library.extension;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -11,8 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import java.io.IOException;
 import java.util.List;
-import me.drakeet.support.about.AbsAboutActivity;
-import me.drakeet.support.about.Category;
+import com.christian.library.AbsAboutActivity;
+import com.christian.library.Category;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
