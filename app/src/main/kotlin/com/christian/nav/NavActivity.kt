@@ -144,7 +144,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     private fun initAbl() {
         tb_nav.setOnClickListener(object : DoubleClickListener() {
             override fun onDoubleClick(v: View) {
-                scrollRvToTop(this@NavActivity)
+//                scrollRvToTop(this@NavActivity)
             }
         })
     }
