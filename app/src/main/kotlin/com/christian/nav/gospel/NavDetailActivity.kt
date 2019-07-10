@@ -11,6 +11,7 @@ import com.christian.nav.*
 import com.google.android.material.tabs.TabLayout.MODE_FIXED
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
 import org.jetbrains.anko.debug
 import java.util.*
 
@@ -181,6 +182,9 @@ class NavDetailActivity : NavActivity() {
 //        }
 //    }
     override fun initFab() {
+        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_upward_black_24dp, theme))
+        fab_nav.setOnClickListener { scrollRvToTop(this@NavDetailActivity) }
+
 //        initFABGospelDetail(this@NavDetailActivity, navFragment.rv_nav)
     }
 
@@ -249,7 +253,15 @@ class NavDetailActivity : NavActivity() {
 
     override fun scrollRvToTop(navActivity: NavActivity) {
         if (::navDetailFragmentPagerAdapter.isInitialized)
-            navDetailFragmentPagerAdapter.currentFragment.rv_gospel_detail.smoothScrollToPosition(0) // 为了滚到顶
+            navDetailFragmentPagerAdapter.currentFragment.rv_nav.smoothScrollToPosition(0) // 为了滚到顶
         navActivity.abl_nav.setExpanded(true, true)
+    }
+
+    override fun showFAB() {
+        super.showFAB()
+    }
+
+    override fun hideFab() {
+        super.hideFab()
     }
 }

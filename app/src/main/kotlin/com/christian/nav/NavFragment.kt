@@ -42,7 +42,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 //        startActivity(intent)
 //    }
 
-    private lateinit var navActivity: NavActivity
+    lateinit var navActivity: NavActivity
     private lateinit var ctx: Context
     //    private lateinit var navAdapter: NavItemPresenter<*>
     lateinit var v: View
@@ -297,7 +297,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     }
 
     override fun showFab() {
-//        navActivity.showFAB()
+        navActivity.showFAB()
 //        if (navId == 1 && cv_nav_frag.visibility == View.GONE) {
 //            cv_nav_frag.visibility = View.VISIBLE
 //            val fadeIn = AnimationUtils.loadAnimation(context, R.anim.abc_fade_in)
@@ -306,7 +306,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     }
 
     override fun hideFab() {
-//        navActivity.fab_nav.hide()
+        navActivity.hideFab()
 //        if (navId == 1 && cv_nav_frag.visibility == View.VISIBLE) {
 //            val fadeOut = AnimationUtils.loadAnimation(context, R.anim.abc_fade_out)
 //            cv_nav_frag.startAnimation(fadeOut)

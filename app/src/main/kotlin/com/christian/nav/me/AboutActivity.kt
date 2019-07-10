@@ -20,6 +20,7 @@ import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import com.christian.library.multitype.*
 import com.christian.library.multitype.PicassoImageLoader
+import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn
 
@@ -52,7 +53,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
     override fun onEvent(documentSnapshots: DocumentSnapshot?, e: FirebaseFirestoreException?) {
         if (e != null) {
             warn { "onEvent:error$e" }
-            Snackbar.make(cl_gospel_detail, "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(cl_nav, "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
             return
         }
 

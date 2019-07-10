@@ -84,7 +84,6 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:visibility="gone"
         app:layout_anchor="@id/bv_nav"
         app:layout_anchorGravity="end"
         app:srcCompat="@drawable/ic_edit_black_24dp" />

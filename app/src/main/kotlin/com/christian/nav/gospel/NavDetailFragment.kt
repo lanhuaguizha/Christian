@@ -1,5 +1,6 @@
 package com.christian.nav.gospel
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -15,6 +16,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.gospel_detail_fragment.view.*
+import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_fragment.*
+import kotlinx.android.synthetic.main.nav_fragment.view.*
 
 /**
  * MVVM-databinding架构开发
@@ -34,10 +38,15 @@ class NavDetailFragment : NavFragment() {
 
     private lateinit var gospelDetailAdapter: GospelDetailAdapter
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        navActivity = context as NavDetailActivity
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        val view = inflater.inflate(R.layout.gospel_detail_fragment, container, false)
 
+        super.onCreateView(inflater, container, savedInstanceState)
         // Enable Firestore logging
         FirebaseFirestore.setLoggingEnabled(true)
         // Firestore
@@ -48,27 +57,27 @@ class NavDetailFragment : NavFragment() {
             override fun onDataChanged() {
                 // Show/hide content if the query returns empty.
                 if (itemCount == 0) {
-                    rv_gospel_detail.visibility = View.GONE
+                    v.rv_nav.visibility = View.GONE
 //                    viewEmpty.visibility = View.VISIBLE
                 } else {
-                    rv_gospel_detail.visibility = View.VISIBLE
-//                    viewEmpty.visibility = View.GONE
+                    v.rv_nav.visibility = View.VISIBLE
+                    v.pb_nav.visibility = View.GONE
                 }
             }
 
             override fun onError(e: FirebaseFirestoreException) {
                 // Show a snackbar on errors
-                Snackbar.make(cl_gospel_detail,
+                Snackbar.make(cl_nav,
                         "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
             }
         }
         // stopListening
         gospelDetailAdapter.setQuery(gospelRef)
 
-        view.rv_gospel_detail.adapter = gospelDetailAdapter
-        view.rv_gospel_detail.addItemDecoration(GospelDetailItemDecoration(resources.getDimension(R.dimen.activity_horizontal_margin).toInt()))
+        v.rv_nav.adapter = gospelDetailAdapter
+        v.rv_nav.addItemDecoration(GospelDetailItemDecoration(resources.getDimension(R.dimen.activity_horizontal_margin).toInt()))
 
-        return view
+        return v
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

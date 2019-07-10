@@ -14,6 +14,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.res.ResourcesCompat
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
@@ -250,7 +251,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun initFab() {
-
+        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
+        fab_nav.setOnClickListener { scrollRvToTop(this) }
     }
 
     open fun initBv() {
@@ -263,15 +265,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         bv_nav.layoutParams = params
     }
 
-    @SuppressLint("RestrictedApi")
-    fun showFAB() {
-//        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
-        fab_nav.setOnClickListener {
-        }
-//        if (fab_nav.visibility != View.VISIBLE) {
-//            debug { "initFAB View.VISIBLE" }
-//            fab_nav.visibility = View.VISIBLE
-//        }
+    open fun showFAB() {
+        fab_nav.show()
     }
 
     open fun initBnv() {
@@ -325,6 +320,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun hideFab() {
+        fab_nav.hide()
     }
 
     private fun slExpand() {
