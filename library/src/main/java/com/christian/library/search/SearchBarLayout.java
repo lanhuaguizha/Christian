@@ -260,11 +260,11 @@ public class SearchBarLayout extends FrameLayout {
     void initSb() {
 
         // 记得解开
-        MarginLayoutParams params = (MarginLayoutParams) getLayoutParams();
-        topMargin = params.topMargin;
-        bottomMargin = params.bottomMargin;
-        leftMargin = params.leftMargin;
-        rightMargin = params.rightMargin;
+//        MarginLayoutParams params = (MarginLayoutParams) getLayoutParams();
+//        topMargin = params.topMargin;
+//        bottomMargin = params.bottomMargin;
+//        leftMargin = params.leftMargin;
+//        rightMargin = params.rightMargin;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             collapsedElevation = getElevation();

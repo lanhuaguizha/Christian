@@ -133,7 +133,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
     }
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
-        icon.setImageResource(R.drawable.ic_group_add_black_24dp)
+        icon.setImageResource(R.drawable.ic_round_group_add_24px)
         slogan.text = getString(R.string.app_name)
         title = intent?.extras?.getString(toolbarTitle) ?: nullString
         version.text = getString(R.string.version)
