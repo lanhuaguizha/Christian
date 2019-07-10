@@ -103,6 +103,7 @@
             android:id="@+id/bnv_nav"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:elevation="0dp"
             android:background="@android:color/transparent"
             app:menu="@menu/navigation" />
     </eightbitlab.com.blurview.BlurView>
