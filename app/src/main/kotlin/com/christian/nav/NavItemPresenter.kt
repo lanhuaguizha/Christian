@@ -41,3 +41,16 @@ fun generateUrlId(url: String?): Int {
         }
     }
 }
+
+/**
+ * item animation
+ */
+private var loadNextPage: Boolean = true
+var mPosition = 0
+fun applyViewHolderAnimation(holder: NavItemView) {
+    if (loadNextPage)
+        if (holder.adapterPosition > mPosition) {
+            holder.animateItemView(holder.itemView)
+        }
+    mPosition = holder.adapterPosition
+}

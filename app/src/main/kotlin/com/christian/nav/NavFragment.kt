@@ -194,6 +194,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                     override fun onBindViewHolder(@NonNull holder: NavItemView,
                                                   position: Int,
                                                   @NonNull model: Gospel) {
+                        applyViewHolderAnimation(holder)
                         holder.bind(model)
                     }
 

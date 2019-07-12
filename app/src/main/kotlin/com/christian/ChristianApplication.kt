@@ -1,7 +1,6 @@
 package com.christian
 
 import android.app.Application
-import androidx.multidex.MultiDex
 import com.christian.util.CrashHandler
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 
@@ -23,7 +22,7 @@ class ChristianApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         // leak canary
-        MultiDex.install(this)
+//        MultiDex.install(this)
         // Normal app init code...
         val crashHandler = CrashHandler.getInstance()
         crashHandler.get()?.init(this)

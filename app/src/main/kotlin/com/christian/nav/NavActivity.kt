@@ -112,7 +112,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         initBv()
         initBnv()
         // 自动夜间模式
-        sunriseSunset()
+//        sunriseSunset()
     }
 
     private fun sunriseSunset() {
