@@ -9,17 +9,15 @@ import android.widget.Toast
 import androidx.core.content.edit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.christian.BuildConfig
 import com.christian.R
 import com.christian.data.MeBean
+import com.christian.library.multitype.*
 import com.christian.nav.getDocumentReference
 import com.christian.nav.nullString
 import com.christian.nav.toolbarTitle
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.*
-import kotlinx.android.synthetic.main.gospel_detail_fragment.*
-import com.christian.library.multitype.*
-import com.christian.library.multitype.PicassoImageLoader
 import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn
@@ -137,6 +135,6 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         icon.setImageResource(R.drawable.ic_round_group_add_24px)
         slogan.text = getString(R.string.app_name)
         title = intent?.extras?.getString(toolbarTitle) ?: nullString
-        version.text = getString(R.string.version)
+        version.text = BuildConfig.VERSION_NAME
     }
 }
