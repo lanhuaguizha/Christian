@@ -125,13 +125,15 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
             val sharedPreferences = containerView.context.getSharedPreferences("christian", Activity.MODE_PRIVATE)
             val string = sharedPreferences.getString("sunrise", "") ?: ""
             val string1 = sharedPreferences.getString("sunset", "") ?: ""
-            switch_nav_item_small.visibility = View.VISIBLE
+
             if (string.isNotEmpty() && string.isNotEmpty()) {
                 val sunriseString = string.substring(11, 19)
                 val sunsetString = string1.substring(11, 19)
                 switch_nav_item_small.text = String.format(containerView.context.getString(R.string.sunrise_sunset), sunriseString, sunsetString)
+                switch_nav_item_small.visibility = View.VISIBLE
             } else {
                 switch_nav_item_small.text = containerView.context.getString(R.string.no_location_service)
+                switch_nav_item_small.visibility = View.GONE
             }
         }
         tv_nav_item_small.text = setting.name
