@@ -21,6 +21,7 @@ import com.christian.swipe.SwipeBackActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.kotlinpermissions.KotlinPermissions
@@ -259,7 +260,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         makeViewBlur(bv_nav, cl_nav, window)
 
-        val params = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
+        val params = CoordinatorLayout.LayoutParams(bv_nav.layoutParams)
         params.gravity = Gravity.BOTTOM
         params.behavior = BottomNavigationViewBehavior(this, null)
         bv_nav.layoutParams = params
@@ -343,7 +344,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
      */
     class BottomNavigationViewBehavior(context: Context?, attrs: AttributeSet?) : androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior<View>(context, attrs) {
         override fun onLayoutChild(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
-            (child.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams).topMargin = parent.measuredHeight.minus(child.measuredHeight)
+            (child.layoutParams as CoordinatorLayout.LayoutParams).topMargin = parent.measuredHeight.minus(child.measuredHeight)
             return super.onLayoutChild(parent, child, layoutDirection)
         }
 
@@ -352,7 +353,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
 
         override fun onDependentViewChanged(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, dependency: View): Boolean {
-            val top = ((dependency.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams).behavior as AppBarLayout.Behavior).topAndBottomOffset
+            val top = ((dependency.layoutParams as CoordinatorLayout.LayoutParams).behavior as AppBarLayout.Behavior).topAndBottomOffset
             Log.i("dd", top.toString())
             //因为BottomNavigation的滑动与ToolBar是反向的，所以取-top值
             child.translationY = (-top).toFloat()
@@ -365,7 +366,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
      */
     class BottomNavigationViewBehaviorDetail(context: Context?, attrs: AttributeSet?) : androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior<View>(context, attrs) {
         override fun onLayoutChild(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
-            (child.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams).topMargin = parent.measuredHeight.minus(child.measuredHeight)
+            (child.layoutParams as CoordinatorLayout.LayoutParams).topMargin = parent.measuredHeight.minus(child.measuredHeight)
             return super.onLayoutChild(parent, child, layoutDirection)
         }
 
@@ -422,7 +423,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 // ...
-                val snackbar = snackbar("sign in filed.")
+                val snackbar = snackbar("sign in filed")
                 snackbar.show()
             }
         }
@@ -483,12 +484,35 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             snackbarView.elevation = dip(3).toFloat()
         }
 
+        // Snackbar
         val params = snackbarView.layoutParams as CoordinatorLayout.LayoutParams
         params.anchorId = R.id.bnv_nav
         params.width = CoordinatorLayout.LayoutParams.MATCH_PARENT
         params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL// 相对锚点的位置
         params.anchorGravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL // 锚点的位置
         snackbarView.layoutParams = params
+
+        // Fab
+        val layoutParams = fab_nav.layoutParams as CoordinatorLayout.LayoutParams
+//        layoutParams.bottomMargin = dip(0)
+//        fab_nav.layoutParams = layoutParams
+
+        snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+
+            override fun onShown(transientBottomBar: Snackbar) {
+                layoutParams.anchorId = R.id.bv_nav
+            }
+
+            override fun onDismissed(transientBottomBar: Snackbar, event: Int) {
+                when (event == DISMISS_EVENT_TIMEOUT) {
+                    true -> {
+//                        layoutParams.bottomMargin = cl_nav.bottom - cl_nav.top - bv_nav.top
+                        layoutParams.anchorId = R.id.bv_nav
+                        fab_nav.layoutParams = layoutParams
+                    }
+                }
+            }
+        })
 
         return snackbar
     }

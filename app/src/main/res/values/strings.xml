@@ -242,7 +242,7 @@
     <string name="_Newest_Review">Newest Review</string>
     <string name="me">Me</string>
     <string name="developer">Developer</string>
-    <string name="finished">Reached end of data set.</string>
+    <string name="finished">Reached end of data set</string>
     <string name="error">An error occurred.</string>
     <string name="sunrise_sunset">Sunrise%s Sunset%s</string>
     <string name="tips_location_permission_request">Night mode features need to turn on location service to get sunset time</string>
