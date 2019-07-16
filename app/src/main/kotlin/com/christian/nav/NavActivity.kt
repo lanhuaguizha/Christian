@@ -494,19 +494,23 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         // Fab
         val layoutParams = fab_nav.layoutParams as CoordinatorLayout.LayoutParams
-//        layoutParams.bottomMargin = dip(0)
-//        fab_nav.layoutParams = layoutParams
+
+        layoutParams.bottomMargin = 0
+        layoutParams.anchorId = R.id.bv_nav
+        fab_nav.layoutParams = layoutParams
 
         snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
 
-            override fun onShown(transientBottomBar: Snackbar) {
-                layoutParams.anchorId = R.id.bv_nav
-            }
+//            override fun onShown(transientBottomBar: Snackbar) {
+//                layoutParams.bottomMargin = 0
+//                layoutParams.anchorId = R.id.bv_nav
+//                fab_nav.layoutParams = layoutParams
+//            }
 
             override fun onDismissed(transientBottomBar: Snackbar, event: Int) {
                 when (event == DISMISS_EVENT_TIMEOUT) {
                     true -> {
-//                        layoutParams.bottomMargin = cl_nav.bottom - cl_nav.top - bv_nav.top
+                        layoutParams.bottomMargin = cl_nav.bottom - cl_nav.top - bv_nav.top
                         layoutParams.anchorId = R.id.bv_nav
                         fab_nav.layoutParams = layoutParams
                     }
