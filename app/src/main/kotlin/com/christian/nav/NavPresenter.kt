@@ -11,19 +11,16 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
 import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.Gospel
+import com.christian.nav.gospel.GospelReviewFragment
 import com.christian.nav.gospel.NavDetailActivity
 import com.christian.nav.gospel.NavDetailFragment
-import com.christian.nav.gospel.GospelReviewFragment
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import com.google.android.material.appbar.AppBarLayout
@@ -31,12 +28,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
-import org.jetbrains.anko.*
+import org.jetbrains.anko.debug
+import org.jetbrains.anko.dip
+import org.jetbrains.anko.info
+import org.jetbrains.anko.singleLine
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -510,16 +507,6 @@ private fun expandedAnimationToolbar(navActivity: NavActivity, expanded: Boolean
         }
 
     })
-}
-
-fun getDocumentReference(@NonNull collectionPath: String, @NonNull documentPath: String): DocumentReference {
-    val firestore = FirebaseFirestore.getInstance()
-    return firestore.collection(collectionPath).document(documentPath)
-}
-
-fun getQuery(@NonNull collectionPath: String, @NonNull field: String, @NonNull direction: Query.Direction): Query {
-    val firestore = FirebaseFirestore.getInstance()
-    return firestore.collection(collectionPath).orderBy(field, direction)
 }
 
 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

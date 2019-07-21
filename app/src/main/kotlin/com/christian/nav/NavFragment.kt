@@ -21,7 +21,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter
 import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.firebase.ui.firestore.paging.LoadingState
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
@@ -68,8 +67,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         v = inflater.inflate(R.layout.nav_fragment, container, false)
-        FirebaseFirestore.setLoggingEnabled(true)
-
         isInitView = true
         isCanLoadData()
 
@@ -176,7 +173,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
         when (navId) {
             VIEW_HOME -> {
-                val query = FirebaseFirestore.getInstance().collection("gospels")
+                val query = navActivity.firestore.collection("gospels")
                 query.orderBy("subtitle", Query.Direction.ASCENDING)
                 val options = FirestorePagingOptions.Builder<Gospel>()
 //                        .setLifecycleOwner(this@NavFragment)
@@ -265,7 +262,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     }
 
     private fun firestoreRecyclerAdapter(): FirestoreRecyclerAdapter<Setting, NavItemView> {
-        val query = FirebaseFirestore.getInstance().collection("mes").orderBy("id", Query.Direction.ASCENDING)
+        val query = navActivity.firestore.collection("mes").orderBy("id", Query.Direction.ASCENDING)
         val options = FirestoreRecyclerOptions.Builder<Setting>()
                 .setQuery(query, Setting::class.java)
 //                .setLifecycleOwner(navActivity)

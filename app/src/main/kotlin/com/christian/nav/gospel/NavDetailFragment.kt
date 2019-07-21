@@ -1,23 +1,19 @@
 package com.christian.nav.gospel
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import com.christian.R
 import com.christian.nav.NavActivity
 import com.christian.nav.NavFragment
 import com.christian.view.GospelDetailItemDecoration
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
-import kotlinx.android.synthetic.main.gospel_detail_fragment.*
-import kotlinx.android.synthetic.main.gospel_detail_fragment.view.*
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 
 /**
@@ -31,8 +27,6 @@ class NavDetailFragment : NavFragment() {
     }
 
     private lateinit var viewModel: GospelDetailViewModel
-
-    lateinit var firestore: FirebaseFirestore
 
     private lateinit var gospelRef: DocumentReference
 
@@ -48,11 +42,10 @@ class NavDetailFragment : NavFragment() {
 
         super.onCreateView(inflater, container, savedInstanceState)
         // Enable Firestore logging
-        FirebaseFirestore.setLoggingEnabled(true)
+//        FirebaseFirestore.setLoggingEnabled(true)
         // Firestore
-        firestore = FirebaseFirestore.getInstance()
         // Get ${LIMIT} gospels
-        gospelRef = firestore.collection("gospels").document("2019.3.15 10:31")
+        gospelRef = navActivity.firestore.collection("gospels").document("2019.3.15 10:31")
         gospelDetailAdapter = object : GospelDetailAdapter(gospelRef, this@NavDetailFragment.activity as NavActivity) {
             override fun onDataChanged() {
                 // Show/hide content if the query returns empty.

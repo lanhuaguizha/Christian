@@ -13,7 +13,6 @@ import com.christian.BuildConfig
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.library.multitype.*
-import com.christian.nav.getDocumentReference
 import com.christian.nav.nullString
 import com.christian.nav.toolbarTitle
 import com.google.android.material.snackbar.Snackbar
@@ -81,7 +80,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         setImageLoader(PicassoImageLoader())
         onRecommendationClickedListener = this@AboutActivity
         onContributorClickedListener = this@AboutActivity
-        meRef = getDocumentReference("mes", "kT04H8SFVsOvqz4YLfUq")
+        meRef = firestore.collection("mes").document("kT04H8SFVsOvqz4YLfUq")
         startListening()
     }
 

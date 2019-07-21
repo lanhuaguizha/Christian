@@ -8,6 +8,8 @@ import com.christian.R
 import com.github.anzewei.parallaxbacklayout.ParallaxBack
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 /**
@@ -15,6 +17,9 @@ import com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout
  */
 @ParallaxBack(edge = ParallaxBack.Edge.LEFT, layout = ParallaxBack.Layout.PARALLAX, edgeMode = ParallaxBack.EdgeMode.FULLSCREEN)
 abstract class SwipeBackActivity : AppCompatActivity() {
+
+    val firestore = FirebaseFirestore.getInstance()
+    val auth = FirebaseAuth.getInstance()
 
     init {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)

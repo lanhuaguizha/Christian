@@ -23,7 +23,6 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import com.kotlinpermissions.KotlinPermissions
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
@@ -236,7 +235,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             signIn()
         }
         sign_out.setOnClickListener {
-            val user = FirebaseAuth.getInstance().currentUser
+            val user = auth.currentUser
             user?.delete()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     snackbar("User account deleted")
@@ -396,7 +395,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
-                val user = FirebaseAuth.getInstance().currentUser
+                val user = auth.currentUser
                 info { "user: $user" }
                 if (user != null) {
                     sign_in.visibility = View.GONE
