@@ -326,7 +326,7 @@ private fun expandedAnimation(navActivity: NavActivity, expanded: Boolean, durat
     } else {
         ValueAnimator.ofFloat(navActivity.abl_nav.bottom.toFloat(), navActivity.abl_nav.bottom.toFloat() - navActivity.dip(56))
     }
-    animator.duration = 50
+    animator.duration = 0
     animator.interpolator = LinearInterpolator()
     animator.addUpdateListener {
         val floatValue = it.animatedValue as Float
