@@ -59,6 +59,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     override fun onSaveInstanceState(outState: Bundle) {
     }
 
+    private lateinit var layoutParamsFab: CoordinatorLayout.LayoutParams
     private lateinit var mStaticHandler: StaticHandler
     /**
      * presenter will be initialized when the NavPresenter is initialized
@@ -252,6 +253,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun initFab() {
+        layoutParamsFab = fab_nav.layoutParams as CoordinatorLayout.LayoutParams
+        layoutParamsFab.bottomMargin = dip(56)
+        layoutParamsFab.anchorId = R.id.bv_nav
+        fab_nav.layoutParams = layoutParamsFab
+
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.setOnClickListener { scrollRvToTop(this) }
     }
@@ -476,7 +482,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 RC_SIGN_IN)
     }
 
-
     fun snackbar(s: String): Snackbar {
         val snackbar = Snackbar.make(cl_nav, s, Snackbar.LENGTH_LONG)
         val snackbarView = snackbar.view
@@ -492,27 +497,18 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         params.anchorGravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL // 锚点的位置
         snackbarView.layoutParams = params
 
-        // Fab
-        val layoutParams = fab_nav.layoutParams as CoordinatorLayout.LayoutParams
-
-        layoutParams.bottomMargin = 0
-        layoutParams.anchorId = R.id.bv_nav
-        fab_nav.layoutParams = layoutParams
+        layoutParamsFab.bottomMargin = 0
+        layoutParamsFab.anchorId = R.id.bv_nav
+        fab_nav.layoutParams = layoutParamsFab
 
         snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
-
-//            override fun onShown(transientBottomBar: Snackbar) {
-//                layoutParams.bottomMargin = 0
-//                layoutParams.anchorId = R.id.bv_nav
-//                fab_nav.layoutParams = layoutParams
-//            }
 
             override fun onDismissed(transientBottomBar: Snackbar, event: Int) {
                 when (event == DISMISS_EVENT_TIMEOUT) {
                     true -> {
-                        layoutParams.bottomMargin = cl_nav.bottom - cl_nav.top - bv_nav.top
-                        layoutParams.anchorId = R.id.bv_nav
-                        fab_nav.layoutParams = layoutParams
+                        layoutParamsFab.bottomMargin = cl_nav.bottom - cl_nav.top - bv_nav.top
+                        layoutParamsFab.anchorId = R.id.bv_nav
+                        fab_nav.layoutParams = layoutParamsFab
                     }
                 }
             }
