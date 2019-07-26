@@ -15,6 +15,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
@@ -28,6 +30,7 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_item_me_portrait.*
+import kotlinx.coroutines.launch
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
@@ -252,13 +255,16 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun initFab() {
+        fab_nav.visibility = View.GONE
         layoutParamsFab = fab_nav.layoutParams as CoordinatorLayout.LayoutParams
         layoutParamsFab.bottomMargin = dip(56)
         layoutParamsFab.anchorId = R.id.bv_nav
         fab_nav.layoutParams = layoutParamsFab
 
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
-        fab_nav.setOnClickListener { scrollRvToTop(this) }
+        fab_nav.setOnClickListener {
+            ViewModelProviders.of(this).get(NavViewModel::class.java).loadImage()
+        }
     }
 
     open fun initBv() {
@@ -272,7 +278,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun showFAB() {
-        fab_nav.show()
+//        fab_nav.show()
     }
 
     open fun initBnv() {
@@ -326,7 +332,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun hideFab() {
-        fab_nav.hide()
+//        fab_nav.hide()
     }
 
     private fun slExpand() {

@@ -247,6 +247,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
             override fun onTop() {
                 isPageTop = true
+                hideFab()
                 controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
             }
 
