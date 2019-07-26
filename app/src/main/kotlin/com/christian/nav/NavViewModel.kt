@@ -12,9 +12,7 @@ class NavViewModel : ViewModel(), AnkoLogger {
 
     fun loadImage() {
         viewModelScope.launch {
-            val b = withContext(viewModelScope.coroutineContext) {
-                loadImageAsync()
-            }
+            val b = loadImageAsync()
             info { b }
         }
     }
