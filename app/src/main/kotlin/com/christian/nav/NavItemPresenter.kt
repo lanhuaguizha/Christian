@@ -36,6 +36,8 @@ fun generateUrlId(url: String?): Int {
         "R.drawable.ic_assignment_black_24dp" -> R.drawable.ic_assignment_black_24dp
         "R.drawable.ic_contact_mail_black_24dp" -> R.drawable.ic_contact_mail_black_24dp
         "R.drawable.ic_contact_phone_black_24dp" -> R.drawable.ic_contact_phone_black_24dp
+        "ic_star_black_24dp" -> R.drawable.ic_star_black_24dp
+        "ic_group_add_black_24dp" -> R.drawable.ic_group_add_black_24dp
         else -> {
             return 0
         }

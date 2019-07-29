@@ -105,7 +105,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
                 containerView.setOnClickListener {
                 }
             }
-            5 -> {
+            4 -> {
                 containerView.setOnClickListener {
                     val i = Intent(containerView.context, AboutActivity::class.java)
                     i.putExtra(toolbarTitle, getTitle(setting, adapterPosition))
