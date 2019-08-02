@@ -6,29 +6,47 @@ apply from: './gradle-mvn-push.gradle'
 apply plugin: 'jacoco'
 
 android {
-  compileSdkVersion 28
+    compileSdkVersion 28
 
-  defaultConfig {
-    minSdkVersion 16
-    targetSdkVersion 28
-    versionCode 1
-    versionName "1.0.0"
-    vectorDrawables.useSupportLibrary = true
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0.0"
+        vectorDrawables.useSupportLibrary = true
 
-    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled false
-      consumerProguardFile 'proguard-rules.pro'
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-  }
 
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
+    buildTypes {
+        release {
+            minifyEnabled false
+            consumerProguardFile 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+
+//compileKotlin {
+//    kotlinOptions {
+//    }
+//}
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    kotlinOptions {
+        freeCompilerArgs += "-Xjsr305=strict"
+
+        jvmTarget = '1.8'
+        apiVersion = '1.1'
+        languageVersion = '1.1'
+    }
 }
 
 dependencies {
@@ -39,11 +57,13 @@ dependencies {
     // androidx
     api "androidx.core:core-ktx:$ktxVersion"
     api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version" // To use coroutines in a ViewModel, you can use the viewModelScope extension property
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // To use coroutines in a ViewModel, you can use the viewModelScope extension property
 
     // Google
     api 'com.google.code.gson:gson:2.8.5'
     api "com.google.android.material:material:1.1.0-alpha07"
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
     // Android
     api 'androidx.appcompat:appcompat:1.1.0-rc01'
