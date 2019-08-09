@@ -19,16 +19,18 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings
 @ParallaxBack(edge = ParallaxBack.Edge.LEFT, layout = ParallaxBack.Layout.PARALLAX, edgeMode = ParallaxBack.EdgeMode.FULLSCREEN)
 abstract class SwipeBackActivity : AppCompatActivity() {
 
-    val firestore = FirebaseFirestore.getInstance()
-    val auth = FirebaseAuth.getInstance()
-
-    init {
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-        val settings = FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
-                .build()
-        firestore.firestoreSettings = settings
+    private fun FirebaseFirestore.lock() {
+        collection("config").document("db").update("locked", true)
     }
+
+    val firestore by lazy {
+        return@lazy synchronized(this@SwipeBackActivity) {
+            FirebaseFirestore.getInstance().apply {
+                lock()
+            }
+        }
+    }
+    val auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
