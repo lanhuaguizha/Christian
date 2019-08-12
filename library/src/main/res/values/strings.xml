@@ -5,5 +5,7 @@
     <string name="search_hint">Search Gospel</string>
     <string name="description_start_voice_search">Start voice search</string>
     <string name="action_menu_overflow_description" msgid="2295659037509008453">More options</string>
-
+    <string name="action_menu_back_from_search" msgid="1138551123844019647">"stoppen met zoeken"</string>
+    <string name="description_clear_search">Clear search</string>
+    <string name="search_font_family">sans-serif</string>
 </resources>
