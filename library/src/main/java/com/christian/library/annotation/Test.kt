@@ -1,51 +1,30 @@
 package com.christian.library.annotation
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.*
+import kotlin.system.measureTimeMillis
 
 fun main() = runBlocking {
-    val startTime = System.currentTimeMillis()
-//    withContextCalculator(1)
-//    withContextCalculator(1)
-//    withContextCalculator(1)
-    launch { withContextCalculator(1) }
-    launch { withContextCalculator(1) }
-    launch { withContextCalculator(1) }
-    val endTime = System.currentTimeMillis()
 
-    println("runtime is ${endTime - startTime}")
-
-//    launch { withContextCalculator(1) }
-//    launch { withContextCalculator(1) }
-//    launch { withContextCalculator(1) }
-}
-
-suspend fun withContextCalculator(num: Int) {
-    val result1 = withContext(Dispatchers.Default) {
-        delay(1000)
-        return@withContext num
-    }
-
-    val result2 = withContext(Dispatchers.Default) {
-        delay(1000)
-        return@withContext num
-    }
-
-    val result3 = withContext(Dispatchers.Default) {
-        delay(1000)
-        return@withContext num
-    }
-
-    println(result1 + result2 + result3)
-}
-
-class MainViewModel : ViewModel() {
-
-    fun main() {
-
-        viewModelScope.launch {
-            withContextCalculator(1)
+    val time = measureTimeMillis {
+        launch {
+            calThingsAsync()
         }
     }
+
+    println("runtime-from thread ${Thread.currentThread().name} is $time")
+}
+
+private suspend fun calThingsAsync() {
+    coroutineScope {
+        val r1 = async(Dispatchers.IO) { calThings(1) }
+        val r2 = async(Dispatchers.IO) { calThings(2) }
+        val r3 = async(Dispatchers.IO) { calThings(3) }
+        println("sum-from thread ${Thread.currentThread().name}, ${r1.await() + r2.await() + r3.await()}")
+    }
+}
+
+suspend fun calThings(i: Int): Int {
+    delay(1000)
+    println("r$i-from thread ${Thread.currentThread().name}, $i")
+    return i
 }
