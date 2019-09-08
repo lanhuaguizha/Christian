@@ -33,7 +33,7 @@ public class ItemDecoration extends RecyclerView.ItemDecoration {
         // Add top margin only for the first item to avoid double space between items
         if (parent.getChildAdapterPosition(view) == 0)
             outRect.top = space;
-        if (parent.getChildAdapterPosition(view) == Objects.requireNonNull(parent.getAdapter()).getItemCount() - 1)
-            outRect.bottom = ChristianUtil.dpToPx(168);
+//        if (parent.getChildAdapterPosition(view) == Objects.requireNonNull(parent.getAdapter()).getItemCount() - 1)
+//            outRect.bottom = ChristianUtil.dpToPx(168);
     }
 }

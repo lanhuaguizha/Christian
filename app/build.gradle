@@ -156,9 +156,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     // RefreshLayout
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-7'
-    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-7'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
 }
 
 androidExtensions {
