@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import me.drakeet.multitype.ItemViewBinder;
-import com.christian.library.multitype.Contributor;
-import com.christian.library.multitype.OnContributorClickedListener;
+import com.christian.multitype.Contributor;
+import com.christian.multitype.OnContributorClickedListener;
 
 import static android.net.Uri.parse;
 
@@ -29,7 +29,7 @@ public class ContributorViewBinder extends ItemViewBinder<Contributor, Contribut
 
   @NonNull @Override
   public ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
-    return new ViewHolder(inflater.inflate(com.christian.library.R.layout.about_page_item_contributor, parent, false), activity);
+    return new ViewHolder(inflater.inflate(com.christian.R.layout.about_page_item_contributor, parent, false), activity);
   }
 
   @Override
@@ -51,9 +51,9 @@ public class ContributorViewBinder extends ItemViewBinder<Contributor, Contribut
     public ViewHolder(View itemView, @NonNull AbsAboutActivity activity) {
       super(itemView);
       this.activity = activity;
-      avatar = itemView.findViewById(com.christian.library.R.id.avatar);
-      name = itemView.findViewById(com.christian.library.R.id.name);
-      desc = itemView.findViewById(com.christian.library.R.id.desc);
+      avatar = itemView.findViewById(com.christian.R.id.avatar);
+      name = itemView.findViewById(com.christian.R.id.name);
+      desc = itemView.findViewById(com.christian.R.id.desc);
       itemView.setOnClickListener(this);
     }
 

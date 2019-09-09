@@ -19,7 +19,6 @@
     <string name="content_empty">The content is empty</string>
     <string name="search_font_family">sans-serif</string>
     <string name="description_search">Search Gospel</string>
-    <string name="action_menu_back_from_search">stop searching</string>
     <string name="description_clear_search">Clear search</string>
     <string name="description_gospel">Collection Gospel</string>
     <string name="read_history">Read History</string>
@@ -125,7 +124,7 @@
     <string name="send_verification_code">Send Code</string>
 
     <string name="large_text">
-       \n13除了从天降下仍旧在天的人子，没有人升过天。14摩西在旷野怎样举蛇，人子也必照样被举起来。15叫一切信他的都得永生。（或作叫一切信的人在他里面得永生）16神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。17因为神差他的儿子降世，不是要定世人的罪，（或作审判世人下同）乃是要叫世人因他得救。18信他的人，不被定罪。不信的人，罪已经定了，因为他不信神独生子的名。19光来到世间，世人因自己的行为是恶的，不爱光倒爱黑暗，定他们的罪就是在此。20凡作恶的便恨光，并不来就光，恐怕他的行为受责备。21但行真理的必来就光，要显明他所行的是靠神而行。\n\n
+        \n13除了从天降下仍旧在天的人子，没有人升过天。14摩西在旷野怎样举蛇，人子也必照样被举起来。15叫一切信他的都得永生。（或作叫一切信的人在他里面得永生）16神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。17因为神差他的儿子降世，不是要定世人的罪，（或作审判世人下同）乃是要叫世人因他得救。18信他的人，不被定罪。不信的人，罪已经定了，因为他不信神独生子的名。19光来到世间，世人因自己的行为是恶的，不爱光倒爱黑暗，定他们的罪就是在此。20凡作恶的便恨光，并不来就光，恐怕他的行为受责备。21但行真理的必来就光，要显明他所行的是靠神而行。\n\n
         13除了从天降下仍旧在天的人子，没有人升过天。14摩西在旷野怎样举蛇，人子也必照样被举起来。15叫一切信他的都得永生。（或作叫一切信的人在他里面得永生）16神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。17因为神差他的儿子降世，不是要定世人的罪，（或作审判世人下同）乃是要叫世人因他得救。18信他的人，不被定罪。不信的人，罪已经定了，因为他不信神独生子的名。19光来到世间，世人因自己的行为是恶的，不爱光倒爱黑暗，定他们的罪就是在此。20凡作恶的便恨光，并不来就光，恐怕他的行为受责备。21但行真理的必来就光，要显明他所行的是靠神而行。\n\n
         13除了从天降下仍旧在天的人子，没有人升过天。14摩西在旷野怎样举蛇，人子也必照样被举起来。15叫一切信他的都得永生。（或作叫一切信的人在他里面得永生）16神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。17因为神差他的儿子降世，不是要定世人的罪，（或作审判世人下同）乃是要叫世人因他得救。18信他的人，不被定罪。不信的人，罪已经定了，因为他不信神独生子的名。19光来到世间，世人因自己的行为是恶的，不爱光倒爱黑暗，定他们的罪就是在此。20凡作恶的便恨光，并不来就光，恐怕他的行为受责备。21但行真理的必来就光，要显明他所行的是靠神而行。\n\n\n
     </string>
@@ -248,4 +247,10 @@
     <string name="tips_location_permission_request">Night mode features need to turn on location service to get sunset time</string>
     <string name="no_location_service">没有开启位置服务获取不到日落时间</string>
 
+    <string name="about_page_open_with">Open with:</string>
+    <string name="about_page_browser">Web Browser</string>
+    <string name="search_hint">Search Gospel</string>
+    <string name="description_start_voice_search">Start voice search</string>
+    <string name="action_menu_overflow_description" msgid="2295659037509008453">More options</string>
+    <string name="action_menu_back_from_search" msgid="1138551123844019647">"stoppen met zoeken"</string>
 </resources>

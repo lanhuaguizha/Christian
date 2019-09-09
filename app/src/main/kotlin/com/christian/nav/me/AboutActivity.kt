@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.christian.BuildConfig
 import com.christian.R
 import com.christian.data.MeBean
-import com.christian.library.multitype.*
+import com.christian.multitype.*
 import com.christian.nav.nullString
 import com.christian.nav.toolbarTitle
 import com.google.android.material.snackbar.Snackbar

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="about_page_open_with">打开方式：</string>
-    <string name="about_page_browser">浏览器</string>
-    <string name="search_hint">搜索福音</string>
-    <string name="description_start_voice_search" msgid="520539488194946012">"开始语音搜索"</string>
-    <string name="action_menu_overflow_description" msgid="2303272250613084574">"更多选项"</string>
-
-</resources>

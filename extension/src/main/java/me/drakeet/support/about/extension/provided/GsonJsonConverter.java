@@ -1,9 +1,9 @@
-package com.christian.library.extension.provided;
+package com.christian.extension.provided;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.gson.Gson;
-import com.christian.library.extension.JsonConverter;
+import com.christian.extension.JsonConverter;
 
 /**
  * @author drakeet

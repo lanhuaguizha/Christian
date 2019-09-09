@@ -1,4 +1,4 @@
-package com.christian.library.extension;
+package com.christian.extension;
 
 import org.junit.Test;
 

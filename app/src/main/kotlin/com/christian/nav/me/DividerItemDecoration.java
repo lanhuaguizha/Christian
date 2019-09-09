@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Objects;
 
 import me.drakeet.multitype.MultiTypeAdapter;
-import com.christian.library.multitype.License;
-import com.christian.library.multitype.Recommendation;
+import com.christian.multitype.License;
+import com.christian.multitype.Recommendation;
 
 /**
  * @author drakeet

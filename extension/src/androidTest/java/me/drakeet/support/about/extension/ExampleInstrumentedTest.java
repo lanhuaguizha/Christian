@@ -1,4 +1,4 @@
-package com.christian.library.extension;
+package com.christian.extension;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     // Context of the app under test.
     Context appContext = InstrumentationRegistry.getTargetContext();
 
-    assertEquals("com.christian.library.extension.test", appContext.getPackageName());
+    assertEquals("com.christian.extension.test", appContext.getPackageName());
   }
 }

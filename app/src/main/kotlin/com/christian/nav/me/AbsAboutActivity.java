@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -19,27 +18,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.christian.multitype.*;
 import com.christian.swipe.SwipeBackActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import me.drakeet.multitype.MultiTypeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import me.drakeet.multitype.MultiTypeAdapter;
-import com.christian.library.multitype.Card;
-import com.christian.library.multitype.CardViewBinder;
-import com.christian.library.multitype.Category;
-import com.christian.library.multitype.CategoryViewBinder;
-import com.christian.library.multitype.Contributor;
-import com.christian.library.multitype.ImageLoader;
-import com.christian.library.multitype.License;
-import com.christian.library.multitype.LicenseViewBinder;
-import com.christian.library.multitype.Line;
-import com.christian.library.multitype.LineViewBinder;
-import com.christian.library.multitype.OnContributorClickedListener;
-import com.christian.library.multitype.OnRecommendationClickedListener;
-import com.christian.library.multitype.Recommendation;
 
 /**
  * @author drakeet
@@ -121,13 +106,13 @@ public abstract class AbsAboutActivity extends SwipeBackActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.christian.library.R.layout.about_page_main_activity);
-        toolbar = findViewById(com.christian.library.R.id.toolbar);
-        ImageView icon = findViewById(com.christian.library.R.id.icon);
-        slogan = findViewById(com.christian.library.R.id.slogan);
-        version = findViewById(com.christian.library.R.id.version);
-        collapsingToolbar = findViewById(com.christian.library.R.id.collapsing_toolbar);
-        headerContentLayout = findViewById(com.christian.library.R.id.header_content_layout);
+        setContentView(com.christian.R.layout.about_page_main_activity);
+        toolbar = findViewById(com.christian.R.id.toolbar);
+        ImageView icon = findViewById(com.christian.R.id.icon);
+        slogan = findViewById(com.christian.R.id.slogan);
+        version = findViewById(com.christian.R.id.version);
+        collapsingToolbar = findViewById(com.christian.R.id.collapsing_toolbar);
+        headerContentLayout = findViewById(com.christian.R.id.header_content_layout);
         onTitleViewCreated(collapsingToolbar);
         onCreateHeader(icon, slogan, version);
 
@@ -138,7 +123,7 @@ public abstract class AbsAboutActivity extends SwipeBackActivity {
             actionBar.setDisplayShowHomeEnabled(true);
         }
         onApplyPresetAttrs();
-        recyclerView = findViewById(com.christian.library.R.id.list);
+        recyclerView = findViewById(com.christian.R.id.list);
 
 
         toolbar.setOnClickListener(new DoubleClickListener() {
@@ -170,21 +155,21 @@ public abstract class AbsAboutActivity extends SwipeBackActivity {
     }
 
     private void onApplyPresetAttrs() {
-        final TypedArray a = obtainStyledAttributes(com.christian.library.R.styleable.AbsAboutActivity);
-        Drawable headerBackground = a.getDrawable(com.christian.library.R.styleable.AbsAboutActivity_aboutPageHeaderBackground);
+        final TypedArray a = obtainStyledAttributes(com.christian.R.styleable.AbsAboutActivity);
+        Drawable headerBackground = a.getDrawable(com.christian.R.styleable.AbsAboutActivity_aboutPageHeaderBackground);
         if (headerBackground != null) {
             setHeaderBackground(headerBackground);
         }
-        Drawable headerContentScrim = a.getDrawable(com.christian.library.R.styleable.AbsAboutActivity_aboutPageHeaderContentScrim);
+        Drawable headerContentScrim = a.getDrawable(com.christian.R.styleable.AbsAboutActivity_aboutPageHeaderContentScrim);
         if (headerContentScrim != null) {
             setHeaderContentScrim(headerContentScrim);
         }
         @ColorInt
-        int headerTextColor = a.getColor(com.christian.library.R.styleable.AbsAboutActivity_aboutPageHeaderTextColor, -1);
+        int headerTextColor = a.getColor(com.christian.R.styleable.AbsAboutActivity_aboutPageHeaderTextColor, -1);
         if (headerTextColor != -1) {
             setHeaderTextColor(headerTextColor);
         }
-        Drawable navigationIcon = a.getDrawable(com.christian.library.R.styleable.AbsAboutActivity_aboutPageNavigationIcon);
+        Drawable navigationIcon = a.getDrawable(com.christian.R.styleable.AbsAboutActivity_aboutPageNavigationIcon);
         if (navigationIcon != null) {
             setNavigationIcon(navigationIcon);
         }

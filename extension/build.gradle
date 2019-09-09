@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android'
 apply from: '../library/gradle-mvn-push.gradle'
 apply plugin: 'jacoco'
 

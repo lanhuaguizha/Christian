@@ -43,7 +43,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             tools:showIn="@layout/home_frag">
 
-            <com.christian.library.search.SearchBarLayout
+            <com.christian.search.SearchBarLayout
                 android:id="@+id/sbl_nav"
                 android:focusable="true"
                 android:clickable="true"

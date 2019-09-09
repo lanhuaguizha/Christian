@@ -1,11 +1,11 @@
-package com.christian.library.extension;
+package com.christian.extension;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.annotation.NonNull;
-import com.christian.library.AbsAboutActivity;
+import com.christian.AbsAboutActivity;
 import okhttp3.Call;
 
 /**

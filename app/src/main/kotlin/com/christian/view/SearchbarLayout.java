@@ -31,7 +31,7 @@ import android.widget.FrameLayout;
 
 import com.christian.R;
 import com.christian.util.AnimUtils;
-import com.christian.library.search.util.DialerUtils;
+import com.christian.search.util.DialerUtils;
 
 public class SearchbarLayout extends FrameLayout {
     private static final float EXPAND_MARGIN_FRACTION_START = 0.8f;

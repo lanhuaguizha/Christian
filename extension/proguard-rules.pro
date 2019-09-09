@@ -1,2 +1,2 @@
--keep class com.christian.library.extension.RecommendationResponse
--keep class com.christian.library.extension.RecommendationLoaderDelegate
+-keep class com.christian.extension.RecommendationResponse
+-keep class com.christian.extension.RecommendationLoaderDelegate
