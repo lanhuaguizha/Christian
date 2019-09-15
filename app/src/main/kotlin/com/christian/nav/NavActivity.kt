@@ -84,6 +84,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             info { "setTabLayoutExpanded---$position" }
             mStaticHandler.sendMessageDelayed(msg, 0)
 //            setTabLayoutExpanded(this@NavActivity, position)
+
+            hideFab()
+            fab_nav.postDelayed({showFAB()}, 200)
         }
 
         override fun onPageScrollStateChanged(state: Int) {
@@ -255,7 +258,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun initFab() {
-        fab_nav.visibility = View.GONE
+//        fab_nav.visibility = View.GONE
         layoutParamsFab = fab_nav.layoutParams as CoordinatorLayout.LayoutParams
         layoutParamsFab.bottomMargin = dip(56)
         layoutParamsFab.anchorId = R.id.bv_nav
@@ -278,7 +281,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun showFAB() {
-//        fab_nav.show()
+        fab_nav.show()
     }
 
     open fun initBnv() {
@@ -332,7 +335,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun hideFab() {
-//        fab_nav.hide()
+        fab_nav.hide()
     }
 
     private fun slExpand() {

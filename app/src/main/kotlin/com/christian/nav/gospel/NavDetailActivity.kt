@@ -182,7 +182,7 @@ class NavDetailActivity : NavActivity() {
 //        }
 //    }
     override fun initFab() {
-        fab_nav.visibility = View.GONE
+//        fab_nav.visibility = View.GONE
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_upward_black_24dp, theme))
         fab_nav.setOnClickListener { scrollRvToTop(this@NavDetailActivity) }
 
