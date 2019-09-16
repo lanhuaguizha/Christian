@@ -15,6 +15,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
@@ -43,6 +44,10 @@ import java.util.*
  */
 open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
+    val SHOTRER_DURATION = 225L
+
+    val LONGER_DURATION = 375L
+
     companion object {
         class StaticHandler(navActivity: NavActivity) : Handler() {
             private val navActivityWeakReference = WeakReference<NavActivity>(navActivity)
@@ -70,7 +75,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     var verticalOffset = -1
     lateinit var navFragmentPagerAdapter: NavFragmentPagerAdapter
 
-    private val viewPagerOnPageChangeListener = object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+    open val viewPagerOnPageChangeListener = object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
         }
 
@@ -85,8 +90,14 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             mStaticHandler.sendMessageDelayed(msg, 0)
 //            setTabLayoutExpanded(this@NavActivity, position)
 
-            hideFab()
-            fab_nav.postDelayed({showFAB()}, 200)
+            var id = -1
+            when(position) {
+                0 -> id = R.drawable.ic_edit_black_24dp
+                1 -> id = R.drawable.ic_filter_list_black_24dp
+                2 -> id = R.drawable.ic_keyboard_arrow_down_black_24dp
+                3 -> id = R.drawable.ic_exit_to_app_black_24dp
+            }
+            showFab(id)
         }
 
         override fun onPageScrollStateChanged(state: Int) {
@@ -305,32 +316,32 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     override fun showFab(drawableId: Int) {
 
-//        if (!fab_nav.isGone) {
-//            Log.i("fab", "hide")
-//            fab_nav.hide()
-//        }
+        if (!fab_nav.isGone) {
+            Log.i("fab", "hide")
+            fab_nav.hide()
+        }
 
-//        fab_nav.postDelayed({
-//            fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, theme))
-//            fab_nav.show()
-//            Log.i("fab", "show")
-//        }, SHORTER_DURATION)
+        fab_nav.postDelayed({
+            fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, theme))
+            fab_nav.show()
+            Log.i("fab", "show")
+        }, SHOTRER_DURATION)
 
-//        when (drawableId) {
-//
-//            R.drawable.ic_edit_black_24dp -> {
-//
-//                fab_nav.setOnClickListener(null)
-//
-//            }
-//
-//            R.drawable.ic_keyboard_arrow_up_black_24dp -> {
-//
-//                fab_nav.setOnClickListener { scrollRvToTop() }
-//
-//            }
-//
-//        }
+        when (drawableId) {
+
+            R.drawable.ic_edit_black_24dp -> {
+
+                fab_nav.setOnClickListener(null)
+
+            }
+
+            R.drawable.ic_keyboard_arrow_up_black_24dp -> {
+
+                fab_nav.setOnClickListener { scrollRvToTop(this) }
+
+            }
+
+        }
 
     }
 

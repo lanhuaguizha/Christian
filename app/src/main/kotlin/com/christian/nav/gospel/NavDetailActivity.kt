@@ -6,10 +6,10 @@ import androidx.customview.widget.ViewDragHelper.INVALID_POINTER
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.christian.R
 import com.christian.nav.*
 import com.google.android.material.tabs.TabLayout.MODE_FIXED
-import kotlinx.android.synthetic.main.gospel_detail_fragment.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import org.jetbrains.anko.debug
@@ -104,23 +104,28 @@ class NavDetailActivity : NavActivity() {
     override fun initVp(navFragmentList: ArrayList<NavFragment>) {
         navDetailFragmentPagerAdapter = NavDetailFragmentPagerAdapter(supportFragmentManager)
         vp_nav.adapter = navDetailFragmentPagerAdapter
-        vp_nav.addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                debug { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
-                pagePosition = position
-                pagePositionOffset = positionOffset
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                setTabLayoutExpanded(this@NavDetailActivity, position)
-            }
-
-        })
+        vp_nav.addOnPageChangeListener(viewPagerOnPageChangeListener)
     }
+
+    override val viewPagerOnPageChangeListener: ViewPager.OnPageChangeListener
+        get() =
+            object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
+
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                    debug { "initVp: onPageScrolled, position$position, positionOffset$positionOffset, positionOffsetPixels$positionOffsetPixels" }
+                    pagePosition = position
+                    pagePositionOffset = positionOffset
+                }
+
+                override fun onPageScrollStateChanged(state: Int) {
+                }
+
+                override fun onPageSelected(position: Int) {
+                    setTabLayoutExpanded(this@NavDetailActivity, position)
+                    showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
+                }
+
+            }
 
     private var lastX: Float = 0f
     var isMovingRight: Boolean = true // true不会崩溃，进入nav detail左滑的时候
