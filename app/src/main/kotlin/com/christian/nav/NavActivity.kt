@@ -331,7 +331,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
             R.drawable.ic_edit_black_24dp -> {
 
-                fab_nav.setOnClickListener(null)
+//                startActivity(Intent(this@NavActivity, ren.qinc.markdowneditors.view.MainActivity::class.java))
 
             }
 
