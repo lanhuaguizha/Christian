@@ -22,10 +22,11 @@ import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.christian.ChristianApplication;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+
+import ren.qinc.markdowneditors.base.BaseApplication;
 
 public class ChristianUtil {
 
@@ -38,7 +39,7 @@ public class ChristianUtil {
         modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            field.set(ChristianApplication.context.getSystemService(Context.USER_SERVICE), newValue);
+            field.set(BaseApplication.context.getSystemService(Context.USER_SERVICE), newValue);
         }
 //        field.set(null, newValue);
     }

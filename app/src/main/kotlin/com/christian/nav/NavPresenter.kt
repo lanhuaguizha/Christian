@@ -15,7 +15,6 @@ import android.view.animation.LinearInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import com.christian.ChristianApplication
 import com.christian.R
 import com.christian.data.Gospel
 import com.christian.nav.gospel.GospelReviewFragment
@@ -34,6 +33,7 @@ import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
 import org.jetbrains.anko.singleLine
+import ren.qinc.markdowneditors.base.BaseApplication
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -511,7 +511,7 @@ private fun expandedAnimationToolbar(navActivity: NavActivity, expanded: Boolean
 
 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 fun userManagerMemoryLeakFix(navActivity: NavActivity) {
-    val userManager = ChristianApplication.context.getSystemService(Context.USER_SERVICE) as UserManager
+    val userManager = BaseApplication.context.getSystemService(Context.USER_SERVICE) as UserManager
     val mContext = userManager.javaClass.getDeclaredField("mContext")
     mContext.isAccessible = true
 
@@ -527,7 +527,7 @@ fun userManagerMemoryLeakFix(navActivity: NavActivity) {
 }
 
 fun inputMethodManagerMemoryLeakFix() {
-    val inputMethodManager = ChristianApplication.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val inputMethodManager = BaseApplication.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     val clazz = InputMethodManager::class.java
     val mNextServedView = clazz.getDeclaredField("mNextServedView")
     mNextServedView.isAccessible = true
@@ -535,7 +535,7 @@ fun inputMethodManagerMemoryLeakFix() {
 }
 
 fun locationManagerMemoryLeakFix(navActivity: NavActivity) {
-    val locationManager = ChristianApplication.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+    val locationManager = BaseApplication.context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     val mContext = locationManager.javaClass.getDeclaredField("mContext")
     mContext.isAccessible = true
 

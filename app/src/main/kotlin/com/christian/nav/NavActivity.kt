@@ -330,9 +330,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         when (drawableId) {
 
             R.drawable.ic_edit_black_24dp -> {
-
-//                startActivity(Intent(this@NavActivity, ren.qinc.markdowneditors.view.MainActivity::class.java))
-
+                fab_nav.setOnClickListener {
+                    startActivity(Intent(this@NavActivity, ren.qinc.markdowneditors.view.MainActivity::class.java))
+                }
             }
 
             R.drawable.ic_keyboard_arrow_up_black_24dp -> {

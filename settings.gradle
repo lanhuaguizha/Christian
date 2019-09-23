@@ -1,5 +1,4 @@
 include ':app'
 include ':parallaxbacklayout'
-include ':markdowneditor'
 //include ':library'
 //include ':extension'
