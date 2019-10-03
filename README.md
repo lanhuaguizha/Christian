@@ -1,5 +1,6 @@
-# Me a christian and the Christian logo
+# the Christian and the Christian mini-program(WeChat scan our qr code)
 ![logo](https://github.com/lanhuaguizha/Christian/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
+![logo](https://github.com/lanhuaguizha/Christian/blob/master/mini-program-qr-code.png)
 
 # Reference of open source software
 
@@ -25,24 +26,19 @@
 
 > Finally, peace and peace will come from God, peace be upon you.
 
-Official website: https://www.christian.com
+Official website: https://www.christian.com(in the future)
 
-Open source address for our server and client(https://github.com/lanhuaguizha)
+Open source address for our *Christian Software*, https://github.com/lanhuaguizha
 
 # Software introduction
-## Home
+## Home(maybe not the newest screenshot)
 ![screenshot](https://github.com/lanhuaguizha/Christian/blob/master/device-2018-03-30-225122.jpg)
-## Me
+## Me(maybe not the newest screenshot)
 ![screenshot](https://github.com/lanhuaguizha/Christian/blob/master/device-2018-03-30-225123.jpg)
 
-## Christian
-    First of all, this is christian software's client
-
-### Naming rules
-    Activity > Nav/NavDetail > Toolbar/RecyclerView    ->    NavActivity etc.
-
 # Contact us
-17321024637(Shanghai China)
+Phone Number, 184-5521-9044
+E-Mail, lanhuaguizha@outlook.com
 
 # License
 ### GNU GENERAL PUBLIC LICENSE
