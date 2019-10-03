@@ -1,6 +1,12 @@
-# the Christian and the Christian mini-program(WeChat scan our qr code)
 ![logo](https://github.com/lanhuaguizha/Christian/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
+
 ![logo](https://github.com/lanhuaguizha/Christian/blob/master/mini-program-qr-code.png)
+
+Note:
+
+Please download the program using GooglePlay
+
+Please scan the code using WeChat
 
 # Reference of open source software
 
@@ -25,8 +31,6 @@
 > We are not going to show and perform, just to seek like-minded people, and we are able to seek joy and contentment from the Bible together. We also think it's the only way
 
 > Finally, peace and peace will come from God, peace be upon you.
-
-Official website: https://www.christian.com(in the future)
 
 Open source address for our *Christian Software*, https://github.com/lanhuaguizha
 
