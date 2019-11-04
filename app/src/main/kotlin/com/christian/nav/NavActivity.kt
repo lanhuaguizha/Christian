@@ -162,7 +162,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     private fun initAbl() {
         tb_nav.setOnClickListener(object : DoubleClickListener() {
             override fun onDoubleClick(v: View) {
-//                scrollRvToTop(this@NavActivity)
+                scrollRvToTop(this@NavActivity)
             }
         })
     }
@@ -337,7 +337,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
             R.drawable.ic_keyboard_arrow_up_black_24dp -> {
 
-                fab_nav.setOnClickListener { scrollRvToTop(this) }
+//                fab_nav.setOnClickListener { scrollRvToTop(this) }
 
             }
 
