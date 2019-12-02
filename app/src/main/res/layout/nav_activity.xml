@@ -71,6 +71,7 @@
 
     <com.christian.view.CustomViewPager
         android:id="@+id/vp_nav"
+        android:overScrollMode="never"
         android:background="@color/default_background_nav"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
