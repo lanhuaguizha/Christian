@@ -292,7 +292,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun showFAB() {
-        fab_nav.show()
+//        fab_nav.show()
     }
 
     open fun initBnv() {
@@ -323,7 +323,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         fab_nav.postDelayed({
             fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, theme))
-            fab_nav.show()
+//            fab_nav.show()
             Log.i("fab", "show")
         }, SHOTRER_DURATION)
 
