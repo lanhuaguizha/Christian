@@ -6,34 +6,39 @@
 
     <com.christian.view.CustomViewPager
         android:id="@+id/vp1_nav"
-        android:overScrollMode="never"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:overScrollMode="never" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/srl_nav"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlEnablePureScrollMode="true"
-        app:srlEnableLoadMore="true"
-        app:srlDragRate="0.75">
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_nav"
-            android:overScrollMode="never"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layoutAnimation="@anim/layout_animation_from_right"
+            android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <ProgressBar
         android:id="@+id/pb_nav"
         style="?android:attr/progressBarStyleHorizontal"
-        android:indeterminate="true"
-        android:paddingTop="-4dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:paddingTop="-4dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +46,8 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
-        app:layout_constraintGuide_begin="2dp"
-        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="2dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
