@@ -66,7 +66,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     override fun onSaveInstanceState(outState: Bundle) {
     }
 
-    private lateinit var layoutParamsFab: CoordinatorLayout.LayoutParams
     private lateinit var mStaticHandler: StaticHandler
     /**
      * presenter will be initialized when the NavPresenter is initialized
@@ -270,10 +269,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     open fun initFab() {
 //        fab_nav.visibility = View.GONE
-        layoutParamsFab = fab_nav.layoutParams as CoordinatorLayout.LayoutParams
-        layoutParamsFab.bottomMargin = dip(56)
-        layoutParamsFab.anchorId = R.id.bv_nav
-        fab_nav.layoutParams = layoutParamsFab
 
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
         fab_nav.setOnClickListener {
@@ -292,7 +287,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun showFAB() {
-//        fab_nav.show()
+        fab_nav.show()
     }
 
     open fun initBnv() {
@@ -323,7 +318,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         fab_nav.postDelayed({
             fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, theme))
-//            fab_nav.show()
+            fab_nav.show()
             Log.i("fab", "show")
         }, SHOTRER_DURATION)
 
@@ -343,6 +338,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         }
 
+        fab_nav.size
+        fab_nav.useCompatPadding
     }
 
     override fun hideFab() {
@@ -502,37 +499,18 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     fun snackbar(s: String): Snackbar {
-        val snackbar = Snackbar.make(cl_nav, s, Snackbar.LENGTH_LONG)
+        val snackbar = Snackbar.make(cl_nav_2, s, Snackbar.LENGTH_LONG)
         val snackbarView = snackbar.view
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             snackbarView.elevation = dip(3).toFloat()
         }
-
         // Snackbar
-        val params = snackbarView.layoutParams as CoordinatorLayout.LayoutParams
-        params.anchorId = R.id.bnv_nav
-        params.width = CoordinatorLayout.LayoutParams.MATCH_PARENT
-        params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL// 相对锚点的位置
-        params.anchorGravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL // 锚点的位置
-        snackbarView.layoutParams = params
-
-        layoutParamsFab.bottomMargin = 0
-        layoutParamsFab.anchorId = R.id.bv_nav
-        fab_nav.layoutParams = layoutParamsFab
-
-        snackbar.addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
-
-            override fun onDismissed(transientBottomBar: Snackbar, event: Int) {
-                when (event == DISMISS_EVENT_TIMEOUT) {
-                    true -> {
-                        layoutParamsFab.bottomMargin = cl_nav.bottom - cl_nav.top - bv_nav.top
-                        layoutParamsFab.anchorId = R.id.bv_nav
-                        fab_nav.layoutParams = layoutParamsFab
-                    }
-                }
-            }
-        })
-
+//        val params = snackbarView.layoutParams as CoordinatorLayout.LayoutParams
+//        params.anchorId = R.id.bnv_nav
+//        params.width = CoordinatorLayout.LayoutParams.MATCH_PARENT
+//        params.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL// 相对锚点的位置
+//        params.anchorGravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL // 锚点的位置
+//        snackbarView.layoutParams = params
         return snackbar
     }
 
