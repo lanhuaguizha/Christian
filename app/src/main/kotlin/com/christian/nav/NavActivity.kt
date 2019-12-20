@@ -168,7 +168,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     internal lateinit var tabTitleList: ArrayList<String>
     open fun initTb() {
-        sbl_nav.visibility = View.VISIBLE
+        sbl_nav.visibility = View.GONE
+        tb_nav.title = getString(R.string.app_name)
 
         tabTitleList = arrayListOf(
                 getString(R.string._Gen),
@@ -515,8 +516,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun scrollRvToTop(navActivity: NavActivity) {
-        if (::navFragmentPagerAdapter.isInitialized)
+        if (::navFragmentPagerAdapter.isInitialized) {
             navActivity.navFragmentPagerAdapter.currentFragment.rv_nav.smoothScrollToPosition(0) // 为了滚到顶
+
+            navActivity.navFragmentPagerAdapter.currentFragment.scrollChildRVToTop()
+        }
         navActivity.abl_nav.setExpanded(true, true)
     }
 

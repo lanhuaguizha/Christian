@@ -30,6 +30,8 @@ import org.jetbrains.anko.debug
 
 open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragment {
 
+    lateinit var navChildFragmentPagerAdapter: NavChildFragmentPagerAdapter
+
     override fun onSaveInstanceState(outState: Bundle) {
     }
 //
@@ -90,8 +92,6 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         if (isInitView && isVisibled) {
             initView()
 
-//            lazyLoad()
-
             //防止重复加载数据
             isInitView = false
             isVisibled = false
@@ -130,7 +130,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     private var pageSelectedPosition: Int = -1
 
     private fun initVp(tabTitleList: ArrayList<String>) {
-        val navChildFragmentPagerAdapter = NavChildFragmentPagerAdapter(childFragmentManager, tabTitleList)
+        navChildFragmentPagerAdapter = NavChildFragmentPagerAdapter(childFragmentManager, tabTitleList)
         v.vp1_nav.adapter = navChildFragmentPagerAdapter
         navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
 
@@ -172,7 +172,9 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 .build()
 
         when (navId) {
-            VIEW_HOME, VIEW_GOSPEL -> {
+            VIEW_HOME -> {
+                v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
+
                 val query = navActivity.firestore.collection("gospels")
                 query.orderBy("subtitle", Query.Direction.ASCENDING)
                 val options = FirestorePagingOptions.Builder<Gospel>()
@@ -221,14 +223,20 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             VIEW_GOSPEL -> {
             }
             VIEW_DISCIPLE -> {
+                v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
             }
             VIEW_ME -> {
+                v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
+
                 meAdapter = firestoreRecyclerAdapter()
                 meAdapter.startListening()
                 v.rv_nav.adapter = meAdapter
             }
+            else -> {
+                v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
+                loadGospelsFromTabId(config)
+            }
         }
-        v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
 
             override fun onHide() {
@@ -260,6 +268,57 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         val controller =
                 AnimationUtils.loadLayoutAnimation(navActivity, R.anim.layout_animation_from_right)
         v.rv_nav.layoutAnimation = controller
+    }
+
+    /**
+     * Loads gospels at different tab in Gospel Page
+     */
+    private fun loadGospelsFromTabId(config: PagedList.Config) {
+
+        val query = navActivity.firestore.collection("gospels")
+        query.orderBy("subtitle", Query.Direction.ASCENDING)
+        val options = FirestorePagingOptions.Builder<Gospel>()
+                //                        .setLifecycleOwner(this@NavFragment)
+                .setQuery(query, config, Gospel::class.java)
+                .build()
+        gospelAdapter = object : FirestorePagingAdapter<Gospel, NavItemView>(options) {
+            @NonNull
+            override fun onCreateViewHolder(@NonNull parent: ViewGroup,
+                                            viewType: Int): NavItemView {
+                val view = LayoutInflater.from(parent.context)
+                        .inflate(R.layout.nav_item_gospel, parent, false)
+                return NavItemView(view)
+            }
+
+            override fun onBindViewHolder(@NonNull holder: NavItemView,
+                                          position: Int,
+                                          @NonNull model: Gospel) {
+                applyViewHolderAnimation(holder)
+                holder.bind(model)
+            }
+
+            override fun onLoadingStateChanged(@NonNull state: LoadingState) {
+                when (state) {
+                    LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> pb_nav.visibility = View.VISIBLE
+                    LoadingState.LOADED -> {
+                        v.pb_nav.visibility = View.GONE
+                        rv_nav?.scheduleLayoutAnimation()
+                    }
+                    LoadingState.FINISHED -> {
+                        pb_nav.visibility = View.GONE
+                        navActivity.snackbar(getString(R.string.finished)).show()
+                        //                                showToast()
+                    }
+                    LoadingState.ERROR -> {
+                        navActivity.snackbar(getString(R.string.error)).show()
+                        //                                showToast()
+                        retry()
+                    }
+                }
+            }
+        }
+        gospelAdapter.startListening()
+        v.rv_nav.adapter = gospelAdapter
     }
 
     private fun firestoreRecyclerAdapter(): FirestoreRecyclerAdapter<Setting, NavItemView> {
@@ -379,6 +438,12 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         abstract fun onShow()
         abstract fun onTop()
         abstract fun onBottom()
+    }
+
+    fun scrollChildRVToTop() {
+        if (navActivity.navFragmentPagerAdapter.currentFragment::navChildFragmentPagerAdapter.isInitialized) {
+            navActivity.navFragmentPagerAdapter.currentFragment.navChildFragmentPagerAdapter.currentFragment.rv_nav.smoothScrollToPosition(0) // 为了滚到顶
+        }
     }
 }
 

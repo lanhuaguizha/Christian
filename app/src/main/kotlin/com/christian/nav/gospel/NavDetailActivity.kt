@@ -23,7 +23,7 @@ private fun NavActivity.initTbWithTitle(title: String) {
      */
     setSupportActionBar(tb_nav)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    supportActionBar?.title = title
+    supportActionBar?.title = getString(R.string.app_name)
     tb_nav.setNavigationOnClickListener { finish() }
 }
 
