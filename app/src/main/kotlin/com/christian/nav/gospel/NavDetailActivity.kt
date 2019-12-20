@@ -228,7 +228,6 @@ class NavDetailActivity : NavActivity() {
             when (position) {
                 0 -> {
                     val gospelDetailFragment = NavDetailFragment()
-                    gospelDetailFragment.navId = 31
                     return gospelDetailFragment
                 }
 //                1 -> {

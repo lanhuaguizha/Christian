@@ -232,7 +232,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 meAdapter.startListening()
                 v.rv_nav.adapter = meAdapter
             }
-            else -> {
+            in 4..69 -> { // Gospel Page's Fragment's navId
                 v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
                 loadGospelsFromTabId(config)
             }
