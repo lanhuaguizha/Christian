@@ -122,7 +122,6 @@ class NavDetailActivity : NavActivity() {
 
                 override fun onPageSelected(position: Int) {
                     setTabLayoutExpanded(this@NavDetailActivity, position)
-                    showFab(R.drawable.ic_keyboard_arrow_up_black_24dp)
                 }
 
             }
@@ -187,9 +186,9 @@ class NavDetailActivity : NavActivity() {
 //        }
 //    }
     override fun initFab() {
-//        fab_nav.visibility = View.GONE
+        fab_nav.visibility = View.GONE
         fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_upward_black_24dp, theme))
-//        fab_nav.setOnClickListener { scrollRvToTop(this@NavDetailActivity) }
+        fab_nav.setOnClickListener { scrollRvToTop(this@NavDetailActivity) }
 
 //        initFABGospelDetail(this@NavDetailActivity, navFragment.rv_nav)
     }
@@ -269,4 +268,5 @@ class NavDetailActivity : NavActivity() {
     override fun hideFab() {
         fab_nav.hide()
     }
+
 }

@@ -17,21 +17,18 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.kotlinpermissions.KotlinPermissions
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_item_me_portrait.*
-import kotlinx.coroutines.launch
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
@@ -89,14 +86,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             mStaticHandler.sendMessageDelayed(msg, 0)
 //            setTabLayoutExpanded(this@NavActivity, position)
 
-            var id = -1
-            when(position) {
-                0 -> id = R.drawable.ic_edit_black_24dp
-                1 -> id = R.drawable.ic_filter_list_black_24dp
-                2 -> id = R.drawable.ic_keyboard_arrow_down_black_24dp
-                3 -> id = R.drawable.ic_exit_to_app_black_24dp
-            }
-            showFab(id)
+            showFab(position)
+
         }
 
         override fun onPageScrollStateChanged(state: Int) {
@@ -311,17 +302,30 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun showFab(drawableId: Int) {
-
         if (!fab_nav.isGone) {
             Log.i("fab", "hide")
-            fab_nav.hide()
+            fab_nav.visibility = View.GONE
         }
 
-        fab_nav.postDelayed({
-            fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, drawableId, theme))
-            fab_nav.show()
-            Log.i("fab", "show")
-        }, SHOTRER_DURATION)
+        when (drawableId) {
+            0 -> {
+                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
+                fab_nav.show()
+            }
+            1 -> {
+//                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
+                fab_nav.hide()
+            }
+            2 -> {
+                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_keyboard_arrow_down_black_24dp, theme))
+                fab_nav.show()
+            }
+            3 -> {
+//                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
+                fab_nav.hide()
+            }
+        }
+
 
         when (drawableId) {
 
@@ -338,9 +342,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             }
 
         }
-
-        fab_nav.size
-        fab_nav.useCompatPadding
     }
 
     override fun hideFab() {
