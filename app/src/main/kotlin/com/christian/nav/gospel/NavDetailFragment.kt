@@ -83,4 +83,9 @@ class NavDetailFragment : NavFragment() {
         super.onStop()
         gospelDetailAdapter.stopListening()
     }
+
+    override fun top() {
+        super.top()
+        hideFab()
+    }
 }

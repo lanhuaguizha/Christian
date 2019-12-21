@@ -72,7 +72,7 @@
     <string name="version">1.0.0</string>
     <string name="next_week">简介</string>
     <string name="description_more">More</string>
-    <string name="description_share">Share</string>
+    <string name="share">Share</string>
     <string name="title_home_detail">Home Details</string>
     <string name="go_back">Go Back</string>
     <string name="content_empty">The content is empty</string>
@@ -301,15 +301,22 @@
     <string name="me">Me</string>
     <string name="developer">Developer</string>
     <string name="finished">Reached end of data set</string>
-    <string name="error">An error occurred.</string>
+    <string name="error">An error occurred</string>
     <string name="sunrise_sunset">Sunrise%s Sunset%s</string>
     <string name="tips_location_permission_request">Night mode features need to turn on location service to get sunset time</string>
     <string name="no_location_service">没有开启位置服务获取不到日落时间</string>
 
     <string name="about_page_open_with">Open with:</string>
     <string name="about_page_browser">Web Browser</string>
-    <string name="search_hint">Search Gospel</string>
+    <string name="search_hint">Search is not available now</string>
     <string name="description_start_voice_search">Start voice search</string>
     <string name="action_menu_overflow_description" msgid="2295659037509008453">More options</string>
     <string name="action_menu_back_from_search" msgid="1138551123844019647">"stoppen met zoeken"</string>
+    <string name="favorite">Favorite</string>
+    <string name="translate">Translate</string>
+    <string name="read">Read</string>
+    <string name="toast_share">Shared</string>
+    <string name="toast_favorite">Favorite</string>
+    <string name="toast_translate">Translated</string>
+    <string name="toast_read" >Read</string>
 </resources>

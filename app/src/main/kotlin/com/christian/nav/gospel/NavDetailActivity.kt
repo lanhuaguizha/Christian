@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.christian.R
 import com.christian.nav.*
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout.MODE_FIXED
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
@@ -193,9 +194,7 @@ class NavDetailActivity : NavActivity() {
 //        initFABGospelDetail(this@NavDetailActivity, navFragment.rv_nav)
     }
 
-    var menu: Menu? = null
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        this.menu = menu
         menuInflater.inflate(R.menu.menu_share, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -203,12 +202,21 @@ class NavDetailActivity : NavActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_share -> {
+                snackbar(getString(R.string.toast_share)).show()
                 true
             }
-            R.id.menu_download -> {
+            R.id.menu_favorite -> {
+                snackbar(getString(R.string.toast_favorite)).show()
                 true
             }
-//            R.id.menu_collection -> true
+            R.id.menu_translate -> {
+                snackbar(getString(R.string.toast_translate)).show()
+                true
+            }
+            R.id.menu_read -> {
+                snackbar(getString(R.string.toast_read)).show()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -218,8 +226,6 @@ class NavDetailActivity : NavActivity() {
         // Handling memory leaks
         val navPresenter = presenter as NavPresenter
         navPresenter.navFragmentList.clear()
-
-        menu?.close()
     }
 
     class NavDetailFragmentPagerAdapter(fm: FragmentManager) : NavActivity.NavFragmentPagerAdapter(fm) {

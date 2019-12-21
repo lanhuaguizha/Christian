@@ -11,6 +11,7 @@ import android.os.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -40,6 +41,11 @@ import java.util.*
  * implementation of NavContract.View.
  */
 open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_search, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
     val SHOTRER_DURATION = 225L
 
@@ -159,6 +165,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     internal lateinit var tabTitleList: ArrayList<String>
     open fun initTb() {
+        setSupportActionBar(tb_nav)
         sbl_nav.visibility = View.GONE
         tb_nav.title = getString(R.string.app_name)
 
@@ -246,7 +253,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             val user = auth.currentUser
             user?.delete()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    snackbar("User account deleted")
+                    snackbar("User account deleted").show()
                 }
             }
         }
@@ -313,8 +320,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 fab_nav.show()
             }
             1 -> {
-//                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
-                fab_nav.hide()
+                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
+                fab_nav.show()
             }
             2 -> {
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_keyboard_arrow_down_black_24dp, theme))
@@ -447,7 +454,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 // ...
-                val snackbar = snackbar("sign in filed")
+                val snackbar = snackbar("Sign in failed")
                 snackbar.show()
             }
         }

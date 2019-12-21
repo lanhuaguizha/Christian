@@ -15,19 +15,32 @@
   -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/menu_share"
-        android:icon="@drawable/ic_share_black_24dp"
-        android:orderInCategory="1"
-        android:title="@string/description_share"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_download"
-        android:orderInCategory="1"
-        android:title="收藏"
-        app:showAsAction="never" />
-    <item
-        android:orderInCategory="1"
-        android:title="朗读"
-        app:showAsAction="never" />
+    <item android:icon="@drawable/ic_more_vert_black_24dp"
+        android:title=""
+        android:orderInCategory="2"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/menu_share"
+                android:icon="@drawable/ic_share_black_24dp"
+                android:orderInCategory="1"
+                android:title="@string/share"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/menu_favorite"
+                android:orderInCategory="1"
+                android:title="@string/favorite"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/menu_translate"
+                android:orderInCategory="1"
+                android:title="@string/translate"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/menu_read"
+                android:orderInCategory="1"
+                android:title="@string/read"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 </menu>

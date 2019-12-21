@@ -23,6 +23,7 @@ import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.firebase.ui.firestore.paging.LoadingState
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.nav_activity.*
+import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import kotlinx.android.synthetic.main.nav_item_me_portrait.*
@@ -207,11 +208,9 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                             LoadingState.FINISHED -> {
                                 pb_nav.visibility = View.GONE
                                 navActivity.snackbar(getString(R.string.finished)).show()
-//                                showToast()
                             }
                             LoadingState.ERROR -> {
                                 navActivity.snackbar(getString(R.string.error)).show()
-//                                showToast()
                                 retry()
                             }
                         }
@@ -254,9 +253,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             }
 
             override fun onTop() {
-                isPageTop = true
-//                hideFab()
-                controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
+                top()
             }
 
             override fun onBottom() {
@@ -268,6 +265,11 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         val controller =
                 AnimationUtils.loadLayoutAnimation(navActivity, R.anim.layout_animation_from_right)
         v.rv_nav.layoutAnimation = controller
+    }
+
+    open fun top() {
+        isPageTop = true
+        controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
     }
 
     /**
@@ -307,11 +309,9 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                     LoadingState.FINISHED -> {
                         pb_nav.visibility = View.GONE
                         navActivity.snackbar(getString(R.string.finished)).show()
-                        //                                showToast()
                     }
                     LoadingState.ERROR -> {
                         navActivity.snackbar(getString(R.string.error)).show()
-                        //                                showToast()
                         retry()
                     }
                 }
