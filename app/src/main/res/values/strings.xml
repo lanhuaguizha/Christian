@@ -304,7 +304,7 @@
     <string name="error">An error occurred</string>
     <string name="sunrise_sunset">Sunrise%s Sunset%s</string>
     <string name="tips_location_permission_request">Night mode features need to turn on location service to get sunset time</string>
-    <string name="no_location_service">没有开启位置服务获取不到日落时间</string>
+    <string name="no_location_service">No access to location</string>
 
     <string name="about_page_open_with">Open with:</string>
     <string name="about_page_browser">Web Browser</string>
@@ -319,4 +319,5 @@
     <string name="toast_favorite">Favorite</string>
     <string name="toast_translate">Translated</string>
     <string name="toast_read" >Read</string>
+    <string name="sign_in_failed">Sign in failed</string>
 </resources>

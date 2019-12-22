@@ -27,16 +27,19 @@
                 android:title="@string/share"
                 app:showAsAction="ifRoom" />
             <item
+                android:icon="@drawable/ic_star_black_24dp"
                 android:id="@+id/menu_favorite"
                 android:orderInCategory="1"
                 android:title="@string/favorite"
                 app:showAsAction="never" />
             <item
+                android:icon="@drawable/ic_g_translate_black_24dp"
                 android:id="@+id/menu_translate"
                 android:orderInCategory="1"
                 android:title="@string/translate"
                 app:showAsAction="never" />
             <item
+                android:icon="@drawable/ic_speaker_phone_black_24dp"
                 android:id="@+id/menu_read"
                 android:orderInCategory="1"
                 android:title="@string/read"

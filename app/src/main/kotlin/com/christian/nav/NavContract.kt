@@ -26,7 +26,7 @@ class NavContract {
         /**
          * Hide before each display to meet the material design specification.
          */
-        fun showFab(drawableId: Int)
+        fun showFab(pos: Int)
 
         fun hideFab()
     }

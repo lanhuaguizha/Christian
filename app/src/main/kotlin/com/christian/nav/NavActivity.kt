@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
@@ -269,10 +268,10 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     open fun initFab() {
 //        fab_nav.visibility = View.GONE
 
-        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
-        fab_nav.setOnClickListener {
-            ViewModelProviders.of(this).get(NavViewModel::class.java).loadImage()
-        }
+//        fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
+//        fab_nav.setOnClickListener {
+//            ViewModelProviders.of(this).get(NavViewModel::class.java).loadImage()
+//        }
     }
 
     open fun initBv() {
@@ -308,16 +307,19 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
     }
 
-    override fun showFab(drawableId: Int) {
+    override fun showFab(pos: Int) {
         if (!fab_nav.isGone) {
             Log.i("fab", "hide")
             fab_nav.visibility = View.GONE
         }
 
-        when (drawableId) {
+        when (pos) {
             0 -> {
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
                 fab_nav.show()
+                fab_nav.setOnClickListener {
+                    startActivity(Intent(this@NavActivity, ren.qinc.markdowneditors.view.MainActivity::class.java))
+                }
             }
             1 -> {
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
@@ -331,23 +333,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 //                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
                 fab_nav.hide()
             }
-        }
-
-
-        when (drawableId) {
-
-            R.drawable.ic_edit_black_24dp -> {
-                fab_nav.setOnClickListener {
-                    startActivity(Intent(this@NavActivity, ren.qinc.markdowneditors.view.MainActivity::class.java))
-                }
-            }
-
-            R.drawable.ic_keyboard_arrow_up_black_24dp -> {
-
-//                fab_nav.setOnClickListener { scrollRvToTop(this) }
-
-            }
-
         }
     }
 
@@ -454,7 +439,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 // ...
-                val snackbar = snackbar("Sign in failed")
+                val snackbar = snackbar(getString(R.string.sign_in_failed))
                 snackbar.show()
             }
         }
