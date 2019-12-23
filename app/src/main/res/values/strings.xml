@@ -42,7 +42,7 @@
     <string name="action_preview">预览</string>
     <string name="action_edit">编辑</string>
     <string name="action_setting">设置</string>
-    <string name="about">关于</string>
+    <string name="about">About</string>
 
     <string name="copy_right" translatable="false">Copyrights © 2016</string>
     <string name="version_string" translatable="false">Version %s</string>

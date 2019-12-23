@@ -259,7 +259,7 @@ fun setTabLayoutExpanded(context: Context, position: Int) {
         }
         VIEW_ME -> {
             setTabLayoutExpanded(context, false, 0L)
-            setToolbarExpanded(navActivity, false)
+            setToolbarExpanded(navActivity, true)
 
             val time = getDelayTime(context)
 

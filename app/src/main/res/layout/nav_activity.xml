@@ -30,33 +30,34 @@
                 android:layout_height="168dp"
                 android:visibility="gone"
                 app:layout_collapseMode="parallax" />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tb_nav"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/action_bar_height"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            android:visibility="gone"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            tools:showIn="@layout/home_frag">
-
-            <com.christian.search.SearchBarLayout
-                android:id="@+id/sbl_nav"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/tb_nav"
+                app:layout_collapseMode="pin"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/search_margin_horizontal"
-                android:layout_marginTop="@dimen/search_top_margin"
-                android:layout_marginRight="@dimen/search_margin_horizontal"
-                android:layout_marginBottom="@dimen/search_bottom_margin"
-                android:background="@drawable/searchbar_ripple"
-                android:clickable="true"
-                android:elevation="@dimen/search_box_elevation"
-                android:focusable="true"
-                android:orientation="horizontal"
-                tools:targetApi="lollipop" />
-        </androidx.appcompat.widget.Toolbar>
+                android:layout_height="@dimen/action_bar_height"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                android:visibility="gone"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                tools:showIn="@layout/home_frag">
+
+                <com.christian.search.SearchBarLayout
+                    android:id="@+id/sbl_nav"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/search_margin_horizontal"
+                    android:layout_marginTop="@dimen/search_top_margin"
+                    android:layout_marginRight="@dimen/search_margin_horizontal"
+                    android:layout_marginBottom="@dimen/search_bottom_margin"
+                    android:background="@drawable/searchbar_ripple"
+                    android:clickable="true"
+                    android:elevation="@dimen/search_box_elevation"
+                    android:focusable="true"
+                    android:orientation="horizontal"
+                    tools:targetApi="lollipop" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_nav"
