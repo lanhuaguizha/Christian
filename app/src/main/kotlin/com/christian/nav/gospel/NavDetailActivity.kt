@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.christian.R
 import com.christian.nav.*
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout.MODE_FIXED
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
@@ -194,8 +193,13 @@ class NavDetailActivity : NavActivity() {
 //        initFABGospelDetail(this@NavDetailActivity, navFragment.rv_nav)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_share, menu)
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menu.removeItem(R.id.menu_options_nav)
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_nav_detail, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

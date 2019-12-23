@@ -26,6 +26,6 @@
         android:id="@+id/menu_more"
         android:icon="@drawable/ic_more_vert_black_24dp"
         android:orderInCategory="1"
-        android:title="@string/description_more"
+        android:title="@string/menu_more"
         iosched:showAsAction="never" />
 </menu>
