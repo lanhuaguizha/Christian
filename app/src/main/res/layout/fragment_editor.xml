@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2016. SHENQINCI(沈钦赐)<dev@qinc.me>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +14,10 @@
   ~ limitations under the License.
   -->
 
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:id="@+id/email_login_form"
@@ -26,33 +25,59 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/spinner"
+            app:ms_padding_left="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <EditText
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#00000000"
             android:gravity="top"
-            android:textSize="17sp"
-            android:textColor="#111"
             android:hint="标题"
             android:imeActionId="@+id/login"
             android:inputType="text"
-            android:paddingBottom="@dimen/space_16"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/space_16"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/space_16"
             android:scrollHorizontally="false"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:textColor="#111"
+            android:textSize="17sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:background="@color/colorDivider" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:gravity="top"
+            android:hint="Author"
+            android:imeActionId="@+id/login"
+            android:inputType="text"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/space_16"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/space_16"
+            android:scrollHorizontally="false"
+            android:singleLine="true"
+            android:textColor="#111"
+            android:textSize="17sp" />
 
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
-            android:background="@color/colorDivider"/>
+            android:background="@color/colorDivider" />
 
         <EditText
-            android:textSize="16sp"
-            android:textColor="#333"
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -62,8 +87,10 @@
             android:inputType="textMultiLine|textLongMessage"
             android:minHeight="200dp"
             android:padding="@dimen/activity_horizontal_margin"
-            android:scrollHorizontally="false"
             android:scrollbars="vertical"
-            android:singleLine="false"/>
+            android:scrollHorizontally="false"
+            android:singleLine="false"
+            android:textColor="#333"
+            android:textSize="16sp" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
