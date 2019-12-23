@@ -23,7 +23,6 @@ import com.firebase.ui.firestore.paging.FirestorePagingOptions
 import com.firebase.ui.firestore.paging.LoadingState
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
 import kotlinx.android.synthetic.main.nav_item_me_portrait.*
@@ -154,7 +153,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     var isPageBottom: Boolean = false
 
-    private lateinit var gospelAdapter: FirestorePagingAdapter<Gospel, NavItemView>
+    private lateinit var gospelAdapter: FirestoreRecyclerAdapter<Gospel, NavItemView>
     private lateinit var meAdapter: FirestoreRecyclerAdapter<Setting, NavItemView>
 
     override fun onDestroyView() {
@@ -166,56 +165,10 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     }
 
     private fun initRv() {
-        val config = PagedList.Config.Builder()
-                .setEnablePlaceholders(false)
-                .setPrefetchDistance(10)
-                .setPageSize(20)
-                .build()
-
         when (navId) {
             VIEW_HOME -> {
                 v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
-
-                val query = navActivity.firestore.collection("gospels")
-                query.orderBy("subtitle", Query.Direction.ASCENDING)
-                val options = FirestorePagingOptions.Builder<Gospel>()
-//                        .setLifecycleOwner(this@NavFragment)
-                        .setQuery(query, config, Gospel::class.java)
-                        .build()
-                gospelAdapter = object : FirestorePagingAdapter<Gospel, NavItemView>(options) {
-                    @NonNull
-                    override fun onCreateViewHolder(@NonNull parent: ViewGroup,
-                                                    viewType: Int): NavItemView {
-                        val view = LayoutInflater.from(parent.context)
-                                .inflate(R.layout.nav_item_gospel, parent, false)
-                        return NavItemView(view)
-                    }
-
-                    override fun onBindViewHolder(@NonNull holder: NavItemView,
-                                                  position: Int,
-                                                  @NonNull model: Gospel) {
-                        applyViewHolderAnimation(holder)
-                        holder.bind(model)
-                    }
-
-                    override fun onLoadingStateChanged(@NonNull state: LoadingState) {
-                        when (state) {
-                            LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> pb_nav.visibility = View.VISIBLE
-                            LoadingState.LOADED -> {
-                                v.pb_nav.visibility = View.GONE
-                                rv_nav.scheduleLayoutAnimation()
-                            }
-                            LoadingState.FINISHED -> {
-                                pb_nav.visibility = View.GONE
-                                navActivity.snackbar(getString(R.string.finished)).show()
-                            }
-                            LoadingState.ERROR -> {
-                                navActivity.snackbar(getString(R.string.error)).show()
-                                retry()
-                            }
-                        }
-                    }
-                }
+                loadGospelsFromTabId()
                 gospelAdapter.startListening()
                 v.rv_nav.adapter = gospelAdapter
             }
@@ -233,7 +186,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             }
             in 4..69 -> { // Gospel Page's Fragment's navId
                 v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
-                loadGospelsFromTabId(config)
+                loadGospelsFromTabId()
             }
         }
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
@@ -275,15 +228,15 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     /**
      * Loads gospels at different tab in Gospel Page
      */
-    private fun loadGospelsFromTabId(config: PagedList.Config) {
+    private fun loadGospelsFromTabId() {
 
         val query = navActivity.firestore.collection("gospels")
         query.orderBy("subtitle", Query.Direction.ASCENDING)
-        val options = FirestorePagingOptions.Builder<Gospel>()
+        val options = FirestoreRecyclerOptions.Builder<Gospel>()
                 //                        .setLifecycleOwner(this@NavFragment)
-                .setQuery(query, config, Gospel::class.java)
+                .setQuery(query, Gospel::class.java)
                 .build()
-        gospelAdapter = object : FirestorePagingAdapter<Gospel, NavItemView>(options) {
+        gospelAdapter = object : FirestoreRecyclerAdapter<Gospel, NavItemView>(options) {
             @NonNull
             override fun onCreateViewHolder(@NonNull parent: ViewGroup,
                                             viewType: Int): NavItemView {
@@ -299,21 +252,12 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 holder.bind(model)
             }
 
-            override fun onLoadingStateChanged(@NonNull state: LoadingState) {
-                when (state) {
-                    LoadingState.LOADING_INITIAL, LoadingState.LOADING_MORE -> pb_nav.visibility = View.VISIBLE
-                    LoadingState.LOADED -> {
-                        v.pb_nav.visibility = View.GONE
-                        rv_nav?.scheduleLayoutAnimation()
-                    }
-                    LoadingState.FINISHED -> {
-                        pb_nav.visibility = View.GONE
-                        navActivity.snackbar(getString(R.string.finished)).show()
-                    }
-                    LoadingState.ERROR -> {
-                        navActivity.snackbar(getString(R.string.error)).show()
-                        retry()
-                    }
+            override fun onDataChanged() {
+                super.onDataChanged()
+                if (itemCount == 0) {
+                } else {
+                    rv_nav.scheduleLayoutAnimation()
+                    pb_nav.visibility = View.GONE
                 }
             }
         }
