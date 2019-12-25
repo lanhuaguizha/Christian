@@ -23,7 +23,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shadow"
-    tools:context=".view.EditorActivity">
+    tools:context="ren.qinc.markdowneditors.view.EditorActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

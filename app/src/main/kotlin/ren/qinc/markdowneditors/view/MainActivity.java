@@ -127,7 +127,7 @@ public class MainActivity extends BaseDrawerLayoutActivity {
         return super.onOptionsItemSelected(item);// || mCurrentFragment.onOptionsItemSelected(item);
     }
 
-    private long customTime = 0;
+//    private long customTime = 0;
 
     @Override
     public void onBackPressed() {//返回按钮
@@ -139,14 +139,14 @@ public class MainActivity extends BaseDrawerLayoutActivity {
         if (mCurrentFragment != null && mCurrentFragment.onBackPressed()) {//如果Fragment有处理，则不据需执行
             return;
         }
-
+        super.onBackPressed();
         //没有东西可以返回了，剩下软件退出逻辑
-        if (Math.abs(customTime - System.currentTimeMillis()) < 2000) {
-            finish();
-        } else {// 提示用户退出
-            customTime = System.currentTimeMillis();
-            Toast.showShort(mContext, "再按一次退出软件");
-        }
+//        if (Math.abs(customTime - System.currentTimeMillis()) < 2000) {
+//            finish();
+//        } else {// 提示用户退出
+//            customTime = System.currentTimeMillis();
+//            Toast.showShort(mContext, "再按一次退出软件");
+//        }
     }
 
 

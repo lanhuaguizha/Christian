@@ -32,8 +32,11 @@ import kotlinx.android.synthetic.main.nav_item_me_portrait.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
+import ren.qinc.markdowneditors.utils.Toast
+import ren.qinc.markdowneditors.view.EditorActivity
 import java.lang.ref.WeakReference
 import java.util.*
+import kotlin.math.abs
 
 /**
  * Home, Gospel, Communication, Me 4 TAB main entrance activity.
@@ -46,6 +49,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         return super.onCreateOptionsMenu(menu)
     }
 
+    private var customTime = 0L
     val SHOTRER_DURATION = 225L
 
     val LONGER_DURATION = 375L
@@ -315,7 +319,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
                 fab_nav.show()
                 fab_nav.setOnClickListener {
-                    startActivity(Intent(this@NavActivity, ren.qinc.markdowneditors.view.MainActivity::class.java))
+                    startActivity(Intent(this@NavActivity, EditorActivity::class.java))
                 }
             }
             1 -> {
@@ -323,18 +327,28 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
                 fab_nav.show()
+
+                fab_nav.setOnClickListener {
+                    startActivity(Intent(this@NavActivity, ren.qinc.markdowneditors.view.MainActivity::class.java))
+                }
             }
             2 -> {
                 tb_nav.title = getString(R.string.title_chat)
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_keyboard_arrow_down_black_24dp, theme))
                 fab_nav.show()
+
+                fab_nav.setOnClickListener {
+                }
             }
             3 -> {
                 tb_nav.title = getString(R.string.title_me)
 
 //                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
                 fab_nav.hide()
+
+                fab_nav.setOnClickListener {
+                }
             }
         }
     }
@@ -574,4 +588,15 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
     }
 
+
+    override fun onBackPressed() {
+        //没有东西可以返回了，剩下软件退出逻辑
+        //没有东西可以返回了，剩下软件退出逻辑
+        if (abs(customTime - System.currentTimeMillis()) < 2000) {
+            finish()
+        } else { // 提示用户退出
+            customTime = System.currentTimeMillis()
+            snackbar(getString(R.string.double_click_exit)).show()
+        }
+    }
 }

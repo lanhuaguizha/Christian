@@ -207,7 +207,7 @@
     <string name="title_activity_scrolling_detail">ScrollingDetailActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_content_fragment">ContentFragment</string>
-    <string name="double_click_exit">Press again to exit</string>
+    <string name="double_click_exit">Press again to exit the software</string>
 
     <!--Gospel initialize-->
     <string name="subtitle">约翰福音</string>
