@@ -32,11 +32,6 @@ class NavDetailFragment : NavFragment() {
 
     private lateinit var gospelDetailAdapter: GospelDetailAdapter
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        navActivity = context as NavDetailActivity
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 

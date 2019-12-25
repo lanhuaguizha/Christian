@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -18,18 +19,36 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import com.christian.multitype.*;
+
+import com.christian.multitype.Card;
+import com.christian.multitype.CardViewBinder;
+import com.christian.multitype.Category;
+import com.christian.multitype.CategoryViewBinder;
+import com.christian.multitype.Contributor;
+import com.christian.multitype.ImageLoader;
+import com.christian.multitype.License;
+import com.christian.multitype.LicenseViewBinder;
+import com.christian.multitype.Line;
+import com.christian.multitype.LineViewBinder;
+import com.christian.multitype.OnContributorClickedListener;
+import com.christian.multitype.OnRecommendationClickedListener;
+import com.christian.multitype.Recommendation;
 import com.christian.swipe.SwipeBackActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import me.drakeet.multitype.MultiTypeAdapter;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import me.drakeet.multitype.MultiTypeAdapter;
+
 /**
  * @author drakeet
  */
-public abstract class AbsAboutActivity extends SwipeBackActivity {
+public abstract class AbsAboutActivity extends SwipeBackActivity implements EventListener<DocumentSnapshot> {
 
     private Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbar;
@@ -51,6 +70,10 @@ public abstract class AbsAboutActivity extends SwipeBackActivity {
     OnRecommendationClickedListener onRecommendationClickedListener;
     private @Nullable
     OnContributorClickedListener onContributorClickedListener;
+    private ListenerRegistration registration;
+    private ArrayList snapshots = new ArrayList<DocumentSnapshot>();
+    public DocumentReference meRef;
+
 
     protected abstract void onCreateHeader(@NonNull ImageView icon, @NonNull TextView slogan, @NonNull TextView version);
 
@@ -132,7 +155,24 @@ public abstract class AbsAboutActivity extends SwipeBackActivity {
                 recyclerView.smoothScrollToPosition(0);
             }
         });
+
     }
+
+    public void startListening() {
+        if (registration == null) {
+            registration = meRef.addSnapshotListener(this);
+        }
+    }
+
+    public void stopListening() {
+        if (registration != null)
+            registration.remove();
+        registration = null;
+
+        snapshots.clear();
+        adapter.notifyDataSetChanged();
+    }
+
 
     @Override
     @SuppressWarnings("deprecation")

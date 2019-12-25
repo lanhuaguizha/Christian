@@ -390,14 +390,12 @@ private fun expandedAnimationPortrait(navActivity: NavActivity, expanded: Boolea
 
 fun enableSwipeBack(position: Int, positionOffset: Float, activity: NavDetailActivity) {
     if (position == 0 && activity.isMovingRight && positionOffset in 0f..0.3f) { // pagePosition从onPageSelected放到onPageScrolled之后就需要使用pagePositionOffset来限制在Review页面就可以返回的bug
-        activity.debug { "enableSwipeBack: enable back gesture" }
         if (positionOffset > 0f) // 第一次进入positionOffset == 0f不能禁用viewPager
             activity.vp_nav.setDisallowInterceptTouchEvent(true)
         else
             activity.vp_nav.setDisallowInterceptTouchEvent(false)
         ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(true) // 滑动的过程当中，ParallaxBackLayout一直在接管手势
     } else {
-        activity.debug { "enableSwipeBack: disable back gesture" }
         activity.vp_nav.setDisallowInterceptTouchEvent(false)
         ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(false)
     }

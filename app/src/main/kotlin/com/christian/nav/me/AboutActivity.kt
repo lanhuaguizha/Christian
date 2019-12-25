@@ -22,27 +22,10 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn
 
 
-class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnContributorClickedListener, EventListener<DocumentSnapshot>, AnkoLogger {
+class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnContributorClickedListener, AnkoLogger {
 
     private lateinit var meBean: MeBean
-    private lateinit var meRef: DocumentReference
-    private var registration: ListenerRegistration? = null
-    private val snapshots = ArrayList<DocumentSnapshot>()
     private var snapshot: DocumentSnapshot? = null
-
-    private fun startListening() {
-        if (registration == null) {
-            registration = meRef.addSnapshotListener(this)
-        }
-    }
-
-    private fun stopListening() {
-        registration?.remove()
-        registration = null
-
-        snapshots.clear()
-        adapter.notifyDataSetChanged()
-    }
 
     private var lastPosition = 0//位置
     private var lastOffset = 0//偏移量
@@ -61,7 +44,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         snapshot = documentSnapshots
         meBean = snapshot?.toObject(MeBean::class.java) ?: MeBean()
 
-        if (!items.isEmpty())
+        if (items.isNotEmpty())
             items.clear()
         for (me in meBean.detail) {
             if (me.type == "category")
