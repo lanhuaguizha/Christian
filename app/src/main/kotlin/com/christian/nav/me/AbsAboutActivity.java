@@ -50,7 +50,7 @@ import me.drakeet.multitype.MultiTypeAdapter;
  */
 public abstract class AbsAboutActivity extends SwipeBackActivity implements EventListener<DocumentSnapshot> {
 
-    private Toolbar toolbar;
+    public Toolbar toolbar;
     private CollapsingToolbarLayout collapsingToolbar;
     private LinearLayout headerContentLayout;
 

@@ -161,10 +161,11 @@ class NavDetailActivity : AbsAboutActivity() {
     }
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
-        slogan.text = getString(R.string.app_name)
-        icon.setImageResource(R.drawable.me)
+//        slogan.text = getString(R.string.app_name)
+//        icon.setImageResource(R.drawable.me)
 //        title = intent?.extras?.getString(toolbarTitle) ?: nullString
 //        version.text = BuildConfig.VERSION_NAME
-        title = getString(R.string.app_name)
+        toolbar.title = getString(R.string.nav_detail)
+        toolbar.subtitle = "yongqiang tao"
     }
 }

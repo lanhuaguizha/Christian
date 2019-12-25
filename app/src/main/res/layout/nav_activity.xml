@@ -38,6 +38,7 @@
                 android:layout_height="@dimen/action_bar_height"
                 android:theme="@style/AppTheme.AppBarOverlay"
                 android:visibility="gone"
+                app:title="@string/title_home"
                 app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 tools:showIn="@layout/home_frag">
