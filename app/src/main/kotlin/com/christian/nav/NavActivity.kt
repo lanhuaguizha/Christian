@@ -166,7 +166,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     open fun initTb() {
         setSupportActionBar(tb_nav)
         sbl_nav.visibility = View.GONE
-        tb_nav.title = getString(R.string.app_name)
 
         tabTitleList = arrayListOf(
                 getString(R.string._Gen),
@@ -289,11 +288,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun initBnv() {
-        disableShiftMode(bnv_nav)
-//        vp_nav.post {
-//            vp_nav.currentItem = VIEW_DISCIPLE
-//            vp_nav.currentItem = VIEW_HOME
-//        }
+//        disableShiftMode(bnv_nav)
         viewPagerOnPageChangeListener.onPageSelected(initFragmentIndex)
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
             val itemPosition = (presenter as NavPresenter).generateNavId(it.itemId)
@@ -315,6 +310,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
         when (pos) {
             0 -> {
+                tb_nav.title = getString(R.string.title_home)
+
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
                 fab_nav.show()
                 fab_nav.setOnClickListener {
@@ -322,14 +319,20 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 }
             }
             1 -> {
+                tb_nav.title = getString(R.string.title_book)
+
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
                 fab_nav.show()
             }
             2 -> {
+                tb_nav.title = getString(R.string.title_chat)
+
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_keyboard_arrow_down_black_24dp, theme))
                 fab_nav.show()
             }
             3 -> {
+                tb_nav.title = getString(R.string.title_me)
+
 //                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
                 fab_nav.hide()
             }

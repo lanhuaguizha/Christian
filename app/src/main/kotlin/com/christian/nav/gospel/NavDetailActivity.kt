@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import com.christian.BuildConfig
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.multitype.Card
@@ -61,9 +62,6 @@ class NavDetailActivity : AbsAboutActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_nav_detail, menu)
         return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -162,4 +160,11 @@ class NavDetailActivity : AbsAboutActivity() {
         (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(sharedPreferences.getInt("lastPosition", 0), sharedPreferences.getInt("lastOffset", 0))
     }
 
+    override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
+        slogan.text = getString(R.string.app_name)
+        icon.setImageResource(R.drawable.me)
+//        title = intent?.extras?.getString(toolbarTitle) ?: nullString
+//        version.text = BuildConfig.VERSION_NAME
+        title = getString(R.string.app_name)
+    }
 }
