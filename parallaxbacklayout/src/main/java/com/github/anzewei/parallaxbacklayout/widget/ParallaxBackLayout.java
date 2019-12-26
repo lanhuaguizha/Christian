@@ -124,7 +124,7 @@ public class ParallaxBackLayout extends FrameLayout {
     private int mFlingVelocity = 30;
     private
     @Edge
-    int mEdgeFlag = -1;
+    int mEdgeFlag = ViewDragHelper.EDGE_LEFT;
     //endregion
 
     //region super method
