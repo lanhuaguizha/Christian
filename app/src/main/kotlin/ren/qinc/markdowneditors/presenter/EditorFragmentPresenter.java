@@ -37,15 +37,15 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
     //时候为新创建文件
     private boolean isCreateFile;
 
-    public EditorFragmentPresenter(File file) {
-        if (file.isDirectory()) {
-            this.filePath = file.getAbsolutePath();
-            this.fileName = "";
-            isCreateFile = true;
-        } else {
-            this.fileName = file.getName();
-            this.filePath = file.getParent();
-        }
+    public EditorFragmentPresenter() {
+//        if (file.isDirectory()) {
+//            this.filePath = file.getAbsolutePath();
+//            this.fileName = "";
+//            isCreateFile = true;
+//        } else {
+//            this.fileName = file.getName();
+//            this.filePath = file.getParent();
+//        }
     }
 
 

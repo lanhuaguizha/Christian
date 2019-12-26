@@ -94,14 +94,14 @@ public class EditorFragment extends BaseFragment implements IEditorFragmentView,
 
         Bundle arguments = getArguments();
         String fileTemp = arguments.getString(FILE_PATH_KEY);
-        if (fileTemp == null) {
-            Toast.makeText(AppContext.context(), "路径参数有误！", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if (fileTemp == null) {
+//            Toast.makeText(AppContext.context(), "路径参数有误！", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 
-        File file = new File(fileTemp);
+//        File file = new File(fileTemp);
         //创建新文章
-        mPresenter = new EditorFragmentPresenter(file);
+        mPresenter = new EditorFragmentPresenter();
         mPresenter.attachView(this);
 
         //代码格式化或者插入操作
@@ -128,8 +128,8 @@ public class EditorFragment extends BaseFragment implements IEditorFragmentView,
         PerformInputAfter.start(mContent);
 
         //装置数据
-        if (file.isFile())
-            mPresenter.loadFile();
+//        if (file.isFile())
+//            mPresenter.loadFile();
 
 
         mSpinner.setItems(
