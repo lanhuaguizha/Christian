@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.Disciple
 import com.christian.data.Gospel
+import com.christian.data.MeBean
 import com.christian.data.Setting
 import com.christian.nav.gospel.NavDetailActivity
 import com.christian.nav.me.AboutActivity
@@ -75,16 +76,13 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
         itemView.clearAnimation()
     }
 
-    fun bind(gospel: Gospel) {
-        tv_title_nav_item.text = gospel.title
-        tv_subtitle_nav_item.text = gospel.subtitle
-        if (gospel.detail.isNotEmpty()) {
-            Glide.with(containerView.context).load(gospel.detail[0].image).into(iv_nav_item)
-            tv_detail_nav_item.text = gospel.detail[0].content
-        } else {
-            Glide.with(containerView.context).load("").into(iv_nav_item)
-            tv_detail_nav_item.text = ""
-        }
+    fun bind(gospel: MeBean) {
+        tv_title_nav_item.text = gospel.desc
+        tv_subtitle_nav_item.text = gospel.name
+        tv_detail_nav_item.text = gospel.content
+        textView.text = gospel.author
+        textView2.text = gospel.church
+        textView3.text = gospel.time
         containerView.setOnClickListener {
             startGospelDetailActivity(gospel)
         }
@@ -94,9 +92,15 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
         }
     }
 
-    private fun startGospelDetailActivity(gospel: Gospel) {
+    private fun startGospelDetailActivity(gospel: MeBean) {
         val intent = Intent(containerView.context, NavDetailActivity::class.java)
-        intent.putExtra(toolbarTitle, gospel.title)
+        intent.putExtra(containerView.context.getString(R.string.name), gospel.name)
+        intent.putExtra(containerView.context.getString(R.string.content_lower_case), gospel.content)
+        intent.putExtra(containerView.context.getString(R.string.author), gospel.author)
+        intent.putExtra(containerView.context.getString(R.string.church_lower_case), gospel.church)
+        intent.putExtra(containerView.context.getString(R.string.time), gospel.time)
+
+        intent.putExtra(toolbarTitle, gospel.name)
         containerView.context.startActivity(intent)
     }
 

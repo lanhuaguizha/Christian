@@ -212,8 +212,7 @@
     <!--Gospel initialize-->
     <string name="subtitle">约翰福音</string>
     <string name="title">Title</string>
-    <string name="detail">神爱世人，甚至将他的独生子赐给他们，叫一切信他的，不至灭亡，反得永生。</string>
-    <string name="author">神</string>
+    <string name="author">author</string>
 
     <!--contentDescription-->
     <string name="the_avatars">用户头像</string>
@@ -324,5 +323,23 @@
     <string name="settings">Settings</string>
     <string name="nav_detail">Detail</string>
     <string name="church">Church</string>
+    <string name="church_lower_case">church</string>
     <string name="content">Content</string>
+    <string name="content_lower_case">content</string>
+    <!--Gospel-->
+    <string name="gospels">gospels</string>
+    <string name="name">name</string>
+    <string name="desc">desc</string>
+    <string name="detail">detail</string>
+    <string name="category">category</string>
+    <string name="type">type</string>
+    <string name="card">card</string>
+    <string name="title_empty">The title is empty</string>
+    <string name="uncategorized">uncategorized</string>
+    <string name="no_author">No author</string>
+    <string name="no_church">No church</string>
+    <string name="time">time</string>
+    <string name="no_title">No title</string>
+    <string name="no_content">No content</string>
+    <string name="no_time">No time</string>
 </resources>

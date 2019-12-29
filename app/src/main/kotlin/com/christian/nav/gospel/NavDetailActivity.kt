@@ -1,33 +1,28 @@
 package com.christian.nav.gospel
 
 import android.app.Activity
-import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.edit
-import androidx.core.content.res.ResourcesCompat
-import androidx.customview.widget.ViewDragHelper.INVALID_POINTER
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
-import com.christian.BuildConfig
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.multitype.Card
 import com.christian.multitype.Category
-import com.christian.nav.*
+import com.christian.nav.NavActivity
 import com.christian.nav.me.AbsAboutActivity
+import com.christian.nav.nullString
+import com.christian.nav.toolbarTitle
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout.MODE_FIXED
-import com.google.firebase.firestore.*
-import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.android.synthetic.main.nav_activity.*
-import kotlinx.android.synthetic.main.nav_fragment.*
-import org.jetbrains.anko.debug
-import org.jetbrains.anko.warn
 import java.util.*
 
 private fun NavActivity.initTbWithTitle(title: String) {
@@ -47,12 +42,19 @@ private fun NavActivity.initTbWithTitle(title: String) {
  */
 class NavDetailActivity : AbsAboutActivity() {
 
+    private lateinit var gospelTime: String
+    private lateinit var gospelTitle: String
+    private lateinit var gospelContent: String
+    private lateinit var gospelAuthor: String
+    private lateinit var gospelChurch: String
+
     private lateinit var meBean: MeBean
     private var registration: ListenerRegistration? = null
     private val snapshots = ArrayList<DocumentSnapshot>()
     private var snapshot: DocumentSnapshot? = null
 
     var isMovingRight: Boolean = true // true不会崩溃，进入nav detail左滑的时候
+
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         menu.removeItem(R.id.menu_options_nav)
@@ -119,18 +121,8 @@ class NavDetailActivity : AbsAboutActivity() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        meRef = firestore.collection("mes").document("kT04H8SFVsOvqz4YLfUq")
-        startListening()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        stopListening()
-    }
-
     override fun onItemsCreated(items: MutableList<Any>) {
+        items.add(Card(gospelContent))
     }
 
     override fun onEvent(documentSnapshots: DocumentSnapshot?, e: FirebaseFirestoreException?) {
@@ -161,11 +153,18 @@ class NavDetailActivity : AbsAboutActivity() {
     }
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
-//        slogan.text = getString(R.string.app_name)
-//        icon.setImageResource(R.drawable.me)
-//        title = intent?.extras?.getString(toolbarTitle) ?: nullString
-//        version.text = BuildConfig.VERSION_NAME
-        toolbar.title = getString(R.string.nav_detail)
-        toolbar.subtitle = "yongqiang tao"
+
+        gospelTitle = intent.getStringExtra(getString(R.string.name))
+                ?: getString(R.string.no_title)
+        gospelContent = intent.getStringExtra(getString(R.string.content_lower_case))
+                ?: getString(R.string.no_content)
+        gospelAuthor = intent.getStringExtra(getString(R.string.author))
+                ?: getString(R.string.no_author)
+        gospelChurch = intent.getStringExtra(R.string.church_lower_case.toString())
+                ?: getString(R.string.no_church)
+        gospelTime = intent.getStringExtra(getString(R.string.time)) ?: getString(R.string.no_time)
+
+        toolbar.title = gospelTitle
+//        toolbar.subtitle = gospelCategory
     }
 }

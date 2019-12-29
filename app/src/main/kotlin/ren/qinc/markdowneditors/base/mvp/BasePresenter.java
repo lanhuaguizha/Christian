@@ -61,7 +61,7 @@ public class BasePresenter<T extends IMvpView> implements IPresenter<T> {
     }
 
 
-    protected void callFailure(int errorCode, String message, int flag) {
+    public void callFailure(int errorCode, String message, int flag) {
         if (getMvpView() == null) return;
         getMvpView().onFailure(errorCode, message, flag);
     }

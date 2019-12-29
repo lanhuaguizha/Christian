@@ -134,26 +134,33 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
                 !fileName.endsWith(".mdown")) {
             fileName = fileName + ".md";
         }
-        mDataManager.saveFile(getMDFile(), content).subscribe(success -> {
-            if (success) {
-                isCreateFile = false;
-                textChanged = false;
-                if (!rename(name)) {
-                    callFailure(-1, "重命名失败", IEditorFragmentView.CALL_SAVE);
-                    return;
-                }
-                if (getMvpView() != null) {
-                    if (exit)
-                        getMvpView().otherSuccess(IEditorFragmentView.CALL_EXIT);
-                    else
-                        getMvpView().otherSuccess(IEditorFragmentView.CALL_SAVE);
-                }
-            } else {
-                callFailure(-1, "保存失败", IEditorFragmentView.CALL_SAVE);
-            }
-        }, throwable -> {
-            callFailure(-1, "保存失败", IEditorFragmentView.CALL_SAVE);
-        });
+
+        if (getMvpView() != null) {
+            if (exit)
+                getMvpView().otherSuccess(IEditorFragmentView.CALL_EXIT);
+            else
+                getMvpView().otherSuccess(IEditorFragmentView.CALL_SAVE);
+        }
+//        mDataManager.saveFile(getMDFile(), content).subscribe(success -> {
+//            if (success) {
+//                isCreateFile = false;
+//                textChanged = false;
+//                if (!rename(name)) {
+//                    callFailure(-1, "重命名失败", IEditorFragmentView.CALL_SAVE);
+//                    return;
+//                }
+//                if (getMvpView() != null) {
+//                    if (exit)
+//                        getMvpView().otherSuccess(IEditorFragmentView.CALL_EXIT);
+//                    else
+//                        getMvpView().otherSuccess(IEditorFragmentView.CALL_SAVE);
+//                }
+//            } else {
+//                callFailure(-1, "保存失败", IEditorFragmentView.CALL_SAVE);
+//            }
+//        }, throwable -> {
+//            callFailure(-1, "保存失败", IEditorFragmentView.CALL_SAVE);
+//        });
     }
 
     private boolean rename(String newName) {

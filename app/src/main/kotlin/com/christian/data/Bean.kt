@@ -29,6 +29,10 @@ data class MeBean(
         val id: String = "",
         val name: String = "",
         val desc: String = "",
+        val content: String="",
+        val author: String="",
+        val church: String="",
+        val time: String="",
         var detail: List<MeDetails> = arrayListOf()
 )
 

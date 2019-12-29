@@ -13,7 +13,7 @@ import androidx.paging.PagedList
 import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.christian.R
-import com.christian.data.Gospel
+import com.christian.data.MeBean
 import com.christian.data.Setting
 import com.christian.view.ItemDecoration
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
@@ -153,7 +153,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
     var isPageBottom: Boolean = false
 
-    private lateinit var gospelAdapter: FirestoreRecyclerAdapter<Gospel, NavItemView>
+    private lateinit var gospelAdapter: FirestoreRecyclerAdapter<MeBean, NavItemView>
     private lateinit var meAdapter: FirestoreRecyclerAdapter<Setting, NavItemView>
 
     override fun onDestroyView() {
@@ -231,12 +231,12 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     private fun loadGospelsFromTabId() {
 
         val query = navActivity.firestore.collection("gospels")
-        query.orderBy("subtitle", Query.Direction.ASCENDING)
-        val options = FirestoreRecyclerOptions.Builder<Gospel>()
+        query.orderBy("time", Query.Direction.DESCENDING)
+        val options = FirestoreRecyclerOptions.Builder<MeBean>()
                 //                        .setLifecycleOwner(this@NavFragment)
-                .setQuery(query, Gospel::class.java)
+                .setQuery(query, MeBean::class.java)
                 .build()
-        gospelAdapter = object : FirestoreRecyclerAdapter<Gospel, NavItemView>(options) {
+        gospelAdapter = object : FirestoreRecyclerAdapter<MeBean, NavItemView>(options) {
             @NonNull
             override fun onCreateViewHolder(@NonNull parent: ViewGroup,
                                             viewType: Int): NavItemView {
@@ -247,7 +247,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
             override fun onBindViewHolder(@NonNull holder: NavItemView,
                                           position: Int,
-                                          @NonNull model: Gospel) {
+                                          @NonNull model: MeBean) {
                 applyViewHolderAnimation(holder)
                 holder.bind(model)
             }

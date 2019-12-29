@@ -20,22 +20,28 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.FragmentActivity;
 
 import com.christian.R;
+import com.christian.util.ChristianUtil;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
-import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.Bind;
 import de.mrapp.android.bottomsheet.BottomSheet;
@@ -58,13 +64,23 @@ import ren.qinc.markdowneditors.utils.SystemUtils;
  * Created by 沈钦赐 on 16/1/21.
  */
 public class EditorFragment extends BaseFragment implements IEditorFragmentView, View.OnClickListener {
+
+    private static final String TAG = EditorFragment.class.getSimpleName();
     public static final String FILE_PATH_KEY = "FILE_PATH_KEY";
-    @Bind(R.id.title)
-    protected EditText mName;
-    @Bind(R.id.content)
-    protected EditText mContent;
+    // FirebaseFirestore
+    private FirebaseFirestore firebaseFirestore;
+    private String documentGospel;
+
     @Bind(R.id.spinner)
     protected MaterialSpinner mSpinner;
+    @Bind(R.id.title)
+    protected EditText mName;
+    @Bind(R.id.author)
+    protected EditText mAuthor;
+    @Bind(R.id.church)
+    protected EditText mChurch;
+    @Bind(R.id.content)
+    protected EditText mContent;
 
     private EditorFragmentPresenter mPresenter;
 
@@ -72,13 +88,15 @@ public class EditorFragment extends BaseFragment implements IEditorFragmentView,
     private PerformEdit mPerformEdit;
     private PerformEdit mPerformNameEdit;
 
+
     public EditorFragment() {
     }
 
-    public static EditorFragment getInstance(String filePath) {
+    public static EditorFragment getInstance(String dg) {
         EditorFragment editorFragment = new EditorFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(FILE_PATH_KEY, filePath);
+//        bundle.putString(FILE_PATH_KEY, filePath);
+        bundle.putString(ChristianUtil.DOCUMENT_GOSPEL, dg);
         editorFragment.setArguments(bundle);
         return editorFragment;
     }
@@ -92,8 +110,12 @@ public class EditorFragment extends BaseFragment implements IEditorFragmentView,
     @Override
     public void onCreateAfter(Bundle savedInstanceState) {
 
+        firebaseFirestore = FirebaseFirestore.getInstance();
+
         Bundle arguments = getArguments();
         String fileTemp = arguments.getString(FILE_PATH_KEY);
+        documentGospel = arguments.getString(ChristianUtil.DOCUMENT_GOSPEL);
+
 //        if (fileTemp == null) {
 //            Toast.makeText(AppContext.context(), "路径参数有误！", Toast.LENGTH_SHORT).show();
 //            return;
@@ -398,6 +420,58 @@ public class EditorFragment extends BaseFragment implements IEditorFragmentView,
     public void saved() {
         if (mActionSave == null) return;
         mActionSave.setIcon(R.drawable.ic_action_save);
+
+
+        if (documentGospel != null) { // Edit exist documents
+            firebaseFirestore.collection(String.valueOf(R.string.gospels)).document(documentGospel);
+        } else { // Create a new document
+            firebaseFirestore.collection(String.valueOf(R.string.gospels));
+            // Add a new document with a generated id.
+            Map<String, Object> data = new HashMap<>();
+            if (!mSpinner.getText().toString().trim().isEmpty()) {
+                data.put(getString(R.string.desc), mSpinner.getText());
+            } else {
+                data.put(getString(R.string.desc), getString(R.string.uncategorized));
+            }
+            data.put(getString(R.string.name), mName.getText().toString().trim());
+            if (!mAuthor.getText().toString().trim().isEmpty()) {
+                data.put(getString(R.string.author), mAuthor.getText().toString().trim());
+            } else {
+                data.put(getString(R.string.author), getString(R.string.no_author));
+            }
+            if (!mChurch.getText().toString().trim().isEmpty()) {
+                data.put(getString(R.string.church_lower_case), mChurch.getText().toString().trim());
+            } else {
+                data.put(getString(R.string.church_lower_case), getString(R.string.no_church));
+            }
+            data.put(getString(R.string.content_lower_case), mContent.getText().toString().trim());
+            data.put(getString(R.string.time), ChristianUtil.getDateAndCurrentTime());
+
+            if (!mName.getText().toString().trim().isEmpty()) {
+                if (!mContent.getText().toString().trim().isEmpty()) {
+                    firebaseFirestore.collection(getString(R.string.gospels))
+                            .add(data)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    mPresenter.callFailure(-1, "保存失败", IEditorFragmentView.CALL_SAVE);
+                                }
+                            });
+                } else {
+                    AppContext.showSnackbar(mContent, getString(R.string.content_empty));
+                }
+            } else {
+                AppContext.showSnackbar(mContent, getString(R.string.title_empty));
+            }
+
+        }
+
     }
 
 

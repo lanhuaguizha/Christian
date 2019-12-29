@@ -17,6 +17,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.christian.R
 import com.christian.data.Gospel
+import com.christian.data.MeBean
 import com.christian.nav.gospel.GospelReviewFragment
 import com.christian.nav.gospel.NavDetailActivity
 import com.christian.nav.gospel.NavDetailFragment
@@ -100,7 +101,7 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
     override fun deleteNav(navId: String) {
     }
 
-    override fun updateNav(gospels: List<Gospel>) {
+    override fun updateNav(gospels: List<MeBean>) {
     }
 
     override fun readNav() {

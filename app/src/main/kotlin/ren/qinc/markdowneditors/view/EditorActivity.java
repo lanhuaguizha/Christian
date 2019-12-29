@@ -38,6 +38,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.christian.R;
+import com.christian.util.ChristianUtil;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
@@ -73,6 +74,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
     @Bind(R.id.pager)
     protected ViewPager mViewPager;
     private TabIconView mTabIconView;
+    private String documentGospel;
 
     @Override
     public int getLayoutId() {
@@ -87,7 +89,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
 //        getAppBar().addView(mExpandLayout);
 
         getIntentData();
-        mEditorFragment = EditorFragment.getInstance(currentFilePath);
+        mEditorFragment = EditorFragment.getInstance(documentGospel);
         mEditorMarkdownFragment = EditorMarkdownFragment.getInstance();
 
         initViewPager();
@@ -227,6 +229,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
     private void getIntentData() {
         Intent intent = this.getIntent();
         int flags = intent.getFlags();
+        documentGospel = intent.getStringExtra(ChristianUtil.DOCUMENT_GOSPEL);
         if ((flags & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             if (intent.getAction() != null && Intent.ACTION_VIEW.equals(intent.getAction())) {
                 if (SCHEME_FILE.equals(intent.getScheme())) {

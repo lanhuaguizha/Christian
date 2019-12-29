@@ -342,7 +342,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 }
             }
             3 -> {
-                tb_nav.title = getString(R.string.title_me)
+                tb_nav.title = ""
 
 //                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
                 fab_nav.hide()

@@ -25,10 +25,17 @@ import android.view.WindowManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import ren.qinc.markdowneditors.base.BaseApplication;
 
 public class ChristianUtil {
+
+    public static final String DOCUMENT_GOSPEL = "DOCUMENT_GOSPEL";
+
 
     // 反射强势访问修改final变量
     public static void setFinalStatic(Field field, Object newValue) throws Exception {
@@ -73,5 +80,16 @@ public class ChristianUtil {
         }
 
         return screenWidth;
+    }
+
+
+    public static String getDateAndCurrentTime() {
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
+//You can change "yyyyMMdd_HHmmss as per your requirement
+
+        String currentDateAndTime = sdf.format(new Date());
+        return currentDateAndTime;
     }
 }
