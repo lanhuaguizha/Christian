@@ -42,7 +42,7 @@
                 app:showAsAction="never" />
             <item
                 android:id="@+id/menu_read"
-                android:icon="@drawable/ic_speaker_phone_black_24dp"
+                android:icon="@drawable/ic_volume_up_black_24dp"
                 android:orderInCategory="1"
                 android:title="@string/read"
                 app:showAsAction="never" />

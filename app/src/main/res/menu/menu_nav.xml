@@ -37,7 +37,7 @@
                     app:showAsAction="never" />
                 <item
                     android:id="@+id/menu_about"
-                    android:icon="@drawable/ic_group_add_black_24dp"
+                    android:icon="@drawable/ic_info_black_24dp"
                     android:orderInCategory="1"
                     android:title="@string/about"
                     app:showAsAction="never" />

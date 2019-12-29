@@ -266,7 +266,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
             //展开，设置向上箭头
             mActionOtherOperate.setIcon(R.drawable.ic_arrow_up);
         else
-            mActionOtherOperate.setIcon(R.drawable.ic_add_white_24dp);
+            mActionOtherOperate.setIcon(R.drawable.ic_arrow_down);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -283,7 +283,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
                 //没有展开，但是接下来就是展开，设置向上箭头
                 mActionOtherOperate.setIcon(R.drawable.ic_arrow_up);
             else
-                mActionOtherOperate.setIcon(R.drawable.ic_add_white_24dp);
+                mActionOtherOperate.setIcon(R.drawable.ic_arrow_down);
             mExpandLayout.toggle();
             return true;
         } else if (itemId == R.id.action_preview) {//预览
@@ -308,7 +308,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
                 //没有展开，但是接下来就是展开，设置向上箭头
                 mActionOtherOperate.setIcon(R.drawable.ic_arrow_up);
             else
-                mActionOtherOperate.setIcon(R.drawable.ic_add_white_24dp);
+                mActionOtherOperate.setIcon(R.drawable.ic_arrow_down);
             mExpandLayout.toggle();
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_BACK) {

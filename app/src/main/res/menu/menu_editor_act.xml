@@ -20,14 +20,14 @@
       tools:context=".view.EditorActivity">
     <item
         android:id="@+id/action_other_operate"
-        android:orderInCategory="83"
+        android:orderInCategory="82"
         android:title="@string/action_other_operate"
-        android:icon="@drawable/ic_add_white_24dp"
+        android:icon="@drawable/ic_arrow_down"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_save"
-        android:orderInCategory="82"
+        android:orderInCategory="83"
         android:title="@string/action_save"
         android:icon="@drawable/ic_action_save"
         app:showAsAction="always"/>
