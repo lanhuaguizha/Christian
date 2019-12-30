@@ -18,18 +18,30 @@ package ren.qinc.markdowneditors.presenter;
 
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import java.io.File;
+import com.christian.R;
+import com.christian.util.ChristianUtil;
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuthProvider;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import ren.qinc.markdowneditors.AppContext;
 import ren.qinc.markdowneditors.base.mvp.BasePresenter;
+import ren.qinc.markdowneditors.view.EditorFragment;
 
 /**
  * 编辑界面Presenter
  * Created by 沈钦赐 on 16/1/18.
  */
 public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> {
+    private static final String TAG = EditorFragmentPresenter.class.getSimpleName();
     //当前文件路径
     private String filePath;
     //当前本地文件名字(如果创建,则为"",可以和当前标题输入框的值不同)
@@ -135,12 +147,65 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
             fileName = fileName + ".md";
         }
 
-        if (getMvpView() != null) {
-            if (exit)
-                getMvpView().otherSuccess(IEditorFragmentView.CALL_EXIT);
-            else
-                getMvpView().otherSuccess(IEditorFragmentView.CALL_SAVE);
+
+        EditorFragment editorFragment = (EditorFragment) getMvpView();
+        if (editorFragment.documentGospel != null) { // Edit exist documents
+            editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels)).document(editorFragment.documentGospel);
+        } else { // Create a new document
+            editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels));
+            // Add a new document with a generated id.
+            Map<String, Object> data = new HashMap<>();
+            if (!editorFragment.mSpinner.getText().toString().trim().isEmpty()) {
+                data.put(editorFragment.getString(R.string.desc), editorFragment.mSpinner.getText());
+            } else {
+                data.put(editorFragment.getString(R.string.desc), editorFragment.getString(R.string.uncategorized));
+            }
+            data.put(editorFragment.getString(R.string.name), editorFragment.mName.getText().toString().trim());
+            if (!editorFragment.mAuthor.getText().toString().trim().isEmpty()) {
+                data.put(editorFragment.getString(R.string.author), editorFragment.mAuthor.getText().toString().trim());
+            } else {
+                data.put(editorFragment.getString(R.string.author), editorFragment.getString(R.string.no_author));
+            }
+            if (!editorFragment.mChurch.getText().toString().trim().isEmpty()) {
+                data.put(editorFragment.getString(R.string.church_lower_case), editorFragment.mChurch.getText().toString().trim());
+            } else {
+                data.put(editorFragment.getString(R.string.church_lower_case), editorFragment.getString(R.string.no_church));
+            }
+            data.put(editorFragment.getString(R.string.content_lower_case), editorFragment.mContent.getText().toString().trim());
+            data.put(editorFragment.getString(R.string.time), ChristianUtil.getDateAndCurrentTime());
+
+            if (!editorFragment.mName.getText().toString().trim().isEmpty()) {
+                if (!editorFragment.mContent.getText().toString().trim().isEmpty()) {
+                    editorFragment.firebaseFirestore.collection(editorFragment.getString(R.string.gospels))
+                            .add(data)
+                            .addOnSuccessListener(documentReference -> {
+                                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+
+                                isCreateFile = false;
+                                textChanged = false;
+                                if (!rename(name)) {
+                                    callFailure(-1, "重命名失败", IEditorFragmentView.CALL_SAVE);
+                                    return;
+                                }
+                                if (getMvpView() != null) {
+                                    if (exit)
+                                        getMvpView().otherSuccess(IEditorFragmentView.CALL_EXIT);
+                                    else
+                                        getMvpView().otherSuccess(IEditorFragmentView.CALL_SAVE);
+                                }
+                            })
+                            .addOnFailureListener(e -> {
+                                callFailure(-1, editorFragment.getString(R.string.please_sign_in), IEditorFragmentView.CALL_SAVE);
+                            });
+                } else {
+                    AppContext.showSnackbar(editorFragment.mContent, editorFragment.getString(R.string.content_empty));
+                }
+            } else {
+                AppContext.showSnackbar(editorFragment.mContent, editorFragment.getString(R.string.title_empty));
+            }
+
         }
+
 //        mDataManager.saveFile(getMDFile(), content).subscribe(success -> {
 //            if (success) {
 //                isCreateFile = false;

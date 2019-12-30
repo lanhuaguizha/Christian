@@ -94,7 +94,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.christian.nav.NavActivity" />
         </activity>
-        <activity android:name=".nav.me.AboutActivity" />
+        <activity android:name=".nav.me.AboutActivity"
+            android:label=""/>
 
         <!--service-->
         <service android:name=".nav.NavService"/>

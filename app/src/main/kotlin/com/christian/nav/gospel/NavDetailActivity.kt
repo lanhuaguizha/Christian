@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.christian.R
 import com.christian.data.MeBean
+import com.christian.multitype.Author
 import com.christian.multitype.Card
 import com.christian.multitype.Category
 import com.christian.nav.NavActivity
@@ -42,6 +43,7 @@ private fun NavActivity.initTbWithTitle(title: String) {
  */
 class NavDetailActivity : AbsAboutActivity() {
 
+    private lateinit var gospelCategory: String
     private lateinit var gospelTime: String
     private lateinit var gospelTitle: String
     private lateinit var gospelContent: String
@@ -123,6 +125,7 @@ class NavDetailActivity : AbsAboutActivity() {
 
     override fun onItemsCreated(items: MutableList<Any>) {
         items.add(Card(gospelContent))
+        items.add(Author("Author:$gospelAuthor·Church:$gospelChurch·Time:$gospelTime"))
     }
 
     override fun onEvent(documentSnapshots: DocumentSnapshot?, e: FirebaseFirestoreException?) {
@@ -154,6 +157,8 @@ class NavDetailActivity : AbsAboutActivity() {
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
 
+        gospelCategory = intent.getStringExtra(getString(R.string.category))
+                ?: getString(R.string.uncategorized)
         gospelTitle = intent.getStringExtra(getString(R.string.name))
                 ?: getString(R.string.no_title)
         gospelContent = intent.getStringExtra(getString(R.string.content_lower_case))
@@ -164,7 +169,7 @@ class NavDetailActivity : AbsAboutActivity() {
                 ?: getString(R.string.no_church)
         gospelTime = intent.getStringExtra(getString(R.string.time)) ?: getString(R.string.no_time)
 
-        toolbar.title = gospelTitle
-//        toolbar.subtitle = gospelCategory
+        collapsingToolbar.subtitle = gospelTitle
+        collapsingToolbar.title = gospelCategory
     }
 }

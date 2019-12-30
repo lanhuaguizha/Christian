@@ -10,15 +10,13 @@ import android.content.ServiceConnection
 import android.os.*
 import android.util.AttributeSet
 import android.util.Log
-import android.view.Gravity
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
 import com.bumptech.glide.Glide
 import com.christian.R
+import com.christian.nav.me.AboutActivity
 import com.christian.swipe.SwipeBackActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -32,7 +30,6 @@ import kotlinx.android.synthetic.main.nav_item_me_portrait.*
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
-import ren.qinc.markdowneditors.utils.Toast
 import ren.qinc.markdowneditors.view.EditorActivity
 import java.lang.ref.WeakReference
 import java.util.*
@@ -47,6 +44,17 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_nav, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.menu_about -> {
+                val i = Intent(this, AboutActivity::class.java)
+                i.putExtra(toolbarTitle, ".")
+                startActivity(i)
+                true
+            } else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private var customTime = 0L
@@ -248,16 +256,12 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     private fun initPortrait() {
         applyMarqueeEffect(intro)
+        invalidateSignInUI()
         sign_in.setOnClickListener {
             signIn()
         }
         sign_out.setOnClickListener {
-            val user = auth.currentUser
-            user?.delete()?.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    snackbar("User account deleted").show()
-                }
-            }
+
         }
     }
 
@@ -344,10 +348,29 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             3 -> {
                 tb_nav.title = ""
 
-//                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
-                fab_nav.hide()
+                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
+                if (auth.currentUser != null) {
+                    fab_nav.show()
+                } else {
+                    fab_nav.hide()
+                }
 
                 fab_nav.setOnClickListener {
+                    AuthUI.getInstance()
+                            .signOut(this)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    snackbar("Sign out successful").show()
+                                    invalidateSignInUI()
+                                }
+                            }
+
+//            val user = auth.currentUser
+//            user?.delete()?.addOnCompleteListener { task ->
+//                if (task.isSuccessful) {
+//                    snackbar("User account deleted").show()
+//                }
+//            }
                 }
             }
         }
@@ -423,34 +446,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
-                val user = auth.currentUser
-                info { "user: $user" }
-                if (user != null) {
-                    sign_in.visibility = View.GONE
-                    sign_out.visibility = View.VISIBLE
-                    portrait.visibility = View.VISIBLE
-                    name.visibility = View.VISIBLE
-                    intro.visibility = View.VISIBLE
-                    name.text = user.displayName
-                    intro.text = user.email
-                    Glide.with(this).load(user.photoUrl).into(iv_nav_item_small)
-                    info { "user.photoUrl: ${user.photoUrl}, user.displayName: ${user.displayName}, user.email: ${user.email}" }
-
-                    portrait_nav.isClickable = true
-                    portrait_nav.isFocusable = true
-                    portrait_nav.isFocusableInTouchMode = true
-                } else {
-                    sign_in.visibility = View.VISIBLE
-                    sign_out.visibility = View.GONE
-                    portrait.visibility = View.GONE
-                    name.visibility = View.GONE
-                    intro.visibility = View.GONE
-
-                    portrait_nav.isClickable = false
-                    portrait_nav.isFocusable = false
-                    portrait_nav.isFocusableInTouchMode = false
-                }
-                // ...
+                invalidateSignInUI()
             } else {
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
@@ -460,6 +456,39 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 snackbar.show()
             }
         }
+    }
+
+    private fun invalidateSignInUI() {
+        val user = auth.currentUser
+        info { "user: $user" }
+        if (user != null) {
+            sign_in.visibility = View.GONE
+            sign_out.visibility = View.GONE
+            fab_nav.visibility = View.VISIBLE
+            portrait.visibility = View.VISIBLE
+            name.visibility = View.VISIBLE
+            intro.visibility = View.VISIBLE
+            name.text = user.displayName
+            intro.text = user.email
+            Glide.with(this).load(user.photoUrl).into(iv_nav_item_small)
+            info { "user.photoUrl: ${user.photoUrl}, user.displayName: ${user.displayName}, user.email: ${user.email}" }
+
+            portrait_nav.isClickable = true
+            portrait_nav.isFocusable = true
+            portrait_nav.isFocusableInTouchMode = true
+        } else {
+            sign_in.visibility = View.VISIBLE
+            sign_out.visibility = View.GONE
+            fab_nav.visibility = View.GONE
+            portrait.visibility = View.GONE
+            name.visibility = View.GONE
+            intro.visibility = View.GONE
+
+            portrait_nav.isClickable = false
+            portrait_nav.isFocusable = false
+            portrait_nav.isFocusableInTouchMode = false
+        }
+        // ...
     }
 
     open class NavFragmentPagerAdapter(fm: androidx.fragment.app.FragmentManager) : androidx.fragment.app.FragmentPagerAdapter(fm) {

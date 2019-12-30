@@ -20,6 +20,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.christian.multitype.Author;
+import com.christian.multitype.AuthorViewBinder;
 import com.christian.multitype.Card;
 import com.christian.multitype.CardViewBinder;
 import com.christian.multitype.Category;
@@ -35,6 +37,7 @@ import com.christian.multitype.OnRecommendationClickedListener;
 import com.christian.multitype.Recommendation;
 import com.christian.swipe.SwipeBackActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -51,7 +54,7 @@ import me.drakeet.multitype.MultiTypeAdapter;
 public abstract class AbsAboutActivity extends SwipeBackActivity implements EventListener<DocumentSnapshot> {
 
     public Toolbar toolbar;
-    private CollapsingToolbarLayout collapsingToolbar;
+    private SubtitleCollapsingToolbarLayout collapsingToolbar;
     private LinearLayout headerContentLayout;
 
     private List<Object> items;
@@ -79,7 +82,7 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
 
     protected abstract void onItemsCreated(@NonNull List<Object> items);
 
-    protected void onTitleViewCreated(@NonNull CollapsingToolbarLayout collapsingToolbar) {
+    protected void onTitleViewCreated(@NonNull SubtitleCollapsingToolbarLayout collapsingToolbar) {
     }
 
     public void setImageLoader(@NonNull ImageLoader imageLoader) {
@@ -181,10 +184,12 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
         adapter = new MultiTypeAdapter();
         adapter.register(Category.class, new CategoryViewBinder());
         adapter.register(Card.class, new CardViewBinder());
+        adapter.register(Author.class, new AuthorViewBinder());
         adapter.register(Line.class, new LineViewBinder());
         adapter.register(Contributor.class, new ContributorViewBinder(this));
         adapter.register(License.class, new LicenseViewBinder());
         adapter.register(Recommendation.class, new RecommendationViewBinder(this));
+
         items = new ArrayList<>();
         onItemsCreated(items);
         adapter.setItems(items);
@@ -284,7 +289,7 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
         return toolbar;
     }
 
-    public CollapsingToolbarLayout getCollapsingToolbar() {
+    public SubtitleCollapsingToolbarLayout getCollapsingToolbar() {
         return collapsingToolbar;
     }
 

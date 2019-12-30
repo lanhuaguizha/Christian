@@ -231,7 +231,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     private fun loadGospelsFromTabId() {
 
         val query = navActivity.firestore.collection("gospels")
-        query.orderBy("time", Query.Direction.DESCENDING)
+                .orderBy("time", Query.Direction.DESCENDING)
         val options = FirestoreRecyclerOptions.Builder<MeBean>()
                 //                        .setLifecycleOwner(this@NavFragment)
                 .setQuery(query, MeBean::class.java)

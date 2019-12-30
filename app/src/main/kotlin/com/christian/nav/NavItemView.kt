@@ -15,6 +15,7 @@ import com.christian.data.Setting
 import com.christian.nav.gospel.NavDetailActivity
 import com.christian.nav.me.AboutActivity
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.fragment_editor.view.*
 import kotlinx.android.synthetic.main.nav_item_gospel.*
 import kotlinx.android.synthetic.main.nav_item_me.*
 import org.jetbrains.anko.AnkoLogger
@@ -80,9 +81,9 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
         tv_title_nav_item.text = gospel.desc
         tv_subtitle_nav_item.text = gospel.name
         tv_detail_nav_item.text = gospel.content
-        textView.text = gospel.author
-        textView2.text = gospel.church
-        textView3.text = gospel.time
+        textView.text = gospel.author + "·" + gospel.church + "·" + gospel.time
+//        textView2.text = gospel.church
+//        textView3.text = gospel.time
         containerView.setOnClickListener {
             startGospelDetailActivity(gospel)
         }
@@ -94,6 +95,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
 
     private fun startGospelDetailActivity(gospel: MeBean) {
         val intent = Intent(containerView.context, NavDetailActivity::class.java)
+        intent.putExtra(containerView.context.getString(R.string.category), gospel.desc)
         intent.putExtra(containerView.context.getString(R.string.name), gospel.name)
         intent.putExtra(containerView.context.getString(R.string.content_lower_case), gospel.content)
         intent.putExtra(containerView.context.getString(R.string.author), gospel.author)
@@ -138,6 +140,8 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
             }
             4 -> {
                 containerView.setOnClickListener {
+                    // 老的跳转设置移到了NavActivity页的options menu
+
                     val i = Intent(containerView.context, AboutActivity::class.java)
                     i.putExtra(toolbarTitle, getTitle(setting, adapterPosition))
                     containerView.context.startActivity(i)
