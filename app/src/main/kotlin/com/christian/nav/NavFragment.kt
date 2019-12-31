@@ -228,10 +228,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 .orderBy("time", Query.Direction.DESCENDING)
 
         when (navId) {
-            4 -> {
-                query = navActivity.firestore.collection("gospels")
-                        .orderBy("time", Query.Direction.DESCENDING).whereEqualTo("desc", "Gen")
-            }
+            4 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Gen")
             5 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Exo")
             6 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Lev")
             7 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Num")
