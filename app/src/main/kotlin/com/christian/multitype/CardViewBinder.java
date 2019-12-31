@@ -74,16 +74,9 @@ public class CardViewBinder extends ItemViewBinder<Card, CardViewBinder.ViewHold
 //                    }
 //                })
 //                .build();
-        final String markdown = "![image](myownscheme://en.wikipedia.org/static/images/project-logos/enwiki-2x.png)";
+//        final String markdown = "![image](myownscheme://en.wikipedia.org/static/images/project-logos/enwiki-2x.png)";
         final Markwon markwon = Markwon.builder(context)
                 .usePlugin(CorePlugin.create())
-                .usePlugin(new AbstractMarkwonPlugin() {
-                    @Override
-                    public void configureSpansFactory(@NonNull MarkwonSpansFactory.Builder builder) {
-                        builder.setFactory(Paragraph.class, (configuration, props) ->
-                                new ForegroundColorSpan(Color.GREEN));
-                    }
-                })
                 .usePlugin(ImagesPlugin.create(context))
                 .usePlugin(new AbstractMarkwonPlugin() {
                     @Override
@@ -105,8 +98,7 @@ public class CardViewBinder extends ItemViewBinder<Card, CardViewBinder.ViewHold
                 })
                 .build();
         // set markdown
-        markwon.setMarkdown(holder.content, markdown);
-//        markwon.setMarkdown(holder.content, card.content.toString());
+        markwon.setMarkdown(holder.content, card.content.toString());
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

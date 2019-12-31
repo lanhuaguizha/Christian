@@ -125,7 +125,7 @@ class NavDetailActivity : AbsAboutActivity() {
 
     override fun onItemsCreated(items: MutableList<Any>) {
         items.add(Card(gospelContent))
-        items.add(Author("Author:$gospelAuthor·Church:$gospelChurch·Time:$gospelTime"))
+        items.add(Author("$gospelAuthor·$gospelChurch·$gospelTime"))
     }
 
     override fun onEvent(documentSnapshots: DocumentSnapshot?, e: FirebaseFirestoreException?) {

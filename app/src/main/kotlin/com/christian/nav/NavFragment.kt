@@ -122,7 +122,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     }
 
     private fun initPortrait() {
-        Glide.with(navActivity).load(R.drawable.me).into(navActivity.iv_nav_item_small)
+//        Glide.with(navActivity).load(R.drawable.me).into(navActivity.iv_nav_item_small)
     }
 
     private lateinit var navFragment: NavFragment

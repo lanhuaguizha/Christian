@@ -21,7 +21,6 @@
         <ImageView
             android:id="@+id/iv_nav_item"
             android:layout_width="0dp"
-            android:src="@drawable/me"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="@color/gray_background"
