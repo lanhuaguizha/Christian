@@ -9,23 +9,17 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.annotation.NonNull
-import androidx.paging.PagedList
 import androidx.viewpager.widget.ViewPager
-import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.data.Setting
 import com.christian.view.ItemDecoration
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.firebase.ui.firestore.paging.FirestorePagingAdapter
-import com.firebase.ui.firestore.paging.FirestorePagingOptions
-import com.firebase.ui.firestore.paging.LoadingState
 import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_fragment.view.*
-import kotlinx.android.synthetic.main.nav_item_me_portrait.*
 import org.jetbrains.anko.debug
 
 open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragment {
@@ -168,7 +162,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         when (navId) {
             VIEW_HOME -> {
                 v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
-                loadGospelsFromTabId()
+                loadGospelsFromTabId(navId)
                 gospelAdapter.startListening()
                 v.rv_nav.adapter = gospelAdapter
             }
@@ -186,7 +180,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             }
             in 4..69 -> { // Gospel Page's Fragment's navId
                 v.rv_nav.addItemDecoration(ItemDecoration(resources.getDimension(R.dimen.search_margin_horizontal).toInt()))
-                loadGospelsFromTabId()
+                loadGospelsFromTabId(navId)
             }
         }
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(this) {
@@ -228,10 +222,85 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     /**
      * Loads gospels at different tab in Gospel Page
      */
-    private fun loadGospelsFromTabId() {
+    private fun loadGospelsFromTabId(navId: Int) {
 
-        val query = navActivity.firestore.collection("gospels")
+        var query = navActivity.firestore.collection("gospels")
                 .orderBy("time", Query.Direction.DESCENDING)
+
+        when (navId) {
+            4 -> {
+                query = navActivity.firestore.collection("gospels")
+                        .orderBy("time", Query.Direction.DESCENDING).whereEqualTo("desc", "Gen")
+            }
+            5 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Exo")
+            6 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Lev")
+            7 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Num")
+            8 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Deu")
+            9 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Jos")
+            10 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Jug")
+            11 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Rut")
+            12 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "1Sa")
+            13 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "2Sa")
+            14 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "1Ki")
+            15 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "2Ki")
+            16 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "1Ch")
+            17 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "2Ch")
+            18 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Ezr")
+            19 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Neh")
+            20 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Est")
+            21 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Job")
+            22 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Psm")
+            23 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Pro")
+            24 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Ecc")
+            25 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Son")
+            26 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Isa")
+            27 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Jer")
+            28 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Lam")
+            29 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Eze")
+            30 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Dan")
+            31 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Hos")
+            32 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Joe")
+            33 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Amo")
+            34 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Oba")
+            35 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Jon")
+            36 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Mic")
+            37 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Nah")
+            38 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Hab")
+            39 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Zep")
+            40 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Hag")
+            41 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Zec")
+            42 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Mal")
+
+            43 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Mat")
+            44 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Mak")
+            45 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Luk")
+            46 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Jhn")
+            47 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Act")
+            48 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Rom")
+            49 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "1Co")
+            50 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "2Co")
+            51 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Gal")
+            52 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Eph")
+            53 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Phl")
+            54 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Col")
+            55 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "1Ts")
+            56 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "2Ts")
+            57 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "1Ti")
+            58 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "2Ti")
+            59 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Tit")
+            60 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Mon")
+            61 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Heb")
+            62 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Jas")
+            63 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "1Pe")
+            64 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "2Pe")
+            65 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "1Jn")
+            66 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "2Jn")
+            67 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "3Jn")
+            68 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Jud")
+            69 -> query = navActivity.firestore.collection("gospels").orderBy("time", Query.Direction.DESCENDING).whereEqualTo(getString(R.string.desc), "Rev")
+
+        }
+
         val options = FirestoreRecyclerOptions.Builder<MeBean>()
                 //                        .setLifecycleOwner(this@NavFragment)
                 .setQuery(query, MeBean::class.java)
