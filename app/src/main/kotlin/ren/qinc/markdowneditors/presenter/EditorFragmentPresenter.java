@@ -26,6 +26,7 @@ import com.christian.R;
 import com.christian.util.ChristianUtil;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -176,10 +177,10 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
 
             if (!editorFragment.mName.getText().toString().trim().isEmpty()) {
                 if (!editorFragment.mContent.getText().toString().trim().isEmpty()) {
-                    editorFragment.firebaseFirestore.collection(editorFragment.getString(R.string.gospels))
-                            .add(data)
+                    DocumentReference gospelRef = editorFragment.firebaseFirestore.collection(editorFragment.getString(R.string.gospels)).document();
+                    gospelRef.set(data)
                             .addOnSuccessListener(documentReference -> {
-                                Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                                Log.d(TAG, "DocumentSnapshot written with ID: " + gospelRef.getId());
 
                                 isCreateFile = false;
                                 textChanged = false;
