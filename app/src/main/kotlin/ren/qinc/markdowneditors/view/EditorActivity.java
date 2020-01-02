@@ -74,7 +74,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
     @Bind(R.id.pager)
     protected ViewPager mViewPager;
     private TabIconView mTabIconView;
-    private String documentGospel;
+    private String documentGospelPath;
 
     @Override
     public int getLayoutId() {
@@ -89,7 +89,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
 //        getAppBar().addView(mExpandLayout);
 
         getIntentData();
-        mEditorFragment = EditorFragment.getInstance(documentGospel);
+        mEditorFragment = EditorFragment.getInstance(documentGospelPath);
         mEditorMarkdownFragment = EditorMarkdownFragment.getInstance();
 
         initViewPager();
@@ -229,7 +229,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
     private void getIntentData() {
         Intent intent = this.getIntent();
         int flags = intent.getFlags();
-        documentGospel = intent.getStringExtra(ChristianUtil.DOCUMENT_GOSPEL);
+        documentGospelPath = intent.getStringExtra(ChristianUtil.DOCUMENT_GOSPEL_PATH);
         if ((flags & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             if (intent.getAction() != null && Intent.ACTION_VIEW.equals(intent.getAction())) {
                 if (SCHEME_FILE.equals(intent.getScheme())) {

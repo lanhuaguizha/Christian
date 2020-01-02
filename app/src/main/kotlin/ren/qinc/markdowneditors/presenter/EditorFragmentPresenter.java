@@ -24,12 +24,9 @@ import androidx.annotation.NonNull;
 
 import com.christian.R;
 import com.christian.util.ChristianUtil;
-import com.firebase.ui.auth.AuthUI;
-import com.google.firebase.auth.FirebaseAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -150,8 +147,8 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
 
 
         EditorFragment editorFragment = (EditorFragment) getMvpView();
-        if (editorFragment.documentGospel != null) { // Edit exist documents
-            editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels)).document(editorFragment.documentGospel);
+        if (editorFragment.documentGospelPath != null) { // Edit exist documents
+            editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels)).document(editorFragment.documentGospelPath);
         } else { // Create a new document
             editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels));
             // Add a new document with a generated id.
@@ -177,7 +174,7 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
 
             if (!editorFragment.mName.getText().toString().trim().isEmpty()) {
                 if (!editorFragment.mContent.getText().toString().trim().isEmpty()) {
-                    DocumentReference gospelRef = editorFragment.firebaseFirestore.collection(editorFragment.getString(R.string.gospels)).document();
+                    DocumentReference gospelRef = editorFragment.firebaseFirestore.collection(editorFragment.getString(R.string.gospels)).document(editorFragment.mName.getText().toString().trim());
                     gospelRef.set(data)
                             .addOnSuccessListener(documentReference -> {
                                 Log.d(TAG, "DocumentSnapshot written with ID: " + gospelRef.getId());

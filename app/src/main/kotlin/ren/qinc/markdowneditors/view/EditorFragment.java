@@ -20,7 +20,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,15 +32,8 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.christian.R;
 import com.christian.util.ChristianUtil;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.jaredrummler.materialspinner.MaterialSpinner;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.Bind;
 import de.mrapp.android.bottomsheet.BottomSheet;
@@ -69,7 +61,7 @@ public class EditorFragment extends BaseFragment implements IEditorFragmentView,
     public static final String FILE_PATH_KEY = "FILE_PATH_KEY";
     // FirebaseFirestore
     public FirebaseFirestore firebaseFirestore;
-    public String documentGospel;
+    public String documentGospelPath;
 
     @Bind(R.id.spinner)
     public MaterialSpinner mSpinner;
@@ -96,7 +88,7 @@ public class EditorFragment extends BaseFragment implements IEditorFragmentView,
         EditorFragment editorFragment = new EditorFragment();
         Bundle bundle = new Bundle();
 //        bundle.putString(FILE_PATH_KEY, filePath);
-        bundle.putString(ChristianUtil.DOCUMENT_GOSPEL, dg);
+        bundle.putString(ChristianUtil.DOCUMENT_GOSPEL_PATH, dg);
         editorFragment.setArguments(bundle);
         return editorFragment;
     }
@@ -114,7 +106,7 @@ public class EditorFragment extends BaseFragment implements IEditorFragmentView,
 
         Bundle arguments = getArguments();
         String fileTemp = arguments.getString(FILE_PATH_KEY);
-        documentGospel = arguments.getString(ChristianUtil.DOCUMENT_GOSPEL);
+        documentGospelPath = arguments.getString(ChristianUtil.DOCUMENT_GOSPEL_PATH);
 
 //        if (fileTemp == null) {
 //            Toast.makeText(AppContext.context(), "路径参数有误！", Toast.LENGTH_SHORT).show();

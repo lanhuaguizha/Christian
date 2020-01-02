@@ -34,7 +34,7 @@ import ren.qinc.markdowneditors.base.BaseApplication;
 
 public class ChristianUtil {
 
-    public static final String DOCUMENT_GOSPEL = "DOCUMENT_GOSPEL";
+    public static final String DOCUMENT_GOSPEL_PATH = "DOCUMENT_GOSPEL_PATH";
 
 
     // 反射强势访问修改final变量
