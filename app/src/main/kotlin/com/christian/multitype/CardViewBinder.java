@@ -2,6 +2,7 @@ package com.christian.multitype;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.style.ForegroundColorSpan;
@@ -83,20 +84,34 @@ public class CardViewBinder extends ItemViewBinder<Card, CardViewBinder.ViewHold
                 .usePlugin(CorePlugin.create())
                 .usePlugin(ImagesPlugin.create(context))
                 .usePlugin(new AbstractMarkwonPlugin() {
+//                    @Override
+//                    public void configureImages(@NonNull AsyncDrawableLoader.Builder builder) {
+//                        // we can have a custom SchemeHandler
+//                        // here we will just use networkSchemeHandler to redirect call
+//                        builder.addSchemeHandler("myownscheme", new SchemeHandler() {
+//
+//                            final NetworkSchemeHandler networkSchemeHandler = NetworkSchemeHandler.create();
+//
+//                            @Nullable
+//                            @Override
+//                            public ImageItem handle(@NonNull String raw, @NonNull Uri uri) {
+//                                raw = raw.replace("myownscheme", "https");
+//                                return networkSchemeHandler.handle(raw, Uri.parse(raw));
+//                            }
+//                        });
+//                    }
+
                     @Override
                     public void configureImages(@NonNull AsyncDrawableLoader.Builder builder) {
-                        // we can have a custom SchemeHandler
-                        // here we will just use networkSchemeHandler to redirect call
-                        builder.addSchemeHandler("myownscheme", new SchemeHandler() {
-
-                            final NetworkSchemeHandler networkSchemeHandler = NetworkSchemeHandler.create();
-
-                            @Nullable
-                            @Override
-                            public ImageItem handle(@NonNull String raw, @NonNull Uri uri) {
-                                raw = raw.replace("myownscheme", "https");
-                                return networkSchemeHandler.handle(raw, Uri.parse(raw));
-                            }
+                        builder.placeholderDrawableProvider(() -> {
+                            // your custom placeholder drawable
+                            final ColorDrawable placeholder = new ColorDrawable(context.getResources().getColor(R.color.colorAccent));
+                            // these bounds will be used to display a placeholder,
+                            // so even if loading image has size `width=100%`, placeholder
+                            // bounds won't be affected by it
+                            placeholder.setBounds(0, 0, 10800, 480);
+                            return placeholder;
+//                                return new PlaceholderDrawable();
                         });
                     }
                 })

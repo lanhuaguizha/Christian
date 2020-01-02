@@ -78,6 +78,12 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
     }
 
     fun bind(gospel: MeBean) {
+        if (gospel.img.isNotBlank()) {
+            iv_nav_item.visibility = View.VISIBLE
+            Glide.with(containerView.context).load(gospel.img).into(iv_nav_item)
+        } else {
+            iv_nav_item.visibility = View.GONE
+        }
         tv_title_nav_item.text = gospel.desc
         tv_subtitle_nav_item.text = gospel.name
         tv_detail_nav_item.text = gospel.content

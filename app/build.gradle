@@ -249,7 +249,7 @@ dependencies {
     api 'com.squareup.picasso:picasso:2.71828'
 
     // Markdown
-    api "ru.noties.markwon:core:3.0.1"
+    api "ru.noties.markwon:core:3.1.0"
 
     // SwipeBack
     api project(':parallaxbacklayout')

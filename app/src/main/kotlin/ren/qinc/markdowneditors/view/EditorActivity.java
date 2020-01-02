@@ -22,7 +22,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,7 +40,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.christian.R;
 import com.christian.util.ChristianUtil;
 import com.christian.util.UtilsKt;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.storage.FirebaseStorage;
@@ -54,6 +53,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.Bind;
 import ren.qinc.markdowneditors.AppContext;
@@ -69,12 +70,15 @@ import ren.qinc.markdowneditors.utils.SystemBarUtils;
 import ren.qinc.markdowneditors.utils.Toast;
 import ren.qinc.markdowneditors.widget.TabIconView;
 
+import static com.christian.nav.NavPresenterKt.RC_SIGN_IN;
+
 
 public class EditorActivity extends BaseToolbarActivity implements IEditorActivityView, View.OnClickListener {
     public static final String SHARED_ELEMENT_NAME = "SHARED_ELEMENT_NAME";
     public static final String SHARED_ELEMENT_COLOR_NAME = "SHARED_ELEMENT_COLOR_NAME";
     private static final String SCHEME_FILE = "file";
     private static final String SCHEME_Folder = "folder";
+    public String mImg;
 
     private EditorFragment mEditorFragment;
     private EditorMarkdownFragment mEditorMarkdownFragment;
@@ -385,6 +389,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
             uploadTask.addOnFailureListener(exception -> {
                 // Handle unsuccessful uploads
 
+                startSignInActivity();
                 AppContext.showSnackbar(EditorActivity.this.mViewPager, getString(R.string.upload_error));
             }).addOnSuccessListener(taskSnapshot -> {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
@@ -393,6 +398,8 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
                     metadataRef = taskSnapshot.getMetadata().getReference();
                     if (metadataRef != null) {
                         downloadUrl = metadataRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                            mImg = String.valueOf(uri);
+
                             mEditorFragment.getPerformEditable().perform(R.id.id_shortcut_insert_photo, uri);
                         });
                     }
@@ -495,4 +502,22 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
         dialog.show();
     }
 
+
+    public void startSignInActivity() {
+// Choose authentication providers
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.PhoneBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build());
+//                new AuthUI.IdpConfig.FacebookBuilder().build(),
+//                new AuthUI.IdpConfig.TwitterBuilder().build());
+
+// Create and launch sign-in intent
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN);
+    }
 }

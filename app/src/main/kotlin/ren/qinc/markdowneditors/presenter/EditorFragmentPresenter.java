@@ -32,6 +32,7 @@ import java.util.Map;
 
 import ren.qinc.markdowneditors.AppContext;
 import ren.qinc.markdowneditors.base.mvp.BasePresenter;
+import ren.qinc.markdowneditors.view.EditorActivity;
 import ren.qinc.markdowneditors.view.EditorFragment;
 
 /**
@@ -171,6 +172,10 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
             }
             data.put(editorFragment.getString(R.string.content_lower_case), editorFragment.mContent.getText().toString().trim());
             data.put(editorFragment.getString(R.string.time), ChristianUtil.getDateAndCurrentTime());
+            EditorActivity activity = (EditorActivity) ((EditorFragment) getMvpView()).getActivity();
+            if (activity != null && activity.mImg != null) {
+                data.put(editorFragment.getString(R.string.img), activity.mImg);
+            }
 
             if (!editorFragment.mName.getText().toString().trim().isEmpty()) {
                 if (!editorFragment.mContent.getText().toString().trim().isEmpty()) {
@@ -194,6 +199,9 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
                             })
                             .addOnFailureListener(e -> {
                                 callFailure(-1, editorFragment.getString(R.string.please_sign_in), IEditorFragmentView.CALL_SAVE);
+                                if (activity != null) {
+                                    activity.startSignInActivity();
+                                }
                             });
                 } else {
                     AppContext.showSnackbar(editorFragment.mContent, editorFragment.getString(R.string.content_empty));

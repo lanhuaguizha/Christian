@@ -324,7 +324,7 @@
     <string name="nav_detail">Detail</string>
     <string name="church">Church</string>
     <string name="church_lower_case">church</string>
-    <string name="content">Content</string>
+    <string name="content">Content\nNote that we will display the original image in the content, so please choose a suitable image</string>
     <string name="content_lower_case">content</string>
     <!--Gospel-->
     <string name="gospels">gospels</string>
@@ -346,4 +346,5 @@
     <string name="upload_error">Upload failed!</string>
     <string name="no_acccess_to_read">No read storage permissions, please authorize</string>
     <string name="no_acccess_to_read_image_to_display">Unable to read image for display</string>
+    <string name="img">img</string>
 </resources>
