@@ -83,4 +83,44 @@
             app:layoutManager="LinearLayoutManager" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu_yellow"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        app:menu_labels_style="@style/MenuLabelsStyle"
+        app:menu_labels_showAnimation="@anim/jump_from_down"
+        app:menu_labels_hideAnimation="@anim/jump_to_down"
+        app:menu_animationDelayPerItem="0"
+        app:menu_shadowColor="@color/about_page_card_ripple"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:menu_colorNormal="#FFB805"
+        app:menu_colorPressed="#F2AB00"
+        app:menu_colorRipple="#D99200">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab12"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_shadowColor="@color/about_page_card_ripple"
+            android:src="@drawable/ic_edit_black_24dp"
+            app:fab_label="Edit"
+            style="@style/MenuButtonsStyle" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:id="@+id/fab22"
+            android:layout_width="wrap_content"
+            app:fab_shadowColor="@color/about_page_card_ripple"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_delete"
+            app:fab_label="Delete"
+            style="@style/MenuButtonsStyle" />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
