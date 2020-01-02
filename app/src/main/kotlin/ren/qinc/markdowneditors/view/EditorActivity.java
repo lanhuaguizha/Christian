@@ -22,6 +22,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,11 +40,23 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.christian.R;
 import com.christian.util.ChristianUtil;
+import com.christian.util.UtilsKt;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import butterknife.Bind;
+import ren.qinc.markdowneditors.AppContext;
 import ren.qinc.markdowneditors.base.BaseApplication;
 import ren.qinc.markdowneditors.base.BaseToolbarActivity;
 import ren.qinc.markdowneditors.event.RxEvent;
@@ -72,9 +85,11 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
     @Bind(R.id.action_other_operate)
     protected ExpandableLinearLayout mExpandLayout;
     @Bind(R.id.pager)
-    protected ViewPager mViewPager;
+    public ViewPager mViewPager;
     private TabIconView mTabIconView;
     private String documentGospelPath;
+    private StorageReference metadataRef;
+    private Task<Uri> downloadUrl;
 
     @Override
     public int getLayoutId() {
@@ -342,7 +357,9 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
                 String path = cursor.getString(colunm_index);
                 //以上代码获取图片路径
                 Uri.fromFile(new File(path));//Uri.decode(imageUri.toString())
-                mEditorFragment.getPerformEditable().perform(R.id.id_shortcut_insert_photo, Uri.fromFile(new File(path)));
+//                mEditorFragment.getPerformEditable().perform(R.id.id_shortcut_insert_photo, Uri.fromFile(new File(path)));
+
+                UtilsKt.requestStoragePermission(this, path);
             } else {
                 Toast.showShort(this, "图片处理失败");
             }
@@ -350,6 +367,40 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
 
     }
 
+
+    public void requestStoragePermissionAccepted(@NotNull String path) {
+        // Upload to firestore
+        // Create a storage reference from our app
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference(path);
+        InputStream stream = null;
+        try {
+            // ToDo Permissions: Storage Permission
+            stream = new FileInputStream(new File(path));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        UploadTask uploadTask;
+        if (stream != null) {
+            uploadTask = storageRef.putStream(stream);
+            uploadTask.addOnFailureListener(exception -> {
+                // Handle unsuccessful uploads
+
+                AppContext.showSnackbar(EditorActivity.this.mViewPager, getString(R.string.upload_error));
+            }).addOnSuccessListener(taskSnapshot -> {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+                if (taskSnapshot.getMetadata() != null) {
+                    metadataRef = taskSnapshot.getMetadata().getReference();
+                    if (metadataRef != null) {
+                        downloadUrl = metadataRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                            mEditorFragment.getPerformEditable().perform(R.id.id_shortcut_insert_photo, uri);
+                        });
+                    }
+                }
+
+            });
+        }
+    }
 
     /**
      * 插入表格

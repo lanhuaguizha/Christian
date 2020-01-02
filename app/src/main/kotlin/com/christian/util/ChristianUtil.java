@@ -23,6 +23,8 @@ import android.view.Display;
 import android.view.WindowManager;
 
 
+import androidx.fragment.app.FragmentActivity;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
@@ -31,6 +33,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import ren.qinc.markdowneditors.base.BaseApplication;
+import ren.qinc.markdowneditors.view.EditorActivity;
 
 public class ChristianUtil {
 
@@ -92,4 +95,5 @@ public class ChristianUtil {
         String currentDateAndTime = sdf.format(new Date());
         return currentDateAndTime;
     }
+
 }

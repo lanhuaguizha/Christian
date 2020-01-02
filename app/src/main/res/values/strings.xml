@@ -343,4 +343,7 @@
     <string name="no_content">No content</string>
     <string name="no_time">No time</string>
     <string name="please_sign_in">please sign in first</string>
+    <string name="upload_error">Upload failed!</string>
+    <string name="no_acccess_to_read">No read storage permissions, please authorize</string>
+    <string name="no_acccess_to_read_image_to_display">Unable to read image for display</string>
 </resources>

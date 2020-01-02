@@ -1,5 +1,6 @@
 package com.christian.nav
 
+import android.Manifest
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
@@ -15,8 +16,8 @@ import android.view.animation.LinearInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentActivity
 import com.christian.R
-import com.christian.data.Gospel
 import com.christian.data.MeBean
 import com.christian.nav.gospel.GospelReviewFragment
 import com.christian.nav.gospel.NavDetailActivity
@@ -28,9 +29,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.kotlinpermissions.KotlinPermissions
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
-import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
 import org.jetbrains.anko.singleLine

@@ -144,7 +144,7 @@ public abstract class BaseApplication extends Application {
     }
 
     public static Snackbar showSnackbar(@NonNull View view, @NonNull String message) {
-        return showSnackbar(view, message, Snackbar.LENGTH_SHORT, null, null);
+        return showSnackbar(view, message, Snackbar.LENGTH_LONG, null, null);
     }
 
     public static Snackbar showSnackbar(@NonNull View view, @StringRes int messageRes) {
