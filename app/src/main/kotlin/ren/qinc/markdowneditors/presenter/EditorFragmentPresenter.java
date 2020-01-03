@@ -24,7 +24,10 @@ import androidx.annotation.NonNull;
 
 import com.christian.R;
 import com.christian.util.ChristianUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.io.File;
 import java.util.HashMap;
@@ -149,7 +152,6 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
 
         EditorFragment editorFragment = (EditorFragment) getMvpView();
         if (editorFragment.documentGospelPath != null) { // Edit exist documents
-            editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels)).document(editorFragment.documentGospelPath);
         } else { // Create a new document
             editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels));
             // Add a new document with a generated id.
@@ -232,6 +234,32 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
 //        }, throwable -> {
 //            callFailure(-1, "保存失败", IEditorFragmentView.CALL_SAVE);
 //        });
+    }
+
+    public void getDocument(EditorFragment editorFragment) {
+        DocumentReference documentReference = editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels)).document(editorFragment.documentGospelPath);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null) {
+                        if (document.exists()) {
+                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            editorFragment.mSpinner.setText((CharSequence) document.get(editorFragment.getString(R.string.desc)));
+                            editorFragment.mName.setText((CharSequence)document.get(editorFragment.getString(R.string.name)));
+                            editorFragment.mAuthor.setText((CharSequence) document.get(editorFragment.getString(R.string.author)));
+                            editorFragment.mChurch.setText((CharSequence)document.get(editorFragment.getString(R.string.church_lower_case)));
+                            editorFragment.mContent.setText((CharSequence)document.get(editorFragment.getString(R.string.content_lower_case)));
+                        } else {
+                            Log.d(TAG, "No such document");
+                        }
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     private boolean rename(String newName) {

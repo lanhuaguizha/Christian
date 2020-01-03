@@ -1,6 +1,7 @@
 package com.christian.nav.gospel
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -21,12 +22,16 @@ import com.christian.nav.NavActivity
 import com.christian.nav.me.AbsAboutActivity
 import com.christian.nav.nullString
 import com.christian.nav.toolbarTitle
+import com.christian.util.ChristianUtil
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.android.synthetic.main.about_page_main_activity.*
 import kotlinx.android.synthetic.main.nav_activity.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.debug
+import ren.qinc.markdowneditors.view.EditorActivity
 import java.util.*
 
 private fun NavActivity.initTbWithTitle(title: String) {
@@ -44,7 +49,7 @@ private fun NavActivity.initTbWithTitle(title: String) {
 /**
  * The nav details page contains all the logic of the nav page.
  */
-class NavDetailActivity : AbsAboutActivity() {
+class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
     private lateinit var gospelCategory: String
     private lateinit var gospelTime: String
@@ -62,13 +67,20 @@ class NavDetailActivity : AbsAboutActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        fab12.setOnClickListener {
+            val intent = Intent(this@NavDetailActivity, EditorActivity::class.java)
+            intent.putExtra(ChristianUtil.DOCUMENT_GOSPEL_PATH, gospelTitle)
+            startActivity(intent)
+        }
         fab22.setOnClickListener {
             finish()
             firestore.collection(getString(R.string.gospels)).document(gospelTitle)
                     .delete()
                     .addOnSuccessListener {
+                        debug { }
                     }
                     .addOnFailureListener { e ->
+                        debug { e }
                     }
         }
     }

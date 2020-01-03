@@ -107,7 +107,6 @@ public class EditorFragment extends BaseFragment implements IEditorFragmentView,
         Bundle arguments = getArguments();
         String fileTemp = arguments.getString(FILE_PATH_KEY);
         documentGospelPath = arguments.getString(ChristianUtil.DOCUMENT_GOSPEL_PATH);
-
 //        if (fileTemp == null) {
 //            Toast.makeText(AppContext.context(), "路径参数有误！", Toast.LENGTH_SHORT).show();
 //            return;
@@ -216,6 +215,10 @@ public class EditorFragment extends BaseFragment implements IEditorFragmentView,
                 getString(R.string._Rev)
         );
 //        mSpinner.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show());
+
+        if (documentGospelPath != null) { // Edit exist documents
+            mPresenter.getDocument(this);
+        }
     }
 
 
