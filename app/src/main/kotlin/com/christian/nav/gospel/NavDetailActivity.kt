@@ -1,6 +1,8 @@
 package com.christian.nav.gospel
 
 import android.app.Activity
+import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -23,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
+import kotlinx.android.synthetic.main.about_page_main_activity.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import java.util.*
 
@@ -57,6 +60,18 @@ class NavDetailActivity : AbsAboutActivity() {
 
     var isMovingRight: Boolean = true // true不会崩溃，进入nav detail左滑的时候
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        fab22.setOnClickListener {
+            finish()
+            firestore.collection(getString(R.string.gospels)).document(gospelTitle)
+                    .delete()
+                    .addOnSuccessListener {
+                    }
+                    .addOnFailureListener { e ->
+                    }
+        }
+    }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         menu.removeItem(R.id.menu_options_nav)

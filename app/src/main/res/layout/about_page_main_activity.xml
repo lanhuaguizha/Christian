@@ -97,6 +97,7 @@
         app:menu_animationDelayPerItem="0"
         app:menu_shadowColor="@color/about_page_card_ripple"
         android:theme="@style/AppTheme.AppBarOverlay"
+        app:menu_icon="@drawable/ic_arrow_up"
         app:menu_colorNormal="@color/colorAccent"
         app:menu_colorPressed="@color/colorAccent"
         app:menu_colorRipple="@color/white">
@@ -119,7 +120,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_action_delete"
             app:fab_label="Delete"
-            style="@style/MenuButtonsStyle" />
+            style="@style/MenuButtonsStyleRed" />
 
     </com.github.clans.fab.FloatingActionMenu>
 

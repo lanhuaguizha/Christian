@@ -339,7 +339,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             2 -> {
                 tb_nav.title = getString(R.string.title_chat)
 
-                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_keyboard_arrow_down_black_24dp, theme))
+                fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_downward_black_24dp, theme))
                 fab_nav.show()
 
                 fab_nav.setOnClickListener {
