@@ -40,6 +40,7 @@ import androidx.core.view.ViewPropertyAnimatorCompat;
 import androidx.core.view.ViewPropertyAnimatorListener;
 import androidx.core.view.ViewPropertyAnimatorListenerAdapter;
 
+import com.christian.swipe.SwipeBackActivity;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
 import java.lang.reflect.Field;
@@ -56,7 +57,7 @@ import rx.android.schedulers.AndroidSchedulers;
  * 原始Activity封装
  * Created by 沈钦赐 on 16/21/25.
  */
-public abstract class BaseActivity extends AppCompatActivity implements BaseViewInterface, WaitDialogInterface, EventInterface {
+public abstract class BaseActivity extends SwipeBackActivity implements BaseViewInterface, WaitDialogInterface, EventInterface {
 
     protected BaseApplication application;
     protected LayoutInflater inflater;

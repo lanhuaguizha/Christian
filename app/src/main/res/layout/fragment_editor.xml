@@ -13,115 +13,124 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/srl_nav"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:srlDragRate="0.75"
+    app:srlEnableLoadMore="true"
+    app:srlEnablePureScrollMode="true">
 
-    <LinearLayout
-        android:id="@+id/email_login_form"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/spinner"
-            app:ms_padding_left="@dimen/activity_horizontal_margin"
-            android:textSize="17sp"
-            app:ms_padding_top="@dimen/activity_horizontal_margin"
-            app:ms_padding_bottom="@dimen/activity_horizontal_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:background="@color/colorDivider" />
-
-        <EditText
-            android:id="@+id/title"
+        <LinearLayout
+            android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:gravity="top"
-            android:hint="@string/title"
-            android:imeActionId="@+id/login"
-            android:inputType="text"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/space_16"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/space_16"
-            android:scrollHorizontally="false"
-            android:singleLine="true"
-            android:textColor="#111"
-            android:textSize="17sp" />
+            android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:background="@color/colorDivider" />
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                app:ms_padding_bottom="@dimen/activity_horizontal_margin"
+                app:ms_padding_left="@dimen/activity_horizontal_margin"
+                app:ms_padding_top="@dimen/activity_horizontal_margin" />
 
-        <EditText
-            android:id="@+id/author"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:gravity="top"
-            android:hint="Author"
-            android:imeActionId="@+id/login"
-            android:inputType="text"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/space_16"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/space_16"
-            android:scrollHorizontally="false"
-            android:singleLine="true"
-            android:textColor="#111"
-            android:textSize="17sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/colorDivider" />
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:background="@color/colorDivider" />
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:gravity="top"
+                android:hint="@string/title"
+                android:imeActionId="@+id/login"
+                android:inputType="text"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/space_16"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/space_16"
+                android:scrollHorizontally="false"
+                android:singleLine="true"
+                android:textColor="#111"
+                android:textSize="17sp" />
 
-        <EditText
-            android:id="@+id/church"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:gravity="top"
-            android:hint="@string/church"
-            android:inputType="text"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/space_16"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingBottom="@dimen/space_16"
-            android:scrollHorizontally="false"
-            android:singleLine="true"
-            android:textColor="#111"
-            android:textSize="17sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/colorDivider" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:background="@color/colorDivider" />
+            <EditText
+                android:id="@+id/author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:gravity="top"
+                android:hint="Author"
+                android:imeActionId="@+id/login"
+                android:inputType="text"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/space_16"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/space_16"
+                android:scrollHorizontally="false"
+                android:singleLine="true"
+                android:textColor="#111"
+                android:textSize="17sp" />
 
-        <EditText
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#00000000"
-            android:gravity="top"
-            android:hint="@string/content"
-            android:inputType="textMultiLine|textLongMessage"
-            android:minHeight="200dp"
-            android:padding="@dimen/activity_horizontal_margin"
-            android:scrollbars="vertical"
-            android:scrollHorizontally="false"
-            android:singleLine="false"
-            android:textColor="#333"
-            android:textSize="16sp" />
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/colorDivider" />
+
+            <EditText
+                android:id="@+id/church"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:gravity="top"
+                android:hint="@string/church"
+                android:inputType="text"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/space_16"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/space_16"
+                android:scrollHorizontally="false"
+                android:singleLine="true"
+                android:textColor="#111"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/colorDivider" />
+
+            <EditText
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#00000000"
+                android:gravity="top"
+                android:hint="@string/content"
+                android:inputType="textMultiLine|textLongMessage"
+                android:minHeight="200dp"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:scrollbars="vertical"
+                android:scrollHorizontally="false"
+                android:singleLine="false"
+                android:textColor="#333"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

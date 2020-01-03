@@ -22,7 +22,7 @@
         android:orderInCategory="0"
         android:title="@string/search_hint"
         iosched:showAsAction="always"/>
-        <item
+    <!--    <item
             android:orderInCategory="1"
             android:id="@+id/menu_options_nav"
             android:icon="@drawable/ic_more_vert_black_24dp"
@@ -42,5 +42,5 @@
                     android:title="@string/about"
                     app:showAsAction="never" />
             </menu>
-        </item>
+        </item>-->
 </menu>

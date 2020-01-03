@@ -86,7 +86,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        menu.removeItem(R.id.menu_options_nav)
+//        menu.removeItem(R.id.menu_options_nav)
         return super.onPrepareOptionsMenu(menu)
     }
 

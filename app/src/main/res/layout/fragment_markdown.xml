@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2016. SHENQINCI(沈钦赐)<dev@qinc.me>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,41 +14,49 @@
   ~ limitations under the License.
   -->
 
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:srlEnablePureScrollMode="true"
+    app:srlEnableLoadMore="true"
+    app:srlDragRate="0.75">
 
-    <LinearLayout
-        android:id="@+id/email_login_form"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/title"
+        <LinearLayout
+            android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:gravity="top"
-            android:textSize="17sp"
-            android:textColor="#111"
-            android:paddingBottom="@dimen/space_16"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/space_16"
-            android:scrollHorizontally="false"
-            android:singleLine="true"/>
+            android:orientation="vertical">
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:background="@color/colorDivider"/>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:gravity="top"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/space_16"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingBottom="@dimen/space_16"
+                android:scrollHorizontally="false"
+                android:singleLine="true"
+                android:textColor="#111"
+                android:textSize="17sp" />
 
-        <ren.qinc.markdowneditors.widget.MarkdownPreviewView
-            android:id="@+id/markdownView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/colorDivider" />
+
+            <ren.qinc.markdowneditors.widget.MarkdownPreviewView
+                android:id="@+id/markdownView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

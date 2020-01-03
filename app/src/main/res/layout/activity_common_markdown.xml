@@ -33,9 +33,20 @@
 
         <include layout="@layout/view_common_toolbar_scroll"/>
 
-        <ren.qinc.markdowneditors.widget.MarkdownPreviewView
-            android:id="@+id/markdownView"
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_nav"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            app:srlEnablePureScrollMode="true"
+            app:srlEnableLoadMore="true"
+            app:srlDragRate="0.75">
+
+            <ren.qinc.markdowneditors.widget.MarkdownPreviewView
+                android:id="@+id/markdownView"
+                android:overScrollMode="never"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
