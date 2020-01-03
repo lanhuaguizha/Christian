@@ -97,9 +97,9 @@
         app:menu_animationDelayPerItem="0"
         app:menu_shadowColor="@color/about_page_card_ripple"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:menu_colorNormal="#FFB805"
-        app:menu_colorPressed="#F2AB00"
-        app:menu_colorRipple="#D99200">
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/colorAccent"
+        app:menu_colorRipple="@color/white">
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fab12"
