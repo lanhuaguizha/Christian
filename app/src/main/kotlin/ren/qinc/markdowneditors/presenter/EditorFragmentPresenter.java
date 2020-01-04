@@ -151,8 +151,8 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
 
 
         EditorFragment editorFragment = (EditorFragment) getMvpView();
-        if (editorFragment.documentGospelPath != null) { // Edit exist documents
-        } else { // Create a new document
+//        if (editorFragment.documentGospelPath != null) { // Edit exist documents
+//        } else { // Create a new document
             editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels));
             // Add a new document with a generated id.
             Map<String, Object> data = new HashMap<>();
@@ -212,7 +212,7 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
                 AppContext.showSnackbar(editorFragment.mContent, editorFragment.getString(R.string.title_empty));
             }
 
-        }
+//        }
 
 //        mDataManager.saveFile(getMDFile(), content).subscribe(success -> {
 //            if (success) {
@@ -237,7 +237,7 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
     }
 
     public void getDocument(EditorFragment editorFragment) {
-        DocumentReference documentReference = editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels)).document(editorFragment.documentGospelPath);
+        DocumentReference documentReference = editorFragment.firebaseFirestore.collection(editorFragment.getString(R.string.gospels)).document(editorFragment.documentGospelPath);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
