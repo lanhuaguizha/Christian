@@ -22,6 +22,14 @@
         android:orderInCategory="0"
         android:title="@string/search_hint"
         iosched:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_setting"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:orderInCategory="0"
+        android:visible="false"
+        android:title="@string/search_hint"
+        iosched:showAsAction="always"/>
     <!--    <item
             android:orderInCategory="1"
             android:id="@+id/menu_options_nav"

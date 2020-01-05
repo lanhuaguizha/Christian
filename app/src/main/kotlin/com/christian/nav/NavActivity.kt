@@ -41,6 +41,12 @@ import kotlin.math.abs
  */
 open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menuItemSearch = menu.findItem(R.id.menu_search)
+        menuItemSetting = menu.findItem(R.id.menu_setting)
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_nav, menu)
         return super.onCreateOptionsMenu(menu)
@@ -57,6 +63,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
     }
 
+    lateinit var menuItemSetting: MenuItem
+    private lateinit var menuItemSearch: MenuItem
     private var customTime = 0L
     val SHOTRER_DURATION = 225L
 
@@ -320,6 +328,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             0 -> {
                 tb_nav.title = getString(R.string.title_home)
 
+                if (::menuItemSearch.isInitialized) menuItemSearch.isVisible = true
+                if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
+
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
                 fab_nav.show()
                 fab_nav.setOnClickListener {
@@ -328,6 +339,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             }
             1 -> {
                 tb_nav.title = getString(R.string.title_book)
+
+                if (::menuItemSearch.isInitialized) menuItemSearch.isVisible = true
+                if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
                 fab_nav.show()
@@ -339,6 +353,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             2 -> {
                 tb_nav.title = getString(R.string.title_chat)
 
+                if (::menuItemSearch.isInitialized) menuItemSearch.isVisible = true
+                if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
+
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_downward_black_24dp, theme))
                 fab_nav.show()
 
@@ -347,6 +364,9 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             }
             3 -> {
                 tb_nav.title = ""
+
+                if (::menuItemSearch.isInitialized) menuItemSearch.isVisible = false
+                if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = true
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
                 if (auth.currentUser != null) {
