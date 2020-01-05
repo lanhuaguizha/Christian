@@ -58,19 +58,19 @@ public class CardViewBinder extends ItemViewBinder<Card, CardViewBinder.ViewHold
                 .usePlugin(ImagesPlugin.create())
                 // use supplied Glide instance
                 .usePlugin(GlideImagesPlugin.create(Glide.with(context)))
-                // if you need more control
-                .usePlugin(GlideImagesPlugin.create(new GlideImagesPlugin.GlideStore() {
-                    @NonNull
-                    @Override
-                    public RequestBuilder<Drawable> load(@NonNull AsyncDrawable drawable) {
-                        return Glide.with(context).load(drawable.getDestination());
-                    }
-
-                    @Override
-                    public void cancel(@NonNull Target<?> target) {
-                        Glide.with(context).clear(target);
-                    }
-                }))
+//                // if you need more control
+//                .usePlugin(GlideImagesPlugin.create(new GlideImagesPlugin.GlideStore() {
+//                    @NonNull
+//                    @Override
+//                    public RequestBuilder<Drawable> load(@NonNull AsyncDrawable drawable) {
+//                        return Glide.with(context).load(drawable.getDestination());
+//                    }
+//
+//                    @Override
+//                    public void cancel(@NonNull Target<?> target) {
+//                        Glide.with(context).clear(target);
+//                    }
+//                }))
                 .build();
         // set markdown
         markwon.setMarkdown(holder.content, card.content.toString());
