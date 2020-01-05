@@ -17,6 +17,7 @@ import com.christian.R;
 
 import io.noties.markwon.Markwon;
 import io.noties.markwon.image.AsyncDrawable;
+import io.noties.markwon.image.ImagesPlugin;
 import io.noties.markwon.image.glide.GlideImagesPlugin;
 import me.drakeet.multitype.ItemViewBinder;
 
@@ -54,12 +55,26 @@ public class CardViewBinder extends ItemViewBinder<Card, CardViewBinder.ViewHold
 //        final String markdown = "![image](myownscheme://en.wikipedia.org/static/images/project-logos/enwiki-2x.png)";
         final Markwon markwon = Markwon.builder(context)
                 // automatically create Glide instance
-                .usePlugin(GlideImagesPlugin.create(context))
+                .usePlugin(ImagesPlugin.create())
                 // use supplied Glide instance
                 .usePlugin(GlideImagesPlugin.create(Glide.with(context)))
+                // if you need more control
+                .usePlugin(GlideImagesPlugin.create(new GlideImagesPlugin.GlideStore() {
+                    @NonNull
+                    @Override
+                    public RequestBuilder<Drawable> load(@NonNull AsyncDrawable drawable) {
+                        return Glide.with(context).load(drawable.getDestination());
+                    }
+
+                    @Override
+                    public void cancel(@NonNull Target<?> target) {
+                        Glide.with(context).clear(target);
+                    }
+                }))
                 .build();
         // set markdown
         markwon.setMarkdown(holder.content, card.content.toString());
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

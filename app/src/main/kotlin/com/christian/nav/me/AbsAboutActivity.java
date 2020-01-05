@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.christian.R;
 import com.christian.multitype.Author;
 import com.christian.multitype.AuthorViewBinder;
 import com.christian.multitype.Card;
@@ -35,7 +36,9 @@ import com.christian.multitype.LineViewBinder;
 import com.christian.multitype.OnContributorClickedListener;
 import com.christian.multitype.OnRecommendationClickedListener;
 import com.christian.multitype.Recommendation;
+import com.christian.nav.HidingScrollListener;
 import com.christian.swipe.SwipeBackActivity;
+import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
 import com.google.firebase.firestore.DocumentReference;
@@ -60,6 +63,7 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
     private List<Object> items;
     private MultiTypeAdapter adapter;
     private TextView slogan, version;
+    private FloatingActionMenu menuYellow;
 
     public RecyclerView getRecyclerView() {
         return recyclerView;
@@ -139,6 +143,8 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
         version = findViewById(com.christian.R.id.version);
         collapsingToolbar = findViewById(com.christian.R.id.collapsing_toolbar);
         headerContentLayout = findViewById(com.christian.R.id.header_content_layout);
+        menuYellow = findViewById(R.id.menu_yellow);
+
         onTitleViewCreated(collapsingToolbar);
         onCreateHeader(icon, slogan, version);
 
@@ -150,6 +156,28 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
         }
         onApplyPresetAttrs();
         recyclerView = findViewById(com.christian.R.id.list);
+
+        recyclerView.addOnScrollListener(new HidingScrollListener(recyclerView) {
+            @Override
+            public void onHide() {
+                menuYellow.hideMenu(true);
+            }
+
+            @Override
+            public void onShow() {
+                menuYellow.showMenu(true);
+            }
+
+            @Override
+            public void onTop() {
+
+            }
+
+            @Override
+            public void onBottom() {
+
+            }
+        });
 
 
         toolbar.setOnClickListener(new DoubleClickListener() {
