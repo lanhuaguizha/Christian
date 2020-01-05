@@ -3,7 +3,6 @@ package com.christian.nav.gospel
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,7 +14,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.christian.R
 import com.christian.data.MeBean
-import com.christian.multitype.Author
 import com.christian.multitype.Card
 import com.christian.multitype.Category
 import com.christian.nav.NavActivity
@@ -152,7 +150,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
     override fun onItemsCreated(items: MutableList<Any>) {
         items.add(Card(gospelContent))
-        items.add(Author("$gospelAuthor·$gospelChurch·$gospelTime"))
+//        items.add(Author("$gospelAuthor·$gospelChurch·$gospelTime"))
     }
 
     override fun onEvent(documentSnapshots: DocumentSnapshot?, e: FirebaseFirestoreException?) {
@@ -196,7 +194,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
                 ?: getString(R.string.no_church)
         gospelTime = intent.getStringExtra(getString(R.string.time)) ?: getString(R.string.no_time)
 
-        collapsingToolbar.subtitle = gospelTitle
-        collapsingToolbar.title = gospelCategory
+        collapsingToolbar.subtitle = "${gospelTime}·$gospelAuthor"
+        collapsingToolbar.title = gospelTitle
     }
 }

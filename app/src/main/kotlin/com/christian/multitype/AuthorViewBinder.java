@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.christian.R;
 
+import io.noties.markwon.Markwon;
 import me.drakeet.multitype.ItemViewBinder;
-import ru.noties.markwon.Markwon;
 
 /**
  * @author drakeet
