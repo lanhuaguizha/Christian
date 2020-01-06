@@ -363,7 +363,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 }
             }
             3 -> {
-                tb_nav.title = getString(R.string.me)
+                tb_nav.title = ""
+//                tb_nav.title = getString(R.string.me)
 
                 if (::menuItemSearch.isInitialized) menuItemSearch.isVisible = false
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = true
