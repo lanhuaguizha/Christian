@@ -26,6 +26,7 @@ import com.christian.R;
 import com.christian.util.ChristianUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -153,64 +154,68 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
         EditorFragment editorFragment = (EditorFragment) getMvpView();
 //        if (editorFragment.documentGospelPath != null) { // Edit exist documents
 //        } else { // Create a new document
-            editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels));
-            // Add a new document with a generated id.
-            Map<String, Object> data = new HashMap<>();
-            if (!editorFragment.mSpinner.getText().toString().trim().isEmpty()) {
-                data.put(editorFragment.getString(R.string.desc), editorFragment.mSpinner.getText());
-            } else {
-                data.put(editorFragment.getString(R.string.desc), editorFragment.getString(R.string.uncategorized));
-            }
-            data.put(editorFragment.getString(R.string.name), editorFragment.mName.getText().toString().trim());
-            if (!editorFragment.mAuthor.getText().toString().trim().isEmpty()) {
-                data.put(editorFragment.getString(R.string.author), editorFragment.mAuthor.getText().toString().trim());
-            } else {
-                data.put(editorFragment.getString(R.string.author), editorFragment.getString(R.string.no_author));
-            }
-            if (!editorFragment.mChurch.getText().toString().trim().isEmpty()) {
-                data.put(editorFragment.getString(R.string.church_lower_case), editorFragment.mChurch.getText().toString().trim());
-            } else {
-                data.put(editorFragment.getString(R.string.church_lower_case), editorFragment.getString(R.string.no_church));
-            }
-            data.put(editorFragment.getString(R.string.content_lower_case), editorFragment.mContent.getText().toString().trim());
-            data.put(editorFragment.getString(R.string.time), ChristianUtil.getDateAndCurrentTime());
-            EditorActivity activity = (EditorActivity) ((EditorFragment) getMvpView()).getActivity();
-            if (activity != null && activity.mImg != null) {
-                data.put(editorFragment.getString(R.string.img), activity.mImg);
-            }
+        editorFragment.firebaseFirestore.collection(String.valueOf(R.string.gospels));
+        // Add a new document with a generated id.
+        Map<String, Object> data = new HashMap<>();
+        if (!editorFragment.mSpinner.getText().toString().trim().isEmpty()) {
+            data.put(editorFragment.getString(R.string.desc), editorFragment.mSpinner.getText());
+        } else {
+            data.put(editorFragment.getString(R.string.desc), editorFragment.getString(R.string.uncategorized));
+        }
+        data.put(editorFragment.getString(R.string.name), editorFragment.mName.getText().toString().trim());
+        if (!editorFragment.mAuthor.getText().toString().trim().isEmpty()) {
+            data.put(editorFragment.getString(R.string.author), editorFragment.mAuthor.getText().toString().trim());
+        } else {
+            data.put(editorFragment.getString(R.string.author), editorFragment.getString(R.string.no_author));
+        }
+        if (!editorFragment.mChurch.getText().toString().trim().isEmpty()) {
+            data.put(editorFragment.getString(R.string.church_lower_case), editorFragment.mChurch.getText().toString().trim());
+        } else {
+            data.put(editorFragment.getString(R.string.church_lower_case), editorFragment.getString(R.string.no_church));
+        }
+        data.put(editorFragment.getString(R.string.content_lower_case), editorFragment.mContent.getText().toString().trim());
+        data.put(editorFragment.getString(R.string.time), ChristianUtil.getDateAndCurrentTime());
+        EditorActivity activity = (EditorActivity) ((EditorFragment) getMvpView()).getActivity();
+        if (activity != null && activity.mImg != null) {
+            data.put(editorFragment.getString(R.string.img), activity.mImg);
+        }
 
-            if (!editorFragment.mName.getText().toString().trim().isEmpty()) {
-                if (!editorFragment.mContent.getText().toString().trim().isEmpty()) {
-                    DocumentReference gospelRef = editorFragment.firebaseFirestore.collection(editorFragment.getString(R.string.gospels)).document(editorFragment.mName.getText().toString().trim());
-                    gospelRef.set(data)
-                            .addOnSuccessListener(documentReference -> {
-                                Log.d(TAG, "DocumentSnapshot written with ID: " + gospelRef.getId());
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            data.put(editorFragment.getString(R.string.userId), FirebaseAuth.getInstance().getCurrentUser().getUid());
+        }
 
-                                isCreateFile = false;
-                                textChanged = false;
-                                if (!rename(name)) {
-                                    callFailure(-1, "重命名失败", IEditorFragmentView.CALL_SAVE);
-                                    return;
-                                }
-                                if (getMvpView() != null) {
-                                    if (exit)
-                                        getMvpView().otherSuccess(IEditorFragmentView.CALL_EXIT);
-                                    else
-                                        getMvpView().otherSuccess(IEditorFragmentView.CALL_SAVE);
-                                }
-                            })
-                            .addOnFailureListener(e -> {
-                                callFailure(-1, editorFragment.getString(R.string.please_sign_in), IEditorFragmentView.CALL_SAVE);
-                                if (activity != null) {
-                                    activity.startSignInActivity();
-                                }
-                            });
-                } else {
-                    AppContext.showSnackbar(editorFragment.mContent, editorFragment.getString(R.string.content_empty));
-                }
+        if (!editorFragment.mName.getText().toString().trim().isEmpty()) {
+            if (!editorFragment.mContent.getText().toString().trim().isEmpty()) {
+                DocumentReference gospelRef = editorFragment.firebaseFirestore.collection(editorFragment.getString(R.string.gospels)).document(editorFragment.mName.getText().toString().trim());
+                gospelRef.set(data)
+                        .addOnSuccessListener(documentReference -> {
+                            Log.d(TAG, "DocumentSnapshot written with ID: " + gospelRef.getId());
+
+                            isCreateFile = false;
+                            textChanged = false;
+                            if (!rename(name)) {
+                                callFailure(-1, "重命名失败", IEditorFragmentView.CALL_SAVE);
+                                return;
+                            }
+                            if (getMvpView() != null) {
+                                if (exit)
+                                    getMvpView().otherSuccess(IEditorFragmentView.CALL_EXIT);
+                                else
+                                    getMvpView().otherSuccess(IEditorFragmentView.CALL_SAVE);
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            callFailure(-1, editorFragment.getString(R.string.please_sign_in), IEditorFragmentView.CALL_SAVE);
+                            if (activity != null) {
+                                activity.startSignInActivity();
+                            }
+                        });
             } else {
-                AppContext.showSnackbar(editorFragment.mContent, editorFragment.getString(R.string.title_empty));
+                AppContext.showSnackbar(editorFragment.mContent, editorFragment.getString(R.string.content_empty));
             }
+        } else {
+            AppContext.showSnackbar(editorFragment.mContent, editorFragment.getString(R.string.title_empty));
+        }
 
 //        }
 
@@ -247,10 +252,10 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
                         if (document.exists()) {
                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                             editorFragment.mSpinner.setText((CharSequence) document.get(editorFragment.getString(R.string.desc)));
-                            editorFragment.mName.setText((CharSequence)document.get(editorFragment.getString(R.string.name)));
+                            editorFragment.mName.setText((CharSequence) document.get(editorFragment.getString(R.string.name)));
                             editorFragment.mAuthor.setText((CharSequence) document.get(editorFragment.getString(R.string.author)));
-                            editorFragment.mChurch.setText((CharSequence)document.get(editorFragment.getString(R.string.church_lower_case)));
-                            editorFragment.mContent.setText((CharSequence)document.get(editorFragment.getString(R.string.content_lower_case)));
+                            editorFragment.mChurch.setText((CharSequence) document.get(editorFragment.getString(R.string.church_lower_case)));
+                            editorFragment.mContent.setText((CharSequence) document.get(editorFragment.getString(R.string.content_lower_case)));
                         } else {
                             Log.d(TAG, "No such document");
                         }

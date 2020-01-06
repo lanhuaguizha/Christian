@@ -347,4 +347,5 @@
     <string name="no_acccess_to_read">No read storage permissions, please authorize</string>
     <string name="no_acccess_to_read_image_to_display">Unable to read image for display</string>
     <string name="img">img</string>
+    <string name="userId">userId</string>
 </resources>
