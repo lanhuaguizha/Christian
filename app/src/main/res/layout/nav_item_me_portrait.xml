@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
         app:cardElevation="0dp">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -26,8 +26,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_width="106dp"
-            android:layout_height="106dp"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/the_avatars"
             android:cropToPadding="false"
