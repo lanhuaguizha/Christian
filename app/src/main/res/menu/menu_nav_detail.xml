@@ -19,6 +19,7 @@
         android:id="@+id/menu_options_nav_detail"
         android:icon="@drawable/ic_more_vert_black_24dp"
         android:title="@string/menu_more"
+        app:tooltipText="@string/menu_more"
         android:orderInCategory="1"
         app:showAsAction="always">
         <menu>

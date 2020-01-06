@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        app:tooltipText="@string/title_home"
+        android:title="" />
 
     <item
         android:id="@+id/navigation_gospel"
         android:icon="@drawable/ic_book_black_24dp"
-        android:title="@string/title_book" />
+        app:tooltipText="@string/title_book"
+        android:title="" />
 
     <item
         android:id="@+id/navigation_chat"
         android:icon="@drawable/ic_group_black_24dp"
-        android:title="@string/title_chat" />
+        app:tooltipText="@string/title_chat"
+        android:title="" />
 
     <item
         android:id="@+id/navigation_me"
         android:icon="@drawable/ic_person_black_24dp"
-        android:title="@string/title_me" />
+        app:tooltipText="@string/title_me"
+        android:title="" />
 
 </menu>
