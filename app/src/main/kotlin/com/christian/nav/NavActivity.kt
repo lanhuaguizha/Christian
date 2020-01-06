@@ -304,7 +304,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun initBnv() {
-//        disableShiftMode(bnv_nav)
+        disableShiftMode(bnv_nav)
         viewPagerOnPageChangeListener.onPageSelected(initFragmentIndex)
         bnv_nav.bnv_nav.setOnNavigationItemSelectedListener {
             val itemPosition = (presenter as NavPresenter).generateNavId(it.itemId)
