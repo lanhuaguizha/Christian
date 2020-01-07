@@ -107,6 +107,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
         intent.putExtra(containerView.context.getString(R.string.author), gospel.author)
         intent.putExtra(containerView.context.getString(R.string.church_lower_case), gospel.church)
         intent.putExtra(containerView.context.getString(R.string.time), gospel.time)
+        intent.putExtra(containerView.context.getString(R.string.userId), gospel.userId)
 
         intent.putExtra(toolbarTitle, gospel.name)
         containerView.context.startActivity(intent)

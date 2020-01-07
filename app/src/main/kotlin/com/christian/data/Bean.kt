@@ -34,6 +34,7 @@ data class MeBean(
         val author: String="",
         val church: String="",
         val time: String="",
+        val userId: String="",
         var detail: List<MeDetails> = arrayListOf()
 )
 

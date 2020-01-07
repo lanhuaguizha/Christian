@@ -49,6 +49,7 @@ private fun NavActivity.initTbWithTitle(title: String) {
  */
 class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
+    private lateinit var userId: String
     private lateinit var gospelCategory: String
     private lateinit var gospelTime: String
     private lateinit var gospelTitle: String
@@ -80,6 +81,12 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
                     .addOnFailureListener { e ->
                         debug { e }
                     }
+        }
+
+        if (auth.currentUser?.uid == userId) {
+            menu_yellow.visibility = View.VISIBLE
+        } else {
+            menu_yellow.visibility = View.GONE
         }
     }
 
@@ -193,6 +200,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         gospelChurch = intent.getStringExtra(R.string.church_lower_case.toString())
                 ?: getString(R.string.no_church)
         gospelTime = intent.getStringExtra(getString(R.string.time)) ?: getString(R.string.no_time)
+        userId = intent.getStringExtra(getString(R.string.userId))
 
 //        collapsingToolbar.subtitle = gospelAuthor
         collapsingToolbar.title = gospelTitle
