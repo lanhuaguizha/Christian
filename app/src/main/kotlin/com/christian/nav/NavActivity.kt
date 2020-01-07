@@ -11,6 +11,7 @@ import android.os.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.*
+import androidx.appcompat.widget.TooltipCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
@@ -333,6 +334,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
                 fab_nav.show()
+                TooltipCompat.setTooltipText(fab_nav, "Edit")
+
                 fab_nav.setOnClickListener {
                     startActivity(Intent(this@NavActivity, EditorActivity::class.java))
                 }
@@ -345,6 +348,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
                 fab_nav.show()
+                TooltipCompat.setTooltipText(fab_nav, "Filter")
 
                 fab_nav.setOnClickListener {
                     startActivity(Intent(this@NavActivity, ren.qinc.markdowneditors.view.MainActivity::class.java))
@@ -358,6 +362,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_downward_black_24dp, theme))
                 fab_nav.show()
+                TooltipCompat.setTooltipText(fab_nav, "Down")
 
                 fab_nav.setOnClickListener {
                 }
@@ -372,6 +377,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
                 if (auth.currentUser != null) {
                     fab_nav.show()
+                    TooltipCompat.setTooltipText(fab_nav, "Exit")
                 } else {
                     fab_nav.hide()
                 }
