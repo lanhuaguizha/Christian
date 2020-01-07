@@ -9,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.multitype.Card
@@ -64,8 +66,19 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
     var isMovingRight: Boolean = true // true不会崩溃，进入nav detail左滑的时候
 
+    private var lastPosition = 0//位置
+    private var lastOffset = 0//偏移量
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopListening()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        meRef = firestore.collection(getString(R.string.gospels)).document(gospelTitle)
+        startListening()
+
         fab12.setOnClickListener {
             val intent = Intent(this@NavDetailActivity, EditorActivity::class.java)
             intent.putExtra(ChristianUtil.DOCUMENT_GOSPEL_PATH, gospelTitle)
@@ -156,8 +169,32 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
     }
 
     override fun onItemsCreated(items: MutableList<Any>) {
-        items.add(Card(gospelContent))
 //        items.add(Author("$gospelAuthor·$gospelChurch·$gospelTime"))
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val topView = recyclerView.layoutManager?.getChildAt(0) //获取可视的第一个view
+                lastOffset = topView?.top ?: 0//获取与该view的顶部的偏移量
+                lastPosition = topView?.let { recyclerView.layoutManager?.getPosition(it) }
+                        ?: 0  //得到该View的数组位置
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val topView = recyclerView.layoutManager?.getChildAt(0) //获取可视的第一个view
+                lastOffset = topView?.top ?: 0//获取与该view的顶部的偏移量
+                lastPosition = topView?.let { recyclerView.layoutManager?.getPosition(it) }
+                        ?: 0  //得到该View的数组位置
+
+                val sharedPreferences = getSharedPreferences(intent?.extras?.getString(toolbarTitle)
+                        ?: nullString, Activity.MODE_PRIVATE)
+                sharedPreferences.edit {
+                    putInt("lastPosition", lastPosition)
+                    putInt("lastOffset", lastOffset)
+                }
+            }
+        })
     }
 
     override fun onEvent(documentSnapshots: DocumentSnapshot?, e: FirebaseFirestoreException?) {
@@ -175,6 +212,15 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
         if (items.isNotEmpty())
             items.clear()
+        gospelCategory = meBean.desc
+        gospelTitle = meBean.name
+        gospelContent = meBean.content
+        items.add(Card(gospelContent))
+
+        gospelAuthor = meBean.author
+        gospelChurch = meBean.church
+        gospelTime = meBean.time
+        userId = meBean.userId
         for (me in meBean.detail) {
             if (me.type == "category")
                 items.add(Category(me.category))
@@ -189,18 +235,18 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
 
-        gospelCategory = intent.getStringExtra(getString(R.string.category))
-                ?: getString(R.string.uncategorized)
+//        gospelCategory = intent.getStringExtra(getString(R.string.category))
+//                ?: getString(R.string.uncategorized)
         gospelTitle = intent.getStringExtra(getString(R.string.name))
                 ?: getString(R.string.no_title)
-        gospelContent = intent.getStringExtra(getString(R.string.content_lower_case))
-                ?: getString(R.string.no_content)
-        gospelAuthor = intent.getStringExtra(getString(R.string.author))
-                ?: getString(R.string.no_author)
-        gospelChurch = intent.getStringExtra(R.string.church_lower_case.toString())
-                ?: getString(R.string.no_church)
-        gospelTime = intent.getStringExtra(getString(R.string.time)) ?: getString(R.string.no_time)
-        userId = intent.getStringExtra(getString(R.string.userId))
+//        gospelContent = intent.getStringExtra(getString(R.string.content_lower_case))
+//                ?: getString(R.string.no_content)
+//        gospelAuthor = intent.getStringExtra(getString(R.string.author))
+//                ?: getString(R.string.no_author)
+//        gospelChurch = intent.getStringExtra(R.string.church_lower_case.toString())
+//                ?: getString(R.string.no_church)
+//        gospelTime = intent.getStringExtra(getString(R.string.time)) ?: getString(R.string.no_time)
+        userId = intent.getStringExtra(getString(R.string.userId)) ?: ""
 
 //        collapsingToolbar.subtitle = gospelAuthor
         collapsingToolbar.title = gospelTitle
