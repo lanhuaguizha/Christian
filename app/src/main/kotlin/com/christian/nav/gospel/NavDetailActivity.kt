@@ -194,7 +194,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
                 ?: getString(R.string.no_church)
         gospelTime = intent.getStringExtra(getString(R.string.time)) ?: getString(R.string.no_time)
 
-        collapsingToolbar.subtitle = "${gospelTime}·$gospelAuthor"
+        collapsingToolbar.subtitle = gospelAuthor
         collapsingToolbar.title = gospelTitle
     }
 }
