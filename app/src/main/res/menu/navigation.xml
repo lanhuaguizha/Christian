@@ -5,19 +5,16 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        app:tooltipText="@string/title_home"
         android:title="" />
 
     <item
         android:id="@+id/navigation_gospel"
         android:icon="@drawable/ic_book_black_24dp"
-        app:tooltipText="@string/title_book"
         android:title="" />
 
     <item
         android:id="@+id/navigation_chat"
         android:icon="@drawable/ic_group_black_24dp"
-        app:tooltipText="@string/title_chat"
         android:title="" />
 
     <item

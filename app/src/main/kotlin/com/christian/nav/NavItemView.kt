@@ -115,7 +115,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
     private var isOn = false
     fun bind(setting: Setting) {
         when (adapterPosition) {
-            0 -> {
+      /*      0 -> {
                 containerView.setOnClickListener {
                     if (isOn) {
                         containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = false
@@ -143,7 +143,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
                         isOn = true
                     }
                 }
-            }
+            }*/
             4 -> {
                 containerView.setOnClickListener {
                     // 老的跳转设置移到了NavActivity页的options menu
@@ -166,7 +166,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
             val sharedPreferences = containerView.context.getSharedPreferences("christian", Activity.MODE_PRIVATE)
             val string = sharedPreferences.getString("sunrise", "") ?: ""
             val string1 = sharedPreferences.getString("sunset", "") ?: ""
-            switch_nav_item_small.visibility = View.VISIBLE
+//            switch_nav_item_small.visibility = View.VISIBLE
 
             if (string.isNotEmpty() && string.isNotEmpty()) {
                 val sunriseString = string.substring(11, 19)

@@ -57,9 +57,6 @@
     <string name="share_png">分享为图片(.png)</string>
 
 
-
-
-
     <string name="app_name">Christian</string>
 
     <string name="title_home">Home</string>
@@ -317,7 +314,7 @@
     <string name="toast_share">Shared</string>
     <string name="toast_favorite">Favorite</string>
     <string name="toast_translate">Translated</string>
-    <string name="toast_read" >Read</string>
+    <string name="toast_read">Read</string>
     <string name="sign_in_failed">Sign in failed</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="settings">Settings</string>
@@ -348,4 +345,21 @@
     <string name="no_acccess_to_read_image_to_display">Unable to read image for display</string>
     <string name="img">img</string>
     <string name="userId">userId</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="dark_mode_auto">Sunset automatically turns on</string>
+    <string name="open_source_statement">Open source statement</string>
 </resources>

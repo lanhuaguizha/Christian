@@ -17,6 +17,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
 import com.bumptech.glide.Glide
 import com.christian.R
+import com.christian.SettingsActivity
 import com.christian.nav.me.AboutActivity
 import com.christian.swipe.SwipeBackActivity
 import com.firebase.ui.auth.AuthUI
@@ -55,9 +56,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
-            R.id.menu_about -> {
-                val i = Intent(this, AboutActivity::class.java)
-                i.putExtra(toolbarTitle, ".")
+            R.id.menu_setting -> {
+                val i = Intent(this, SettingsActivity::class.java)
                 startActivity(i)
                 true
             } else -> super.onOptionsItemSelected(item)
