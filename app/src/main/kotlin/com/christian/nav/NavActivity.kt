@@ -353,7 +353,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
-                if (verticalOffset != -tb_nav.height)
+                if (verticalOffset > -tb_nav.height)
                     fab_nav.show()
                 TooltipCompat.setTooltipText(fab_nav, "Filter")
 
@@ -368,7 +368,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_downward_black_24dp, theme))
-                if (verticalOffset != -tb_nav.height)
+                if (verticalOffset > -tb_nav.height)
                     fab_nav.show()
                 TooltipCompat.setTooltipText(fab_nav, "Down")
 
