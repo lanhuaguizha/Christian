@@ -1,6 +1,5 @@
 package com.christian.nav
 
-import android.Manifest
 import android.animation.Animator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
@@ -16,9 +15,10 @@ import android.view.animation.LinearInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import com.christian.R
 import com.christian.data.MeBean
+import com.christian.nav.disciple.DiscipleFragment
 import com.christian.nav.gospel.GospelReviewFragment
 import com.christian.nav.gospel.NavDetailActivity
 import com.christian.nav.gospel.NavDetailFragment
@@ -29,7 +29,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.kotlinpermissions.KotlinPermissions
 import eightbitlab.com.blurview.BlurView
 import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.dip
@@ -49,7 +48,7 @@ import java.lang.reflect.Modifier
  */
 class NavPresenter(private var navId: Int, override var view: NavContract.INavActivity) : NavContract.IPresenter {
 
-    var navFragmentList = ArrayList<NavFragment>()
+    var navFragmentList = ArrayList<Fragment>()
 
     private var navActivity: NavActivity
 
@@ -73,8 +72,8 @@ class NavPresenter(private var navId: Int, override var view: NavContract.INavAc
                         gospelFragment.navId = 1
                         navFragmentList.add(gospelFragment)
 
-                        val discipleFragment = NavFragment()
-                        discipleFragment.navId = 2
+                        val discipleFragment = DiscipleFragment()
+//                        discipleFragment.navId = 2
                         navFragmentList.add(discipleFragment)
 
                         val meFragment = NavFragment()

@@ -15,6 +15,9 @@ class SettingsActivity : SwipeBackActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = getString(R.string.settings)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         about_us.setOnClickListener {
             val i = Intent(this, AboutActivity::class.java)

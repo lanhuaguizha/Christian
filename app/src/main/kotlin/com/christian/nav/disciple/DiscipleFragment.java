@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
@@ -80,7 +81,7 @@ public class DiscipleFragment extends NavFragment implements
     private TextWatcher watcher;
 
     @NotNull
-    @Override
+//    @Override
     public String getLoggerTag() {
         return TAG;
     }

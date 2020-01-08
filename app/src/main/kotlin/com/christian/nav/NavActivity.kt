@@ -15,10 +15,11 @@ import androidx.appcompat.widget.TooltipCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.SettingsActivity
-import com.christian.nav.me.AboutActivity
+import com.christian.nav.disciple.DiscipleFragment
 import com.christian.swipe.SwipeBackActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -137,7 +138,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         presenter.init(whichActivity = NAV_ACTIVITY)
     }
 
-    override fun initView(navFragmentList: ArrayList<NavFragment>) {
+    override fun initView(navFragmentList: ArrayList<Fragment>) {
         initAbl()
         initTb()
         initPortrait()
@@ -274,7 +275,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         }
     }
 
-    open fun initVp(navFragmentList: ArrayList<NavFragment>) {
+    open fun initVp(navFragmentList: ArrayList<Fragment>) {
         navFragmentPagerAdapter = NavFragmentPagerAdapter(supportFragmentManager)
         vp_nav.offscreenPageLimit = 3
         vp_nav.adapter = navFragmentPagerAdapter
@@ -523,6 +524,11 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         lateinit var currentFragment: NavFragment
 
         override fun getItem(position: Int): androidx.fragment.app.Fragment {
+            when(position) {
+                2 -> {
+                    return DiscipleFragment()
+                }
+            }
             val navFragment = NavFragment()
             navFragment.navId = position
             return navFragment
