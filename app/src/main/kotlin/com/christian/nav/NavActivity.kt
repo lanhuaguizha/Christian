@@ -596,12 +596,15 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     open fun scrollRvToTop(navActivity: NavActivity) {
-        if (::navFragmentPagerAdapter.isInitialized) {
-            navActivity.navFragmentPagerAdapter.currentFragment.rv_nav.smoothScrollToPosition(0) // 为了滚到顶
+        try {
+            if (::navFragmentPagerAdapter.isInitialized) {
+                navActivity.navFragmentPagerAdapter.currentFragment.rv_nav.smoothScrollToPosition(0) // 为了滚到顶
 
-            navActivity.navFragmentPagerAdapter.currentFragment.scrollChildRVToTop()
+                navActivity.navFragmentPagerAdapter.currentFragment.scrollChildRVToTop()
+            }
+            navActivity.abl_nav.setExpanded(true, true)
+        } catch (e: Exception) {
         }
-        navActivity.abl_nav.setExpanded(true, true)
     }
 
 
