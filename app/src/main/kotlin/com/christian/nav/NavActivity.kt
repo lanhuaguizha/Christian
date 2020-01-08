@@ -362,7 +362,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_downward_black_24dp, theme))
-                fab_nav.show()
+                fab_nav.hide()
                 TooltipCompat.setTooltipText(fab_nav, "Down")
 
                 fab_nav.setOnClickListener {
