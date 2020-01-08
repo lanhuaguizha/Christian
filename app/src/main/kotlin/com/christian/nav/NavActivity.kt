@@ -56,12 +56,13 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return when (item.itemId) {
             R.id.menu_setting -> {
                 val i = Intent(this, SettingsActivity::class.java)
                 startActivity(i)
                 true
-            } else -> super.onOptionsItemSelected(item)
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -91,6 +92,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
     }
 
     private lateinit var mStaticHandler: StaticHandler
+    var pageSelectedPosition = 0
     /**
      * presenter will be initialized when the NavPresenter is initialized
      */
@@ -112,6 +114,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             info { "setTabLayoutExpanded---$position" }
             mStaticHandler.sendMessageDelayed(msg, 0)
 //            setTabLayoutExpanded(this@NavActivity, position)
+
+            pageSelectedPosition = position
 
             showFab(position)
 
@@ -334,7 +338,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
-                fab_nav.show()
+                if (verticalOffset != -tb_nav.height)
+                    fab_nav.show()
                 TooltipCompat.setTooltipText(fab_nav, "Edit")
 
                 fab_nav.setOnClickListener {
@@ -348,7 +353,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
-                fab_nav.show()
+                if (verticalOffset != -tb_nav.height)
+                    fab_nav.show()
                 TooltipCompat.setTooltipText(fab_nav, "Filter")
 
                 fab_nav.setOnClickListener {
@@ -362,7 +368,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_downward_black_24dp, theme))
-                fab_nav.hide()
+                if (verticalOffset != -tb_nav.height)
+                    fab_nav.show()
                 TooltipCompat.setTooltipText(fab_nav, "Down")
 
                 fab_nav.setOnClickListener {
@@ -377,7 +384,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
                 if (auth.currentUser != null) {
-                    fab_nav.show()
+                    if (verticalOffset != -tb_nav.height)
+                        fab_nav.show()
                     TooltipCompat.setTooltipText(fab_nav, "Exit")
                 } else {
                     fab_nav.hide()
@@ -524,7 +532,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         lateinit var currentFragment: NavFragment
 
         override fun getItem(position: Int): androidx.fragment.app.Fragment {
-            when(position) {
+            when (position) {
                 2 -> {
                     return DiscipleFragment()
                 }

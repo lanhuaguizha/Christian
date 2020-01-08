@@ -8,6 +8,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.UserManager
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -421,6 +422,13 @@ fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: 
 }
 
 fun controlOverScroll(navActivity: NavActivity, appBarLayout: AppBarLayout, verticalOffset: Int) {
+    if (verticalOffset == -appBarLayout.height && navActivity.fab_nav.visibility == View.VISIBLE) {
+        navActivity.hideFab()
+    }
+    navActivity.info { "verticalOffset$verticalOffset" }
+    if (verticalOffset == 0 && navActivity.fab_nav.visibility == View.GONE) {
+        navActivity.showFab(navActivity.pageSelectedPosition)
+    }
 //    val navFragment = navActivity.navFragment
 //    if (verticalOffset == 0 && navFragment.isPageBottom) {
 //        navActivity.srl_nav.setEnableOverScroll(false)
