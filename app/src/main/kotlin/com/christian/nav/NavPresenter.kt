@@ -8,7 +8,6 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.UserManager
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
@@ -422,7 +421,7 @@ fun appBarLayoutOnOffsetChangedListener(navActivity: NavActivity, appBarLayout: 
 }
 
 fun controlOverScroll(navActivity: NavActivity, appBarLayout: AppBarLayout, verticalOffset: Int) {
-    if (verticalOffset == -appBarLayout.height && navActivity.fab_nav.visibility == View.VISIBLE) {
+    if ((verticalOffset == -navActivity.tb_nav.height || verticalOffset == -appBarLayout.height) && navActivity.fab_nav.visibility == View.VISIBLE) {
         navActivity.hideFab()
     }
     navActivity.info { "verticalOffset$verticalOffset" }
