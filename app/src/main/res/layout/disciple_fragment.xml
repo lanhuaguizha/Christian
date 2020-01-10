@@ -51,6 +51,8 @@
         <EditText
             android:id="@+id/messageEditText"
             android:layout_width="0dp"
+            android:maxEms="10000"
+            android:singleLine="false"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1" />
