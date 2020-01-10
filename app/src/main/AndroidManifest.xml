@@ -32,6 +32,7 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
+            android:launchMode="singleTop"
             android:parentActivityName=".nav.NavActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -88,7 +89,12 @@
         </activity>
         <activity
             android:name=".nav.me.AboutActivity"
-            android:label="" /> <!-- service -->
+            android:label="" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.christian.SettingsActivity" />
+        </activity>
+        <!-- service -->
         <service android:name=".nav.NavService" />
 
         <activity
