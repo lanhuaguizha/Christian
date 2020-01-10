@@ -97,7 +97,7 @@ public class PerformInputAfter {
         flag = true;
         if ("\n".equals(charSequence.toString())) {
             //用户输入回车
-            performAddEnter(editable, source, start);
+//            performAddEnter(editable, source, start);
 
 
         }
@@ -136,7 +136,7 @@ public class PerformInputAfter {
         } else if (mString.startsWith("1. ") && mString.length() > 3) {//1. 开头
             editable.insert(start + 1, startSpace + "1. ");
         } else if (mString.length() > 1) {
-            editable.insert(start + 1, startSpace);
+            editable.insert(start, startSpace);
         }
 
     }
