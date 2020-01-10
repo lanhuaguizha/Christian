@@ -1,6 +1,7 @@
 package com.christian.nav.gospel
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -85,6 +86,10 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
             startActivity(intent)
         }
         fab22.setOnClickListener {
+            val editor = getSharedPreferences("mImg", Context.MODE_PRIVATE).edit()
+            editor.putString(gospelTitle, "")
+            editor.apply()
+
             finish()
             firestore.collection(getString(R.string.gospels)).document(gospelTitle)
                     .delete()
