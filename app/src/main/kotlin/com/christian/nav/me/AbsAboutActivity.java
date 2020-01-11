@@ -3,7 +3,6 @@ package com.christian.nav.me;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -36,10 +35,8 @@ import com.christian.multitype.LineViewBinder;
 import com.christian.multitype.OnContributorClickedListener;
 import com.christian.multitype.OnRecommendationClickedListener;
 import com.christian.multitype.Recommendation;
-import com.christian.nav.HidingScrollListener;
 import com.christian.swipe.SwipeBackActivity;
 import com.github.clans.fab.FloatingActionMenu;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -157,27 +154,27 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
         onApplyPresetAttrs();
         recyclerView = findViewById(com.christian.R.id.list);
 
-        recyclerView.addOnScrollListener(new HidingScrollListener(recyclerView) {
-            @Override
-            public void onHide() {
-                menuYellow.hideMenu(true);
-            }
-
-            @Override
-            public void onShow() {
-                menuYellow.showMenu(true);
-            }
-
-            @Override
-            public void onTop() {
-
-            }
-
-            @Override
-            public void onBottom() {
-
-            }
-        });
+//        recyclerView.addOnScrollListener(new HidingScrollListener(recyclerView) {
+//            @Override
+//            public void onHide() {
+//                menuYellow.hideMenu(true);
+//            }
+//
+//            @Override
+//            public void onShow() {
+//                menuYellow.showMenu(true);
+//            }
+//
+//            @Override
+//            public void onTop() {
+//
+//            }
+//
+//            @Override
+//            public void onBottom() {
+//
+//            }
+//        });
 
 
         toolbar.setOnClickListener(new DoubleClickListener() {
