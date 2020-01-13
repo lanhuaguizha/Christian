@@ -1,7 +1,8 @@
 package com.christian.multitype;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.text.Layout;
+import android.text.style.AlignmentSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.request.target.Target;
 import com.christian.R;
 
+import org.commonmark.node.Image;
+
+import io.noties.markwon.AbstractMarkwonPlugin;
 import io.noties.markwon.Markwon;
-import io.noties.markwon.image.AsyncDrawable;
+import io.noties.markwon.MarkwonSpansFactory;
+import io.noties.markwon.html.HtmlPlugin;
 import io.noties.markwon.image.ImagesPlugin;
 import io.noties.markwon.image.glide.GlideImagesPlugin;
+import io.noties.markwon.linkify.LinkifyPlugin;
 import me.drakeet.multitype.ItemViewBinder;
 
 /**
@@ -58,6 +62,8 @@ public class CardViewBinder extends ItemViewBinder<Card, CardViewBinder.ViewHold
                 .usePlugin(ImagesPlugin.create())
                 // use supplied Glide instance
                 .usePlugin(GlideImagesPlugin.create(Glide.with(context)))
+                .usePlugin(LinkifyPlugin.create())
+                .usePlugin(HtmlPlugin.create())
 //                // if you need more control
 //                .usePlugin(GlideImagesPlugin.create(new GlideImagesPlugin.GlideStore() {
 //                    @NonNull
@@ -71,6 +77,12 @@ public class CardViewBinder extends ItemViewBinder<Card, CardViewBinder.ViewHold
 //                        Glide.with(context).clear(target);
 //                    }
 //                }))
+                .usePlugin(new AbstractMarkwonPlugin() {
+                    @Override
+                    public void configureSpansFactory(@NonNull MarkwonSpansFactory.Builder builder) {
+                        builder.addFactory(Image.class, (configuration, props) -> new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER));
+                    }
+                })
                 .build();
         // set markdown
         markwon.setMarkdown(holder.content, card.content.toString());
