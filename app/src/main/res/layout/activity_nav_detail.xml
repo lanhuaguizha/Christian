@@ -92,11 +92,12 @@
             <TextView
                 android:id="@+id/textView"
                 style="@android:style/TextAppearance.Large"
-                android:lineSpacingMultiplier="1.2"
-                android:textColor="@android:color/tertiary_text_dark"
-                android:padding="@dimen/activity_horizontal_margin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:lineSpacingMultiplier="1.2"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:textColor="@android:color/tertiary_text_dark" />
         </androidx.core.widget.NestedScrollView>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
