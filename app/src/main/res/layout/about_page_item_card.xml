@@ -2,15 +2,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:focusable="true"
-    android:clickable="true"
-    style="@style/AboutPage.Item.Card">
+     android:layout_height="wrap_content" android:layout_width="match_parent">
 
     <TextView
         android:lineSpacingMultiplier="1.2"
 	    android:textIsSelectable="true"
-        style="@style/AboutPage.CardContent"
         android:id="@+id/content"
-        tools:text="content"/>
+        tools:text="content"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
 
 </RelativeLayout>

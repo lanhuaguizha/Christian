@@ -133,7 +133,7 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.christian.R.layout.about_page_main_activity);
+        setContentView(getLayoutId());
         toolbar = findViewById(com.christian.R.id.toolbar);
         ImageView icon = findViewById(com.christian.R.id.icon);
         slogan = findViewById(com.christian.R.id.slogan);
@@ -184,6 +184,10 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
             }
         });
 
+    }
+
+    protected int getLayoutId() {
+        return com.christian.R.layout.about_page_main_activity;
     }
 
     public void startListening() {
