@@ -94,7 +94,6 @@
                 style="@android:style/TextAppearance.Large"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:lineSpacingMultiplier="1.2"
                 android:padding="@dimen/activity_horizontal_margin"
                 android:textColor="@android:color/tertiary_text_dark" />
