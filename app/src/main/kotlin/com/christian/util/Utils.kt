@@ -1,8 +1,13 @@
 package com.christian.util
 
 import android.Manifest
+import android.os.Build
+import android.widget.Toolbar
 import com.christian.R
+import com.christian.swipe.SwipeBackActivity
+import com.google.android.material.appbar.AppBarLayout
 import com.kotlinpermissions.KotlinPermissions
+import org.jetbrains.anko.dip
 import ren.qinc.markdowneditors.AppContext
 import ren.qinc.markdowneditors.view.EditorActivity
 
@@ -23,4 +28,24 @@ fun requestStoragePermission(editorActivity: EditorActivity, path: String) {
                 AppContext.showSnackbar(editorActivity.mViewPager, R.string.no_acccess_to_read_image_to_display)
             }
             .ask()
+}
+
+fun fixToolbarElevation(appBarLayout: AppBarLayout) {
+    appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+        if (verticalOffset == -appBarLayout.height) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                appBarLayout.elevation = 0f
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                appBarLayout.elevation = appBarLayout.dip(4).toFloat()
+            }
+        }
+    })
+}
+
+fun setToolbarAsUp(activity: SwipeBackActivity, toolbar: androidx.appcompat.widget.Toolbar, title: String) {
+    activity.setSupportActionBar(toolbar)
+    activity.supportActionBar?.title = title
+    activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 }
