@@ -5,23 +5,22 @@ import android.R.attr
 import android.content.Context
 import android.graphics.Rect
 import android.os.Build
-import android.text.Layout
-import android.text.style.AlignmentSpan
 import android.widget.TextView
 import androidx.annotation.NonNull
-import com.christian.R
 import com.bumptech.glide.Glide
+import com.christian.R
 import com.christian.swipe.SwipeBackActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.kotlinpermissions.KotlinPermissions
-import io.noties.markwon.*
+import io.noties.markwon.AbstractMarkwonPlugin
+import io.noties.markwon.Markwon
+import io.noties.markwon.MarkwonConfiguration
 import io.noties.markwon.html.HtmlPlugin
 import io.noties.markwon.image.ImageSize
 import io.noties.markwon.image.ImageSizeResolverDef
 import io.noties.markwon.image.ImagesPlugin
 import io.noties.markwon.image.glide.GlideImagesPlugin
 import io.noties.markwon.linkify.LinkifyPlugin
-import org.commonmark.node.Image
 import org.jetbrains.anko.dip
 import ren.qinc.markdowneditors.AppContext
 import ren.qinc.markdowneditors.view.EditorActivity
@@ -73,11 +72,6 @@ fun setMarkdownToTextView(context: Context, textView: TextView, gospelContent: S
             .usePlugin(LinkifyPlugin.create())
             .usePlugin(HtmlPlugin.create()) //                // if you need more control
             .usePlugin(object : AbstractMarkwonPlugin() {
-                override fun configureSpansFactory(builder: MarkwonSpansFactory.Builder) {
-                    builder.addFactory(Image::class.java) { _: MarkwonConfiguration?, _: RenderProps? -> AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER) }
-                }
-            })
-            .usePlugin(object : AbstractMarkwonPlugin() {
                 override fun configureConfiguration(builder: MarkwonConfiguration.Builder) {
                     builder.imageSizeResolver(object : ImageSizeResolverDef() {
                         override fun resolveImageSize(imageSize: ImageSize?, imageBounds: Rect, canvasWidth: Int, textSize: Float): Rect {
@@ -87,52 +81,9 @@ fun setMarkdownToTextView(context: Context, textView: TextView, gospelContent: S
                         @NonNull
                         fun fitWidth(@NonNull imageBounds: Rect, canvasWidth: Int): Rect {
                             val ratio = imageBounds.width().toFloat() / imageBounds.height()
-                            val height = canvasWidth / ratio + 0.5f
+                            val height = canvasWidth / ratio + .5F
                             return Rect(0, 0, canvasWidth, height.toInt())
                         }
-
-                        /*  override fun resolveImageSize(drawable: AsyncDrawable): Rect {
-
-                            val destination = Uri.parse(drawable.destination)
-                            val width: Int = parseParameter(destination.getQueryParameter("width")
-                                    ?: "500")
-                            val height: Int = parseParameter(destination.getQueryParameter("height")
-                                    ?: "500")
-
-                            val imageSize: ImageSize?
-
-                            // in this sample we need both
-                            // here we just use absolute values, but you can use anything
-                            // (ImageSizeResolverDef supports `%` and `em` also)
-                            // in this sample we need both
-// here we just use absolute values, but you can use anything
-// (ImageSizeResolverDef supports `%` and `em` also)
-                            imageSize = if (width > 0 && height > 0) {
-                                ImageSize(
-                                        ImageSize.Dimension(width.toFloat(), null),
-                                        ImageSize.Dimension(height.toFloat(), null))
-                            } else {
-                                drawable.imageSize
-                            }
-
-                            return super.resolveImageSize(
-                                    imageSize,
-                                    drawable.result.bounds,
-                                    drawable.lastKnownCanvasWidth,
-                                    drawable.lastKnowTextSize)
-                        }
-
-                        private fun parseParameter(parameter: String): Int {
-                            if (!TextUtils.isEmpty(parameter)) {
-                                try {
-                                    return parameter.toInt()
-                                } catch (e: NumberFormatException) { // no op
-                                    e.printStackTrace()
-                                }
-                            }
-                            return 0
-                        }*/
-
                     })
                 }
             })
