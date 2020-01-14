@@ -25,6 +25,7 @@ import com.christian.nav.me.AbsAboutActivity
 import com.christian.nav.nullString
 import com.christian.nav.toolbarTitle
 import com.christian.util.ChristianUtil
+import com.christian.util.setMarkdownToTextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -237,7 +238,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         gospelContent = meBean.content
 //        items.add(Card(gospelContent))
 
-        setMarkdownToTextView(gospelContent)
+        setMarkdownToTextView(this, textView, gospelContent)
 
         gospelAuthor = meBean.author
         gospelChurch = meBean.church
@@ -247,21 +248,6 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         val sharedPreferences = getSharedPreferences(intent?.extras?.getString(toolbarTitle)
                 ?: nullString, Activity.MODE_PRIVATE)
         (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(sharedPreferences.getInt("lastPosition", 0), sharedPreferences.getInt("lastOffset", 0))
-    }
-
-    private fun setMarkdownToTextView(gospelContent: String) {
-        val markwon = Markwon.builder(this) // automatically create Glide instance
-                .usePlugin(ImagesPlugin.create()) // use supplied Glide instance
-                .usePlugin(GlideImagesPlugin.create(Glide.with(this)))
-                .usePlugin(LinkifyPlugin.create())
-                .usePlugin(HtmlPlugin.create()) //                // if you need more control
-                .usePlugin(object : AbstractMarkwonPlugin() {
-                    override fun configureSpansFactory(builder: MarkwonSpansFactory.Builder) {
-                        builder.addFactory(Image::class.java) { configuration: MarkwonConfiguration?, props: RenderProps? -> AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER) }
-                    }
-                })
-                .build()
-        markwon.setMarkdown(textView, gospelContent)
     }
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {

@@ -1,12 +1,22 @@
 package com.christian.util
 
 import android.Manifest
+import android.content.Context
 import android.os.Build
-import android.widget.Toolbar
+import android.text.Layout
+import android.text.style.AlignmentSpan
+import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.swipe.SwipeBackActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.kotlinpermissions.KotlinPermissions
+import io.noties.markwon.*
+import io.noties.markwon.html.HtmlPlugin
+import io.noties.markwon.image.ImagesPlugin
+import io.noties.markwon.image.glide.GlideImagesPlugin
+import io.noties.markwon.linkify.LinkifyPlugin
+import org.commonmark.node.Image
 import org.jetbrains.anko.dip
 import ren.qinc.markdowneditors.AppContext
 import ren.qinc.markdowneditors.view.EditorActivity
@@ -48,4 +58,19 @@ fun setToolbarAsUp(activity: SwipeBackActivity, toolbar: androidx.appcompat.widg
     activity.setSupportActionBar(toolbar)
     activity.supportActionBar?.title = title
     activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+}
+
+fun setMarkdownToTextView(context: Context, textView: TextView, gospelContent: String) {
+    val markdownView = Markwon.builder(context) // automatically create Glide instance
+            .usePlugin(ImagesPlugin.create()) // use supplied Glide instance
+            .usePlugin(GlideImagesPlugin.create(Glide.with(context)))
+            .usePlugin(LinkifyPlugin.create())
+            .usePlugin(HtmlPlugin.create()) //                // if you need more control
+            .usePlugin(object : AbstractMarkwonPlugin() {
+                override fun configureSpansFactory(builder: MarkwonSpansFactory.Builder) {
+                    builder.addFactory(Image::class.java) { _: MarkwonConfiguration?, _: RenderProps? -> AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER) }
+                }
+            })
+            .build()
+    markdownView.setMarkdown(textView, gospelContent)
 }
