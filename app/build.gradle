@@ -239,11 +239,12 @@ dependencies {
     api 'com.squareup.picasso:picasso:2.71828'
 
     // Markdown
-    implementation "io.noties.markwon:core:4.2.0"
-    implementation "io.noties.markwon:image:4.2.0"
-    implementation "io.noties.markwon:image-glide:4.2.0"
-    implementation "io.noties.markwon:html:4.2.0"
-    implementation "io.noties.markwon:linkify:4.2.0"
+    final def markwon_version = '4.2.0'
+    implementation "io.noties.markwon:core:${markwon_version}"
+    implementation "io.noties.markwon:image:${markwon_version}"
+    implementation "io.noties.markwon:image-glide:${markwon_version}"
+    implementation "io.noties.markwon:html:${markwon_version}"
+    implementation "io.noties.markwon:linkify:${markwon_version}"
 
     // SwipeBack
     api project(':parallaxbacklayout')

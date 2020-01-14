@@ -72,6 +72,7 @@
         app:srlEnableLoadMore="true"
         app:srlEnablePureScrollMode="true">
 
+<!--        No use in this layout, so just ignore the CustomRecyclerView-->
         <com.christian.multitype.CustomRecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
