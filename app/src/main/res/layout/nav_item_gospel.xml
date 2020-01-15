@@ -112,6 +112,9 @@
 
         <TextView
             android:id="@+id/textView"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="false"
             android:includeFontPadding="false"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
