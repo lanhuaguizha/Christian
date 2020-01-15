@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.MeBean
+import com.christian.multitype.Card
 import com.christian.nav.NavActivity
 import com.christian.nav.me.AbsAboutActivity
 import com.christian.nav.nullString
@@ -85,10 +86,6 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
     override fun onDestroy() {
         super.onDestroy()
         stopListening()
-    }
-
-    override fun getLayoutId(): Int {
-        return R.layout.activity_nav_detail
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -233,12 +230,11 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
         if (items.isNotEmpty())
             items.clear()
+            items.clear()
         gospelCategory = meBean.desc
         gospelTitle = meBean.name
         gospelContent = meBean.content
-//        items.add(Card(gospelContent))
-
-        setMarkdownToTextView(this, textView, gospelContent)
+        items.add(Card(gospelContent))
 
         gospelAuthor = meBean.author
         gospelChurch = meBean.church

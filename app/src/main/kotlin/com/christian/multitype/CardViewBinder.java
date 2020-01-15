@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.christian.R;
+import com.christian.util.UtilsKt;
 
 import org.commonmark.node.Image;
 
@@ -43,50 +44,7 @@ public class CardViewBinder extends ItemViewBinder<Card, CardViewBinder.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Card card) {
-        // obtain an instance of Markwon
-//        final String markdown = "`A code` that is rendered differently\n\n```\nHello!\n```";
-
-//        final Markwon markwon = Markwon.builder(context)
-//                .usePlugin(new AbstractMarkwonPlugin() {
-//                    @Override
-//                    public void configureTheme(@NonNull MarkwonTheme.Builder builder) {
-//                        builder
-//                                .codeBackgroundColor(Color.BLACK)
-//                                .codeTextColor(Color.RED);
-//                    }
-//                })
-//                .build();
-//        final String markdown = "![image](myownscheme://en.wikipedia.org/static/images/project-logos/enwiki-2x.png)";
-        final Markwon markwon = Markwon.builder(context)
-                // automatically create Glide instance
-                .usePlugin(ImagesPlugin.create())
-                // use supplied Glide instance
-                .usePlugin(GlideImagesPlugin.create(Glide.with(context)))
-                .usePlugin(LinkifyPlugin.create())
-                .usePlugin(HtmlPlugin.create())
-//                // if you need more control
-//                .usePlugin(GlideImagesPlugin.create(new GlideImagesPlugin.GlideStore() {
-//                    @NonNull
-//                    @Override
-//                    public RequestBuilder<Drawable> load(@NonNull AsyncDrawable drawable) {
-//                        return Glide.with(context).load(drawable.getDestination());
-//                    }
-//
-//                    @Override
-//                    public void cancel(@NonNull Target<?> target) {
-//                        Glide.with(context).clear(target);
-//                    }
-//                }))
-                .usePlugin(new AbstractMarkwonPlugin() {
-                    @Override
-                    public void configureSpansFactory(@NonNull MarkwonSpansFactory.Builder builder) {
-                        builder.addFactory(Image.class, (configuration, props) -> new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER));
-                    }
-                })
-                .build();
-        // set markdown
-        markwon.setMarkdown(holder.content, card.content.toString());
-
+        UtilsKt.setMarkdownToTextView(context, holder.content, card.content.toString());
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
