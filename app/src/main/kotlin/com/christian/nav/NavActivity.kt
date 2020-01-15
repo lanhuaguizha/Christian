@@ -270,7 +270,6 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     private fun initPortrait() {
         applyMarqueeEffect(intro)
-        invalidateSignInUI()
         sign_in.setOnClickListener {
             signIn()
         }
@@ -381,6 +380,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
                 if (::menuItemSearch.isInitialized) menuItemSearch.isVisible = false
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = true
+                invalidateSignInUI()
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
                 if (auth.currentUser != null) {
