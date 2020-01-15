@@ -30,6 +30,7 @@ import io.noties.markwon.linkify.LinkifyPlugin
 import org.jetbrains.anko.dip
 import ren.qinc.markdowneditors.AppContext
 import ren.qinc.markdowneditors.view.EditorActivity
+import java.util.regex.Pattern
 
 
 fun requestStoragePermission(editorActivity: EditorActivity, path: String) {
@@ -98,7 +99,7 @@ fun setMarkdownToTextView(context: Context, textView: TextView, gospelContent: S
 
 private var lastPosition = 0//位置
 private var lastOffset = 0//偏移量
-fun recordPosition(context: AppCompatActivity, recyclerView: RecyclerView) {
+fun recordScrolledPositionOfDetailPage(context: AppCompatActivity, recyclerView: RecyclerView) {
     recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -126,9 +127,21 @@ fun recordPosition(context: AppCompatActivity, recyclerView: RecyclerView) {
     })
 }
 
-fun restorePosition(context: AppCompatActivity, recyclerView: RecyclerView) {
+fun restoreScrolledPositionOfDetailPage(context: AppCompatActivity, recyclerView: RecyclerView) {
     // 恢复位置
     val sharedPreferences = context.getSharedPreferences(context.intent?.extras?.getString(toolbarTitle)
             ?: nullString, Activity.MODE_PRIVATE)
     (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(sharedPreferences.getInt("lastPosition", 0), sharedPreferences.getInt("lastOffset", 0))
+}
+
+fun filterImageUrlThroughDetailPageContent(gospelContent: String): String {
+//    val pattern = "(https[^\\)]+\\))"
+    val pattern = "https.+\\)"
+    val p = Pattern.compile(pattern)
+
+    val m = p.matcher(gospelContent)
+    if (m.find()) {
+       return m.group(0).replace(")", "")
+    }
+    return ""
 }

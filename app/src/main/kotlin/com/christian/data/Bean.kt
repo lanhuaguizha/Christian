@@ -26,7 +26,7 @@ data class Message(
         var imageUrl: String = "")
 
 data class MeBean(
-        val img:String="",
+        val video:String="",
         val id: String = "",
         val name: String = "",
         val desc: String = "",

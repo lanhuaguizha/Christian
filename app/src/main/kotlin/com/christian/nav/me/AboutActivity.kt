@@ -1,21 +1,15 @@
 package com.christian.nav.me
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.edit
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.christian.BuildConfig
-import com.christian.R
 import com.christian.data.MeBean
 import com.christian.multitype.*
 import com.christian.nav.nullString
 import com.christian.nav.toolbarTitle
-import com.christian.util.restorePosition
+import com.christian.util.restoreScrolledPositionOfDetailPage
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -51,7 +45,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
                 items.add(Card(me.card))
         }
 
-        restorePosition(this, recyclerView)
+        restoreScrolledPositionOfDetailPage(this, recyclerView)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

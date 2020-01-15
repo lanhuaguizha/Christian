@@ -14,6 +14,7 @@ import com.christian.data.MeBean
 import com.christian.data.Setting
 import com.christian.nav.gospel.NavDetailActivity
 import com.christian.nav.me.AboutActivity
+import com.christian.util.filterImageUrlThroughDetailPageContent
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_editor.view.*
 import kotlinx.android.synthetic.main.nav_item_gospel.*
@@ -78,9 +79,10 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
     }
 
     fun bind(gospel: MeBean) {
-        if (gospel.img.isNotBlank()) {
+        val gospelImg = filterImageUrlThroughDetailPageContent(gospel.content)
+        if (gospelImg.isNotBlank()) {
             iv_nav_item.visibility = View.VISIBLE
-            Glide.with(containerView.context).load(gospel.img).into(iv_nav_item)
+            Glide.with(containerView.context).load(gospelImg).into(iv_nav_item)
         } else {
             iv_nav_item.visibility = View.GONE
         }

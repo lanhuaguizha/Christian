@@ -399,11 +399,6 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
                     metadataRef = taskSnapshot.getMetadata().getReference();
                     if (metadataRef != null) {
                         downloadUrl = metadataRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                            mImg = String.valueOf(uri);
-                            SharedPreferences.Editor editor = getSharedPreferences("mImg", MODE_PRIVATE).edit();
-                            editor.putString(String.valueOf(mEditorFragment.mName.getText()), mImg);
-                            editor.apply();
-
                             mEditorFragment.getPerformEditable().perform(R.id.id_shortcut_insert_photo, uri);
                         });
                     }

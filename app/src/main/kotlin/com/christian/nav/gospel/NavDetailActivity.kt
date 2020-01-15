@@ -1,6 +1,5 @@
 package com.christian.nav.gospel
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,20 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.multitype.Card
 import com.christian.nav.NavActivity
 import com.christian.nav.me.AbsAboutActivity
-import com.christian.nav.nullString
-import com.christian.nav.toolbarTitle
 import com.christian.util.ChristianUtil
-import com.christian.util.restorePosition
+import com.christian.util.restoreScrolledPositionOfDetailPage
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -198,7 +192,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         gospelTime = meBean.time
         userId = meBean.userId
 
-        restorePosition(this, recyclerView)
+        restoreScrolledPositionOfDetailPage(this, recyclerView)
     }
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {

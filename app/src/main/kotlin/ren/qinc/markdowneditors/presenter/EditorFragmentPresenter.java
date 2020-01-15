@@ -177,13 +177,6 @@ public class EditorFragmentPresenter extends BasePresenter<IEditorFragmentView> 
         data.put(editorFragment.getString(R.string.content_lower_case), editorFragment.mContent.getText().toString().trim());
         data.put(editorFragment.getString(R.string.time), ChristianUtil.getDateAndCurrentTime());
         EditorActivity activity = (EditorActivity) ((EditorFragment) getMvpView()).getActivity();
-        if (activity != null) {
-            SharedPreferences sharedPreferences = activity.getSharedPreferences("mImg", activity.MODE_PRIVATE);
-            String mImg = sharedPreferences.getString(String.valueOf(editorFragment.mName.getText()), "");
-            if (mImg != null) {
-                data.put(editorFragment.getString(R.string.img), mImg);
-            }
-        }
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             data.put(editorFragment.getString(R.string.userId), FirebaseAuth.getInstance().getCurrentUser().getUid());

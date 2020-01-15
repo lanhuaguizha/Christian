@@ -83,7 +83,7 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
     protected abstract void onCreateHeader(@NonNull ImageView icon, @NonNull TextView slogan, @NonNull TextView version);
 
     protected void onItemsCreated(@NonNull List<Object> items) {
-        UtilsKt.recordPosition(this, recyclerView);
+        UtilsKt.recordScrolledPositionOfDetailPage(this, recyclerView);
     }
 
     protected void onTitleViewCreated(@NonNull SubtitleCollapsingToolbarLayout collapsingToolbar) {
