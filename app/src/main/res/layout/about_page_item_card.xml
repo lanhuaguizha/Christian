@@ -7,6 +7,7 @@
     style="@style/AboutPage.Item.Card">
 
     <TextView
+        android:textColor="#757575"
 	    android:textIsSelectable="true"
         android:id="@+id/content"
         tools:text="content"

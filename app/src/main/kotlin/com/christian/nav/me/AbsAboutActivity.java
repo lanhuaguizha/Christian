@@ -36,6 +36,7 @@ import com.christian.multitype.OnContributorClickedListener;
 import com.christian.multitype.OnRecommendationClickedListener;
 import com.christian.multitype.Recommendation;
 import com.christian.swipe.SwipeBackActivity;
+import com.christian.util.UtilsKt;
 import com.github.clans.fab.FloatingActionMenu;
 import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
 import com.google.firebase.firestore.DocumentReference;
@@ -81,7 +82,9 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
 
     protected abstract void onCreateHeader(@NonNull ImageView icon, @NonNull TextView slogan, @NonNull TextView version);
 
-    protected abstract void onItemsCreated(@NonNull List<Object> items);
+    protected void onItemsCreated(@NonNull List<Object> items) {
+        UtilsKt.recordPosition(this, recyclerView);
+    }
 
     protected void onTitleViewCreated(@NonNull SubtitleCollapsingToolbarLayout collapsingToolbar) {
     }

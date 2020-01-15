@@ -2,13 +2,20 @@ package com.christian.util
 
 import android.Manifest
 import android.R.attr
+import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.os.Build
 import android.widget.TextView
 import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.christian.R
+import com.christian.nav.nullString
+import com.christian.nav.toolbarTitle
 import com.christian.swipe.SwipeBackActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.kotlinpermissions.KotlinPermissions
@@ -87,4 +94,41 @@ fun setMarkdownToTextView(context: Context, textView: TextView, gospelContent: S
             })
             .build()
     markdownView.setMarkdown(textView, gospelContent)
+}
+
+private var lastPosition = 0//位置
+private var lastOffset = 0//偏移量
+fun recordPosition(context: AppCompatActivity, recyclerView: RecyclerView) {
+    recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            val topView = recyclerView.layoutManager?.getChildAt(0) //获取可视的第一个view
+            lastOffset = topView?.top ?: 0//获取与该view的顶部的偏移量
+            lastPosition = topView?.let { recyclerView.layoutManager?.getPosition(it) }
+                    ?: 0  //得到该View的数组位置
+        }
+
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            val topView = recyclerView.layoutManager?.getChildAt(0) //获取可视的第一个view
+            lastOffset = topView?.top ?: 0//获取与该view的顶部的偏移量
+            lastPosition = topView?.let { recyclerView.layoutManager?.getPosition(it) }
+                    ?: 0  //得到该View的数组位置
+
+            val sharedPreferences = context.getSharedPreferences(context.intent?.extras?.getString(toolbarTitle)
+                    ?: nullString, Activity.MODE_PRIVATE)
+            sharedPreferences.edit {
+                putInt("lastPosition", lastPosition)
+                putInt("lastOffset", lastOffset)
+            }
+        }
+    })
+}
+
+fun restorePosition(context: AppCompatActivity, recyclerView: RecyclerView) {
+    // 恢复位置
+    val sharedPreferences = context.getSharedPreferences(context.intent?.extras?.getString(toolbarTitle)
+            ?: nullString, Activity.MODE_PRIVATE)
+    (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(sharedPreferences.getInt("lastPosition", 0), sharedPreferences.getInt("lastOffset", 0))
 }

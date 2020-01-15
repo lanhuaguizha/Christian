@@ -15,6 +15,7 @@ import com.christian.data.MeBean
 import com.christian.multitype.*
 import com.christian.nav.nullString
 import com.christian.nav.toolbarTitle
+import com.christian.util.restorePosition
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.nav_activity.*
@@ -26,9 +27,6 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
 
     private lateinit var meBean: MeBean
     private var snapshot: DocumentSnapshot? = null
-
-    private var lastPosition = 0//位置
-    private var lastOffset = 0//偏移量
 
     override fun onEvent(documentSnapshots: DocumentSnapshot?, e: FirebaseFirestoreException?) {
         if (e != null) {
@@ -52,10 +50,8 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
             if (me.type == "card")
                 items.add(Card(me.card))
         }
-        // 恢复位置
-        val sharedPreferences = getSharedPreferences(intent?.extras?.getString(toolbarTitle)
-                ?: nullString, Activity.MODE_PRIVATE)
-        (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(sharedPreferences.getInt("lastPosition", 0), sharedPreferences.getInt("lastOffset", 0))
+
+        restorePosition(this, recyclerView)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,34 +66,6 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
     override fun onDestroy() {
         super.onDestroy()
         stopListening()
-    }
-
-    override fun onItemsCreated(items: MutableList<Any>) {
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val topView = recyclerView.layoutManager?.getChildAt(0) //获取可视的第一个view
-                lastOffset = topView?.top ?: 0//获取与该view的顶部的偏移量
-                lastPosition = topView?.let { recyclerView.layoutManager?.getPosition(it) }
-                        ?: 0  //得到该View的数组位置
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                val topView = recyclerView.layoutManager?.getChildAt(0) //获取可视的第一个view
-                lastOffset = topView?.top ?: 0//获取与该view的顶部的偏移量
-                lastPosition = topView?.let { recyclerView.layoutManager?.getPosition(it) }
-                        ?: 0  //得到该View的数组位置
-
-                val sharedPreferences = getSharedPreferences(intent?.extras?.getString(toolbarTitle)
-                        ?: nullString, Activity.MODE_PRIVATE)
-                sharedPreferences.edit {
-                    putInt("lastPosition", lastPosition)
-                    putInt("lastOffset", lastOffset)
-                }
-            }
-        })
     }
 
     override fun onRecommendationClicked(itemView: View, recommendation: Recommendation): Boolean {

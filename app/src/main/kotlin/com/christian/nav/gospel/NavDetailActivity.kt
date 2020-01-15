@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Layout
-import android.text.style.AlignmentSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,7 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.multitype.Card
@@ -26,23 +23,13 @@ import com.christian.nav.me.AbsAboutActivity
 import com.christian.nav.nullString
 import com.christian.nav.toolbarTitle
 import com.christian.util.ChristianUtil
-import com.christian.util.setMarkdownToTextView
+import com.christian.util.restorePosition
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
-import io.noties.markwon.*
-import io.noties.markwon.html.HtmlPlugin
-import io.noties.markwon.image.ImagesPlugin
-import io.noties.markwon.image.glide.GlideImagesPlugin
-import io.noties.markwon.linkify.LinkifyPlugin
 import kotlinx.android.synthetic.main.about_page_main_activity.*
-import kotlinx.android.synthetic.main.about_page_main_activity.fab12
-import kotlinx.android.synthetic.main.about_page_main_activity.fab22
-import kotlinx.android.synthetic.main.about_page_main_activity.menu_yellow
-import kotlinx.android.synthetic.main.activity_nav_detail.*
 import kotlinx.android.synthetic.main.nav_activity.*
-import org.commonmark.node.Image
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
 import ren.qinc.markdowneditors.view.EditorActivity
@@ -186,35 +173,6 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         }
     }
 
-    override fun onItemsCreated(items: MutableList<Any>) {
-//        items.add(Author("$gospelAuthor·$gospelChurch·$gospelTime"))
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val topView = recyclerView.layoutManager?.getChildAt(0) //获取可视的第一个view
-                lastOffset = topView?.top ?: 0//获取与该view的顶部的偏移量
-                lastPosition = topView?.let { recyclerView.layoutManager?.getPosition(it) }
-                        ?: 0  //得到该View的数组位置
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                val topView = recyclerView.layoutManager?.getChildAt(0) //获取可视的第一个view
-                lastOffset = topView?.top ?: 0//获取与该view的顶部的偏移量
-                lastPosition = topView?.let { recyclerView.layoutManager?.getPosition(it) }
-                        ?: 0  //得到该View的数组位置
-
-                val sharedPreferences = getSharedPreferences(intent?.extras?.getString(toolbarTitle)
-                        ?: nullString, Activity.MODE_PRIVATE)
-                sharedPreferences.edit {
-                    putInt("lastPosition", lastPosition)
-                    putInt("lastOffset", lastOffset)
-                }
-            }
-        })
-    }
-
     override fun onEvent(documentSnapshots: DocumentSnapshot?, e: FirebaseFirestoreException?) {
         if (e != null) {
             Snackbar.make(cl_nav, "Error: check logs for info.", Snackbar.LENGTH_LONG).show()
@@ -230,7 +188,6 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
         if (items.isNotEmpty())
             items.clear()
-            items.clear()
         gospelCategory = meBean.desc
         gospelTitle = meBean.name
         gospelContent = meBean.content
@@ -240,10 +197,8 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         gospelChurch = meBean.church
         gospelTime = meBean.time
         userId = meBean.userId
-        // 恢复位置
-        val sharedPreferences = getSharedPreferences(intent?.extras?.getString(toolbarTitle)
-                ?: nullString, Activity.MODE_PRIVATE)
-        (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(sharedPreferences.getInt("lastPosition", 0), sharedPreferences.getInt("lastOffset", 0))
+
+        restorePosition(this, recyclerView)
     }
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
