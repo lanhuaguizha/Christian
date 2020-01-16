@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.christian.R
@@ -22,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
+import com.vincent.blurdialog.BlurDialog
 import kotlinx.android.synthetic.main.about_page_main_activity.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.AnkoLogger
@@ -46,6 +48,7 @@ private fun NavActivity.initTbWithTitle(title: String) {
  */
 class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
+    private lateinit var dialog: BlurDialog
     private lateinit var userId: String
     private lateinit var gospelCategory: String
     private lateinit var gospelTime: String
@@ -80,19 +83,33 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
             startActivity(intent)
         }
         fab22.setOnClickListener {
-            val editor = getSharedPreferences("mImg", Context.MODE_PRIVATE).edit()
-            editor.putString(gospelTitle, "")
-            editor.apply()
+            dialog = BlurDialog.Builder()
+                    .radius(10f) //dp
+                    .isCancelable(true)
+                    .isOutsideCancelable(true)
+                    .message("Do you want delete this document?")
+                    .positiveClick {
+                        val editor = getSharedPreferences("mImg", Context.MODE_PRIVATE).edit()
+                        editor.putString(gospelTitle, "")
+                        editor.apply()
 
-            finish()
-            firestore.collection(getString(R.string.gospels)).document(gospelTitle)
-                    .delete()
-                    .addOnSuccessListener {
-                        debug { }
+                        finish()
+                        firestore.collection(getString(R.string.gospels)).document(gospelTitle)
+                                .delete()
+                                .addOnSuccessListener {
+                                    debug { }
+                                }
+                                .addOnFailureListener { e ->
+                                    debug { e }
+                                }
                     }
-                    .addOnFailureListener { e ->
-                        debug { e }
+                    .negativeClick {
+                        dialog.dismiss()
                     }
+                    .dismissListener { /*Toast.makeText(this, "I have no idea about it!", Toast.LENGTH_SHORT).show()*/ }
+                    .type(BlurDialog.TYPE_DELETE)
+                    .build(this)
+            dialog.show()
         }
 
         if (auth.currentUser?.uid == userId) {

@@ -18,7 +18,6 @@ package ren.qinc.markdowneditors.view;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,6 +46,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.vincent.blurdialog.BlurDialog;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -374,6 +374,9 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
 
 
     public void requestStoragePermissionAccepted(@NotNull String path) {
+
+        BlurDialog dialog = ChristianUtil.showWaitingDialog(this);
+
         // Upload to firestore
         // Create a storage reference from our app
         StorageReference storageRef = FirebaseStorage.getInstance().getReference(path);
@@ -400,6 +403,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
                     if (metadataRef != null) {
                         downloadUrl = metadataRef.getDownloadUrl().addOnSuccessListener(uri -> {
                             mEditorFragment.getPerformEditable().perform(R.id.id_shortcut_insert_photo, uri);
+                            dialog.dismiss();
                         });
                     }
                 }

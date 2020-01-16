@@ -16,14 +16,16 @@ package com.christian.util;
  */
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 
-import androidx.fragment.app.FragmentActivity;
+import com.vincent.blurdialog.BlurDialog;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -96,4 +98,15 @@ public class ChristianUtil {
         return currentDateAndTime;
     }
 
+    public static BlurDialog showWaitingDialog(EditorActivity editorActivity) {
+        BlurDialog dialog = new BlurDialog.Builder()
+                .isCancelable(true)
+                .isOutsideCancelable(true)
+                .message("Please wait...")
+                .dismissListener(dialog1 -> Toast.makeText(editorActivity, "I have no idea about it!", Toast.LENGTH_SHORT).show())
+                .type(BlurDialog.TYPE_WAIT)
+                .build(editorActivity);
+        dialog.show();
+        return dialog;
+    }
 }
