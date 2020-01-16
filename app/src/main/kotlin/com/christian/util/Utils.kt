@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.os.Build
+import android.text.Html
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
@@ -14,11 +15,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.christian.R
+import com.christian.nav.NavActivity
 import com.christian.nav.nullString
 import com.christian.nav.toolbarTitle
 import com.christian.swipe.SwipeBackActivity
+import com.firebase.ui.auth.AuthUI
 import com.google.android.material.appbar.AppBarLayout
 import com.kotlinpermissions.KotlinPermissions
+import com.vincent.blurdialog.BlurDialog
 import io.noties.markwon.AbstractMarkwonPlugin
 import io.noties.markwon.Markwon
 import io.noties.markwon.MarkwonConfiguration
@@ -141,7 +145,32 @@ fun filterImageUrlThroughDetailPageContent(gospelContent: String): String {
 
     val m = p.matcher(gospelContent)
     if (m.find()) {
-       return m.group(0).replace(")", "")
+        return m.group(0).replace(")", "")
     }
     return ""
+}
+
+lateinit var dialog: BlurDialog
+fun showExitDialog(navActivity: NavActivity): BlurDialog {
+    dialog = BlurDialog.Builder()
+            .isCancelable(true)
+            .isOutsideCancelable(true)
+            .message(Html.fromHtml("<h2><font color=\"#FF8C00\">Exit</font></h2>Exit the app will have no access to write document"))
+            .positiveMsg(Html.fromHtml("<font color=\"#EC4E4F\">Yes</font>")) //You can change color by Html
+            .negativeMsg("No")
+            .positiveClick {
+                AuthUI.getInstance()
+                        .signOut(navActivity)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                navActivity.snackbar("Sign out successful").show()
+                                navActivity.invalidateSignInUI()
+                            }
+                        }
+            }
+            .negativeClick { dialog.dismiss() }
+            .type(BlurDialog.TYPE_DOUBLE_OPTION)
+            .build(navActivity)
+    dialog.show()
+    return dialog
 }

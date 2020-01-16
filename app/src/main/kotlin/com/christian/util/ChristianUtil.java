@@ -20,12 +20,16 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Build;
+import android.text.Html;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 
+import com.christian.nav.NavActivity;
 import com.vincent.blurdialog.BlurDialog;
+import com.vincent.blurdialog.listener.OnNegativeClick;
+import com.vincent.blurdialog.listener.OnPositiveClick;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -109,4 +113,6 @@ public class ChristianUtil {
         dialog.show();
         return dialog;
     }
+
+
 }
