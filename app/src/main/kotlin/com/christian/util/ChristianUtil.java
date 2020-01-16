@@ -107,7 +107,6 @@ public class ChristianUtil {
                 .isCancelable(true)
                 .isOutsideCancelable(true)
                 .message("Please wait...")
-                .dismissListener(dialog1 -> Toast.makeText(editorActivity, "I have no idea about it!", Toast.LENGTH_SHORT).show())
                 .type(BlurDialog.TYPE_WAIT)
                 .build(editorActivity);
         dialog.show();

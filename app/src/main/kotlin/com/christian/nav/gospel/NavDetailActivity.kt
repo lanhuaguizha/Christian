@@ -89,6 +89,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
                     .isOutsideCancelable(true)
                     .message("Do you want delete this document?")
                     .positiveClick {
+                        dialog.dismiss()
                         val editor = getSharedPreferences("mImg", Context.MODE_PRIVATE).edit()
                         editor.putString(gospelTitle, "")
                         editor.apply()

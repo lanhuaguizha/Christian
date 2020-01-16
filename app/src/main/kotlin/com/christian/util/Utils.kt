@@ -159,6 +159,7 @@ fun showExitDialog(navActivity: NavActivity): BlurDialog {
             .positiveMsg(Html.fromHtml("<font color=\"#EC4E4F\">Yes</font>")) //You can change color by Html
             .negativeMsg("No")
             .positiveClick {
+                dialog.dismiss()
                 AuthUI.getInstance()
                         .signOut(navActivity)
                         .addOnCompleteListener { task ->
