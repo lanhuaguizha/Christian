@@ -26,6 +26,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
@@ -40,6 +41,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.christian.R;
 import com.christian.util.ChristianUtil;
 import com.christian.util.UtilsKt;
+import com.christian.view.CustomViewPager;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -90,7 +92,7 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
     @Bind(R.id.action_other_operate)
     protected ExpandableLinearLayout mExpandLayout;
     @Bind(R.id.pager)
-    public ViewPager mViewPager;
+    public CustomViewPager mViewPager;
     private TabIconView mTabIconView;
     private String documentGospelPath;
     private StorageReference metadataRef;
@@ -121,6 +123,8 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                UtilsKt.setPagePosition(position);
+                UtilsKt.setPagePositionOffset(positionOffset);
             }
 
             @Override
@@ -522,5 +526,13 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
                         .setAvailableProviders(providers)
                         .build(),
                 RC_SIGN_IN);
+    }
+
+
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        UtilsKt.dispatchTouchEvent( this, ev);
+        return super.dispatchTouchEvent(ev);
     }
 }

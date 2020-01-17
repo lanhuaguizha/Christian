@@ -6,20 +6,24 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.os.Build
-import android.text.Html
+import android.view.MotionEvent
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
+import androidx.customview.widget.ViewDragHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.nav.NavActivity
 import com.christian.nav.nullString
 import com.christian.nav.toolbarTitle
 import com.christian.swipe.SwipeBackActivity
+import com.christian.view.CustomViewPager
 import com.firebase.ui.auth.AuthUI
+import com.github.anzewei.parallaxbacklayout.ParallaxHelper
 import com.google.android.material.appbar.AppBarLayout
 import com.kotlinpermissions.KotlinPermissions
 import com.vincent.blurdialog.BlurDialog
@@ -152,11 +156,36 @@ fun filterImageUrlThroughDetailPageContent(gospelContent: String): String {
 
 lateinit var dialog: BlurDialog
 fun showExitDialog(navActivity: NavActivity): BlurDialog {
-    dialog = BlurDialog.Builder()
+//    dialog = BlurDialog.Builder()
+//            .isCancelable(true)
+//            .isOutsideCancelable(true)
+//            .message(Html.fromHtml("<h2><font color=\"#FF8C00\">Exit</font></h2>Exit the app will have no access to write document"))
+//            .positiveMsg(Html.fromHtml("<font color=\"#EC4E4F\">Yes</font>")) //You can change color by Html
+//            .negativeMsg("No")
+//            .positiveClick {
+//                dialog.dismiss()
+//                AuthUI.getInstance()
+//                        .signOut(navActivity)
+//                        .addOnCompleteListener { task ->
+//                            if (task.isSuccessful) {
+//                                navActivity.snackbar("Sign out successful").show()
+//                                navActivity.invalidateSignInUI()
+//                            }
+//                        }
+//            }
+//            .negativeClick { dialog.dismiss() }
+//            .type(BlurDialog.TYPE_DOUBLE_OPTION)
+//            .build(navActivity)
+//    dialog.show()
+//    return dialog
+
+
+    dialog = BlurDialog()
+    val builder = BlurDialog.Builder()
             .isCancelable(true)
             .isOutsideCancelable(true)
-            .message(Html.fromHtml("<h2><font color=\"#FF8C00\">Exit</font></h2>Exit the app will have no access to write document"))
-            .positiveMsg(Html.fromHtml("<font color=\"#EC4E4F\">Yes</font>")) //You can change color by Html
+            .message("Exit the app will have no access to write document")
+            .positiveMsg("Yes")
             .negativeMsg("No")
             .positiveClick {
                 dialog.dismiss()
@@ -169,9 +198,54 @@ fun showExitDialog(navActivity: NavActivity): BlurDialog {
                             }
                         }
             }
-            .negativeClick { dialog.dismiss() }
+            .negativeClick {
+                dialog.dismiss()
+            }
+            .dismissListener { }
             .type(BlurDialog.TYPE_DOUBLE_OPTION)
-            .build(navActivity)
+            .createBuilder(navActivity)
+    dialog.setBuilder(builder)
     dialog.show()
     return dialog
 }
+
+private var lastX: Float = 0f
+var isMovingRight: Boolean = true // true不会崩溃，进入nav detail左滑的时候
+private var mActivePointerId: Int = ViewDragHelper.INVALID_POINTER
+var pagePosition: Int = 0
+var pagePositionOffset: Float = 0f
+// used for enable back gesture
+fun dispatchTouchEvent(editorActivity: EditorActivity, ev: MotionEvent) {
+    when (ev.action) {
+        MotionEvent.ACTION_DOWN -> {
+            lastX = ev.x
+            mActivePointerId = ev.getPointerId(0)
+        }
+        MotionEvent.ACTION_MOVE -> {
+            try {
+                isMovingRight = ev.getX(ev.findPointerIndex(mActivePointerId)) - lastX > 0
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        MotionEvent.ACTION_UP -> {
+            mActivePointerId = ViewDragHelper.INVALID_POINTER
+        }
+    }
+    enableSwipeBack(pagePosition, pagePositionOffset, editorActivity.mViewPager, editorActivity)
+}
+
+fun enableSwipeBack(position: Int, positionOffset: Float, vp_nav: CustomViewPager, activity: EditorActivity) {
+    if (position == 0 && isMovingRight && positionOffset in 0f..0.3f) { // pagePosition从onPageSelected放到onPageScrolled之后就需要使用pagePositionOffset来限制在Review页面就可以返回的bug
+        if (positionOffset > 0f) // 第一次进入positionOffset == 0f不能禁用viewPager
+            vp_nav.setDisallowInterceptTouchEvent(true)
+        else
+            vp_nav.setDisallowInterceptTouchEvent(false)
+        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(true) // 滑动的过程当中，ParallaxBackLayout一直在接管手势
+    } else {
+        vp_nav.setDisallowInterceptTouchEvent(false)
+        ParallaxHelper.getParallaxBackLayout(activity).setEnableGesture(false)
+    }
+}
+
+

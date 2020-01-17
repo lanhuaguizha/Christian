@@ -7,8 +7,6 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.*
 import android.util.AttributeSet
 import android.util.Log
@@ -340,7 +338,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
-                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccent,theme))
+//                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccent,theme))
                 if (verticalOffset != -tb_nav.height)
                     fab_nav.show()
                 TooltipCompat.setTooltipText(fab_nav, "Edit")
@@ -356,7 +354,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
-                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccent,theme))
+//                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccent,theme))
                 if (verticalOffset > -tb_nav.height)
                     fab_nav.show()
                 TooltipCompat.setTooltipText(fab_nav, "Filter")
@@ -372,7 +370,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = false
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_downward_black_24dp, theme))
-                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccent,theme))
+//                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccent,theme))
                 if (verticalOffset > -tb_nav.height)
                     fab_nav.show()
                 TooltipCompat.setTooltipText(fab_nav, "Down")
@@ -389,7 +387,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 invalidateSignInUI()
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_exit_to_app_black_24dp, theme))
-                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccentRed,theme))
+//                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccentRed,theme))
                 if (auth.currentUser != null) {
                     if (verticalOffset != -tb_nav.height)
                         fab_nav.show()
@@ -499,7 +497,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         if (user != null) {
             sign_in.visibility = View.GONE
             sign_out.visibility = View.GONE
-//            fab_nav.visibility = View.VISIBLE
+            fab_nav.show()
             portrait.visibility = View.VISIBLE
             name.visibility = View.VISIBLE
             intro.visibility = View.VISIBLE
@@ -514,7 +512,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         } else {
             sign_in.visibility = View.VISIBLE
             sign_out.visibility = View.GONE
-//            fab_nav.visibility = View.GONE
+            fab_nav.hide()
             portrait.visibility = View.GONE
             name.visibility = View.GONE
             intro.visibility = View.GONE

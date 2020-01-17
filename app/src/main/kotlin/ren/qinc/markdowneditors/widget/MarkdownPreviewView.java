@@ -75,8 +75,8 @@ public class MarkdownPreviewView extends NestedScrollView {
     }
 
     public final void parseMarkdown(String str, boolean z) {
-        mWebView.loadDataWithBaseURL(null, str, "text/html" , "utf-8", null);
-//        this.mWebView.loadUrl("javascript:parseMarkdown(\"" + str.replace("\n", "\\n").replace("\"", "\\\"").replace("'", "\\'") + "\", " + z + ")");
+//        mWebView.loadDataWithBaseURL(null, str, "text/html" , "utf-8", null);
+        this.mWebView.loadUrl("javascript:parseMarkdown(\"" + str.replace("\n", "\\n").replace("\"", "\\\"").replace("'", "\\'") + "\", " + z + ")");
     }
 
     public void setContentListener(ContentListener contentListener) {
