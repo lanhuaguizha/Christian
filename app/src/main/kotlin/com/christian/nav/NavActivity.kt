@@ -499,7 +499,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         if (user != null) {
             sign_in.visibility = View.GONE
             sign_out.visibility = View.GONE
-            fab_nav.visibility = View.VISIBLE
+//            fab_nav.visibility = View.VISIBLE
             portrait.visibility = View.VISIBLE
             name.visibility = View.VISIBLE
             intro.visibility = View.VISIBLE
@@ -514,7 +514,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         } else {
             sign_in.visibility = View.VISIBLE
             sign_out.visibility = View.GONE
-            fab_nav.visibility = View.GONE
+//            fab_nav.visibility = View.GONE
             portrait.visibility = View.GONE
             name.visibility = View.GONE
             intro.visibility = View.GONE
