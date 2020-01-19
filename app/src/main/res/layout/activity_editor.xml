@@ -37,6 +37,7 @@
             android:layout_height="match_parent">
             <com.christian.view.CustomViewPager
                 android:id="@+id/pager"
+                android:overScrollMode="never"
                 android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>

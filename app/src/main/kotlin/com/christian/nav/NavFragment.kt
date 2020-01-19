@@ -345,6 +345,9 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
             override fun onBindViewHolder(holder: NavItemView, position: Int, model: Setting) {
                 holder.bind(model)
+                if (position >= 2) {
+                    holder.containerView.visibility = View.GONE
+                }
             }
 
             override fun onDataChanged() {
