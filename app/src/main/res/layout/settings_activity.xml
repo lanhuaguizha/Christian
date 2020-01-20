@@ -37,6 +37,7 @@
                 android:orientation="vertical">
 
                 <include
+                    android:visibility="gone"
                     android:id="@+id/dark_mode"
                     android:layout_marginStart="@dimen/search_bottom_margin"
                     android:layout_marginEnd="@dimen/search_bottom_margin"
