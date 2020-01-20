@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.christian.R
@@ -210,7 +209,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         gospelTime = meBean.time
         userId = meBean.userId
 
-        restoreScrolledPositionOfDetailPage(this, recyclerView)
+        restoreScrolledPositionOfDetailPage(this, recyclerView, activity_detail_mask)
     }
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {

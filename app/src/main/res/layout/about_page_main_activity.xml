@@ -83,6 +83,13 @@
             app:layoutManager="LinearLayoutManager" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
+    <View
+        android:id="@+id/activity_detail_mask"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@color/default_background_nav"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/menu_yellow"
         android:layout_marginBottom="16dp"

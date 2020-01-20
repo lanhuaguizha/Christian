@@ -7,6 +7,7 @@ import android.content.Context
 import android.graphics.Rect
 import android.os.Build
 import android.view.MotionEvent
+import android.view.View
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +15,6 @@ import androidx.core.content.edit
 import androidx.customview.widget.ViewDragHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.nav.NavActivity
@@ -135,13 +135,14 @@ fun recordScrolledPositionOfDetailPage(context: AppCompatActivity, recyclerView:
     })
 }
 
-fun restoreScrolledPositionOfDetailPage(context: AppCompatActivity, recyclerView: RecyclerView) {
+fun restoreScrolledPositionOfDetailPage(context: AppCompatActivity, recyclerView: RecyclerView, activityDetailMask: View) {
     recyclerView.requestLayout()
     // 恢复位置
     recyclerView.postDelayed({
         val sharedPreferences = context.getSharedPreferences(context.intent?.extras?.getString(toolbarTitle)
                 ?: nullString, Activity.MODE_PRIVATE)
         (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(sharedPreferences.getInt("lastPosition", 0), sharedPreferences.getInt("lastOffset", 0))
+        activityDetailMask.visibility = View.GONE
     }, 325)
 }
 

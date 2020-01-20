@@ -12,6 +12,7 @@ import com.christian.nav.toolbarTitle
 import com.christian.util.restoreScrolledPositionOfDetailPage
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.*
+import kotlinx.android.synthetic.main.about_page_main_activity.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.warn
@@ -45,7 +46,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
                 items.add(Card(me.card))
         }
 
-        restoreScrolledPositionOfDetailPage(this, recyclerView)
+        restoreScrolledPositionOfDetailPage(this, recyclerView, activity_detail_mask)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
