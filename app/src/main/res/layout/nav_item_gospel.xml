@@ -43,6 +43,7 @@
             android:clickable="true"
             android:ellipsize="end"
             android:focusable="true"
+            android:textIsSelectable="true"
             android:focusableInTouchMode="false"
             android:maxLines="1"
             android:textColor="@android:color/secondary_text_dark"
@@ -53,6 +54,7 @@
             tool:text="属灵人小传选集" />
 
         <TextView
+            android:textIsSelectable="true"
             android:lineSpacingExtra="@dimen/line_spacing_extra"
             android:id="@+id/tv_subtitle_nav_item"
             style="@android:style/TextAppearance.Large"
@@ -72,7 +74,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_title_nav_item"
             tool:text="简介" />
 
-        <TextView
+        <com.christian.view.CustomTextView
             android:lineSpacingExtra="@dimen/line_spacing_extra"
             android:id="@+id/tv_detail_nav_item"
             style="@android:style/TextAppearance.Small"
@@ -113,6 +115,7 @@
             app:srcCompat="@drawable/ic_more_vert_black_24dp" />
 
         <TextView
+            android:textIsSelectable="true"
             android:id="@+id/textView"
             android:clickable="true"
             android:focusable="true"

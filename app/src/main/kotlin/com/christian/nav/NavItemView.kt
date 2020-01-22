@@ -99,6 +99,8 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
             //            gospelId = gospel.id
             startGospelDetailActivity(gospel)
         }
+        tv_subtitle_nav_item.setOnClickListener { startGospelDetailActivity(gospel) }
+        tv_detail_nav_item.setOnClickListener { startGospelDetailActivity(gospel) }
         textView.setOnClickListener {
             startGospelDetailActivity(gospel)
         }
