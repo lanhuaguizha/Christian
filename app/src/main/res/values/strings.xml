@@ -362,4 +362,5 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="dark_mode_auto">Sunset automatically turns on</string>
     <string name="open_source_statement">Open source statement</string>
+    <string name="activity_home_item_image_desc">This is the image of the home page item</string>
 </resources>
