@@ -105,7 +105,6 @@
             android:includeFontPadding="false"
             android:layout_marginTop="8dp"
             android:padding="8dp"
-            android:visibility="gone"
             android:background="?selectableItemBackgroundBorderless"
             android:tint="@android:color/secondary_text_dark"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title_nav_item"

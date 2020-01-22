@@ -26,24 +26,34 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
+
+import com.christian.R;
 import com.christian.nav.NavActivity;
 import com.vincent.blurdialog.BlurDialog;
+import com.vincent.blurdialog.listener.OnItemClick;
 import com.vincent.blurdialog.listener.OnNegativeClick;
 import com.vincent.blurdialog.listener.OnPositiveClick;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import ren.qinc.markdowneditors.base.BaseApplication;
 import ren.qinc.markdowneditors.view.EditorActivity;
+import ren.qinc.markdowneditors.view.MainActivity;
+
+import static com.vincent.blurdialog.BlurDialog.TYPE_SINGLE_SELECT;
 
 public class ChristianUtil {
 
     public static final String DOCUMENT_GOSPEL_PATH = "DOCUMENT_GOSPEL_PATH";
+    private static BlurDialog dialog;
 
 
     // 反射强势访问修改final变量
@@ -114,4 +124,52 @@ public class ChristianUtil {
     }
 
 
+    public static BlurDialog showListDialog(@NonNull NavActivity activity, String tag) {
+        final List<CharSequence> list = new ArrayList<>();
+        list.clear();
+        if (tag.equals("activity_gospel")) {
+            list.add(Html.fromHtml(activity.getString(R.string.share)));
+            list.add(Html.fromHtml(activity.getString(R.string.favorite)));
+        } else {
+            list.add(Html.fromHtml(activity.getString(R.string.translate)));
+            list.add(Html.fromHtml(activity.getString(R.string.read)));
+        }
+
+        dialog = new BlurDialog.Builder()
+                .isCancelable(true)
+                .isOutsideCancelable(true)
+                .message("Messi the best football player")
+                .singleList(list)
+                .itemClick(new OnItemClick() {
+                    @Override
+                    public void onClick(CharSequence item) {
+                        if (item.equals(list.get(0))) {
+                        }
+
+                        if (item.equals(list.get(1))) {
+                        }
+
+                        if (item.equals(list.get(2))) {
+                        }
+
+                        if (item.equals(list.get(3))) {
+                        }
+                    }
+                })
+                .negativeClick(new OnNegativeClick() {
+                    @Override
+                    public void onClick() {
+                        dialog.dismiss();
+                    }
+                })
+                .dismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                    }
+                })
+                .type(TYPE_SINGLE_SELECT)
+                .build(activity);
+        dialog.show();
+        return dialog;
+    }
 }

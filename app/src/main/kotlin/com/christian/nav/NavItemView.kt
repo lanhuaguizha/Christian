@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Switch
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.christian.R
@@ -14,6 +15,7 @@ import com.christian.data.MeBean
 import com.christian.data.Setting
 import com.christian.nav.gospel.NavDetailActivity
 import com.christian.nav.me.AboutActivity
+import com.christian.util.ChristianUtil
 import com.christian.util.filterImageUrlThroughDetailPageContent
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_editor.view.*
@@ -51,7 +53,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
 //                }
 //            }
 //        }
-//        itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View -> showPopupMenu(v) }
+        itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View -> ChristianUtil.showListDialog(v.context as NavActivity, "activity_gospel") }
 
     }
 
