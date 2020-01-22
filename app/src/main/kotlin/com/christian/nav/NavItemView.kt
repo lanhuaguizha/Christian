@@ -4,13 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Switch
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.Disciple
-import com.christian.data.Gospel
 import com.christian.data.MeBean
 import com.christian.data.Setting
 import com.christian.nav.gospel.NavDetailActivity
@@ -18,7 +16,6 @@ import com.christian.nav.me.AboutActivity
 import com.christian.util.ChristianUtil
 import com.christian.util.filterImageUrlThroughDetailPageContent
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.fragment_editor.view.*
 import kotlinx.android.synthetic.main.nav_item_gospel.*
 import kotlinx.android.synthetic.main.nav_item_me.*
 import org.jetbrains.anko.AnkoLogger
@@ -53,7 +50,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
 //                }
 //            }
 //        }
-        itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View -> ChristianUtil.showListDialog(v.context as NavActivity, "activity_gospel") }
+        if (itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item) != null) itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View -> ChristianUtil.showListDialog(v.context as NavActivity, "activity_gospel") }
 
     }
 
@@ -103,9 +100,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
         }
         tv_subtitle_nav_item.setOnClickListener { startGospelDetailActivity(gospel) }
         tv_detail_nav_item.setOnClickListener { startGospelDetailActivity(gospel) }
-        textView.setOnClickListener {
-            startGospelDetailActivity(gospel)
-        }
+        textView.setOnClickListener { startGospelDetailActivity(gospel) }
     }
 
     private fun startGospelDetailActivity(gospel: MeBean) {
@@ -125,35 +120,35 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
     private var isOn = false
     fun bind(setting: Setting) {
         when (adapterPosition) {
-      /*      0 -> {
-                containerView.setOnClickListener {
-                    if (isOn) {
-                        containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = false
-                        // 恢复应用默认皮肤
-//                        Aesthetic.config {
-//                            activityTheme(R.style.Christian)
-//                            isDark(false)
-//                            textColorPrimary(res = R.color.text_color_primary)
-//                            textColorSecondary(res = R.color.text_color_secondary)
-//                            attribute(R.attr.my_custom_attr, res = R.color.default_background_nav)
-//                            attribute(R.attr.my_custom_attr2, res = R.color.white)
-//                        }
-                        isOn = false
-                    } else {
-                        containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = true
-                        // 夜间模式
-//                        Aesthetic.config {
-//                            activityTheme(R.style.ChristianDark)
-//                            isDark(true)
-//                            textColorPrimary(res = android.R.color.primary_text_dark)
-//                            textColorSecondary(res = android.R.color.secondary_text_dark)
-//                            attribute(R.attr.my_custom_attr, res = R.color.text_color_primary)
-//                            attribute(R.attr.my_custom_attr2, res = R.color.background_material_dark)
-//                        }
-                        isOn = true
-                    }
-                }
-            }*/
+            /*      0 -> {
+                      containerView.setOnClickListener {
+                          if (isOn) {
+                              containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = false
+                              // 恢复应用默认皮肤
+      //                        Aesthetic.config {
+      //                            activityTheme(R.style.Christian)
+      //                            isDark(false)
+      //                            textColorPrimary(res = R.color.text_color_primary)
+      //                            textColorSecondary(res = R.color.text_color_secondary)
+      //                            attribute(R.attr.my_custom_attr, res = R.color.default_background_nav)
+      //                            attribute(R.attr.my_custom_attr2, res = R.color.white)
+      //                        }
+                              isOn = false
+                          } else {
+                              containerView.findViewById<Switch>(R.id.switch_nav_item_small).isChecked = true
+                              // 夜间模式
+      //                        Aesthetic.config {
+      //                            activityTheme(R.style.ChristianDark)
+      //                            isDark(true)
+      //                            textColorPrimary(res = android.R.color.primary_text_dark)
+      //                            textColorSecondary(res = android.R.color.secondary_text_dark)
+      //                            attribute(R.attr.my_custom_attr, res = R.color.text_color_primary)
+      //                            attribute(R.attr.my_custom_attr2, res = R.color.background_material_dark)
+      //                        }
+                              isOn = true
+                          }
+                      }
+                  }*/
             4 -> {
                 containerView.setOnClickListener {
                     // 老的跳转设置移到了NavActivity页的options menu

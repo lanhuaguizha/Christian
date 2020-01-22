@@ -149,12 +149,6 @@ public class ChristianUtil {
 
                         if (item.equals(list.get(1))) {
                         }
-
-                        if (item.equals(list.get(2))) {
-                        }
-
-                        if (item.equals(list.get(3))) {
-                        }
                     }
                 })
                 .negativeClick(new OnNegativeClick() {
