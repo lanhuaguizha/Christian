@@ -99,6 +99,9 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
             //            gospelId = gospel.id
             startGospelDetailActivity(gospel)
         }
+        textView.setOnClickListener {
+            startGospelDetailActivity(gospel)
+        }
     }
 
     private fun startGospelDetailActivity(gospel: MeBean) {
