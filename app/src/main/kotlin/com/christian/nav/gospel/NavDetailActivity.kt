@@ -130,21 +130,9 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu_share -> {
-//                Snackbar.make(getString(R.string.toast_share)).show()
-                true
-            }
-            R.id.menu_favorite -> {
-//                snackbar(getString(R.string.toast_favorite)).show()
-                true
-            }
-            R.id.menu_translate -> {
-//                snackbar(getString(R.string.toast_translate)).show()
-                true
-            }
-            R.id.menu_read -> {
-//                snackbar(getString(R.string.toast_read)).show()
+        return when (item.title) {
+            getString(R.string.menu_more) -> {
+                ChristianUtil.showListDialog(this@NavDetailActivity, "activity_detail_gospel")
                 true
             }
             else -> super.onOptionsItemSelected(item)

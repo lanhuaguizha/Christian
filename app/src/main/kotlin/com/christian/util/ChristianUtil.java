@@ -15,6 +15,7 @@ package com.christian.util;
  * limitations under the License.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -124,7 +125,7 @@ public class ChristianUtil {
     }
 
 
-    public static BlurDialog showListDialog(@NonNull NavActivity activity, String tag) {
+    public static BlurDialog showListDialog(@NonNull Activity activity, String tag) {
         final List<CharSequence> list = new ArrayList<>();
         list.clear();
         if (tag.equals("activity_gospel")) {
