@@ -30,8 +30,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/activity_home_item_image_desc" />
 
-        <TextView
-            android:background="?selectableItemBackground"
+        <com.christian.view.CustomTextView
             android:lineSpacingExtra="@dimen/line_spacing_extra"
             android:id="@+id/tv_title_nav_item"
             style="@android:style/TextAppearance.Medium"
@@ -43,7 +42,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
-            android:textIsSelectable="true"
             android:maxLines="1"
             android:textColor="@android:color/secondary_text_dark"
             app:layout_constraintEnd_toStartOf="@+id/ib_nav_item"
@@ -52,9 +50,7 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_nav_item"
             tool:text="属灵人小传选集" />
 
-        <TextView
-            android:background="?selectableItemBackground"
-            android:textIsSelectable="true"
+        <com.christian.view.CustomTextView
             android:lineSpacingExtra="@dimen/line_spacing_extra"
             android:id="@+id/tv_subtitle_nav_item"
             style="@android:style/TextAppearance.Large"
@@ -113,9 +109,7 @@
             app:layout_constraintTop_toTopOf="@+id/tv_title_nav_item"
             app:srcCompat="@drawable/ic_more_vert_black_24dp" />
 
-        <TextView
-            android:background="?selectableItemBackground"
-            android:textIsSelectable="true"
+        <com.christian.view.CustomTextView
             android:id="@+id/textView"
             android:includeFontPadding="false"
             android:lineSpacingExtra="@dimen/line_spacing_extra"

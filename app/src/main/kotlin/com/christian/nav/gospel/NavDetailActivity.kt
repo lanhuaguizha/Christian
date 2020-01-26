@@ -3,6 +3,7 @@ package com.christian.nav.gospel
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -132,7 +133,9 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.title) {
             getString(R.string.menu_more) -> {
-                ChristianUtil.showListDialog(this@NavDetailActivity, "activity_detail_gospel")
+                val list: ArrayList<CharSequence> = ArrayList()
+                list.add(Html.fromHtml(getString(R.string.read)))
+                ChristianUtil.showListDialog(this@NavDetailActivity, list)
                 true
             }
             else -> super.onOptionsItemSelected(item)

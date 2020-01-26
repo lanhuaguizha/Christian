@@ -125,17 +125,7 @@ public class ChristianUtil {
     }
 
 
-    public static BlurDialog showListDialog(@NonNull Activity activity, String tag) {
-        final List<CharSequence> list = new ArrayList<>();
-        list.clear();
-        if (tag.equals("activity_gospel")) {
-            list.add(Html.fromHtml(activity.getString(R.string.share)));
-            list.add(Html.fromHtml(activity.getString(R.string.favorite)));
-        } else {
-            list.add(Html.fromHtml(activity.getString(R.string.translate)));
-            list.add(Html.fromHtml(activity.getString(R.string.read)));
-        }
-
+    public static BlurDialog showListDialog(@NonNull Activity activity, @NonNull ArrayList<CharSequence> list) {
         dialog = new BlurDialog.Builder()
                 .isCancelable(true)
                 .isOutsideCancelable(true)

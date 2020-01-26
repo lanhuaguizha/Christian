@@ -2,6 +2,7 @@ package com.christian.nav
 
 import android.app.Activity
 import android.content.Intent
+import android.text.Html
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.widget.AppCompatImageButton
@@ -50,7 +51,13 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
 //                }
 //            }
 //        }
-        if (itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item) != null) itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View -> ChristianUtil.showListDialog(v.context as NavActivity, "activity_gospel") }
+        if (itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item) != null) itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View ->
+            val list: ArrayList<CharSequence> = ArrayList()
+            list.add(Html.fromHtml(containerView.context.getString(R.string.share)))
+            list.add(Html.fromHtml(containerView.context.getString(R.string.favorite)))
+            list.add(Html.fromHtml(containerView.context.getString(R.string.translate)))
+            ChristianUtil.showListDialog(v.context as NavActivity, list)
+        }
 
     }
 
