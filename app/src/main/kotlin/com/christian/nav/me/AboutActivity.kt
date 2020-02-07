@@ -5,13 +5,15 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.christian.BuildConfig
+import com.christian.R
 import com.christian.data.MeBean
 import com.christian.multitype.*
-import com.christian.nav.nullString
-import com.christian.nav.toolbarTitle
+import com.christian.util.fixAppBarLayoutElevation
 import com.christian.util.restoreScrolledPositionOfDetailPage
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.*
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestoreException
 import kotlinx.android.synthetic.main.about_page_main_activity.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.AnkoLogger
@@ -56,6 +58,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         onContributorClickedListener = this@AboutActivity
         meRef = firestore.collection("mes").document("kT04H8SFVsOvqz4YLfUq")
         startListening()
+        fixAppBarLayoutElevation(header_layout)
     }
 
     override fun onDestroy() {
@@ -77,9 +80,9 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
     }
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
-//        icon.setImageResource(R.drawable.ic_group_add_black_24dp)
-//        slogan.text = getString(R.string.app_name)
-        title = intent?.extras?.getString(toolbarTitle) ?: nullString
-//        version.text = BuildConfig.VERSION_NAME
+        icon.setImageResource(R.drawable.ic_group_add_black_24dp)
+        slogan.text = getString(R.string.app_name)
+//        title = intent?.extras?.getString(toolbarTitle) ?: nullString
+        version.text = BuildConfig.VERSION_NAME
     }
 }

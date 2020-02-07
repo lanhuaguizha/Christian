@@ -40,6 +40,19 @@ import ren.qinc.markdowneditors.AppContext
 import ren.qinc.markdowneditors.view.EditorActivity
 import java.util.regex.Pattern
 
+fun fixAppBarLayoutElevation(headerLayout: AppBarLayout) {
+    headerLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+        if (verticalOffset == -appBarLayout.height) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                appBarLayout.elevation = 0f
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                appBarLayout.elevation = headerLayout.dip(4).toFloat()
+            }
+        }
+    })
+}
 
 fun requestStoragePermission(editorActivity: EditorActivity, path: String) {
     KotlinPermissions.with(editorActivity) // where this is an FragmentActivity instance

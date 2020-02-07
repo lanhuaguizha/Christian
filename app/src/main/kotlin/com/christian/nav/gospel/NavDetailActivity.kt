@@ -18,6 +18,7 @@ import com.christian.multitype.Card
 import com.christian.nav.NavActivity
 import com.christian.nav.me.AbsAboutActivity
 import com.christian.util.ChristianUtil
+import com.christian.util.fixAppBarLayoutElevation
 import com.christian.util.restoreScrolledPositionOfDetailPage
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
@@ -118,6 +119,8 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         } else {
             menu_yellow.visibility = View.GONE
         }
+
+        fixAppBarLayoutElevation(header_layout)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {

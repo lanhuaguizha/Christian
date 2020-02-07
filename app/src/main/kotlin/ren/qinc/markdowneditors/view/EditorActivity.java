@@ -530,9 +530,9 @@ public class EditorActivity extends BaseToolbarActivity implements IEditorActivi
 
 
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        UtilsKt.dispatchTouchEvent( this, ev);
-        return super.dispatchTouchEvent(ev);
-    }
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        UtilsKt.dispatchTouchEvent( this, ev);
+//        return super.dispatchTouchEvent(ev);
+//    }
 }
