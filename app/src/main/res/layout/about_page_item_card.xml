@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:focusable="true"
-    android:clickable="true"
-    style="@style/AboutPage.Item.Card">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:lineSpacingExtra="8dp"
-        android:textColor="#757575"
-	    android:textIsSelectable="true"
-        android:id="@+id/content"
-        tools:text="content"
-        style="@style/AboutPage.CardContent" />
+    <RelativeLayout
+        style="@style/AboutPage.Item.Card"
+        android:clickable="true"
+        android:focusable="true">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/content"
+            style="@style/AboutPage.CardContent"
+            android:lineSpacingExtra="8dp"
+            android:textColor="#757575"
+            android:textIsSelectable="true"
+            tools:text="content" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
