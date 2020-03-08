@@ -24,6 +24,7 @@
             android:layout_height="match_parent"
             android:layoutAnimation="@anim/layout_animation_from_right"
             android:overScrollMode="never"
+            android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

@@ -79,7 +79,7 @@
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:paddingBottom="32dp"
-            android:scrollbars="none"
+            android:scrollbars="vertical"
             app:layoutManager="LinearLayoutManager" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
