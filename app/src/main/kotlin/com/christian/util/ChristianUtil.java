@@ -131,26 +131,15 @@ public class ChristianUtil {
                 .isOutsideCancelable(true)
                 .message("Messi the best football player")
                 .singleList(list)
-                .itemClick(new OnItemClick() {
-                    @Override
-                    public void onClick(CharSequence item) {
-                        if (item.equals(list.get(0))) {
-                        }
+                .itemClick(item -> {
+                    if (item.equals(list.get(0))) {
+                    }
 
-                        if (item.equals(list.get(1))) {
-                        }
+                    if (item.equals(list.get(1))) {
                     }
                 })
-                .negativeClick(new OnNegativeClick() {
-                    @Override
-                    public void onClick() {
-                        dialog.dismiss();
-                    }
-                })
-                .dismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                    }
+                .negativeClick(() -> dialog.dismiss())
+                .dismissListener(dialog -> {
                 })
                 .type(TYPE_SINGLE_SELECT)
                 .build(activity);

@@ -58,7 +58,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
         onContributorClickedListener = this@AboutActivity
         meRef = firestore.collection("mes").document("kT04H8SFVsOvqz4YLfUq")
         startListening()
-        fixAppBarLayoutElevation(header_layout)
+//        fixAppBarLayoutElevation(header_layout)
     }
 
     override fun onDestroy() {

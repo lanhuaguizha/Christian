@@ -120,7 +120,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
             menu_yellow.visibility = View.GONE
         }
 
-        fixAppBarLayoutElevation(header_layout)
+//        fixAppBarLayoutElevation(header_layout)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
@@ -138,6 +138,9 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
             getString(R.string.menu_more) -> {
                 val list: ArrayList<CharSequence> = ArrayList()
                 list.add(Html.fromHtml(getString(R.string.read)))
+                list.add(Html.fromHtml(getString(R.string.share)))
+                list.add(Html.fromHtml(getString(R.string.favorite)))
+                list.add(Html.fromHtml(getString(R.string.translate)))
                 ChristianUtil.showListDialog(this@NavDetailActivity, list)
                 true
             }
