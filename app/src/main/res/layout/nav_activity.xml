@@ -66,6 +66,7 @@
             android:layout_height="@dimen/action_bar_height"
             android:theme="@style/AppTheme.AppBarOverlay"
             android:visibility="gone"
+            android:overScrollMode="never"
             app:tabIndicatorColor="@color/white"
             app:tabMode="scrollable" />
     </com.google.android.material.appbar.AppBarLayout>
