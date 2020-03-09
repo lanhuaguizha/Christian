@@ -134,14 +134,21 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.title) {
-            getString(R.string.menu_more) -> {
-                val list: ArrayList<CharSequence> = ArrayList()
-                list.add(Html.fromHtml(getString(R.string.read)))
-                list.add(Html.fromHtml(getString(R.string.share)))
-                list.add(Html.fromHtml(getString(R.string.favorite)))
-                list.add(Html.fromHtml(getString(R.string.translate)))
-                ChristianUtil.showListDialog(this@NavDetailActivity, list)
+        return when (item.itemId) {
+            R.id.menu_share -> {
+//                Snackbar.make(getString(R.string.toast_share)).show()
+                true
+            }
+            R.id.menu_favorite -> {
+//                snackbar(getString(R.string.toast_favorite)).show()
+                true
+            }
+            R.id.menu_translate -> {
+//                snackbar(getString(R.string.toast_translate)).show()
+                true
+            }
+            R.id.menu_read -> {
+//                snackbar(getString(R.string.toast_read)).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

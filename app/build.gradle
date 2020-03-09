@@ -256,6 +256,9 @@ dependencies {
     // BlurDialog https://github.com/fishwjy/BlurDialog
     implementation 'com.vincent.blurdialog:BlurDialog:1.0.2'
 
+    // https://github.com/timusus/RecyclerView-FastScroll
+    implementation 'com.simplecityapps:recyclerview-fastscroll:2.0.0'
+
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-beta02', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })

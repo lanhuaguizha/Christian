@@ -35,6 +35,7 @@ import com.christian.multitype.LineViewBinder;
 import com.christian.multitype.OnContributorClickedListener;
 import com.christian.multitype.OnRecommendationClickedListener;
 import com.christian.multitype.Recommendation;
+import com.christian.nav.HidingScrollListener;
 import com.christian.swipe.SwipeBackActivity;
 import com.christian.util.UtilsKt;
 import com.github.clans.fab.FloatingActionMenu;
@@ -83,7 +84,7 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
     protected abstract void onCreateHeader(@NonNull ImageView icon, @NonNull TextView slogan, @NonNull TextView version);
 
     protected void onItemsCreated(@NonNull List<Object> items) {
-        UtilsKt.recordScrolledPositionOfDetailPage(this, recyclerView);
+//        UtilsKt.recordScrolledPositionOfDetailPage(this, recyclerView);
     }
 
     protected void onTitleViewCreated(@NonNull SubtitleCollapsingToolbarLayout collapsingToolbar) {
@@ -157,27 +158,30 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
         onApplyPresetAttrs();
         recyclerView = findViewById(com.christian.R.id.list);
 
-//        recyclerView.addOnScrollListener(new HidingScrollListener(recyclerView) {
-//            @Override
-//            public void onHide() {
-//                menuYellow.hideMenu(true);
-//            }
-//
-//            @Override
-//            public void onShow() {
-//                menuYellow.showMenu(true);
-//            }
-//
-//            @Override
-//            public void onTop() {
-//
-//            }
-//
-//            @Override
-//            public void onBottom() {
-//
-//            }
-//        });
+        recyclerView.setVerticalScrollBarEnabled(false);
+        recyclerView.addOnScrollListener(new HidingScrollListener(recyclerView) {
+            @Override
+            public void onHide() {
+                menuYellow.hideMenu(true);
+                recyclerView.setVerticalScrollBarEnabled(true);
+            }
+
+            @Override
+            public void onShow() {
+                menuYellow.showMenu(true);
+                recyclerView.setVerticalScrollBarEnabled(true);
+            }
+
+            @Override
+            public void onTop() {
+                recyclerView.setVerticalScrollBarEnabled(false);
+            }
+
+            @Override
+            public void onBottom() {
+                recyclerView.setVerticalScrollBarEnabled(false);
+            }
+        });
 
 
         toolbar.setOnClickListener(new DoubleClickListener() {

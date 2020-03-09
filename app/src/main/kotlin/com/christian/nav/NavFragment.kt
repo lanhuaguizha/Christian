@@ -182,6 +182,8 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 loadGospelsFromTabId(navId)
             }
         }
+
+        v.rv_nav.isVerticalScrollBarEnabled = false
         v.rv_nav.addOnScrollListener(object : HidingScrollListener(v.rv_nav) {
 
             override fun onHide() {
@@ -189,6 +191,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 isPageTop = false
                 isPageBottom = false
                 controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
+                v.rv_nav.isVerticalScrollBarEnabled = true
             }
 
             override fun onShow() {
@@ -196,15 +199,18 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                 isPageTop = false
                 isPageBottom = false
                 controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
+                v.rv_nav.isVerticalScrollBarEnabled = true
             }
 
             override fun onTop() {
                 top()
+                v.rv_nav.isVerticalScrollBarEnabled = false
             }
 
             override fun onBottom() {
                 isPageBottom = true
                 controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
+                v.rv_nav.isVerticalScrollBarEnabled = false
             }
         })
 
