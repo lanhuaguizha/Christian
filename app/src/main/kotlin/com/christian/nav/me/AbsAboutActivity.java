@@ -162,13 +162,13 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
         recyclerView.addOnScrollListener(new HidingScrollListener(recyclerView) {
             @Override
             public void onHide() {
-                menuYellow.hideMenu(true);
+//                menuYellow.hideMenu(true);
                 recyclerView.setVerticalScrollBarEnabled(true);
             }
 
             @Override
             public void onShow() {
-                menuYellow.showMenu(true);
+//                menuYellow.showMenu(true);
                 recyclerView.setVerticalScrollBarEnabled(true);
             }
 
