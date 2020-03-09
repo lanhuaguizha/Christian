@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.os.Build
+import android.text.method.LinkMovementMethod
 import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
@@ -94,6 +95,7 @@ fun setToolbarAsUp(activity: SwipeBackActivity, toolbar: androidx.appcompat.widg
 }
 
 fun setMarkdownToTextView(context: Context, textView: TextView, gospelContent: String) {
+    textView.movementMethod = LinkMovementMethod.getInstance()
     val markdownView = Markwon.builder(context) // automatically create Glide instance
             .usePlugin(GlideImagesPlugin.create(Glide.with(context)))
             .usePlugin(LinkifyPlugin.create())
