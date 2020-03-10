@@ -43,7 +43,8 @@
             android:name=".nav.NavActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
             android:launchMode="singleTop"
-            android:windowSoftInputMode="adjustPan|stateHidden">
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:label="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,6 +67,7 @@
             android:name=".nav.gospel.NavDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
             android:launchMode="singleTop"
+            android:label=""
             android:parentActivityName=".nav.NavActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->

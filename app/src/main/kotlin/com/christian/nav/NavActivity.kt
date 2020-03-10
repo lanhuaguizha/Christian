@@ -379,8 +379,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 }
             }
             3 -> {
-                tb_nav.title = ""
-//                tb_nav.title = getString(R.string.me)
+                tb_nav.title = getString(R.string.me)
 
                 if (::menuItemSearch.isInitialized) menuItemSearch.isVisible = false
                 if (::menuItemSetting.isInitialized) menuItemSetting.isVisible = true
@@ -495,6 +494,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         val user = auth.currentUser
         info { "user: $user" }
         if (user != null) {
+            tb_nav.title = ""
             sign_in.visibility = View.GONE
             sign_out.visibility = View.GONE
             fab_nav.show()
@@ -510,6 +510,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             portrait_nav.isFocusable = true
             portrait_nav.isFocusableInTouchMode = true
         } else {
+            tb_nav.title = getString(R.string.title_me)
             sign_in.visibility = View.VISIBLE
             sign_out.visibility = View.GONE
             fab_nav.hide()

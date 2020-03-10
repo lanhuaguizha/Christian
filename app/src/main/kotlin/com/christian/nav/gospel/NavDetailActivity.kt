@@ -147,10 +147,10 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 //                snackbar(getString(R.string.toast_translate)).show()
                 true
             }
-            R.id.menu_read -> {
+//            R.id.menu_read -> {
 //                snackbar(getString(R.string.toast_read)).show()
-                true
-            }
+//                true
+//            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -232,6 +232,6 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         userId = intent.getStringExtra(getString(R.string.userId)) ?: ""
 
 //        collapsingToolbar.subtitle = gospelAuthor
-        collapsingToolbar.title = gospelTitle
+        collapsingToolbar.title = ""
     }
 }
