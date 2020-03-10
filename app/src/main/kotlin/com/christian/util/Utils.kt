@@ -152,13 +152,14 @@ fun recordScrolledPositionOfDetailPage(context: AppCompatActivity, recyclerView:
 
 fun restoreScrolledPositionOfDetailPage(context: AppCompatActivity, recyclerView: RecyclerView, activityDetailMask: View) {
     recyclerView.requestLayout()
+    activityDetailMask.visibility = View.GONE
     // 恢复位置
-    recyclerView.postDelayed({
+    /*recyclerView.postDelayed({
         val sharedPreferences = context.getSharedPreferences(context.intent?.extras?.getString(toolbarTitle)
                 ?: nullString, Activity.MODE_PRIVATE)
         (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(sharedPreferences.getInt("lastPosition", 0), sharedPreferences.getInt("lastOffset", 0))
         activityDetailMask.visibility = View.GONE
-    }, 400)
+    }, 400)*/
 }
 
 fun filterImageUrlThroughDetailPageContent(gospelContent: String): String {
