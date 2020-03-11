@@ -396,7 +396,14 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 }
 
                 fab_nav.setOnClickListener {
-                    showExitDialog(this)
+                    AuthUI.getInstance()
+                            .signOut(this)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    snackbar("Sign out successful").show()
+                                    invalidateSignInUI()
+                                }
+                            }
 //            val user = auth.currentUser
 //            user?.delete()?.addOnCompleteListener { task ->
 //                if (task.isSuccessful) {
