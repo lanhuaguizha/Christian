@@ -1,7 +1,9 @@
 package com.christian
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
@@ -22,6 +24,13 @@ class SettingsActivity : SwipeBackActivity() {
         setContentView(R.layout.settings_activity)
         setToolbarAsUp(this, settings_toolbar, getString(R.string.settings))
         fixToolbarElevation(settings_abl)
+
+        clear_cache.setOnClickListener {
+            var intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            val packageURI = Uri.parse("package:" + "com.christian")
+            intent = intent.setData(packageURI)
+            startActivity(intent)
+        }
 
         about_us.setOnClickListener {
             val i = Intent(this, AboutActivity::class.java)

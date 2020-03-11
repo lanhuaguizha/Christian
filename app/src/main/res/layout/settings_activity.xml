@@ -53,6 +53,18 @@
                     android:layout_marginTop="@dimen/search_bottom_margin"
                     android:layout_marginStart="@dimen/search_bottom_margin"
                     android:layout_marginEnd="@dimen/search_bottom_margin"
+                    android:id="@+id/clear_cache"
+                    layout="@layout/nav_item_me_for_setting_static_cc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?selectableItemBackgroundBorderless" />
+
+                <include
+                    android:layout_marginTop="@dimen/search_bottom_margin"
+                    android:layout_marginStart="@dimen/search_bottom_margin"
+                    android:layout_marginEnd="@dimen/search_bottom_margin"
                     android:id="@+id/about_us"
                     layout="@layout/nav_item_me_for_setting_static_1"
                     android:layout_width="match_parent"

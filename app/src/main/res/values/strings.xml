@@ -43,6 +43,7 @@
     <string name="action_edit">Edit</string>
     <string name="action_setting">设置</string>
     <string name="about">About us</string>
+    <string name="clear_cache">Clear cache</string>
 
     <string name="copy_right" translatable="false">Copyrights © 2016</string>
     <string name="version_string" translatable="false">Version %s</string>
