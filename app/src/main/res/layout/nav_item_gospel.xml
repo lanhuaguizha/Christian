@@ -54,7 +54,7 @@
             android:lineSpacingExtra="@dimen/line_spacing_extra"
             android:id="@+id/tv_subtitle_nav_item"
             style="@android:style/TextAppearance.Large"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
