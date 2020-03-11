@@ -46,6 +46,10 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
                 items.add(Category(me.category))
             if (me.type == "card")
                 items.add(Card(me.card))
+            if (me.type == "contributor")
+                items.add(Contributor(R.drawable.me, me.name, me.desc))
+            if (me.type == "open source")
+                items.add(License(getString(R.string.app_name), "lanhuaguizha", License.GPL_V3, "https://github.com/lanhuaguizha/Christian"))
         }
 
         restoreScrolledPositionOfDetailPage(this, recyclerView, activity_detail_mask)

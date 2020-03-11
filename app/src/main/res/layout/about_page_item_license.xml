@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:focusable="true"
-    android:clickable="true"
-    style="@style/AboutPage.Item.Card">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <TextView
-        style="@style/AboutPage.LicenseTitle"
-        android:id="@+id/content"
-        tools:text="MultiType - drakeet"/>
+    <RelativeLayout
+        style="@style/AboutPage.Item.Card"
+        android:clickable="true"
+        android:focusable="true">
 
-    <TextView
-        style="@style/AboutPage.LicenseHint"
-        android:id="@+id/hint"
-        android:layout_below="@id/content"
-        tools:text="https://github.com/drakeet/MultiType\nApache License 2.0"/>
+        <TextView
+            android:id="@+id/content"
+            style="@style/AboutPage.LicenseTitle"
+            tools:text="MultiType - drakeet" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/hint"
+            style="@style/AboutPage.LicenseHint"
+            android:layout_below="@id/content"
+            tools:text="https://github.com/drakeet/MultiType\nApache License 2.0" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

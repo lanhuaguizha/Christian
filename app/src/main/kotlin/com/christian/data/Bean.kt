@@ -26,15 +26,15 @@ data class Message(
         var imageUrl: String = "")
 
 data class MeBean(
-        val video:String="",
+        val video: String = "",
         val id: String = "",
         val name: String = "",
         val desc: String = "",
-        val content: String="",
-        val author: String="",
-        val church: String="",
-        val time: String="",
-        val userId: String="",
+        val content: String = "",
+        val author: String = "",
+        val church: String = "",
+        val time: String = "",
+        val userId: String = "",
         var detail: List<MeDetails> = arrayListOf()
 )
 
@@ -44,7 +44,8 @@ data class MeDetails(
         val card: String = "",
         val desc: String = "",
         val name: String = "",
-        val url: String = ""
+        val url: String = "",
+        val author: String = ""
 )
 
 data class Setting(
