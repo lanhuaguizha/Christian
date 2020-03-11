@@ -44,7 +44,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize|screenLayout|smallestScreenSize"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan|stateHidden"
-            android:label="">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
