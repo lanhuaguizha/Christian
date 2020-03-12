@@ -1,6 +1,7 @@
 package com.christian.nav.me;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import me.drakeet.multitype.ItemViewBinder;
+
+import com.bumptech.glide.Glide;
 import com.christian.multitype.Contributor;
 import com.christian.multitype.OnContributorClickedListener;
 
@@ -22,6 +25,7 @@ import static android.net.Uri.parse;
 public class ContributorViewBinder extends ItemViewBinder<Contributor, ContributorViewBinder.ViewHolder> {
 
   private @NonNull final AbsAboutActivity activity;
+  private Context context;
 
   public ContributorViewBinder(@NonNull AbsAboutActivity activity) {
     this.activity = activity;
@@ -29,12 +33,14 @@ public class ContributorViewBinder extends ItemViewBinder<Contributor, Contribut
 
   @NonNull @Override
   public ViewHolder onCreateViewHolder(@NonNull LayoutInflater inflater, @NonNull ViewGroup parent) {
+    context = parent.getContext();
     return new ViewHolder(inflater.inflate(com.christian.R.layout.about_page_item_contributor, parent, false), activity);
   }
 
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, @NonNull Contributor contributor) {
-    holder.avatar.setImageResource(contributor.avatarResId);
+//    holder.avatar.setImageResource(contributor.avatarResId);
+    Glide.with(context).load(contributor.avatarResId).into(holder.avatar);
     holder.name.setText(contributor.name);
     holder.desc.setText(contributor.desc);
     holder.data = contributor;
