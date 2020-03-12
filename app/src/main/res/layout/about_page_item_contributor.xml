@@ -27,6 +27,8 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
+            android:textIsSelectable="true"
+            android:lineSpacingExtra="8dp"
             android:id="@+id/name"
             style="@style/AboutPage.ContributorName"
             android:layout_alignTop="@id/avatar_wrapper"
@@ -35,6 +37,8 @@
             tools:text="drakeet" />
 
         <TextView
+            android:textIsSelectable="true"
+            android:lineSpacingExtra="8dp"
             android:id="@+id/desc"
             style="@style/AboutPage.ContributorDesc"
             android:layout_below="@id/name"

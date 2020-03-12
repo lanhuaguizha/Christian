@@ -10,11 +10,15 @@
         android:focusable="true">
 
         <TextView
+            android:textIsSelectable="true"
+            android:lineSpacingExtra="8dp"
             android:id="@+id/content"
             style="@style/AboutPage.LicenseTitle"
             tools:text="MultiType - drakeet" />
 
         <TextView
+            android:textIsSelectable="true"
+            android:lineSpacingExtra="8dp"
             android:id="@+id/hint"
             style="@style/AboutPage.LicenseHint"
             android:layout_below="@id/content"
