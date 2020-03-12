@@ -11,11 +11,12 @@
         android:layout_height="@dimen/about_page_header_height"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <com.google.android.material.appbar.SubtitleCollapsingToolbarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/AboutPage.Header.ToolbarTitleExpanded"
             app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|snap">
 
             <LinearLayout
@@ -59,7 +60,7 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        </com.google.android.material.appbar.SubtitleCollapsingToolbarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

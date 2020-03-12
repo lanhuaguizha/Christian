@@ -218,8 +218,8 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
 
-//        gospelCategory = intent.getStringExtra(getString(R.string.category))
-//                ?: getString(R.string.uncategorized)
+        gospelCategory = intent.getStringExtra(getString(R.string.category))
+                ?: getString(R.string.uncategorized)
         gospelTitle = intent.getStringExtra(getString(R.string.name))
                 ?: getString(R.string.no_title)
 //        gospelContent = intent.getStringExtra(getString(R.string.content_lower_case))
@@ -232,6 +232,6 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         userId = intent.getStringExtra(getString(R.string.userId)) ?: ""
 
 //        collapsingToolbar.subtitle = gospelAuthor
-        collapsingToolbar.title = ""
+        collapsingToolbar.title = gospelTitle
     }
 }

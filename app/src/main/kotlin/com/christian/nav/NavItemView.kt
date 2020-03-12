@@ -204,10 +204,10 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
 //            }
 //            VIEW_ME -> {
         return when (pos) {
-            0 -> {
-                containerView.context.getString(R.string.me)
-            }
-            in 1..5 -> {
+//            0 -> {
+//                containerView.context.getString(R.string.me)
+//            }
+            in 0..1 -> {
                 setting.name
             }
             else -> ""

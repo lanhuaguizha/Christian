@@ -9,6 +9,8 @@ import com.christian.BuildConfig
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.multitype.*
+import com.christian.nav.nullString
+import com.christian.nav.toolbarTitle
 import com.christian.util.fixAppBarLayoutElevation
 import com.christian.util.restoreScrolledPositionOfDetailPage
 import com.google.android.material.snackbar.Snackbar
@@ -86,7 +88,7 @@ class AboutActivity : AbsAboutActivity(), OnRecommendationClickedListener, OnCon
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {
         icon.setImageResource(R.drawable.ic_group_add_black_24dp)
         slogan.text = getString(R.string.app_name)
-//        title = intent?.extras?.getString(toolbarTitle) ?: nullString
+        title = intent?.extras?.getString(toolbarTitle) ?: nullString
         version.text = BuildConfig.VERSION_NAME
     }
 }

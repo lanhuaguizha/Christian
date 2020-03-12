@@ -34,6 +34,7 @@ class SettingsActivity : SwipeBackActivity() {
 
         about_us.setOnClickListener {
             val i = Intent(this, AboutActivity::class.java)
+            i.putExtra(toolbarTitle, getString(R.string.about))
             startActivity(i)
         }
 

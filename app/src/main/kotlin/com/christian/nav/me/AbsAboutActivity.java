@@ -37,9 +37,8 @@ import com.christian.multitype.OnRecommendationClickedListener;
 import com.christian.multitype.Recommendation;
 import com.christian.nav.HidingScrollListener;
 import com.christian.swipe.SwipeBackActivity;
-import com.christian.util.UtilsKt;
 import com.github.clans.fab.FloatingActionMenu;
-import com.google.android.material.appbar.SubtitleCollapsingToolbarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -56,7 +55,7 @@ import me.drakeet.multitype.MultiTypeAdapter;
 public abstract class AbsAboutActivity extends SwipeBackActivity implements EventListener<DocumentSnapshot> {
 
     public Toolbar toolbar;
-    protected SubtitleCollapsingToolbarLayout collapsingToolbar;
+    protected CollapsingToolbarLayout collapsingToolbar;
     private LinearLayout headerContentLayout;
 
     private List<Object> items;
@@ -87,7 +86,7 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
 //        UtilsKt.recordScrolledPositionOfDetailPage(this, recyclerView);
     }
 
-    protected void onTitleViewCreated(@NonNull SubtitleCollapsingToolbarLayout collapsingToolbar) {
+    protected void onTitleViewCreated(@NonNull CollapsingToolbarLayout collapsingToolbar) {
     }
 
     public void setImageLoader(@NonNull ImageLoader imageLoader) {
@@ -325,7 +324,7 @@ public abstract class AbsAboutActivity extends SwipeBackActivity implements Even
         return toolbar;
     }
 
-    public SubtitleCollapsingToolbarLayout getCollapsingToolbar() {
+    public CollapsingToolbarLayout getCollapsingToolbar() {
         return collapsingToolbar;
     }
 
