@@ -364,4 +364,6 @@
     <string name="dark_mode_auto">Sunset automatically turns on</string>
     <string name="open_source_statement">Open source statement</string>
     <string name="activity_home_item_image_desc">This is the image of the home page item</string>
+    <string name="title_activity_history">History</string>
+    <string name="title_activity_my_articles">MyArticles</string>
 </resources>

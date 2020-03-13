@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.christian.HistoryAndMyArticlesActivity
 import com.christian.R
 import com.christian.data.Disciple
 import com.christian.data.MeBean
@@ -167,7 +168,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
             }
             else -> {
                 containerView.setOnClickListener {
-                    val i = Intent(containerView.context, NavDetailActivity::class.java)
+                    val i = Intent(containerView.context, HistoryAndMyArticlesActivity::class.java)
                     i.putExtra(toolbarTitle, getTitle(setting, adapterPosition))
                     containerView.context.startActivity(i)
                 }

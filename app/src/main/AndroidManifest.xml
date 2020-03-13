@@ -154,7 +154,15 @@
                     android:pathPattern=".*\\.mdown"
                     android:scheme="file" />
             </intent-filter>
-        </activity> <!-- 友盟统计 -->
+        </activity>
+        <activity android:name=".HistoryAndMyArticlesActivity" android:label="@string/title_activity_history"
+            android:launchMode="singleTop"
+            android:parentActivityName=".nav.NavActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.christian.nav.NavActivity" />
+        </activity>
+        <!-- 友盟统计 -->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="56a82f52e0f55ae83b000428" />
