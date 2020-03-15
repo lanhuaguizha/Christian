@@ -73,7 +73,7 @@
         app:srlEnableLoadMore="true"
         app:srlEnablePureScrollMode="true">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.christian.multitype.CustomRecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

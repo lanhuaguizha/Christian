@@ -232,6 +232,6 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         userId = intent.getStringExtra(getString(R.string.userId)) ?: ""
 
 //        collapsingToolbar.subtitle = gospelAuthor
-        collapsingToolbar.title = gospelTitle
+        collapsingToolbar.title = gospelCategory
     }
 }
