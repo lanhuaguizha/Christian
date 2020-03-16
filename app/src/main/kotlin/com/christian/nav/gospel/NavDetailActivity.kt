@@ -143,10 +143,10 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 //                snackbar(getString(R.string.toast_favorite)).show()
                 true
             }
-            R.id.menu_translate -> {
-//                snackbar(getString(R.string.toast_translate)).show()
-                true
-            }
+//            R.id.menu_translate -> {
+////                snackbar(getString(R.string.toast_translate)).show()
+//                true
+//            }
 //            R.id.menu_read -> {
 //                snackbar(getString(R.string.toast_read)).show()
 //                true
