@@ -3,7 +3,6 @@ package com.christian.nav.gospel
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -12,19 +11,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.multitype.Card
 import com.christian.nav.NavActivity
 import com.christian.nav.me.AbsAboutActivity
 import com.christian.util.ChristianUtil
-import com.christian.util.fixAppBarLayoutElevation
+import com.christian.util.filterImageUrlThroughDetailPageContent
 import com.christian.util.restoreScrolledPositionOfDetailPage
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ListenerRegistration
 import com.vincent.blurdialog.BlurDialog
+import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.about_page_main_activity.*
 import kotlinx.android.synthetic.main.nav_activity.*
 import org.jetbrains.anko.AnkoLogger
@@ -213,7 +214,15 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         gospelTime = meBean.time
         userId = meBean.userId
 
+        Glide.with(this)
+                .load(filterImageUrlThroughDetailPageContent(gospelContent))
+                .transform(BlurTransformation(225, 1))
+                .into(activity_detail_title_background)
         restoreScrolledPositionOfDetailPage(this, recyclerView, activity_detail_mask)
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.activity_detail
     }
 
     override fun onCreateHeader(icon: ImageView, slogan: TextView, version: TextView) {

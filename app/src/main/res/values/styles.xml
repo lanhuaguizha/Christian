@@ -164,7 +164,7 @@
 
     <style name="AboutPage.Header.ToolbarTitleExpanded"
         parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/transparent</item>
     </style>
 
     <style name="AboutPage.Header.Icon">

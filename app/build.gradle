@@ -235,8 +235,9 @@ dependencies {
     api 'androidx.recyclerview:recyclerview:1.1.0-beta01'
 
     // Glide
-    api 'com.github.bumptech.glide:glide:4.9.0'
-    kapt 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'jp.wasabeef:glide-transformations:4.0.1'
 
     // MultiType
     api 'me.drakeet.multitype:multitype:4.0.0-alpha2'
