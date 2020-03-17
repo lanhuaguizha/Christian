@@ -209,14 +209,14 @@ fun getJson(fileName: String, context: Context): String {
 /**
  * utils to blur a view
  */
-fun makeViewBlur(view: BlurView, parent: ViewGroup, window: Window) {
+fun makeViewBlur(view: BlurView, parent: ViewGroup, window: Window, boolean: Boolean = false) {
     val windowBackground = window.decorView.background
     val radius = 25f
     view.setupWith(parent)
             .setFrameClearDrawable(windowBackground)
             .setBlurAlgorithm(SupportRenderScriptBlur(parent.context))
             .setBlurRadius(radius)
-            .setHasFixedTransformationMatrix(false)
+            .setHasFixedTransformationMatrix(boolean)
 }
 
 /**

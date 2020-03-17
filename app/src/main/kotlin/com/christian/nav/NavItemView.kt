@@ -98,7 +98,7 @@ open class NavItemView(override val containerView: View, navActivity: NavActivit
         }
         tv_title_nav_item_text.text = gospel.desc
         tv_subtitle_nav_item.text = gospel.name
-        makeViewBlur(tv_title_nav_item, cl_nav_item, activity.window)
+        makeViewBlur(tv_title_nav_item, cl_nav_item, activity.window, true)
         tv_detail_nav_item.text = gospel.content
         textView.text = gospel.author + "·" + gospel.church + "·" + gospel.time
 //        textView2.text = gospel.church
