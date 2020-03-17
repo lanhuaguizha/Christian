@@ -216,7 +216,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
         Glide.with(this)
                 .load(filterImageUrlThroughDetailPageContent(gospelContent))
-                .transform(BlurTransformation())
+                .transform(BlurTransformation(160, 1))
                 .into(activity_detail_title_background)
         restoreScrolledPositionOfDetailPage(this, recyclerView, activity_detail_mask)
     }

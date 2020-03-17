@@ -26,7 +26,9 @@ import org.jetbrains.anko.AnkoLogger
  * NavItemView/NavItemHolder is view logic of nav items.
  */
 
-open class NavItemView(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer, AnkoLogger {
+open class NavItemView(override val containerView: View, navActivity: NavActivity) : RecyclerView.ViewHolder(containerView), LayoutContainer, AnkoLogger {
+
+    private var activity: NavActivity
 
     init {
 //        containerView.login_nav_item.setOnClickListener {
@@ -60,6 +62,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
             ChristianUtil.showListDialog(v.context as NavActivity, list)
         }
 
+        activity = navActivity
     }
 
     fun initView() {
@@ -93,8 +96,9 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
         } else {
             iv_nav_item.visibility = View.GONE
         }
-        tv_title_nav_item.text = gospel.desc
+        tv_title_nav_item_text.text = gospel.desc
         tv_subtitle_nav_item.text = gospel.name
+        makeViewBlur(tv_title_nav_item, cl_nav_item, activity.window)
         tv_detail_nav_item.text = gospel.content
         textView.text = gospel.author + "·" + gospel.church + "·" + gospel.time
 //        textView2.text = gospel.church
@@ -220,7 +224,7 @@ open class NavItemView(override val containerView: View) : RecyclerView.ViewHold
     }
 
     fun bind(disciple: Disciple) {
-        tv_title_nav_item.text = disciple.id
+        tv_title_nav_item_text.text = disciple.id
         tv_subtitle_nav_item.text = disciple.name
     }
 

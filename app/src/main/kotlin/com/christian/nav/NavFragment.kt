@@ -313,7 +313,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
                                             viewType: Int): NavItemView {
                 val view = LayoutInflater.from(parent.context)
                         .inflate(R.layout.nav_item_gospel, parent, false)
-                return NavItemView(view)
+                return NavItemView(view, navActivity)
             }
 
             override fun onBindViewHolder(@NonNull holder: NavItemView,
@@ -346,7 +346,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
         return object : FirestoreRecyclerAdapter<Setting, NavItemView>(options) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NavItemView {
                 return NavItemView(LayoutInflater.from(parent.context)
-                        .inflate(R.layout.nav_item_me, parent, false))
+                        .inflate(R.layout.nav_item_me, parent, false), navActivity)
             }
 
             override fun onBindViewHolder(holder: NavItemView, position: Int, model: Setting) {

@@ -30,25 +30,36 @@
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/activity_home_item_image_desc" />
 
-        <com.christian.view.CustomTextView
-            android:lineSpacingExtra="@dimen/line_spacing_extra"
-            android:id="@+id/tv_title_nav_item"
-            style="@android:style/TextAppearance.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@android:color/secondary_text_dark"
-            app:layout_constraintEnd_toStartOf="@+id/ib_nav_item"
+        <eightbitlab.com.blurview.BlurView
             app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="1"
+            android:id="@+id/tv_title_nav_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_nav_item"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_nav_item"
-            tool:text="属灵人小传选集" />
+            app:layout_constraintTop_toTopOf="@+id/iv_nav_item">
+
+            <com.christian.view.CustomTextView
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/tv_title_nav_item_text"
+                android:lineSpacingExtra="@dimen/line_spacing_extra"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="1"
+                style="@android:style/TextAppearance.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                tool:text="属灵人小传选集" />
+        </eightbitlab.com.blurview.BlurView>
 
         <com.christian.view.CustomTextView
             android:lineSpacingExtra="@dimen/line_spacing_extra"
