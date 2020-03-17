@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.christian.R
 import com.christian.data.MeBean
 import com.christian.multitype.Card
+import com.christian.multitype.Category
 import com.christian.nav.NavActivity
 import com.christian.nav.me.AbsAboutActivity
 import com.christian.util.ChristianUtil
@@ -207,7 +208,9 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         gospelCategory = meBean.desc
         gospelTitle = meBean.name
         gospelContent = meBean.content
+        items.add(Category(gospelTitle))
         items.add(Card(gospelContent))
+        items.add(Card("${meBean.author}·${meBean.church}·${meBean.time}"))
 
         gospelAuthor = meBean.author
         gospelChurch = meBean.church
@@ -216,7 +219,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
 
         Glide.with(this)
                 .load(filterImageUrlThroughDetailPageContent(gospelContent))
-                .transform(BlurTransformation(160, 1))
+                .transform(BlurTransformation())
                 .into(activity_detail_title_background)
         restoreScrolledPositionOfDetailPage(this, recyclerView, activity_detail_mask)
     }

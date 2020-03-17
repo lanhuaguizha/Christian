@@ -28,7 +28,6 @@ import org.jetbrains.anko.AnkoLogger
 
 open class NavItemView(override val containerView: View, navActivity: NavActivity) : RecyclerView.ViewHolder(containerView), LayoutContainer, AnkoLogger {
 
-    private var activity: NavActivity
 
     init {
 //        containerView.login_nav_item.setOnClickListener {
@@ -62,7 +61,7 @@ open class NavItemView(override val containerView: View, navActivity: NavActivit
             ChristianUtil.showListDialog(v.context as NavActivity, list)
         }
 
-        activity = navActivity
+//        activity = navActivity
     }
 
     fun initView() {
@@ -98,8 +97,10 @@ open class NavItemView(override val containerView: View, navActivity: NavActivit
         }
         tv_title_nav_item_text.text = gospel.desc
         tv_subtitle_nav_item.text = gospel.name
-        makeViewBlur(tv_title_nav_item, cl_nav_item, activity.window, true)
+//        makeViewBlur(tv_title_nav_item, cl_nav_item, activity.window, true)
         tv_detail_nav_item.text = gospel.content
+                .replace(Regex("!\\[.+\\)"), "")
+                .replace(Regex("\\s+"), "")
         textView.text = gospel.author + "·" + gospel.church + "·" + gospel.time
 //        textView2.text = gospel.church
 //        textView3.text = gospel.time
