@@ -209,7 +209,7 @@ class NavDetailActivity : AbsAboutActivity(), AnkoLogger {
         gospelTitle = meBean.name
         gospelContent = meBean.content
 //        items.add(Category(gospelTitle))
-        items.add(Card("<font color=\"red\">**$gospelTitle**</font><br><br>$gospelContent<br><br>*${meBean.author}·${meBean.church}·${meBean.time}*"))
+        items.add(Card("<font color=\"red\">**$gospelTitle**</font><br><br>$gospelContent<br><br>${meBean.author}·${meBean.church}·${meBean.time}"))
 
         gospelAuthor = meBean.author
         gospelChurch = meBean.church
