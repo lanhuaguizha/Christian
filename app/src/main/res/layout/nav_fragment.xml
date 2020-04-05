@@ -18,7 +18,7 @@
         app:srlEnableLoadMore="true"
         app:srlDragRate="0.75">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.christian.multitype.CustomRecyclerView
             android:id="@+id/rv_nav"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
