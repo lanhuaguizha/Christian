@@ -10,8 +10,6 @@
         android:focusable="true">
 
         <TextView
-            android:focusable="false"
-            android:clickable="false"
             android:id="@+id/content"
             style="@style/AboutPage.CardContent"
             android:lineSpacingExtra="8dp"
