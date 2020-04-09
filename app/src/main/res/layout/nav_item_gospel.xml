@@ -49,7 +49,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:id="@+id/tv_title_nav_item_text"
-                android:lineSpacingExtra="@dimen/line_spacing_extra"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintVertical_bias="1"
                 style="@android:style/TextAppearance.Medium"
@@ -62,7 +61,6 @@
         </eightbitlab.com.blurview.BlurView>
 
         <com.christian.view.CustomTextView
-            android:lineSpacingExtra="@dimen/line_spacing_extra"
             android:id="@+id/tv_subtitle_nav_item"
             style="@android:style/TextAppearance.Large"
             android:layout_width="0dp"
@@ -82,7 +80,6 @@
             tool:text="简介" />
 
         <com.christian.view.CustomTextView
-            android:lineSpacingExtra="@dimen/line_spacing_extra"
             android:id="@+id/tv_detail_nav_item"
             style="@android:style/TextAppearance.Small"
             android:layout_width="0dp"
@@ -124,7 +121,6 @@
         <com.christian.view.CustomTextView
             android:id="@+id/textView"
             android:includeFontPadding="false"
-            android:lineSpacingExtra="@dimen/line_spacing_extra"
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -26,7 +26,6 @@
             android:layout_marginLeft="10dp">
 
             <TextView
-                android:lineSpacingExtra="@dimen/line_spacing_extra"
                 android:id="@+id/messageTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +41,6 @@
                 android:scaleType="fitCenter"/>
 
             <TextView
-                android:lineSpacingExtra="@dimen/line_spacing_extra"
                 android:id="@+id/messengerTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

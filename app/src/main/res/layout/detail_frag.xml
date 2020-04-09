@@ -30,7 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/activity_margin"
-            android:lineSpacingMultiplier="1.5"
             android:paddingStart="@dimen/activity_margin"
             android:padding="@dimen/activity_margin"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"

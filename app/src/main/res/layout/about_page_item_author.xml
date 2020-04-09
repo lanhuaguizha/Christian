@@ -7,7 +7,6 @@
     style="@style/AboutPage.Item.Card">
 
     <TextView
-        android:lineSpacingMultiplier="1.2"
 	    android:textIsSelectable="true"
         style="@style/AboutPage.CardContent"
         android:textSize="16sp"
