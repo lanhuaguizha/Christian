@@ -39,8 +39,9 @@
     <color name="c_e1e1e1">#e1e1e1</color>
 
 
-    <color name="default_background_nav">#FAFAFA</color>
+    <color name="default_background_nav">#F9F9F9</color>
     <color name="colorOverlay">#78ffffff</color>
+    <color name="colorBlur">@android:color/transparent</color>
 
     <!--app text color-->
     <color name="text_color_primary">#000000</color>

@@ -8,7 +8,6 @@
     android:foreground="?selectableItemBackgroundBorderless"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="@dimen/card_corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -126,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             tool:text="TextView"
-            android:textColor="@android:color/secondary_text_dark"
+            android:textColor="@android:color/tertiary_text_dark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_detail_nav_item"
             app:layout_constraintTop_toBottomOf="@+id/tv_detail_nav_item" />

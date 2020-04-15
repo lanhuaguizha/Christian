@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/about_page_background">
+    android:background="@color/default_background_nav">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/header_layout"
