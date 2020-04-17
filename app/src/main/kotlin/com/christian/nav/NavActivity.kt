@@ -356,7 +356,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_filter_list_black_24dp, theme))
 //                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccent,theme))
                 if (verticalOffset > -tb_nav.height)
-                    fab_nav.show()
+                    fab_nav.hide()
                 TooltipCompat.setTooltipText(fab_nav, "Filter")
 
                 fab_nav.setOnClickListener {
@@ -372,7 +372,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_downward_black_24dp, theme))
 //                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccent,theme))
                 if (verticalOffset > -tb_nav.height)
-                    fab_nav.show()
+                    fab_nav.hide()
                 TooltipCompat.setTooltipText(fab_nav, "Down")
 
                 fab_nav.setOnClickListener {

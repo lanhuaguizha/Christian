@@ -53,6 +53,7 @@
             </LinearLayout>
 
             <ImageView
+                android:adjustViewBounds="true"
                 android:id="@+id/activity_detail_title_background"
                 android:layout_width="match_parent"
                 android:scaleType="centerCrop"

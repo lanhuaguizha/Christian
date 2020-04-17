@@ -1,14 +1,16 @@
 package com.christian
 
+import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.widget.Switch
-import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceFragmentCompat
-import com.christian.nav.NavActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import com.christian.nav.me.AboutActivity
+import com.christian.nav.nullString
+import com.christian.nav.switchNightModeIsOn
 import com.christian.nav.toolbarTitle
 import com.christian.swipe.SwipeBackActivity
 import com.christian.util.fixToolbarElevation
@@ -18,12 +20,16 @@ import kotlinx.android.synthetic.main.settings_activity.*
 
 class SettingsActivity : SwipeBackActivity() {
     private var isOn = false
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
         setToolbarAsUp(this, settings_toolbar, getString(R.string.settings))
         fixToolbarElevation(settings_abl)
+
+        sharedPreferences = getSharedPreferences(intent?.extras?.getString(switchNightModeIsOn)
+                ?: nullString, Activity.MODE_PRIVATE)
 
         clear_cache.setOnClickListener {
             var intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
@@ -39,31 +45,39 @@ class SettingsActivity : SwipeBackActivity() {
         }
 
         dark_mode.setOnClickListener {
-            if (isOn) {
+            if (sharedPreferences.getBoolean("isOn", true)) {
                 switch_nav_item_small.isChecked = false
                 // 恢复应用默认皮肤
-//                        Aesthetic.config {
-//                            activityTheme(R.style.Christian)
-//                            isDark(false)
-//                            textColorPrimary(res = R.color.text_color_primary)
-//                            textColorSecondary(res = R.color.text_color_secondary)
-//                            attribute(R.attr.my_custom_attr, res = R.color.default_background_nav)
-//                            attribute(R.attr.my_custom_attr2, res = R.color.white)
-//                        }
+                shouldEnableDarkMode(DarkModeConfig.NO)
                 isOn = false
+                sharedPreferences.edit { putBoolean("isOn", isOn) }
             } else {
                 switch_nav_item_small.isChecked = true
                 // 夜间模式
-//                        Aesthetic.config {
-//                            activityTheme(R.style.ChristianDark)
-//                            isDark(true)
-//                            textColorPrimary(res = android.R.color.primary_text_dark)
-//                            textColorSecondary(res = android.R.color.secondary_text_dark)
-//                            attribute(R.attr.my_custom_attr, res = R.color.text_color_primary)
-//                            attribute(R.attr.my_custom_attr2, res = R.color.background_material_dark)
-//                        }
+                shouldEnableDarkMode(DarkModeConfig.YES)
                 isOn = true
+                sharedPreferences.edit { putBoolean("isOn", isOn) }
             }
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        switch_nav_item_small.isChecked = sharedPreferences.getBoolean("isOn", true)
+    }
+
+    enum class DarkModeConfig {
+        YES,
+        NO,
+        FOLLOW_SYSTEM
+    }
+
+    private fun shouldEnableDarkMode(darkModeConfig: DarkModeConfig) {
+        when (darkModeConfig) {
+            DarkModeConfig.YES -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            DarkModeConfig.NO -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            DarkModeConfig.FOLLOW_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
     }
 

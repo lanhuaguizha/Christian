@@ -57,6 +57,7 @@
                 android:id="@+id/activity_detail_title_background"
                 android:layout_width="match_parent"
                 android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
                 android:layout_height="match_parent"/>
 
             <androidx.appcompat.widget.Toolbar

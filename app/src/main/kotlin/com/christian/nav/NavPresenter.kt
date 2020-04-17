@@ -154,6 +154,7 @@ const val HIDE_THRESHOLD = 0 //移动多少距离后显示隐藏
 const val initFragmentIndex = 0
 const val nullString = ""
 const val toolbarTitle = "toolbarTitle"
+const val switchNightModeIsOn = "switchNightModeIsOn"
 const val NAV_ID = "navId"
 const val NAV_FRAGMENT_LIST = "navFragmentList"
 
