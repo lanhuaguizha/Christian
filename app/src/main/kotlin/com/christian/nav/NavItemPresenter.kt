@@ -44,6 +44,26 @@ fun generateUrlId(url: String?): Int {
     }
 }
 
+fun generateUrlIdNightMode(url: String?): Int {
+    return when (url) {
+        "R.drawable.me" -> R.drawable.me
+        "ic_brightness_medium_black_24dp" -> R.drawable.ic_brightness_medium_black_24dp
+        "ic_history_black_24dp" -> R.drawable.ic_history_black_24dp_night_mode
+        "ic_library_books_black_24dp" -> R.drawable.ic_library_books_black_24dp
+        "ic_crop_free_black_24dp" -> R.drawable.ic_crop_free_black_24dp
+        "ic_wallpaper_black_24dp" -> R.drawable.ic_wallpaper_black_24dp
+        "R.drawable.ic_settings_black_24dp" -> R.drawable.ic_settings_black_24dp
+        "R.drawable.ic_assignment_black_24dp" -> R.drawable.ic_assignment_black_24dp
+        "R.drawable.ic_contact_mail_black_24dp" -> R.drawable.ic_contact_mail_black_24dp
+        "R.drawable.ic_contact_phone_black_24dp" -> R.drawable.ic_contact_phone_black_24dp
+        "ic_star_black_24dp" -> R.drawable.ic_star_black_24dp_night_mode
+        "ic_group_add_black_24dp" -> R.drawable.ic_group_add_black_24dp
+        else -> {
+            return 0
+        }
+    }
+}
+
 /**
  * item animation
  */

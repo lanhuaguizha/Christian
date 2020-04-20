@@ -25,8 +25,10 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDex;
 
+import com.christian.util.ChristianUtil;
 import com.christian.util.CrashHandler;
 import com.github.anzewei.parallaxbacklayout.ParallaxHelper;
 import com.google.android.material.snackbar.Snackbar;
@@ -36,6 +38,8 @@ import com.squareup.leakcanary.RefWatcher;
 import me.drakeet.library.CrashWoodpecker;
 import ren.qinc.markdowneditors.AppManager;
 import ren.qinc.markdowneditors.utils.Check;
+
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 
 
 /**
@@ -64,7 +68,14 @@ public abstract class BaseApplication extends Application {
         if (hasCrashLog()) {
             CrashWoodpecker.fly().to(this);//崩溃异常捕获
         }
+        // Initialize night mode
+        setNightMode();
+    }
 
+    private void setNightMode() {
+//        boolean b1 = (getApplicationContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)==2;
+        boolean b = ChristianUtil.getNightModeSP(this);
+        AppCompatDelegate.setDefaultNightMode(b ? MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
     }
 
 

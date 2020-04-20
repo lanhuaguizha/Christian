@@ -9,7 +9,6 @@ import android.provider.Settings
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import com.christian.nav.me.AboutActivity
-import com.christian.nav.nullString
 import com.christian.nav.switchNightModeIsOn
 import com.christian.nav.toolbarTitle
 import com.christian.swipe.SwipeBackActivity
@@ -28,8 +27,8 @@ class SettingsActivity : SwipeBackActivity() {
         setToolbarAsUp(this, settings_toolbar, getString(R.string.settings))
         fixToolbarElevation(settings_abl)
 
-        sharedPreferences = getSharedPreferences(intent?.extras?.getString(switchNightModeIsOn)
-                ?: nullString, Activity.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(switchNightModeIsOn
+                , Activity.MODE_PRIVATE)
 
         clear_cache.setOnClickListener {
             var intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)

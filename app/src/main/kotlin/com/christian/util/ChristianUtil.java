@@ -146,4 +146,8 @@ public class ChristianUtil {
         dialog.show();
         return dialog;
     }
+
+    public static boolean getNightModeSP(Context context) {
+        return context.getSharedPreferences("switchNightModeIsOn", Context.MODE_PRIVATE).getBoolean("isOn", true);
+    }
 }
