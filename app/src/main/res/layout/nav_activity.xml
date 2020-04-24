@@ -71,7 +71,7 @@
             app:tabMode="scrollable" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.christian.view.CustomViewPager
+    <com.christian.view.BounceBackViewPager
         android:id="@+id/vp_nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

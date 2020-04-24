@@ -7,7 +7,7 @@ import android.view.MotionEvent
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.debug
 
-class CustomViewPager(context: Context, attrs: AttributeSet?) : androidx.viewpager.widget.ViewPager(context, attrs), AnkoLogger {
+open class CustomViewPager(context: Context, attrs: AttributeSet?) : androidx.viewpager.widget.ViewPager(context, attrs), AnkoLogger {
 
     // Remove switching animation
 //    override fun setCurrentItem(item: Int) {

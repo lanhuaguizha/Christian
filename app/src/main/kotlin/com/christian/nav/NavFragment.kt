@@ -123,6 +123,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
     private var pageSelectedPosition: Int = -1
 
     private fun initVp(tabTitleList: ArrayList<String>) {
+        vp1_nav.viewPager = navActivity.vp_nav
         navChildFragmentPagerAdapter = NavChildFragmentPagerAdapter(childFragmentManager, tabTitleList)
         v.vp1_nav.adapter = navChildFragmentPagerAdapter
         navActivity.tl_nav.setupWithViewPager(v.vp1_nav)//将TabLayout和ViewPager关联起来
