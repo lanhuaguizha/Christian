@@ -340,7 +340,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
 //                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccent,theme))
                 if (verticalOffset != -tb_nav.height)
-                    fab_nav.show()
+                    fab_nav.hide()
                 TooltipCompat.setTooltipText(fab_nav, "Edit")
 
                 fab_nav.setOnClickListener {
@@ -569,7 +569,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         // Choose authentication providers
         val providers = arrayListOf(
                 AuthUI.IdpConfig.EmailBuilder().build(),
-                AuthUI.IdpConfig.PhoneBuilder().build(),
+//                AuthUI.IdpConfig.PhoneBuilder().build(),
                 AuthUI.IdpConfig.GoogleBuilder().build()
 //                AuthUI.IdpConfig.FacebookBuilder().build(),
 //                AuthUI.IdpConfig.TwitterBuilder().build()

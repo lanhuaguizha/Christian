@@ -73,6 +73,7 @@
 
     <com.christian.view.BounceBackViewPager
         android:id="@+id/vp_nav"
+        app:overscroll_translation_bounce="300dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/default_background_nav"
