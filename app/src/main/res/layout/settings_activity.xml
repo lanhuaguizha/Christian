@@ -49,6 +49,7 @@
                     android:foreground="?selectableItemBackgroundBorderless" />
 
                 <include
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/search_bottom_margin"
                     android:layout_marginStart="@dimen/search_bottom_margin"
                     android:layout_marginEnd="@dimen/search_bottom_margin"

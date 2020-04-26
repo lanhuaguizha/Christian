@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
  */
 @Suppress("DEPRECATION")
 @androidx.coordinatorlayout.widget.CoordinatorLayout.DefaultBehavior(AnimationFloatingActionButton.Behavior2::class)
-class AnimationFloatingActionButton(context: Context?, attrs: AttributeSet?) : FloatingActionButton(context, attrs) {
+class AnimationFloatingActionButton(context: Context, attrs: AttributeSet?) : FloatingActionButton(context, attrs) {
 
     // true will always has animation
     override fun isLaidOut(): Boolean {
