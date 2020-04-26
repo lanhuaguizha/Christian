@@ -31,6 +31,10 @@ import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_item_me_portrait.*
+import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
+import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator
+import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.info
@@ -266,6 +270,22 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         for (tabTitle in tabTitleList) {
             tl_nav.newTab().setText(tabTitle).let { tl_nav.addTab(it) }
         }
+
+//        OverScrollDecoratorHelper.setUpStaticOverScroll(tl_nav, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL)
+        HorizontalOverScrollBounceEffectDecorator(object : IOverScrollDecoratorAdapter {
+            override fun isInAbsoluteEnd(): Boolean {
+                return !tl_nav.canScrollDown()
+            }
+
+            override fun isInAbsoluteStart(): Boolean {
+                return !tl_nav.canScrollUp()
+            }
+
+            override fun getView(): View {
+                return tl_nav
+            }
+
+        })
         info { "圣经初始化" }
     }
 

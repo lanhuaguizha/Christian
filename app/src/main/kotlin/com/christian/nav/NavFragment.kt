@@ -196,7 +196,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
             }
 
             override fun onShow() {
-                showFab()
+                navActivity.showFab(pageSelectedPosition)
                 isPageTop = false
                 isPageBottom = false
                 controlOverScroll(navActivity, navActivity.abl_nav, navActivity.verticalOffset)
