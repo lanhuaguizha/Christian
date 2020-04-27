@@ -63,7 +63,7 @@ class SettingsActivity : SwipeBackActivity() {
 
     override fun onResume() {
         super.onResume()
-        switch_nav_item_small.isChecked = sharedPreferences.getBoolean("isOn", true)
+        switch_nav_item_small.isChecked = sharedPreferences.getBoolean("isOn", false)
     }
 
     enum class DarkModeConfig {
