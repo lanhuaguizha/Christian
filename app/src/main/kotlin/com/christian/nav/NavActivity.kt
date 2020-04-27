@@ -21,7 +21,7 @@ import com.christian.R
 import com.christian.SettingsActivity
 import com.christian.nav.disciple.DiscipleFragment
 import com.christian.swipe.SwipeBackActivity
-import com.christian.util.showExitDialog
+import com.christian.view.UITools
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.appbar.AppBarLayout
@@ -32,8 +32,6 @@ import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
 import kotlinx.android.synthetic.main.nav_item_me_portrait.*
 import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator
-import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
-import me.everything.android.ui.overscroll.VerticalOverScrollBounceEffectDecorator
 import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter
 import org.jetbrains.anko.debug
 import org.jetbrains.anko.dip
@@ -98,6 +96,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     private lateinit var mStaticHandler: StaticHandler
     var pageSelectedPosition = 0
+
     /**
      * presenter will be initialized when the NavPresenter is initialized
      */
@@ -271,6 +270,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             tl_nav.newTab().setText(tabTitle).let { tl_nav.addTab(it) }
         }
 
+        UITools.elasticPadding(tl_nav, 500);
 //        OverScrollDecoratorHelper.setUpStaticOverScroll(tl_nav, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL)
         HorizontalOverScrollBounceEffectDecorator(object : IOverScrollDecoratorAdapter {
             override fun isInAbsoluteEnd(): Boolean {
@@ -658,6 +658,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
     private lateinit var navService: NavService
     private var isBind: Boolean = false
+
     /**
      * 用于获取NavService
      */
