@@ -270,7 +270,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
             tl_nav.newTab().setText(tabTitle).let { tl_nav.addTab(it) }
         }
 
-        UITools.elasticPadding(tl_nav, 500);
+//        UITools.elasticPadding(tl_nav, 500);
 //        OverScrollDecoratorHelper.setUpStaticOverScroll(tl_nav, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL)
         HorizontalOverScrollBounceEffectDecorator(object : IOverScrollDecoratorAdapter {
             override fun isInAbsoluteEnd(): Boolean {
