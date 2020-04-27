@@ -44,7 +44,7 @@ class SettingsActivity : SwipeBackActivity() {
         }
 
         dark_mode.setOnClickListener {
-            if (sharedPreferences.getBoolean("isOn", true)) {
+            if (sharedPreferences.getBoolean("isOn", false)) {
                 switch_nav_item_small.isChecked = false
                 // 恢复应用默认皮肤
                 shouldEnableDarkMode(DarkModeConfig.NO)
