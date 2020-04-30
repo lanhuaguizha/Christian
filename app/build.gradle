@@ -260,6 +260,8 @@ dependencies {
 
     // Bounce back
     implementation 'me.everything:overscroll-decor-android:1.0.4' // https://github.com/EverythingMe/overscroll-decor
+    // facebook rebound
+    implementation 'com.facebook.rebound:rebound:0.3.6'
 
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0-beta02', {
         exclude group: 'com.android.support', module: 'support-annotations'

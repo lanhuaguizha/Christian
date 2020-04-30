@@ -4,16 +4,15 @@ import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
-import android.widget.EdgeEffect;
 import android.widget.Scroller;
 
+import com.facebook.rebound.Spring;
+import com.facebook.rebound.SpringListener;
+import com.facebook.rebound.SpringSystem;
 import com.google.android.material.tabs.TabLayout;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.constant.RefreshState;
 
 public class CustomTabLayout extends TabLayout {
     private static final String TAG = CustomTabLayout.class.getSimpleName();
@@ -21,9 +20,10 @@ public class CustomTabLayout extends TabLayout {
     private Scroller mScroller;
     private int mCurrentVelocity;
     private int mMinimumVelocity = 175;
-//    private int mMaximumVelocity = 0;
+    //    private int mMaximumVelocity = 0;
     private int mMaximumVelocity = 28000;
     private float mSpinner;
+    private Spring mSpring;
 
     public CustomTabLayout(Context context) {
         this(context, null);
@@ -68,22 +68,29 @@ public class CustomTabLayout extends TabLayout {
         return super.onTouchEvent(ev);
     }
 
-        protected boolean mVerticalPermit = false;
+    protected boolean mVerticalPermit = false;
+
     @Override
     public void computeScroll() {
-        super.computeScroll();
         if (mScroller.computeScrollOffset()) {
             int finalX = mScroller.getFinalX();
-            if (!canScrollUp() || !canScrollDown()) {
+            int distance = 400;
+            if (!canScrollUp()) {
                 Log.i(TAG, "computeScroll: canScrollUp(), " + canScrollUp());
                 Log.i(TAG, "computeScroll: canScrollDown(), " + canScrollDown());
 //                if(mVerticalPermit) {
-                    float velocity;
-                    velocity = finalX > 0 ? -mScroller.getCurrVelocity() : mScroller.getCurrVelocity();
-//                    animSpinnerBounce(velocity);
-                    Log.i(TAG, "velocity, " + velocity);
+                float velocity;
+                velocity = finalX > 0 ? mScroller.getCurrVelocity() : mScroller.getCurrVelocity();
+                animSpinnerBounce(distance);
+                Log.i(TAG, "velocity, " + velocity);
 //                }
                 mScroller.forceFinished(true);
+            }
+            if (!canScrollDown()) {
+                float velocity;
+                velocity = -mScroller.getCurrVelocity();
+                animSpinnerBounceReverse(-distance);
+                Log.i(TAG, "velocity down, " + velocity);
             } else {
                 mVerticalPermit = true;//打开竖直通行证
                 final View thisView = this;
@@ -92,10 +99,70 @@ public class CustomTabLayout extends TabLayout {
             }
             Log.i(TAG, "computeScroll: finalX, " + finalX);
         }
+        super.computeScroll();
+    }
+
+    private void animSpinnerBounceReverse(int velocity) {
+        SpringSystem mSpringSystem = SpringSystem.create();
+        mSpring = mSpringSystem.createSpring();
+        mSpring.setEndValue(1f);
+        mSpring.addListener(new SpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                float value = (float) spring.getCurrentValue();
+                float scale = 1 - (value * 1f);
+                setTranslationX(scale * velocity);
+                Log.i(TAG, "onSpringUpdate: " + scale * 500);
+            }
+
+            @Override
+            public void onSpringAtRest(Spring spring) {
+
+            }
+
+            @Override
+            public void onSpringActivate(Spring spring) {
+
+            }
+
+            @Override
+            public void onSpringEndStateChange(Spring spring) {
+            }
+        });
+    }
+
+    private void animSpinnerBounce(float velocity) {
+        SpringSystem mSpringSystem = SpringSystem.create();
+        mSpring = mSpringSystem.createSpring();
+        mSpring.setEndValue(1f);
+        mSpring.addListener(new SpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                float value = (float) spring.getCurrentValue();
+                float scale = 1f - (value * 1f);
+                setTranslationX(scale * 500);
+                Log.i(TAG, "onSpringUpdate: " + scale * 500);
+            }
+
+            @Override
+            public void onSpringAtRest(Spring spring) {
+
+            }
+
+            @Override
+            public void onSpringActivate(Spring spring) {
+
+            }
+
+            @Override
+            public void onSpringEndStateChange(Spring spring) {
+            }
+        });
     }
 
     /**
      * 在必要的时候 开始 Fling 模式
+     *
      * @param flingVelocity 速度
      * @return true 可以拦截 嵌套滚动的 Fling
      */
@@ -128,18 +195,18 @@ public class CustomTabLayout extends TabLayout {
 //            }
 //            if ((velocity < 0 && ((mEnableOverScrollBounce && (mEnableLoadMore || mEnableOverScrollDrag)) || (mState == RefreshState.Loading && mSpinner >= 0) || (mEnableAutoLoadMore&&isEnableRefreshOrLoadMore(mEnableLoadMore))))
 //                    || (velocity > 0 && ((mEnableOverScrollBounce && mEnableRefresh || mEnableOverScrollDrag) || (mState == RefreshState.Refreshing && mSpinner <= 0)))) {
-                /*
-                 * 用于监听越界回弹、Refreshing、Loading、noMoreData 时自动拉出
-                 * 做法：使用 mScroller.fling 模拟一个惯性滚动，因为 AbsListView 和 ScrollView 等等各种滚动控件内部都是用 mScroller.fling。
-                 *      所以 mScroller.fling 的状态和 它们一样，可以试试判断它们的 fling 当前速度 和 是否结束。
-                 *      并再 computeScroll 方法中试试判读它们是否滚动到了边界，得到此时的 fling 速度
-                 *      如果 当前的速度还能继续 惯性滑行，自动拉出：越界回弹、Refreshing、Loading、noMoreData
-                 */
-                mVerticalPermit = false;//关闭竖直通行证
-                mScroller.fling(0, 0, 0, (int) -velocity, 0, 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
-                mScroller.computeScrollOffset();
-                final View thisView = this;
-                thisView.invalidate();
+            /*
+             * 用于监听越界回弹、Refreshing、Loading、noMoreData 时自动拉出
+             * 做法：使用 mScroller.fling 模拟一个惯性滚动，因为 AbsListView 和 ScrollView 等等各种滚动控件内部都是用 mScroller.fling。
+             *      所以 mScroller.fling 的状态和 它们一样，可以试试判断它们的 fling 当前速度 和 是否结束。
+             *      并再 computeScroll 方法中试试判读它们是否滚动到了边界，得到此时的 fling 速度
+             *      如果 当前的速度还能继续 惯性滑行，自动拉出：越界回弹、Refreshing、Loading、noMoreData
+             */
+            mVerticalPermit = false;//关闭竖直通行证
+            mScroller.fling(0, 0, 0, (int) -velocity, 0, 0, -Integer.MAX_VALUE, Integer.MAX_VALUE);
+            mScroller.computeScrollOffset();
+            final View thisView = this;
+            thisView.invalidate();
 //            }
         }
         return false;
