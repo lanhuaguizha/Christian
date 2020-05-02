@@ -24,6 +24,7 @@ public class CustomTabLayout extends TabLayout {
     private int mMaximumVelocity = 28000;
     private float mSpinner;
     private Spring mSpring;
+    protected boolean mVerticalPermit = false;
 
     public CustomTabLayout(Context context) {
         this(context, null);
@@ -50,7 +51,7 @@ public class CustomTabLayout extends TabLayout {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean dispatchTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();
         switch (action) {
             case MotionEvent.ACTION_MOVE:
@@ -61,15 +62,19 @@ public class CustomTabLayout extends TabLayout {
                 Log.i(TAG, "onTouchEvent: mCurrentVelocity, " + mCurrentVelocity);
                 startFlingIfNeed(0);
                 break;
+            case MotionEvent.ACTION_UP:
+                mVerticalPermit = true;//打开竖直通行证
+
+                break;
             case MotionEvent.ACTION_CANCEL:
                 mVelocityTracker.clear();
+                mVerticalPermit = true;//打开竖直通行证
+
                 break;
 
         }
-        return super.onTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
     }
-
-    protected boolean mVerticalPermit = false;
 
     @Override
     public void computeScroll() {
@@ -88,14 +93,13 @@ public class CustomTabLayout extends TabLayout {
 //                }
                 mScroller.forceFinished(true);
                 mVerticalPermit = false;
-            } else if (!canScrollDown() && mVerticalPermit && mScroller.getCurrVelocity() > 10000) {
+            } else if (!canScrollDown() && mVerticalPermit) {
                 float velocity;
                 velocity = -mScroller.getCurrVelocity();
                 animSpinnerBounceReverse(-distance);
                 Log.i(TAG, "mVerticalPermit 222" + velocity);
                 mVerticalPermit = false;
             } else {
-                mVerticalPermit = true;//打开竖直通行证
                 final View thisView = this;
                 thisView.invalidate();
                 Log.i(TAG, String.valueOf(finalX));
