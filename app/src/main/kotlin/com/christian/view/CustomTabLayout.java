@@ -63,7 +63,7 @@ public class CustomTabLayout extends TabLayout {
                 startFlingIfNeed(0);
                 break;
             case MotionEvent.ACTION_UP:
-                if (canScrollDown())
+                if (getScrollX() != 0 && canScrollDown() || getScaleX() == 0 && canScrollUp()) // getScrollX()判断是不是在最左边
                     mVerticalPermit = true;//打开竖直通行证
 
                 break;
