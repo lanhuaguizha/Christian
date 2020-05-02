@@ -88,7 +88,7 @@ public class CustomTabLayout extends TabLayout {
 //                }
                 mScroller.forceFinished(true);
                 mVerticalPermit = false;
-            } else if (!canScrollDown() && mVerticalPermit && mScroller.getCurrVelocity() > 40000) {
+            } else if (!canScrollDown() && mVerticalPermit && mScroller.getCurrVelocity() > 10000) {
                 float velocity;
                 velocity = -mScroller.getCurrVelocity();
                 animSpinnerBounceReverse(-distance);
