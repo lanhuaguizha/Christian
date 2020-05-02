@@ -63,13 +63,12 @@ public class CustomTabLayout extends TabLayout {
                 startFlingIfNeed(0);
                 break;
             case MotionEvent.ACTION_UP:
-                mVerticalPermit = true;//打开竖直通行证
+                if (canScrollDown())
+                    mVerticalPermit = true;//打开竖直通行证
 
                 break;
             case MotionEvent.ACTION_CANCEL:
                 mVelocityTracker.clear();
-                mVerticalPermit = true;//打开竖直通行证
-
                 break;
 
         }
