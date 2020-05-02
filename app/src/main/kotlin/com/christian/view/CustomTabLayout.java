@@ -41,7 +41,8 @@ public class CustomTabLayout extends TabLayout {
     }
 
     public boolean canScrollDown() {
-        return getChildAt(0).getWidth() != getScrollX() + getWidth();
+        Log.i(TAG, "canScrollDown: getScrollX(), " + getScrollX() + " getWidth(), " + getWidth() + " sum, " + getChildAt(0).getWidth());
+        return getScrollX() != getChildAt(0).getWidth() - getWidth();
     }
 
     public boolean canScrollUp() {
@@ -72,34 +73,35 @@ public class CustomTabLayout extends TabLayout {
 
     @Override
     public void computeScroll() {
+        super.computeScroll();
         if (mScroller.computeScrollOffset()) {
             int finalX = mScroller.getFinalX();
             int distance = 400;
-            if (!canScrollUp()) {
-                Log.i(TAG, "computeScroll: canScrollUp(), " + canScrollUp());
-                Log.i(TAG, "computeScroll: canScrollDown(), " + canScrollDown());
+            Log.i(TAG, "mVerticalPermit: !canScrollUp(), " + !canScrollUp());
+            Log.i(TAG, "mVerticalPermit: !canScrollDown(), " + !canScrollDown());
+            if (!canScrollUp() && mVerticalPermit) {
 //                if(mVerticalPermit) {
                 float velocity;
                 velocity = finalX > 0 ? mScroller.getCurrVelocity() : mScroller.getCurrVelocity();
                 animSpinnerBounce(distance);
-                Log.i(TAG, "velocity, " + velocity);
+                Log.i(TAG, "mVerticalPermit 111, " + velocity);
 //                }
                 mScroller.forceFinished(true);
-            }
-            if (!canScrollDown()) {
+                mVerticalPermit = false;
+            } else if (!canScrollDown() && mVerticalPermit && mScroller.getCurrVelocity() > 40000) {
                 float velocity;
                 velocity = -mScroller.getCurrVelocity();
                 animSpinnerBounceReverse(-distance);
-                Log.i(TAG, "velocity down, " + velocity);
+                Log.i(TAG, "mVerticalPermit 222" + velocity);
+                mVerticalPermit = false;
             } else {
                 mVerticalPermit = true;//打开竖直通行证
                 final View thisView = this;
                 thisView.invalidate();
                 Log.i(TAG, String.valueOf(finalX));
+                Log.i(TAG, "mVerticalPermit 333");
             }
-            Log.i(TAG, "computeScroll: finalX, " + finalX);
         }
-        super.computeScroll();
     }
 
     private void animSpinnerBounceReverse(int velocity) {
