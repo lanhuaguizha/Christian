@@ -9,6 +9,7 @@ import android.provider.Settings
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import com.christian.nav.me.AboutActivity
+import com.christian.nav.shouldEnableDarkMode
 import com.christian.nav.switchNightModeIsOn
 import com.christian.nav.toolbarTitle
 import com.christian.swipe.SwipeBackActivity
@@ -71,14 +72,5 @@ class SettingsActivity : SwipeBackActivity() {
         NO,
         FOLLOW_SYSTEM
     }
-
-    private fun shouldEnableDarkMode(darkModeConfig: DarkModeConfig) {
-        when (darkModeConfig) {
-            DarkModeConfig.YES -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            DarkModeConfig.NO -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            DarkModeConfig.FOLLOW_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        }
-    }
-
 
 }

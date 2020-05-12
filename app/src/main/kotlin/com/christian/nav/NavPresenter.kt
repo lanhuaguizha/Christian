@@ -15,8 +15,10 @@ import android.view.animation.LinearInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.christian.R
+import com.christian.SettingsActivity
 import com.christian.data.MeBean
 import com.christian.nav.disciple.DiscipleFragment
 import com.christian.nav.gospel.GospelReviewFragment
@@ -555,4 +557,12 @@ fun locationManagerMemoryLeakFix(navActivity: NavActivity) {
         mContext.set(locationManager, null)
     }
     navActivity.info { "mContext4, ${mContext.get(locationManager)}" }
+}
+
+fun shouldEnableDarkMode(darkModeConfig: SettingsActivity.DarkModeConfig) {
+    when (darkModeConfig) {
+        SettingsActivity.DarkModeConfig.YES -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        SettingsActivity.DarkModeConfig.NO -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        SettingsActivity.DarkModeConfig.FOLLOW_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+    }
 }

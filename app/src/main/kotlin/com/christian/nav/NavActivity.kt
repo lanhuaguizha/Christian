@@ -3,16 +3,15 @@ package com.christian.nav
 import android.Manifest.permission.*
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
+import android.content.res.Configuration
 import android.os.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.TooltipCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.content.edit
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
@@ -30,7 +29,9 @@ import com.kotlinpermissions.KotlinPermissions
 import kotlinx.android.synthetic.main.nav_activity.*
 import kotlinx.android.synthetic.main.nav_activity.view.*
 import kotlinx.android.synthetic.main.nav_fragment.*
+import kotlinx.android.synthetic.main.nav_item_me_for_setting_static.*
 import kotlinx.android.synthetic.main.nav_item_me_portrait.*
+import kotlinx.android.synthetic.main.nav_item_me_portrait.iv_nav_item_small
 import me.everything.android.ui.overscroll.HorizontalOverScrollBounceEffectDecorator
 import me.everything.android.ui.overscroll.adapters.IOverScrollDecoratorAdapter
 import org.jetbrains.anko.debug
@@ -46,6 +47,25 @@ import kotlin.math.abs
  * implementation of NavContract.View.
  */
 open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private var isOn = false
+
+//    override fun onConfigurationChanged(newConfig: Configuration) {
+//        super.onConfigurationChanged(newConfig)
+//        if (sharedPreferences.getBoolean("isOn", false)) {
+//            // 恢复应用默认皮肤
+//            shouldEnableDarkMode(SettingsActivity.DarkModeConfig.NO)
+//            isOn = false
+//            sharedPreferences.edit { putBoolean("isOn", isOn) }
+//        } else {
+//            // 夜间模式
+//            shouldEnableDarkMode(SettingsActivity.DarkModeConfig.YES)
+//            isOn = true
+//            sharedPreferences.edit { putBoolean("isOn", isOn) }
+//        }
+//        recreate()
+//    }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         menuItemSearch = menu.findItem(R.id.menu_search)
@@ -144,6 +164,8 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
         setContentView(R.layout.nav_activity)
         NavPresenter(initFragmentIndex, this)
         presenter.init(whichActivity = NAV_ACTIVITY)
+        sharedPreferences = getSharedPreferences(switchNightModeIsOn
+                , Activity.MODE_PRIVATE)
     }
 
     override fun initView(navFragmentList: ArrayList<Fragment>) {

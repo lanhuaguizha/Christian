@@ -12,6 +12,7 @@
         <TextView
             android:id="@+id/content"
             style="@style/AboutPage.CardContent"
+            android:lineSpacingExtra="4dp"
             android:textColor="#757575"
             android:textIsSelectable="true"
             tools:text="content" />
