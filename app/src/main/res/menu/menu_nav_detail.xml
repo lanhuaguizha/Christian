@@ -15,38 +15,38 @@
   -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/menu_options_nav_detail"
-        android:icon="@drawable/ic_more_vert_black_24dp"
-        android:orderInCategory="1"
-        android:title="@string/menu_more"
-        app:showAsAction="always"
-        app:tooltipText="@string/menu_more">
-        <menu>
+<!--    <item-->
+<!--        android:id="@+id/menu_options_nav_detail"-->
+<!--        android:icon="@drawable/ic_more_vert_black_24dp"-->
+<!--        android:orderInCategory="1"-->
+<!--        android:title="@string/menu_more"-->
+<!--        app:showAsAction="always"-->
+<!--        app:tooltipText="@string/menu_more">-->
+<!--        <menu>-->
             <item
                 android:id="@+id/menu_share"
                 android:icon="@drawable/ic_share_black_24dp"
                 android:orderInCategory="1"
                 android:title="@string/share"
-                app:showAsAction="ifRoom" />
+                app:showAsAction="never" />
             <item
                 android:id="@+id/menu_favorite"
                 android:icon="@drawable/ic_star_black_24dp"
                 android:orderInCategory="1"
                 android:title="@string/favorite"
                 app:showAsAction="never" />
-          <!--  <item
+            <item
                 android:id="@+id/menu_translate"
                 android:icon="@drawable/ic_g_translate_black_24dp"
                 android:orderInCategory="1"
                 android:title="@string/translate"
-                app:showAsAction="never" />-->
-           <!-- <item
+                app:showAsAction="never" />
+            <item
                 android:id="@+id/menu_read"
                 android:icon="@drawable/ic_volume_up_black_24dp"
                 android:orderInCategory="1"
                 android:title="@string/read"
-                app:showAsAction="never" />-->
-        </menu>
-    </item>
+                app:showAsAction="never" />
+<!--        </menu>-->
+<!--    </item>-->
 </menu>

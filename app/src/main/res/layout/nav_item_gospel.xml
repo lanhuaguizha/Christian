@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     android:id="@+id/cv_nav_item"
-    android:focusable="true"
-    android:clickable="true"
-    android:foreground="?selectableItemBackgroundBorderless"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?selectableItemBackgroundBorderless"
     app:cardCornerRadius="@dimen/card_corner_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,54 +23,49 @@
             android:layout_height="@dimen/app_bar_height"
             android:adjustViewBounds="true"
             android:background="@color/gray_background"
+            android:contentDescription="@string/activity_home_item_image_desc"
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/activity_home_item_image_desc" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <eightbitlab.com.blurview.BlurView
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="1"
+        <com.christian.view.CustomTextView
             android:id="@+id/tv_title_nav_item"
-            android:layout_width="0dp"
+            style="@android:style/TextAppearance.Medium"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:maxLines="1"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@+id/iv_nav_item"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/iv_nav_item">
-
-            <com.christian.view.CustomTextView
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:id="@+id/tv_title_nav_item_text"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintVertical_bias="1"
-                style="@android:style/TextAppearance.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@android:color/white"
-                tool:text="属灵人小传选集" />
-        </eightbitlab.com.blurview.BlurView>
+            app:layout_constraintTop_toTopOf="@+id/iv_nav_item"
+            app:layout_constraintVertical_bias="1"
+            tool:text="属灵人小传选集" />
 
         <com.christian.view.CustomTextView
             android:id="@+id/tv_subtitle_nav_item"
             style="@android:style/TextAppearance.Large"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:includeFontPadding="false"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:ellipsize="end"
+            android:includeFontPadding="false"
             android:maxLines="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -85,11 +80,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:includeFontPadding="false"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:ellipsize="end"
+            android:includeFontPadding="false"
             android:maxLines="3"
             android:textColor="@android:color/tertiary_text_dark"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -98,18 +94,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_subtitle_nav_item"
             app:layout_constraintVertical_bias="0.0"
-            android:layout_marginBottom="8dp"
             tool:text="「从前引导你们、传神之道给你们的人，你们要想念他们，效法他们的信心，留心看他们为人的结局。」（希伯来书十三章七节）本书收集一些历代" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/ib_nav_item"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:includeFontPadding="false"
             android:layout_marginTop="8dp"
-            android:padding="8dp"
             android:background="?selectableItemBackgroundBorderless"
+            android:includeFontPadding="false"
+            android:padding="8dp"
             android:tint="@android:color/secondary_text_dark"
             app:layout_constraintBottom_toBottomOf="@+id/tv_title_nav_item"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,37 +113,37 @@
 
         <com.christian.view.CustomTextView
             android:id="@+id/textView"
-            android:includeFontPadding="false"
-            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            tool:text="TextView"
+            android:includeFontPadding="false"
             android:textColor="@android:color/tertiary_text_dark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_detail_nav_item"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail_nav_item" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_detail_nav_item"
+            tool:text="TextView" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            tool:text="TextView"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="@+id/textView" />
+            app:layout_constraintTop_toTopOf="@+id/textView"
+            tool:text="TextView" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            tool:text="TextView"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="@+id/textView2" />
+            app:layout_constraintTop_toTopOf="@+id/textView2"
+            tool:text="TextView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.christian.view.FloatingCardView>

@@ -3,9 +3,11 @@ package com.christian.nav
 import android.app.Activity
 import android.content.Intent
 import android.text.Html
+import android.view.Gravity
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.christian.HistoryAndMyArticlesActivity
@@ -54,14 +56,26 @@ open class NavItemView(override val containerView: View, navActivity: NavActivit
 //            }
 //        }
         if (itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item) != null) itemView.findViewById<AppCompatImageButton>(R.id.ib_nav_item).setOnClickListener { v: View ->
-            val list: ArrayList<CharSequence> = ArrayList()
-            list.add(Html.fromHtml(containerView.context.getString(R.string.share)))
-            list.add(Html.fromHtml(containerView.context.getString(R.string.favorite)))
-            list.add(Html.fromHtml(containerView.context.getString(R.string.translate)))
-            ChristianUtil.showListDialog(v.context as NavActivity, list)
+//            val list: ArrayList<CharSequence> = ArrayList()
+//            list.add(Html.fromHtml(containerView.context.getString(R.string.share)))
+//            list.add(Html.fromHtml(containerView.context.getString(R.string.favorite)))
+//            list.add(Html.fromHtml(containerView.context.getString(R.string.translate)))
+//            ChristianUtil.showListDialog(v.context as NavActivity, list)
+            showPopupMenu(v)
         }
 
 //        activity = navActivity
+    }
+
+    private fun showPopupMenu(v: View) {
+
+        val popupMenu = PopupMenu(v.context, v)
+        popupMenu.gravity = Gravity.END or Gravity.BOTTOM
+
+        popupMenu.menuInflater.inflate(R.menu.menu_nav_detail, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener { false }
+        popupMenu.show()
+
     }
 
     fun initView() {
@@ -95,7 +109,7 @@ open class NavItemView(override val containerView: View, navActivity: NavActivit
         } else {
             iv_nav_item.visibility = View.GONE
         }
-        tv_title_nav_item_text.text = gospel.desc
+        tv_title_nav_item.text = gospel.desc
         tv_subtitle_nav_item.text = gospel.name
 //        makeViewBlur(tv_title_nav_item, cl_nav_item, activity.window, true)
         tv_detail_nav_item.text = gospel.content
@@ -225,7 +239,7 @@ open class NavItemView(override val containerView: View, navActivity: NavActivit
     }
 
     fun bind(disciple: Disciple) {
-        tv_title_nav_item_text.text = disciple.id
+        tv_title_nav_item.text = disciple.id
         tv_subtitle_nav_item.text = disciple.name
     }
 
