@@ -205,10 +205,10 @@ public class PerformEditable implements View.OnClickListener {
 
         String result;
         if (hasNewLine(source, selectionStart)) {
-            result = "![" + param[0] + "](" + param[0] + ")";
+            result = "<br>![" + param[0] + "](" + param[0] + ")<br><br>";
 //            result = "[![image](" + param[0] + ")]" + "(" + param[0] + ")";
         } else {
-            result = "\n" + "![" + param[0] + "](" + param[0] + ")";
+            result = "\n" + "<br>![" + param[0] + "](" + param[0] + ")<br><br>";
 //            result = "\n" + "[![image](" + param[0] + ")]" + "(" + param[0] + ")";
         }
         mEditText.getText().insert(selectionStart, result);
