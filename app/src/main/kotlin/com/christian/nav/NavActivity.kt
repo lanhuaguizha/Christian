@@ -14,6 +14,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.edit
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.christian.R
@@ -381,7 +382,7 @@ open class NavActivity : SwipeBackActivity(), NavContract.INavActivity {
 
                 fab_nav.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_edit_black_24dp, theme))
 //                fab_nav.backgroundTintList = ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.colorAccent,theme))
-                if (verticalOffset != -tb_nav.height)
+                if (verticalOffset != -tb_nav.height && fab_nav.isVisible)
                     fab_nav.hide()
                 TooltipCompat.setTooltipText(fab_nav, "Edit")
 

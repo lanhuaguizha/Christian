@@ -493,7 +493,7 @@ private fun expandedAnimationToolbar(navActivity: NavActivity, expanded: Boolean
 
         override fun onAnimationEnd(animation: Animator) {
             if (expanded) {
-                navActivity.abl_nav.addOnOffsetChangedListener(navActivity.appBarLayoutOnOffsetChangedListener)
+//                navActivity.abl_nav.addOnOffsetChangedListener(navActivity.appBarLayoutOnOffsetChangedListener)
                 navActivity.tb_nav.visibility = View.VISIBLE
                 navActivity.tb_nav.postDelayed({
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
