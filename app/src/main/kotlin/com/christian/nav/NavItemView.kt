@@ -72,7 +72,7 @@ open class NavItemView(override val containerView: View, navActivity: NavActivit
         val popupMenu = PopupMenu(v.context, v)
         popupMenu.gravity = Gravity.END or Gravity.BOTTOM
 
-        popupMenu.menuInflater.inflate(R.menu.menu_nav_detail, popupMenu.menu)
+        popupMenu.menuInflater.inflate(R.menu.menu_nav_item, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener { false }
         popupMenu.show()
 
