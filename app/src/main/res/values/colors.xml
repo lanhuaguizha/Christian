@@ -63,7 +63,7 @@
 
     <color name="colorPrimaryRipple">#422196f3</color>
     <color name="about_page_background">#f1f1f1</color>
-    <color name="about_page_category_text_color">#757575</color>
+    <color name="about_page_category_text_color">#737373</color>
     <color name="about_page_card_text_color">#de000000</color>
     <color name="about_page_link_text_color">@android:color/black</color>
     <color name="about_page_card_selected">#44000000</color>
@@ -73,7 +73,7 @@
     <color name="about_page_name_color">@color/about_page_card_text_color</color>
     <color name="about_page_desc_color">@color/about_page_hint</color>
     <color name="about_page_license_title">@color/about_page_card_text_color</color>
-    <color name="about_page_hint">#757575</color>
+    <color name="about_page_hint">#737373</color>
     <!--searchBarLayout-->
     <color name="searchbox_background_color">#FFFFFF</color>
 </resources>
