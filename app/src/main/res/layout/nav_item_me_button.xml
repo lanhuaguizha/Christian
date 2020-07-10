@@ -10,6 +10,7 @@
         android:theme="@style/Christian.Button.colorPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:lineSpacingExtra="12dp"
         android:layout_margin="@dimen/search_margin_horizontal"
         android:text="@string/title_activity_login"
         android:textColor="@android:color/white"
