@@ -19,6 +19,7 @@ import com.christian.nav.gospel.NavDetailActivity
 import com.christian.nav.me.AboutActivity
 import com.christian.util.ChristianUtil
 import com.christian.util.filterImageUrlThroughDetailPageContent
+import com.christian.view.showPopupMenu
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.nav_item_gospel.*
 import kotlinx.android.synthetic.main.nav_item_me.*
@@ -61,7 +62,15 @@ open class NavItemView(override val containerView: View, navActivity: NavActivit
 //            list.add(Html.fromHtml(containerView.context.getString(R.string.favorite)))
 //            list.add(Html.fromHtml(containerView.context.getString(R.string.translate)))
 //            ChristianUtil.showListDialog(v.context as NavActivity, list)
-            showPopupMenu(v)
+//            showPopupMenu(v)
+            showPopupMenu(
+                    v, containerView.context as Activity, arrayOf(
+                    containerView.context.getString(R.string.share),
+                    containerView.context.getString(R.string.favorite),
+                    containerView.context.getString(R.string.translate),
+                    containerView.context.getString(R.string.read),
+            )
+            )
         }
 
 //        activity = navActivity

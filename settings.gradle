@@ -1,4 +1,4 @@
-include ':app'
+include ':app', ':xpopup'
 include ':parallaxbacklayout'
 //include ':library'
 //include ':extension'

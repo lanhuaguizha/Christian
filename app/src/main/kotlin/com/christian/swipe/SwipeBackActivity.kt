@@ -25,7 +25,7 @@ abstract class SwipeBackActivity : AppCompatActivity() {
     init {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         val settings = FirebaseFirestoreSettings.Builder()
-//                .setPersistenceEnabled(false)
+                .setPersistenceEnabled(false)
                 .build()
         firestore.firestoreSettings = settings
     }
