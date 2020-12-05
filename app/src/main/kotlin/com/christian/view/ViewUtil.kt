@@ -1,19 +1,14 @@
 package com.christian.view
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.os.Build
-import android.os.Bundle
 import android.text.InputType
 import android.view.*
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.fragment.app.DialogFragment
 import com.christian.R
 import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur
 import com.google.android.material.snackbar.Snackbar
@@ -294,8 +289,8 @@ fun showPopupMenu(v: View, activity: Activity, array: Array<String>) {
         //                        .isDarkTheme(true)
         //                        .popupAnimation(PopupAnimation.NoAnimation) //NoAnimation表示禁用动画
         //                        .isCenterHorizontal(true) //是否与目标水平居中对齐
-        .offsetY(activity.dip(-2))
-        .offsetX(activity.dip(4))
+        .offsetY(activity.dip(activity.dip(-14)))
+        .offsetX(activity.dip(0))
         //                        .popupPosition(PopupPosition.Top) //手动指定弹窗的位置
         .atView(v) // 依附于所点击的View，内部会自动判断在上方或者下方显示
         .asAttachList(array,
@@ -305,9 +300,9 @@ fun showPopupMenu(v: View, activity: Activity, array: Array<String>) {
                     toast(activity, "click $text")
                 }
             })
-    com.lxj.xpopup.util.makeViewBlur(
-        asAttachList.findViewById(com.lxj.xpopup.R.id.cv_blur_view),
-        activity.window.decorView as ViewGroup, activity.window
+    eightbitlab.com.blurview.makeViewBlur(
+            asAttachList.findViewById(com.lxj.xpopup.R.id.recyclerView),
+            activity.window.decorView as ViewGroup, activity.window
     )
 //                                .bindLayout(R.layout.my_custom_attach_popup)
     //                        .bindItemLayout(R.layout.my_custom_attach_popup)

@@ -3,13 +3,13 @@ package eightbitlab.com.blurview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
 import static eightbitlab.com.blurview.BlockingBlurController.TRANSPARENT;

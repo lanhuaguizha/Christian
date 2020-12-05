@@ -14,7 +14,6 @@
             style="@style/AboutPage.CardContent"
             android:includeFontPadding="false"
             android:textColor="#737373"
-            android:lineSpacingExtra="18dp"
             android:textIsSelectable="true"
             tools:text="content" />
 

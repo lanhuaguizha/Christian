@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cv_blur_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:outlineProvider="bounds"
-    app:blurOverlayColor="@color/bottom_navigation_view_overlay"
-    >
+<!--<eightbitlab.com.blurview.BlurViewExtendsCardView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:id="@+id/cv_blur_view"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:outlineProvider="bounds"-->
+<!--    app:blurOverlayColor="@color/bottom_navigation_view_overlay"-->
+<!--    app:cardBackgroundColor="@android:color/transparent"-->
+<!--    app:cardElevation="10dp">-->
 
-    <eightbitlab.com.blurview.BlurViewExtendsVerticalRecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <eightbitlab.com.blurview.BlurViewExtendsVerticalRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/recyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:blurOverlayColor="@color/bottom_navigation_view_overlay"
         android:overScrollMode="never"
-        android:scrollbars="vertical"
-        app:cardBackgroundColor="@android:color/transparent"
-         />
-</androidx.cardview.widget.CardView>
+        android:scrollbars="vertical" />
+<!--</eightbitlab.com.blurview.BlurViewExtendsCardView>-->
