@@ -306,7 +306,7 @@ fun showPopupMenu(v: View, activity: Activity, array: Array<String>) {
                 }
             })
     com.lxj.xpopup.util.makeViewBlur(
-        asAttachList.findViewById(R.id.recyclerView),
+        asAttachList.findViewById(com.lxj.xpopup.R.id.cv_blur_view),
         activity.window.decorView as ViewGroup, activity.window
     )
 //                                .bindLayout(R.layout.my_custom_attach_popup)
