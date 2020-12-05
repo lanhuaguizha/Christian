@@ -87,7 +87,7 @@ public class CustomTabLayout extends TabLayout {
 //                if(mVerticalPermit) {
                 float velocity;
                 velocity = finalX > 0 ? mScroller.getCurrVelocity() : mScroller.getCurrVelocity();
-                animSpinnerBounce(distance);
+                animSpinnerBounce(velocity/100);
                 Log.i(TAG, "mVerticalPermit 111, " + velocity);
 //                }
                 mScroller.forceFinished(true);
@@ -95,7 +95,7 @@ public class CustomTabLayout extends TabLayout {
             } else if (!canScrollDown() && mVerticalPermit) {
                 float velocity;
                 velocity = -mScroller.getCurrVelocity();
-                animSpinnerBounceReverse(-distance);
+                animSpinnerBounceReverse((int) (-velocity/100));
                 Log.i(TAG, "mVerticalPermit 222" + velocity);
                 mVerticalPermit = false;
             } else {
@@ -116,8 +116,8 @@ public class CustomTabLayout extends TabLayout {
             public void onSpringUpdate(Spring spring) {
                 float value = (float) spring.getCurrentValue();
                 float scale = 1 - (value * 1f);
-                setTranslationX(scale * velocity);
-                Log.i(TAG, "onSpringUpdate: " + scale * 500);
+                setTranslationX(scale * -velocity);
+                Log.i(TAG, "onSpringUpdate: " + scale * -velocity);
             }
 
             @Override
@@ -145,8 +145,7 @@ public class CustomTabLayout extends TabLayout {
             public void onSpringUpdate(Spring spring) {
                 float value = (float) spring.getCurrentValue();
                 float scale = 1f - (value * 1f);
-                setTranslationX(scale * 500);
-                Log.i(TAG, "onSpringUpdate: " + scale * 500);
+                setTranslationX(scale * velocity);
             }
 
             @Override
