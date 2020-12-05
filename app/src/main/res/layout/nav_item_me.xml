@@ -27,6 +27,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_nav_item_small"
+                android:visibility="gone"
                 android:layout_width="@dimen/search_box_icon_size"
                 android:layout_height="@dimen/search_box_icon_size"
                 android:scaleType="center"
