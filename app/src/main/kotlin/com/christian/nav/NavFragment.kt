@@ -326,7 +326,7 @@ open class NavFragment : androidx.fragment.app.Fragment(), NavContract.INavFragm
 
             override fun onDataChanged() {
                 super.onDataChanged()
-                pb_nav.visibility = View.GONE
+                pb_nav?.visibility = View.GONE
 
                 if (itemCount == 0) {
                 } else {

@@ -9,7 +9,7 @@
 
     <item
         android:id="@+id/navigation_gospel"
-        android:icon="@drawable/ic_book_black_24dp"
+        android:icon="@drawable/ic_baseline_ballot_24"
         android:title="" />
 
     <item
